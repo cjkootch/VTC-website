@@ -49,19 +49,14 @@
 html{scroll-behavior:smooth}
 body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
 /* ── LANGUAGE TOGGLE ── */
-.reason[data-lang="es"],
-.section-label[data-lang="es"],
-button.btn-send[data-lang="es"],
-[data-lang="es"]{display:none}
-html[lang="es"] .reason[data-lang="en"],
-html[lang="es"] .section-label[data-lang="en"],
-html[lang="es"] [data-lang="en"]{display:none}
-html[lang="es"] [data-lang="es"]{display:block}
-html[lang="es"] .reason[data-lang="es"]{display:grid}
-html[lang="es"] .section-label[data-lang="es"]{display:flex}
-html[lang="es"] span[data-lang="es"]{display:inline-block}
-html[lang="es"] a[data-lang="es"]{display:inline-flex}
-html[lang="es"] button.btn-send[data-lang="es"]{display:flex}
+[data-lang="es"]{display:none!important}
+html[lang="es"] [data-lang="en"]{display:none!important}
+html[lang="es"] [data-lang="es"]{display:block!important}
+html[lang="es"] .reason[data-lang="es"]{display:grid!important}
+html[lang="es"] .section-label[data-lang="es"]{display:flex!important}
+html[lang="es"] span[data-lang="es"]{display:inline-block!important}
+html[lang="es"] a[data-lang="es"]{display:inline-flex!important}
+html[lang="es"] button.btn-send[data-lang="es"]{display:flex!important}
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:4px 60px;background:rgba(14,26,20,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,150,62,0.15);transition:transform .35s ease,background .3s ease}
 nav.nav-hidden{transform:translateY(-100%)}
