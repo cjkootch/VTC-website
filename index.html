@@ -538,28 +538,28 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
           </div>
         </div>
       </div>
-      <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+      <form class="contact-form reveal" action="https://formspree.io/f/mojkkvdl" method="POST">
         <div class="form-row">
           <div class="field">
             <label data-lang="en">Name</label>
             <label data-lang="es">Nombre</label>
-            <input type="text" data-placeholder-en="Your name" data-placeholder-es="Su nombre" placeholder="Your name" required>
+            <input type="text" name="name" data-placeholder-en="Your name" data-placeholder-es="Su nombre" placeholder="Your name" required>
           </div>
           <div class="field">
             <label data-lang="en">Company</label>
             <label data-lang="es">Empresa</label>
-            <input type="text" data-placeholder-en="Your company" data-placeholder-es="Su empresa" placeholder="Your company">
+            <input type="text" name="company" data-placeholder-en="Your company" data-placeholder-es="Su empresa" placeholder="Your company">
           </div>
         </div>
         <div class="field field-full">
           <label>Email</label>
-          <input type="email" placeholder="your@email.com" required>
+          <input type="email" name="email" placeholder="your@email.com" required>
         </div>
         <div class="form-row">
           <div class="field">
             <label data-lang="en">Country</label>
             <label data-lang="es">País</label>
-            <select>
+            <select name="country">
               <option value="" data-lang="en">Select</option>
               <option value="" data-lang="es">Seleccione</option>
               <option>Jamaica</option>
@@ -577,7 +577,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
           <div class="field">
             <label data-lang="en">Estimated Volume</label>
             <label data-lang="es">Volumen Estimado</label>
-            <select>
+            <select name="volume">
               <option value="" data-lang="en">Select</option>
               <option value="" data-lang="es">Seleccione</option>
               <option data-lang="en">1–5 containers</option>
@@ -594,7 +594,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         <div class="field field-full">
           <label data-lang="en">Message</label>
           <label data-lang="es">Mensaje</label>
-          <textarea data-placeholder-en="Tell us about your requirements, delivery port, and frequency..." data-placeholder-es="Cuéntenos sobre sus requisitos, puerto de entrega y frecuencia..." placeholder="Tell us about your requirements, delivery port, and frequency..."></textarea>
+          <textarea name="message" data-placeholder-en="Tell us about your requirements, delivery port, and frequency..." data-placeholder-es="Cuéntenos sobre sus requisitos, puerto de entrega y frecuencia..." placeholder="Tell us about your requirements, delivery port, and frequency..."></textarea>
         </div>
         <button type="submit" class="btn-send" data-lang="en">Send Inquiry</button>
         <button type="submit" class="btn-send" data-lang="es">Enviar Consulta</button>
@@ -672,17 +672,26 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if(window.innerWidth <= 900) document.querySelector('.nav-links').style.display = 'none';
   });
 });
-// Form
-function handleSubmit(e){
+// Form — submit via AJAX to stay on page
+document.querySelector('.contact-form').addEventListener('submit', function(e){
   e.preventDefault();
-  document.getElementById('form-msg').classList.add('show');
-  document.getElementById('form-msg-es').classList.add('show');
-  e.target.reset();
-  setTimeout(() => {
-    document.getElementById('form-msg').classList.remove('show');
-    document.getElementById('form-msg-es').classList.remove('show');
-  }, 6000);
-}
+  const form = e.target;
+  fetch(form.action, {
+    method: 'POST',
+    body: new FormData(form),
+    headers: {'Accept': 'application/json'}
+  }).then(r => {
+    if(r.ok){
+      document.getElementById('form-msg').classList.add('show');
+      document.getElementById('form-msg-es').classList.add('show');
+      form.reset();
+      setTimeout(() => {
+        document.getElementById('form-msg').classList.remove('show');
+        document.getElementById('form-msg-es').classList.remove('show');
+      }, 6000);
+    }
+  });
+});
 </script>
 </body>
 </html>
