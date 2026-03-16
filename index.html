@@ -5,6 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vector Trade Capital — Commodity Supply to the Caribbean</title>
 <meta name="description" content="Bulk commodity supply to Caribbean importers. Competitive CIF pricing delivered to your port.">
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="2.png">
+<link rel="apple-touch-icon" href="2.png">
+<!-- Open Graph -->
+<meta property="og:title" content="Vector Trade Capital — Bulk Commodity Supply">
+<meta property="og:description" content="Supplying Caribbean importers with competitive bulk pricing on essential commodities — CIF delivered, fully documented, reliable shipments.">
+<meta property="og:image" content="https://vectortradecapital.com/2.png">
+<meta property="og:url" content="https://vectortradecapital.com">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vector Trade Capital — Bulk Commodity Supply">
+<meta name="twitter:description" content="Supplying Caribbean importers with competitive bulk pricing on essential commodities.">
+<meta name="twitter:image" content="https://vectortradecapital.com/2.png">
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -44,11 +58,15 @@ html[lang="es"] span[data-lang="es"]{display:inline-block}
 html[lang="es"] a[data-lang="es"]{display:inline-flex}
 html[lang="es"] button.btn-send[data-lang="es"]{display:flex}
 /* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:4px 60px;background:rgba(14,26,20,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,150,62,0.15)}
-.nav-logo img{height:80px;width:auto}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:4px 60px;background:rgba(14,26,20,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,150,62,0.15);transition:transform .35s ease,background .3s ease}
+nav.nav-hidden{transform:translateY(-100%)}
+nav.nav-scrolled{background:rgba(14,26,20,0.99);padding:2px 60px}
+.nav-logo img{height:80px;width:auto;transition:height .3s ease}
+nav.nav-scrolled .nav-logo img{height:60px}
 .nav-links{display:flex;gap:32px;list-style:none;align-items:center}
 .nav-links a{color:rgba(245,240,232,0.6);text-decoration:none;font-family:'DM Mono',monospace;font-size:11px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;transition:color .2s}
 .nav-links a:hover{color:var(--gold-light)}
+.nav-links a.active-link{color:var(--gold)}
 .nav-contact{color:var(--gold)!important;border:1px solid rgba(184,150,62,0.4);padding:8px 20px;transition:all .25s!important}
 .nav-contact:hover{background:var(--gold)!important;color:var(--ink)!important}
 .lang-switch{display:flex;gap:0;margin-left:8px}
@@ -60,17 +78,23 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .hamburger span{display:block;width:22px;height:1px;background:var(--cream)}
 /* ── HERO ── */
 #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;padding:140px 60px 100px;overflow:hidden;background:var(--ink)}
-#hero::before{content:'';position:absolute;top:-100px;left:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(26,122,94,.12) 0%,transparent 70%);pointer-events:none}
-#hero::after{content:'';position:absolute;bottom:-100px;right:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(184,150,62,.08) 0%,transparent 70%);pointer-events:none}
-.hero-inner{max-width:800px;position:relative;z-index:1}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1494412574643-ff11b0a5eb95?w=1920&q=80') center/cover no-repeat;opacity:.18;pointer-events:none}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(14,26,20,0.92) 0%,rgba(14,26,20,0.7) 50%,rgba(14,26,20,0.85) 100%);pointer-events:none}
+#hero::before{content:'';position:absolute;top:-100px;left:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(26,122,94,.12) 0%,transparent 70%);pointer-events:none;z-index:1}
+#hero::after{content:'';position:absolute;bottom:-100px;right:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(184,150,62,.08) 0%,transparent 70%);pointer-events:none;z-index:1}
+.hero-inner{max-width:800px;position:relative;z-index:2}
 .hero-lang-tag{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:32px;opacity:0;animation:fadeUp .8s ease .2s forwards}
-.hero-headline{font-family:'Playfair Display',serif;font-size:clamp(40px,5.5vw,72px);font-weight:400;line-height:1.1;color:var(--cream);margin-bottom:28px;opacity:0;animation:fadeUp .8s ease .35s forwards}
+.hero-headline{font-family:'Playfair Display',serif;font-size:clamp(40px,5.5vw,72px);font-weight:400;line-height:1.1;color:var(--cream);margin-bottom:28px;opacity:0;animation:fadeUp .8s ease .4s forwards}
 .hero-headline em{font-style:italic;color:var(--gold-light)}
-.hero-sub{font-size:17px;color:rgba(245,240,232,0.65);line-height:1.85;margin-bottom:48px;max-width:560px;opacity:0;animation:fadeUp .8s ease .5s forwards}
-.hero-cta{display:inline-flex;align-items:center;gap:12px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;background:var(--teal);color:var(--white);padding:16px 32px;transition:all .25s;opacity:0;animation:fadeUp .8s ease .65s forwards;width:fit-content}
-.hero-cta:hover{background:var(--teal-bright);transform:translateX(4px)}
-.hero-cta::after{content:'';display:block;width:20px;height:1px;background:currentColor;transition:width .25s}
-.hero-cta:hover::after{width:32px}
+.hero-sub{font-size:17px;color:rgba(245,240,232,0.65);line-height:1.85;margin-bottom:48px;max-width:560px;opacity:0;animation:fadeUp .8s ease .6s forwards}
+.hero-cta{display:inline-flex;align-items:center;gap:12px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;background:var(--teal);color:var(--white);padding:16px 32px;transition:all .3s cubic-bezier(.4,0,.2,1);opacity:0;animation:fadeUp .8s ease .8s forwards;width:fit-content}
+.hero-cta:hover{background:var(--teal-bright);transform:translateX(6px);box-shadow:0 8px 32px rgba(26,122,94,0.3)}
+.hero-cta::after{content:'';display:block;width:20px;height:1px;background:currentColor;transition:width .3s}
+.hero-cta:hover::after{width:36px}
+.hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:2;opacity:0;animation:fadeUp 1s ease 1.2s forwards}
+.hero-scroll-line{width:1px;height:48px;background:linear-gradient(180deg,var(--gold),transparent);margin:0 auto 8px;animation:scrollPulse 2s ease infinite}
+.hero-scroll-text{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(184,150,62,0.5);text-align:center}
+@keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(1)}50%{opacity:.8;transform:scaleY(1.2)}}
 /* ── PRODUCTS SECTION ── */
 #products{padding:0}
 .products-header{background:var(--cream-dark);padding:80px 60px 60px;text-align:center;border-bottom:1px solid var(--border)}
@@ -80,50 +104,60 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .section-title em{font-style:italic;color:var(--teal)}
 .products-body{background:var(--cream);padding:72px 60px}
 .products-content{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
-.product-illustration{width:100%;max-width:180px;height:120px;margin-bottom:40px;display:block}
+.products-img{width:100%;height:280px;object-fit:cover;margin-bottom:32px;opacity:.9;transition:opacity .3s}
+.products-img:hover{opacity:1}
 .product-desc{font-size:15px;color:rgba(14,26,20,0.7);line-height:1.85;margin-bottom:36px;max-width:440px}
 .product-specs{display:flex;flex-direction:column;gap:0}
-.spec-row{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--border-light);padding:14px 0}
+.spec-row{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--border-light);padding:14px 0;transition:background .2s}
+.spec-row:hover{background:rgba(184,150,62,0.04)}
 .spec-row:last-child{border-bottom:1px solid var(--border-light)}
 .spec-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(14,26,20,0.4)}
 .spec-value{font-size:14px;font-weight:400;color:var(--ink)}
 /* ── WHY VECTOR ── */
-#why{background:var(--ink);padding:120px 60px}
-.why-inner{max-width:1200px;margin:0 auto}
+#why{background:var(--ink);padding:120px 60px;position:relative}
+.why-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1920&q=80') center/cover no-repeat;opacity:.06;pointer-events:none}
+.why-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1}
 .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;margin-top:72px}
 .why-left .section-label{justify-content:flex-start}
 .why-left .section-label::before{display:none}
 .why-left .section-title{color:var(--cream);margin-bottom:24px}
 .why-body{font-size:15.5px;color:rgba(245,240,232,0.6);line-height:1.9;margin-bottom:16px}
 .why-reasons{display:flex;flex-direction:column;gap:0}
-.reason{padding:24px 0;border-bottom:1px solid rgba(184,150,62,0.12);display:grid;grid-template-columns:48px 1fr;gap:20px;align-items:start}
+.reason{padding:24px 0;border-bottom:1px solid rgba(184,150,62,0.12);display:grid;grid-template-columns:48px 1fr;gap:20px;align-items:start;transition:padding-left .3s ease}
+.reason:hover{padding-left:8px}
 .reason:first-child{border-top:1px solid rgba(184,150,62,0.12)}
-.reason-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:400;color:var(--gold);opacity:.4;line-height:1}
+.reason-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:400;color:var(--gold);opacity:.4;line-height:1;transition:opacity .3s}
+.reason:hover .reason-num{opacity:.7}
 .reason-content h4{font-family:'DM Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--cream);margin-bottom:6px}
 .reason-content p{font-size:14px;color:rgba(245,240,232,0.55);line-height:1.7}
 /* ── MARKETS ── */
 #markets{background:var(--cream-dark);padding:120px 60px}
 .markets-inner{max-width:1200px;margin:0 auto}
 .markets-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:64px}
-.market-card{background:var(--cream);padding:48px 40px;position:relative;overflow:hidden;transition:background .3s}
-.market-card:hover{background:var(--white)}
-.market-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--teal);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+.market-card{background:var(--cream);padding:48px 40px;position:relative;overflow:hidden;transition:all .35s cubic-bezier(.4,0,.2,1)}
+.market-card:hover{background:var(--white);transform:translateY(-4px);box-shadow:0 12px 40px rgba(14,26,20,0.08)}
+.market-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--teal);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.4,0,.2,1)}
 .market-card:hover::before{transform:scaleX(1)}
-.market-flag-custom{width:48px;height:32px;margin-bottom:24px;display:block}
+.market-flag-custom{width:48px;height:32px;margin-bottom:24px;display:block;transition:transform .3s}
+.market-card:hover .market-flag-custom{transform:scale(1.1)}
 .market-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:500;color:var(--ink);margin-bottom:16px}
 .market-products{font-size:13px;color:rgba(14,26,20,0.6);line-height:1.7}
-.market-status{display:inline-block;margin-top:20px;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding:4px 12px;border:1px solid var(--border);color:var(--teal)}
+.market-status{display:inline-block;margin-top:20px;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding:4px 12px;border:1px solid var(--border);color:var(--teal);transition:all .3s}
+.market-card:hover .market-status{border-color:var(--teal);background:rgba(26,122,94,0.06)}
 .market-card.expanding .market-status{color:var(--gold);border-color:rgba(184,150,62,0.3)}
+.market-card.expanding:hover .market-status{border-color:var(--gold);background:rgba(184,150,62,0.06)}
 /* ── CONTACT ── */
-#contact{background:var(--ink-mid);padding:120px 60px}
-.contact-inner{max-width:1200px;margin:0 auto}
+#contact{background:var(--ink-mid);padding:120px 60px;position:relative}
+.contact-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80') center/cover no-repeat;opacity:.05;pointer-events:none}
+.contact-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:100px;margin-top:72px;align-items:start}
 .contact-left .section-label{justify-content:flex-start}
 .contact-left .section-label::before{display:none}
 .contact-left .section-title{color:var(--cream);margin-bottom:24px}
 .contact-intro{font-size:15px;color:rgba(245,240,232,0.6);line-height:1.85;margin-bottom:40px}
 .contact-details{display:flex;flex-direction:column;gap:0}
-.contact-item{padding:20px 0;border-bottom:1px solid rgba(184,150,62,0.12)}
+.contact-item{padding:20px 0;border-bottom:1px solid rgba(184,150,62,0.12);transition:padding-left .3s}
+.contact-item:hover{padding-left:6px}
 .contact-item:first-child{border-top:1px solid rgba(184,150,62,0.12)}
 .c-label{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
 .c-val{font-size:15px;color:var(--cream)}
@@ -134,16 +168,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:3px}
 .field{display:flex;flex-direction:column;gap:8px}
 .field label{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,240,232,0.4)}
-.field input,.field select,.field textarea{background:rgba(245,240,232,0.05);border:1px solid rgba(184,150,62,0.15);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:300;padding:14px 18px;outline:none;transition:border .2s;width:100%}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(184,150,62,0.4)}
+.field input,.field select,.field textarea{background:rgba(245,240,232,0.05);border:1px solid rgba(184,150,62,0.15);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:300;padding:14px 18px;outline:none;transition:border .25s,box-shadow .25s;width:100%}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(184,150,62,0.4);box-shadow:0 0 0 3px rgba(184,150,62,0.08)}
 .field input::placeholder,.field textarea::placeholder{color:rgba(245,240,232,0.25)}
 .field select{appearance:none;cursor:pointer;color:rgba(245,240,232,0.7)}
 .field select option{background:var(--ink-mid);color:var(--cream)}
 .field textarea{resize:vertical;min-height:110px}
 .field-full{grid-column:1/-1}
-.btn-send{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;background:var(--teal);color:var(--white);border:none;padding:18px 40px;cursor:pointer;transition:all .25s;width:fit-content;margin-top:4px;display:flex;align-items:center;gap:14px}
-.btn-send::after{content:'';display:block;width:18px;height:1px;background:currentColor;transition:width .25s}
-.btn-send:hover{background:var(--teal-bright)}
+.btn-send{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;background:var(--teal);color:var(--white);border:none;padding:18px 40px;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);width:fit-content;margin-top:4px;display:flex;align-items:center;gap:14px}
+.btn-send::after{content:'';display:block;width:18px;height:1px;background:currentColor;transition:width .3s}
+.btn-send:hover{background:var(--teal-bright);transform:translateY(-2px);box-shadow:0 6px 24px rgba(26,122,94,0.25)}
 .btn-send:hover::after{width:30px}
 .form-success{font-size:13px;color:var(--teal-bright);margin-top:12px;display:none;font-family:'DM Mono',monospace;letter-spacing:.06em}
 .form-success.show{display:block}
@@ -155,23 +189,33 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 .footer-copy{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,240,232,0.3)}
 .footer-legal{font-size:12px;color:rgba(245,240,232,0.2);max-width:1200px;margin:24px auto 0;padding-top:24px;border-top:1px solid rgba(184,150,62,0.08);line-height:1.6}
 /* ── ANIMATIONS ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1)}
 .reveal.visible{opacity:1;transform:translateY(0)}
+/* Staggered delays for child reveals */
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+.reveal-delay-5{transition-delay:.5s}
 /* ── MOBILE ── */
 @media(max-width:900px){
   nav{padding:4px 24px}
+  nav.nav-scrolled{padding:2px 24px}
   .nav-links{display:none}
   .hamburger{display:flex}
   .lang-switch{position:fixed;top:18px;right:68px;z-index:201}
   #hero{padding:120px 24px 80px}
+  .hero-scroll{display:none}
   #products .products-header{padding:60px 24px 40px}
   .products-body{padding:52px 24px}
   .products-content{grid-template-columns:1fr;gap:40px}
+  .products-img{height:200px}
   #why{padding:80px 24px}
   .why-grid{grid-template-columns:1fr;gap:48px}
   #markets{padding:80px 24px}
   .markets-grid{grid-template-columns:1fr}
+  .market-card:hover{transform:none;box-shadow:none}
   #contact{padding:80px 24px}
   .contact-grid{grid-template-columns:1fr;gap:52px}
   footer{padding:40px 24px 28px}
@@ -189,10 +233,10 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     <img src="2.png" alt="Vector Trade Capital">
   </a>
   <ul class="nav-links">
-    <li><a href="#products" data-lang="en">What We Do</a><a href="#products" data-lang="es">Qué Hacemos</a></li>
-    <li><a href="#why" data-lang="en">Why Vector</a><a href="#why" data-lang="es">Por Qué Vector</a></li>
-    <li><a href="#markets" data-lang="en">Markets</a><a href="#markets" data-lang="es">Mercados</a></li>
-    <li><a href="#contact" class="nav-contact" data-lang="en">Inquire</a><a href="#contact" class="nav-contact" data-lang="es">Consultar</a></li>
+    <li><a href="#products" data-lang="en" data-section="products">What We Do</a><a href="#products" data-lang="es" data-section="products">Qué Hacemos</a></li>
+    <li><a href="#why" data-lang="en" data-section="why">Why Vector</a><a href="#why" data-lang="es" data-section="why">Por Qué Vector</a></li>
+    <li><a href="#markets" data-lang="en" data-section="markets">Markets</a><a href="#markets" data-lang="es" data-section="markets">Mercados</a></li>
+    <li><a href="#contact" class="nav-contact" data-lang="en" data-section="contact">Inquire</a><a href="#contact" class="nav-contact" data-lang="es" data-section="contact">Consultar</a></li>
   </ul>
   <div class="lang-switch">
     <button class="lang-btn active" onclick="setLang('en')">EN</button>
@@ -204,6 +248,8 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 </nav>
 <!-- HERO -->
 <section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
   <div class="hero-inner">
     <!-- English -->
     <div data-lang="en">
@@ -228,6 +274,10 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
       <a href="#contact" class="hero-cta">Solicitar Cotización</a>
     </div>
   </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <div class="hero-scroll-text">Scroll</div>
+  </div>
 </section>
 <!-- PRODUCTS -->
 <section id="products">
@@ -240,22 +290,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   <div class="products-body">
     <div class="products-content">
       <div>
-        <!-- Custom illustration -->
-        <svg class="product-illustration" viewBox="0 0 180 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M40 90 Q40 105 90 108 Q140 105 140 90 L135 45 Q130 35 90 32 Q50 35 45 45 Z" fill="#1C3326" stroke="#2A4D39" stroke-width="1.5"/>
-          <path d="M55 42 Q90 36 125 42" stroke="#B8963E" stroke-width="1" stroke-dasharray="3 3" opacity=".6"/>
-          <path d="M50 55 Q90 48 130 55" stroke="#B8963E" stroke-width="1" stroke-dasharray="3 3" opacity=".5"/>
-          <path d="M47 68 Q90 61 133 68" stroke="#B8963E" stroke-width="1" stroke-dasharray="3 3" opacity=".4"/>
-          <path d="M75 32 Q90 28 105 32 Q100 24 90 22 Q80 24 75 32Z" fill="#B8963E" opacity=".8"/>
-          <ellipse cx="20" cy="85" rx="5" ry="3" fill="#B8963E" transform="rotate(-20 20 85)" opacity=".7"/>
-          <ellipse cx="32" cy="95" rx="5" ry="3" fill="#B8963E" transform="rotate(15 32 95)" opacity=".6"/>
-          <ellipse cx="155" cy="88" rx="5" ry="3" fill="#B8963E" transform="rotate(25 155 88)" opacity=".7"/>
-          <rect x="68" y="62" width="44" height="20" rx="2" fill="#B8963E" opacity=".15"/>
-          <text x="90" y="76" text-anchor="middle" font-family="DM Mono" font-size="8" fill="#B8963E" opacity=".8">BULK</text>
-          <line x1="0" y1="110" x2="180" y2="110" stroke="#2A4D39" stroke-width="1"/>
-          <line x1="10" y1="110" x2="10" y2="70" stroke="#2A4D39" stroke-width="1" opacity=".3"/>
-          <line x1="170" y1="110" x2="170" y2="70" stroke="#2A4D39" stroke-width="1" opacity=".3"/>
-        </svg>
+        <img class="products-img reveal" src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80" alt="Shipping containers at port">
         <div data-lang="en">
           <p class="product-desc reveal">
             We source and deliver bulk commodities from established supply origins directly to Caribbean ports. Our focus is on competitive CIF pricing, complete documentation, and reliable logistics for wholesale importers and institutional buyers.
@@ -322,6 +357,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 </section>
 <!-- WHY VECTOR -->
 <section id="why">
+  <div class="why-bg"></div>
   <div class="why-inner">
     <div class="why-grid">
       <div class="why-left">
@@ -337,70 +373,70 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </p>
       </div>
       <div class="why-reasons">
-        <div class="reason reveal" data-lang="en">
+        <div class="reason reveal reveal-delay-1" data-lang="en">
           <div class="reason-num">01</div>
           <div class="reason-content">
             <h4>Competitive Pricing</h4>
             <p>Direct supplier relationships mean we pass real savings to our buyers — not broker markups.</p>
           </div>
         </div>
-        <div class="reason reveal" data-lang="es">
+        <div class="reason reveal reveal-delay-1" data-lang="es">
           <div class="reason-num">01</div>
           <div class="reason-content">
             <h4>Precios Competitivos</h4>
             <p>Relaciones directas con proveedores significan que transferimos ahorros reales a nuestros compradores — no márgenes de intermediarios.</p>
           </div>
         </div>
-        <div class="reason reveal" data-lang="en">
+        <div class="reason reveal reveal-delay-2" data-lang="en">
           <div class="reason-num">02</div>
           <div class="reason-content">
             <h4>CIF Delivery</h4>
             <p>We handle freight, insurance, and delivery to your port. You receive product at your dock, fully documented and ready to clear customs.</p>
           </div>
         </div>
-        <div class="reason reveal" data-lang="es">
+        <div class="reason reveal reveal-delay-2" data-lang="es">
           <div class="reason-num">02</div>
           <div class="reason-content">
             <h4>Entrega CIF</h4>
             <p>Nos encargamos del flete, seguro y entrega a su puerto. Usted recibe el producto en su muelle, completamente documentado y listo para despacho aduanero.</p>
           </div>
         </div>
-        <div class="reason reveal" data-lang="en">
+        <div class="reason reveal reveal-delay-3" data-lang="en">
           <div class="reason-num">03</div>
           <div class="reason-content">
             <h4>Reliable Supply Chain</h4>
             <p>Established infrastructure and working capital to support consistent, repeat shipments — not one-off deals.</p>
           </div>
         </div>
-        <div class="reason reveal" data-lang="es">
+        <div class="reason reveal reveal-delay-3" data-lang="es">
           <div class="reason-num">03</div>
           <div class="reason-content">
             <h4>Cadena de Suministro Confiable</h4>
             <p>Infraestructura establecida y capital de trabajo para respaldar envíos consistentes y repetidos — no tratos únicos.</p>
           </div>
         </div>
-        <div class="reason reveal" data-lang="en">
+        <div class="reason reveal reveal-delay-4" data-lang="en">
           <div class="reason-num">04</div>
           <div class="reason-content">
             <h4>Full Documentation</h4>
             <p>Every shipment arrives with complete export documentation, certificates of origin, and quality certifications as required by your customs authority.</p>
           </div>
         </div>
-        <div class="reason reveal" data-lang="es">
+        <div class="reason reveal reveal-delay-4" data-lang="es">
           <div class="reason-num">04</div>
           <div class="reason-content">
             <h4>Documentación Completa</h4>
             <p>Cada envío llega con documentación de exportación completa, certificados de origen y certificaciones de calidad según lo requiera su autoridad aduanera.</p>
           </div>
         </div>
-        <div class="reason reveal" data-lang="en">
+        <div class="reason reveal reveal-delay-5" data-lang="en">
           <div class="reason-num">05</div>
           <div class="reason-content">
             <h4>US-Based Exporter</h4>
             <p>Fully registered US company with active export authorizations. All transactions conducted with complete regulatory compliance.</p>
           </div>
         </div>
-        <div class="reason reveal" data-lang="es">
+        <div class="reason reveal reveal-delay-5" data-lang="es">
           <div class="reason-num">05</div>
           <div class="reason-content">
             <h4>Exportador con Base en EE.UU.</h4>
@@ -419,7 +455,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     <h2 class="section-title reveal" style="text-align:center" data-lang="en">Caribbean &amp; <em>Latin America</em></h2>
     <h2 class="section-title reveal" style="text-align:center" data-lang="es">Caribe y <em>América Latina</em></h2>
     <div class="markets-grid">
-      <div class="market-card reveal">
+      <div class="market-card reveal reveal-delay-1">
         <svg class="market-flag-custom" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="32" fill="#000"/>
           <polygon points="0,0 24,16 0,32" fill="#009B44"/>
@@ -433,7 +469,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         <span class="market-status" data-lang="en">Active</span>
         <span class="market-status" data-lang="es">Activo</span>
       </div>
-      <div class="market-card reveal">
+      <div class="market-card reveal reveal-delay-2">
         <svg class="market-flag-custom" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="32" fill="#fff"/>
           <rect width="22" height="14" fill="#002D62"/>
@@ -450,7 +486,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         <span class="market-status" data-lang="en">Active</span>
         <span class="market-status" data-lang="es">Activo</span>
       </div>
-      <div class="market-card reveal">
+      <div class="market-card reveal reveal-delay-3">
         <svg class="market-flag-custom" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="32" fill="#CE1126"/>
           <polygon points="6,0 34,0 42,32 14,32" fill="#000"/>
@@ -464,7 +500,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         <span class="market-status" data-lang="en">Active</span>
         <span class="market-status" data-lang="es">Activo</span>
       </div>
-      <div class="market-card expanding reveal">
+      <div class="market-card expanding reveal reveal-delay-1">
         <svg class="market-flag-custom" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
           <rect width="16" height="32" fill="#00267F"/>
           <rect x="16" width="16" height="32" fill="#FBBE00"/>
@@ -477,7 +513,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         <span class="market-status" data-lang="en">Expanding</span>
         <span class="market-status" data-lang="es">En expansión</span>
       </div>
-      <div class="market-card expanding reveal">
+      <div class="market-card expanding reveal reveal-delay-2">
         <svg class="market-flag-custom" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="16" fill="#00209F"/>
           <rect y="16" width="48" height="16" fill="#D21034"/>
@@ -489,7 +525,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         <span class="market-status" data-lang="en">Expanding</span>
         <span class="market-status" data-lang="es">En expansión</span>
       </div>
-      <div class="market-card expanding reveal">
+      <div class="market-card expanding reveal reveal-delay-3">
         <svg class="market-flag-custom" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="32" rx="2" fill="#1C3326"/>
           <circle cx="24" cy="16" r="10" fill="none" stroke="#B8963E" stroke-width="1.2"/>
@@ -509,6 +545,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 </section>
 <!-- CONTACT -->
 <section id="contact">
+  <div class="contact-bg"></div>
   <div class="contact-inner">
     <div class="contact-grid">
       <div class="contact-left">
@@ -632,25 +669,51 @@ function setLang(lang) {
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.textContent.trim() === lang.toUpperCase());
   });
-  // Update placeholders
   document.querySelectorAll('[data-placeholder-' + lang + ']').forEach(el => {
     el.placeholder = el.getAttribute('data-placeholder-' + lang);
   });
-  // Re-trigger reveal for newly visible elements
   document.querySelectorAll('[data-lang="' + lang + '"] .reveal, .reveal[data-lang="' + lang + '"]').forEach(r => {
     observer.observe(r);
   });
 }
-// Nav scroll
+
+// Smart nav — hide on scroll down, show on scroll up
 const nav = document.getElementById('navbar');
-window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
-// Reveal on scroll
+let lastScroll = 0;
+let navTimeout;
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  nav.classList.toggle('nav-scrolled', y > 80);
+  if(y > lastScroll && y > 200){
+    nav.classList.add('nav-hidden');
+  } else {
+    nav.classList.remove('nav-hidden');
+  }
+  lastScroll = y;
+
+  // Active section highlight
+  clearTimeout(navTimeout);
+  navTimeout = setTimeout(() => {
+    const sections = ['products','why','markets','contact'];
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if(el && el.getBoundingClientRect().top < 200) current = id;
+    });
+    document.querySelectorAll('.nav-links a[data-section]').forEach(a => {
+      a.classList.toggle('active-link', a.getAttribute('data-section') === current);
+    });
+  }, 50);
+});
+
+// Reveal on scroll with stagger
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach((e, i) => {
-    if(e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 60);
+  entries.forEach(e => {
+    if(e.isIntersecting) e.target.classList.add('visible');
   });
-}, {threshold: 0.08, rootMargin: '0px 0px -40px 0px'});
+}, {threshold: 0.06, rootMargin: '0px 0px -60px 0px'});
 document.querySelectorAll('.reveal').forEach(r => observer.observe(r));
+
 // Mobile nav
 function toggleMobile(){
   const links = document.querySelector('.nav-links');
@@ -658,12 +721,13 @@ function toggleMobile(){
   links.style.display = open ? 'none' : 'flex';
   if(!open){
     Object.assign(links.style, {
-      flexDirection:'column', position:'fixed', top:'104px', left:'0', right:'0',
+      flexDirection:'column', position:'fixed', top:'88px', left:'0', right:'0',
       background:'rgba(14,26,20,0.98)', padding:'28px 24px', gap:'20px',
       borderBottom:'1px solid rgba(184,150,62,0.2)'
     });
   }
 }
+
 // Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
@@ -672,6 +736,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if(window.innerWidth <= 900) document.querySelector('.nav-links').style.display = 'none';
   });
 });
+
 // Form — submit via AJAX to stay on page
 document.querySelector('.contact-form').addEventListener('submit', function(e){
   e.preventDefault();
