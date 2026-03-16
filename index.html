@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vector Trade Capital — Commodity Supply to the Caribbean</title>
 <meta name="description" content="Bulk commodity supply to Caribbean importers. Competitive CIF pricing delivered to your port.">
+<meta name="keywords" content="bulk commodity supplier, Caribbean importer, CIF delivery, food commodities, fuel supply, rice exporter, diesel supplier, wholesale trade, Houston commodity trading, Latin America import">
+<meta name="geo.region" content="US-TX">
+<meta name="geo.placename" content="Houston">
+<meta http-equiv="content-language" content="en, es">
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -17,6 +21,8 @@
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://vectortradecapital.com">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_419">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Vector Trade Capital — Bulk Commodity Supply">
 <meta name="twitter:description" content="Supplying Caribbean importers with competitive bulk pricing on essential commodities.">
@@ -26,7 +32,7 @@
 <link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/">
 <meta name="robots" content="index, follow">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Organization","name":"Vector Trade Capital","url":"https://vectortradecapital.com","logo":"https://vectortradecapital.com/vector-trade-capital-logo.png","description":"Bulk commodity supply to Caribbean importers. Competitive CIF pricing on food and fuel products delivered to your port.","address":[{"@type":"PostalAddress","addressLocality":"Houston","addressRegion":"TX","addressCountry":"US"},{"@type":"PostalAddress","addressLocality":"Miami","addressRegion":"FL","addressCountry":"US"},{"@type":"PostalAddress","addressLocality":"Dubai","addressCountry":"AE"}],"sameAs":["https://www.linkedin.com/company/vector-trade-capital"],"contactPoint":{"@type":"ContactPoint","email":"info@vectortradecapital.com","contactType":"sales"}}
+{"@context":"https://schema.org","@type":"Organization","name":"Vector Trade Capital","alternateName":"VTC","url":"https://vectortradecapital.com","logo":"https://vectortradecapital.com/vector-trade-capital-logo.png","image":"https://vectortradecapital.com/og-image.png","description":"Bulk commodity supply to Caribbean importers. Competitive CIF pricing on food and fuel products delivered to your port.","address":[{"@type":"PostalAddress","addressLocality":"Houston","addressRegion":"TX","addressCountry":"US"},{"@type":"PostalAddress","addressLocality":"Miami","addressRegion":"FL","addressCountry":"US"},{"@type":"PostalAddress","addressLocality":"Dubai","addressCountry":"AE"}],"sameAs":["https://www.linkedin.com/company/vector-trade-capital"],"contactPoint":{"@type":"ContactPoint","email":"info@vectortradecapital.com","contactType":"sales","availableLanguage":["English","Spanish"]},"areaServed":[{"@type":"Place","name":"Caribbean"},{"@type":"Place","name":"Latin America"},{"@type":"Place","name":"Jamaica"},{"@type":"Place","name":"Dominican Republic"},{"@type":"Place","name":"Trinidad and Tobago"},{"@type":"Place","name":"Haiti"},{"@type":"Place","name":"Barbados"}],"knowsLanguage":["en","es"]}
 </script>
 <!-- Leaflet Map -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -304,11 +310,11 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     <li><a href="#markets" data-lang="en" data-section="markets">Markets</a><a href="#markets" data-lang="es" data-section="markets">Mercados</a></li>
     <li><a href="#contact" class="nav-contact" data-lang="en" data-section="contact">Inquire</a><a href="#contact" class="nav-contact" data-lang="es" data-section="contact">Consultar</a></li>
   </ul>
-  <div class="lang-switch">
-    <button class="lang-btn active" onclick="setLang('en')">EN</button>
-    <button class="lang-btn" onclick="setLang('es')">ES</button>
+  <div class="lang-switch" role="group" aria-label="Language selector">
+    <button class="lang-btn active" onclick="setLang('en')" aria-label="English" lang="en">EN</button>
+    <button class="lang-btn" onclick="setLang('es')" aria-label="Español" lang="es">ES</button>
   </div>
-  <div class="hamburger" onclick="toggleMobile()">
+  <div class="hamburger" onclick="toggleMobile()" aria-label="Toggle navigation menu" role="button" tabindex="0">
     <span></span><span></span><span></span>
   </div>
 </nav>
@@ -895,6 +901,22 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   </div>
 </footer>
 <script>
+// Localized metadata for language switch
+var localeMeta = {
+  en: {
+    title: 'Vector Trade Capital — Commodity Supply to the Caribbean',
+    description: 'Bulk commodity supply to Caribbean importers. Competitive CIF pricing delivered to your port.',
+    ogTitle: 'Vector Trade Capital — Bulk Commodity Supply',
+    ogDesc: 'Supplying Caribbean importers with competitive bulk pricing on essential commodities — CIF delivered, fully documented, reliable shipments.'
+  },
+  es: {
+    title: 'Vector Trade Capital — Suministro de Materias Primas al Caribe',
+    description: 'Suministro de materias primas al por mayor a importadores del Caribe. Precios CIF competitivos entregados en su puerto.',
+    ogTitle: 'Vector Trade Capital — Suministro de Materias Primas',
+    ogDesc: 'Abasteciendo a importadores del Caribe con precios competitivos al por mayor en materias primas esenciales — entrega CIF, completamente documentada, envíos confiables.'
+  }
+};
+
 // Language toggle
 function setLang(lang) {
   document.documentElement.lang = lang;
@@ -904,6 +926,15 @@ function setLang(lang) {
   document.querySelectorAll('[data-placeholder-' + lang + ']').forEach(el => {
     el.placeholder = el.getAttribute('data-placeholder-' + lang);
   });
+  // Update meta tags for localized SEO
+  var meta = localeMeta[lang] || localeMeta.en;
+  document.title = meta.title;
+  var descEl = document.querySelector('meta[name="description"]');
+  if(descEl) descEl.setAttribute('content', meta.description);
+  var ogTitleEl = document.querySelector('meta[property="og:title"]');
+  if(ogTitleEl) ogTitleEl.setAttribute('content', meta.ogTitle);
+  var ogDescEl = document.querySelector('meta[property="og:description"]');
+  if(ogDescEl) ogDescEl.setAttribute('content', meta.ogDesc);
   document.querySelectorAll('[data-lang="' + lang + '"] .reveal, .reveal[data-lang="' + lang + '"]').forEach(r => {
     observer.observe(r);
   });

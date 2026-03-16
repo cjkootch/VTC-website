@@ -5,7 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Food Commodities — Vector Trade Capital</title>
 <meta name="description" content="Bulk food commodity exports — rice, sugar, wheat flour, cooking oil, legumes, and poultry. CIF delivered to Caribbean ports.">
-<meta name="keywords" content="bulk rice export, sugar supplier Caribbean, wheat flour wholesale, cooking oil import, food commodities, CIF delivery">
+<meta name="keywords" content="bulk rice export, sugar supplier Caribbean, wheat flour wholesale, cooking oil import, food commodities, CIF delivery, proveedor de arroz, exportador de alimentos, importador Caribe">
+<meta name="geo.region" content="US-TX">
+<meta name="geo.placename" content="Houston">
+<meta http-equiv="content-language" content="en, es">
 <meta property="og:title" content="Food Commodities — Vector Trade Capital">
 <meta property="og:description" content="Rice, sugar, wheat flour, cooking oil, legumes, and poultry — bulk food staples delivered CIF to Caribbean ports.">
 <meta property="og:image" content="https://vectortradecapital.com/og-image.png">
@@ -13,6 +16,8 @@
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://vectortradecapital.com/food.html">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_419">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://vectortradecapital.com/food.html">
 <link rel="alternate" hreflang="en" href="https://vectortradecapital.com/food.html">
@@ -185,11 +190,11 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     <li><a href="index.html#markets" data-lang="en">Markets</a><a href="index.html#markets" data-lang="es">Mercados</a></li>
     <li><a href="index.html#contact" class="nav-contact" data-lang="en">Inquire</a><a href="index.html#contact" class="nav-contact" data-lang="es">Consultar</a></li>
   </ul>
-  <div class="lang-switch">
-    <button class="lang-btn active" onclick="setLang('en')">EN</button>
-    <button class="lang-btn" onclick="setLang('es')">ES</button>
+  <div class="lang-switch" role="group" aria-label="Language selector">
+    <button class="lang-btn active" onclick="setLang('en')" aria-label="English" lang="en">EN</button>
+    <button class="lang-btn" onclick="setLang('es')" aria-label="Español" lang="es">ES</button>
   </div>
-  <div class="hamburger" onclick="toggleMobile()">
+  <div class="hamburger" onclick="toggleMobile()" aria-label="Toggle navigation menu" role="button" tabindex="0">
     <span></span><span></span><span></span>
   </div>
 </nav>
@@ -436,11 +441,25 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 </footer>
 <script>
 // Language toggle
+var localeMeta = {
+  en: {
+    title: 'Food Commodities — Vector Trade Capital',
+    description: 'Bulk food commodity exports — rice, sugar, wheat flour, cooking oil, legumes, and poultry. CIF delivered to Caribbean ports.'
+  },
+  es: {
+    title: 'Productos Alimenticios — Vector Trade Capital',
+    description: 'Exportaciones de alimentos al por mayor — arroz, azúcar, harina de trigo, aceite de cocina, legumbres y aves. Entrega CIF a puertos del Caribe.'
+  }
+};
 function setLang(lang) {
   document.documentElement.lang = lang;
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.textContent.trim() === lang.toUpperCase());
   });
+  var meta = localeMeta[lang] || localeMeta.en;
+  document.title = meta.title;
+  var descEl = document.querySelector('meta[name="description"]');
+  if(descEl) descEl.setAttribute('content', meta.description);
   // Re-trigger reveals for newly visible lang elements
   document.querySelectorAll('.reveal').forEach(r => observer.observe(r));
 }

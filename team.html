@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Leadership — Vector Trade Capital</title>
 <meta name="description" content="Meet the leadership team behind Vector Trade Capital — Cole Kutschinski, Kevin Kutschinski, and Amber Lynn Hamby.">
+<meta name="geo.region" content="US-TX">
+<meta name="geo.placename" content="Houston">
+<meta http-equiv="content-language" content="en, es">
 <meta property="og:title" content="Leadership — Vector Trade Capital">
 <meta property="og:description" content="Meet the leadership team behind Vector Trade Capital's global commodity operations.">
 <meta property="og:image" content="https://vectortradecapital.com/og-image.png">
@@ -12,6 +15,8 @@
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://vectortradecapital.com/team.html">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_419">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://vectortradecapital.com/team.html">
 <link rel="alternate" hreflang="en" href="https://vectortradecapital.com/team.html">
@@ -141,11 +146,11 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     <li><a href="index.html#markets" data-lang="en">Markets</a><a href="index.html#markets" data-lang="es">Mercados</a></li>
     <li><a href="index.html#contact" class="nav-contact" data-lang="en">Inquire</a><a href="index.html#contact" class="nav-contact" data-lang="es">Consultar</a></li>
   </ul>
-  <div class="lang-switch">
-    <button class="lang-btn active" onclick="setLang('en')">EN</button>
-    <button class="lang-btn" onclick="setLang('es')">ES</button>
+  <div class="lang-switch" role="group" aria-label="Language selector">
+    <button class="lang-btn active" onclick="setLang('en')" aria-label="English" lang="en">EN</button>
+    <button class="lang-btn" onclick="setLang('es')" aria-label="Español" lang="es">ES</button>
   </div>
-  <div class="hamburger" onclick="toggleMobile()">
+  <div class="hamburger" onclick="toggleMobile()" aria-label="Toggle navigation menu" role="button" tabindex="0">
     <span></span><span></span><span></span>
   </div>
 </nav>
@@ -216,11 +221,19 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 </footer>
 <script>
 // Language toggle
+var localeMeta = {
+  en: { title: 'Leadership — Vector Trade Capital', description: 'Meet the leadership team behind Vector Trade Capital — Cole Kutschinski, Kevin Kutschinski, and Amber Lynn Hamby.' },
+  es: { title: 'Liderazgo — Vector Trade Capital', description: 'Conozca al equipo de liderazgo detrás de Vector Trade Capital — Cole Kutschinski, Kevin Kutschinski y Amber Lynn Hamby.' }
+};
 function setLang(lang) {
   document.documentElement.lang = lang;
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.textContent.trim() === lang.toUpperCase());
   });
+  var meta = localeMeta[lang] || localeMeta.en;
+  document.title = meta.title;
+  var descEl = document.querySelector('meta[name="description"]');
+  if(descEl) descEl.setAttribute('content', meta.description);
 }
 
 // Smart nav
