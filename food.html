@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food Commodities — Vector Trade Capital</title>
+<meta name="description" content="Bulk food commodity exports — rice, sugar, wheat flour, cooking oil, and more. CIF delivered to Caribbean and global ports.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0E1A14;
+  --ink-mid:#1C3326;
+  --ink-light:#2A4D39;
+  --cream:#F5F0E8;
+  --cream-dark:#EDE5D4;
+  --cream-mid:#E0D5C0;
+  --gold:#B8963E;
+  --gold-light:#D4AE5A;
+  --gold-pale:#F2E4C0;
+  --teal:#1A7A5E;
+  --teal-bright:#22A07C;
+  --teal-pale:#D4EDE6;
+  --white:#FFFFFF;
+  --border:rgba(184,150,62,0.2);
+  --border-light:rgba(184,150,62,0.1);
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
+/* ── LANGUAGE TOGGLE ── */
+[data-lang="es"]{display:none!important}
+html[lang="es"] [data-lang="en"]{display:none!important}
+html[lang="es"] [data-lang="es"]{display:block!important}
+html[lang="es"] .section-label[data-lang="es"]{display:flex!important}
+html[lang="es"] span[data-lang="es"]{display:inline-block!important}
+html[lang="es"] a[data-lang="es"]{display:inline-flex!important}
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:4px 60px;background:rgba(14,26,20,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,150,62,0.15);transition:transform .35s ease,background .3s ease}
+nav.nav-hidden{transform:translateY(-100%)}
+nav.nav-scrolled{background:rgba(14,26,20,0.99);padding:2px 60px}
+.nav-logo img{height:80px;width:auto;transition:height .3s ease}
+nav.nav-scrolled .nav-logo img{height:60px}
+.nav-links{display:flex;gap:32px;list-style:none;align-items:center}
+.nav-links a{color:rgba(245,240,232,0.6);text-decoration:none;font-family:'DM Mono',monospace;font-size:11px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--gold-light)}
+.nav-links a.active-link{color:var(--gold)}
+.nav-contact{color:var(--gold)!important;border:1px solid rgba(184,150,62,0.4);padding:8px 20px;transition:all .25s!important}
+.nav-contact:hover{background:var(--gold)!important;color:var(--ink)!important}
+.lang-switch{display:flex;gap:0;margin-left:8px}
+.lang-btn{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;border:1px solid rgba(184,150,62,0.3);background:transparent;color:rgba(245,240,232,0.45);transition:all .2s}
+.lang-btn:first-child{border-radius:3px 0 0 3px;border-right:none}
+.lang-btn:last-child{border-radius:0 3px 3px 0}
+.lang-btn.active{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hamburger span{display:block;width:22px;height:1px;background:var(--cream)}
+/* ── PAGE HEADER ── */
+.page-header{background:var(--ink);padding:140px 60px 80px;text-align:center;position:relative;overflow:hidden}
+.page-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 80%,rgba(26,122,94,.1) 0%,transparent 70%);pointer-events:none}
+.page-header .section-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:12px}
+.page-header .section-label::before,.page-header .section-label::after{content:'';display:block;width:32px;height:1px;background:var(--teal)}
+.page-header .section-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:400;color:var(--cream);line-height:1.15}
+.page-header .section-title em{font-style:italic;color:var(--gold-light)}
+.page-header .section-sub{font-size:16px;color:rgba(245,240,232,0.5);max-width:600px;margin:20px auto 0;line-height:1.8}
+/* ── BACK LINK ── */
+.back-link{display:inline-flex;align-items:center;gap:10px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);text-decoration:none;transition:all .2s;margin-bottom:48px}
+.back-link:hover{color:var(--teal-bright);transform:translateX(-4px)}
+.back-link::before{content:'\2190';font-size:14px}
+/* ── CONTENT ── */
+.page-body{max-width:1100px;margin:0 auto;padding:80px 60px 40px}
+/* ── HERO IMAGE ── */
+.product-hero{width:100%;height:360px;object-fit:cover;border-radius:6px;margin-bottom:60px}
+/* ── INTRO ── */
+.product-intro{max-width:760px;margin:0 auto 72px;text-align:center}
+.product-intro p{font-size:17px;color:rgba(14,26,20,0.65);line-height:1.9}
+/* ── COMMODITY GRID ── */
+.commodities-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--teal);margin-bottom:40px;display:flex;align-items:center;gap:12px}
+.commodities-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.commodity-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;margin-bottom:72px}
+.commodity-card{background:var(--white);border:1px solid var(--border-light);padding:36px;border-radius:4px;transition:border-color .3s,box-shadow .3s}
+.commodity-card:hover{border-color:var(--border);box-shadow:0 8px 32px rgba(14,26,20,0.06)}
+.commodity-icon{font-size:28px;margin-bottom:16px}
+.commodity-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:500;color:var(--ink);margin-bottom:8px}
+.commodity-desc{font-size:14px;color:rgba(14,26,20,0.6);line-height:1.8;margin-bottom:20px}
+.commodity-specs{display:flex;flex-direction:column;gap:8px;padding-top:16px;border-top:1px solid var(--border-light)}
+.commodity-spec{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.commodity-spec-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(14,26,20,0.35);white-space:nowrap}
+.commodity-spec-value{font-size:13px;color:rgba(14,26,20,0.7);text-align:right}
+/* ── DELIVERY SECTION ── */
+.delivery-section{background:var(--ink);margin:0 -60px;padding:80px 60px}
+.delivery-inner{max-width:1100px;margin:0 auto}
+.delivery-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--teal);margin-bottom:40px;display:flex;align-items:center;gap:12px}
+.delivery-label::after{content:'';flex:1;height:1px;background:rgba(184,150,62,0.15)}
+.delivery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.delivery-item{text-align:center;padding:32px 20px}
+.delivery-number{font-family:'Playfair Display',serif;font-size:36px;font-weight:400;color:var(--gold-light);margin-bottom:12px}
+.delivery-title{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--cream);margin-bottom:12px}
+.delivery-desc{font-size:14px;color:rgba(245,240,232,0.45);line-height:1.8}
+/* ── CTA ── */
+.product-cta{text-align:center;padding:80px 60px}
+.product-cta h3{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,36px);font-weight:400;color:var(--ink);margin-bottom:20px}
+.product-cta h3 em{font-style:italic;color:var(--teal)}
+.product-cta p{font-size:15px;color:rgba(14,26,20,0.55);margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto}
+.cta-btn{display:inline-flex;align-items:center;gap:12px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;background:var(--teal);color:var(--white);padding:16px 32px;transition:all .3s cubic-bezier(.4,0,.2,1)}
+.cta-btn:hover{background:var(--teal-bright);transform:translateX(6px);box-shadow:0 8px 32px rgba(26,122,94,0.3)}
+.cta-btn::after{content:'';display:block;width:20px;height:1px;background:currentColor;transition:width .3s}
+.cta-btn:hover::after{width:36px}
+/* ── OTHER PRODUCTS LINK ── */
+.also-section{text-align:center;padding:0 60px 80px}
+.also-link{display:inline-flex;align-items:center;gap:10px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-decoration:none;padding:14px 28px;border:1px solid var(--border);transition:all .25s}
+.also-link:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.also-link::after{content:'\2192';font-size:14px}
+/* ── FOOTER ── */
+footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:48px 60px 36px}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px}
+.footer-logo img{height:112px;width:auto}
+.footer-right{text-align:right}
+.footer-copy{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,240,232,0.3)}
+.footer-legal{font-size:12px;color:rgba(245,240,232,0.2);max-width:1200px;margin:24px auto 0;padding-top:24px;border-top:1px solid rgba(184,150,62,0.08);line-height:1.6}
+/* ── MOBILE ── */
+@media(max-width:900px){
+  nav{padding:4px 24px}
+  nav.nav-scrolled{padding:2px 24px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .lang-switch{position:fixed;top:18px;right:68px;z-index:201}
+  .page-header{padding:120px 24px 60px}
+  .page-body{padding:48px 24px 24px}
+  .product-hero{height:220px}
+  .commodity-grid{grid-template-columns:1fr}
+  .delivery-section{margin:0 -24px;padding:60px 24px}
+  .delivery-grid{grid-template-columns:1fr;gap:24px}
+  .product-cta{padding:60px 24px}
+  .also-section{padding:0 24px 60px}
+  footer{padding:40px 24px 28px}
+  .footer-inner{flex-direction:column;align-items:flex-start}
+  .footer-right{text-align:left}
+  .footer-legal{padding:20px 0 0}
+}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="2.png" alt="Vector Trade Capital">
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#products" class="active-link" data-lang="en">What We Do</a><a href="index.html#products" class="active-link" data-lang="es">Qué Hacemos</a></li>
+    <li><a href="index.html#why" data-lang="en">Why Vector</a><a href="index.html#why" data-lang="es">Por Qué Vector</a></li>
+    <li><a href="team.html" data-lang="en">Team</a><a href="team.html" data-lang="es">Equipo</a></li>
+    <li><a href="index.html#markets" data-lang="en">Markets</a><a href="index.html#markets" data-lang="es">Mercados</a></li>
+    <li><a href="index.html#contact" class="nav-contact" data-lang="en">Inquire</a><a href="index.html#contact" class="nav-contact" data-lang="es">Consultar</a></li>
+  </ul>
+  <div class="lang-switch">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('es')">ES</button>
+  </div>
+  <div class="hamburger" onclick="toggleMobile()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="section-label" data-lang="en">Food Commodities</div>
+  <div class="section-label" data-lang="es">Productos Alimenticios</div>
+  <h1 class="section-title" data-lang="en">Feeding the <em>Caribbean</em></h1>
+  <h1 class="section-title" data-lang="es">Alimentando el <em>Caribe</em></h1>
+  <p class="section-sub" data-lang="en">Essential food staples sourced at scale and delivered CIF to your port — competitive pricing, complete documentation, reliable supply.</p>
+  <p class="section-sub" data-lang="es">Alimentos básicos esenciales abastecidos a escala y entregados CIF a su puerto — precios competitivos, documentación completa, suministro confiable.</p>
+</div>
+
+<!-- CONTENT -->
+<div class="page-body">
+  <a href="index.html" class="back-link" data-lang="en">Back to Home</a>
+  <a href="index.html" class="back-link" data-lang="es">Volver al Inicio</a>
+
+  <img class="product-hero" src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=1200&q=80" alt="Bulk rice grain commodity">
+
+  <!-- INTRO -->
+  <div class="product-intro" data-lang="en">
+    <p>Vector Trade Capital supplies bulk food commodities to importers, distributors, and institutional buyers across the Caribbean. We source from established origins in the Americas and Asia, delivering full container loads at competitive CIF pricing with complete trade documentation.</p>
+  </div>
+  <div class="product-intro" data-lang="es">
+    <p>Vector Trade Capital suministra productos alimenticios al por mayor a importadores, distribuidores y compradores institucionales en todo el Caribe. Abastecemos desde orígenes establecidos en las Américas y Asia, entregando contenedores completos a precios CIF competitivos con documentación comercial completa.</p>
+  </div>
+
+  <!-- COMMODITIES -->
+  <div class="commodities-label" data-lang="en">What We Supply</div>
+  <div class="commodities-label" data-lang="es">Lo Que Suministramos</div>
+
+  <div data-lang="en">
+    <div class="commodity-grid">
+      <div class="commodity-card">
+        <div class="commodity-icon">&#127834;</div>
+        <div class="commodity-name">Rice</div>
+        <div class="commodity-desc">Long grain white rice, parboiled rice, and specialty varieties. Sourced from established milling operations in the Americas and Southeast Asia.</div>
+        <div class="commodity-specs">
+          <div class="commodity-spec"><span class="commodity-spec-label">Grades</span><span class="commodity-spec-value">5% &middot; 15% &middot; 25% broken</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Packaging</span><span class="commodity-spec-value">25kg &middot; 50kg bags &middot; bulk</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Origins</span><span class="commodity-spec-value">Guyana &middot; USA &middot; Thailand &middot; India</span></div>
+        </div>
+      </div>
+      <div class="commodity-card">
+        <div class="commodity-icon">&#127852;</div>
+        <div class="commodity-name">Sugar</div>
+        <div class="commodity-desc">Raw and refined cane sugar for industrial and consumer markets. Consistent quality from top-tier refineries and mills.</div>
+        <div class="commodity-specs">
+          <div class="commodity-spec"><span class="commodity-spec-label">Types</span><span class="commodity-spec-value">ICUMSA 45 &middot; Raw VHP &middot; Brown</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Packaging</span><span class="commodity-spec-value">50kg bags &middot; bulk &middot; 1MT totes</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Origins</span><span class="commodity-spec-value">Brazil &middot; Guatemala &middot; Colombia</span></div>
+        </div>
+      </div>
+      <div class="commodity-card">
+        <div class="commodity-icon">&#127838;</div>
+        <div class="commodity-name">Wheat Flour</div>
+        <div class="commodity-desc">All-purpose and bread flour for commercial bakeries, food manufacturers, and wholesale distribution throughout the Caribbean.</div>
+        <div class="commodity-specs">
+          <div class="commodity-spec"><span class="commodity-spec-label">Types</span><span class="commodity-spec-value">All-purpose &middot; Bread &middot; Pastry</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Packaging</span><span class="commodity-spec-value">25kg &middot; 50kg bags</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Origins</span><span class="commodity-spec-value">USA &middot; Canada &middot; Argentina</span></div>
+        </div>
+      </div>
+      <div class="commodity-card">
+        <div class="commodity-icon">&#129361;</div>
+        <div class="commodity-name">Cooking Oil</div>
+        <div class="commodity-desc">Soybean oil, palm oil, and sunflower oil in bulk and consumer-ready packaging for retail and food service distribution.</div>
+        <div class="commodity-specs">
+          <div class="commodity-spec"><span class="commodity-spec-label">Types</span><span class="commodity-spec-value">Soybean &middot; Palm &middot; Sunflower</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Packaging</span><span class="commodity-spec-value">Flexitanks &middot; drums &middot; 1-5L bottles</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Origins</span><span class="commodity-spec-value">Brazil &middot; Argentina &middot; Malaysia</span></div>
+        </div>
+      </div>
+      <div class="commodity-card">
+        <div class="commodity-icon">&#129372;</div>
+        <div class="commodity-name">Dried Legumes</div>
+        <div class="commodity-desc">Kidney beans, black beans, lentils, and chickpeas — dietary staples across Caribbean markets, sourced for consistency and quality.</div>
+        <div class="commodity-specs">
+          <div class="commodity-spec"><span class="commodity-spec-label">Types</span><span class="commodity-spec-value">Red kidney &middot; Black &middot; Lentils &middot; Pigeon pea</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Packaging</span><span class="commodity-spec-value">25kg &middot; 50kg bags</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Origins</span><span class="commodity-spec-value">USA &middot; Canada &middot; Myanmar</span></div>
+        </div>
+      </div>
+      <div class="commodity-card">
+        <div class="commodity-icon">&#127847;</div>
+        <div class="commodity-name">Poultry &amp; Proteins</div>
+        <div class="commodity-desc">Frozen chicken leg quarters, MDM, and other protein products for wholesale and institutional buyers throughout the region.</div>
+        <div class="commodity-specs">
+          <div class="commodity-spec"><span class="commodity-spec-label">Types</span><span class="commodity-spec-value">Leg quarters &middot; MDM &middot; Wings</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Packaging</span><span class="commodity-spec-value">40lb cases &middot; reefer containers</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Origins</span><span class="commodity-spec-value">USA &middot; Brazil</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div data-lang="es">
+    <div class="commodity-grid">
+      <div class="commodity-card">
+        <div class="commodity-icon">&#127834;</div>
+        <div class="commodity-name">Arroz</div>
+        <div class="commodity-desc">Arroz blanco de grano largo, arroz parbolizado y variedades especiales. Abastecido de operaciones de molienda establecidas en las Américas y el Sudeste Asiático.</div>
+        <div class="commodity-specs">
+          <div class="commodity-spec"><span class="commodity-spec-label">Grados</span><span class="commodity-spec-value">5% &middot; 15% &middot; 25% quebrado</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Empaque</span><span class="commodity-spec-value">Sacos de 25kg &middot; 50kg &middot; granel</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Orígenes</span><span class="commodity-spec-value">Guyana &middot; EE.UU. &middot; Tailandia &middot; India</span></div>
+        </div>
+      </div>
+      <div class="commodity-card">
+        <div class="commodity-icon">&#127852;</div>
+        <div class="commodity-name">Azúcar</div>
+        <div class="commodity-desc">Azúcar de caña cruda y refinada para mercados industriales y de consumo. Calidad consistente de refinerías y molinos de primer nivel.</div>
+        <div class="commodity-specs">
+          <div class="commodity-spec"><span class="commodity-spec-label">Tipos</span><span class="commodity-spec-value">ICUMSA 45 &middot; VHP cruda &middot; Morena</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Empaque</span><span class="commodity-spec-value">Sacos de 50kg &middot; granel &middot; totes de 1TM</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Orígenes</span><span class="commodity-spec-value">Brasil &middot; Guatemala &middot; Colombia</span></div>
+        </div>
+      </div>
+      <div class="commodity-card">
+        <div class="commodity-icon">&#127838;</div>
+        <div class="commodity-name">Harina de Trigo</div>
+        <div class="commodity-desc">Harina todo uso y de pan para panaderías comerciales, fabricantes de alimentos y distribución mayorista en todo el Caribe.</div>
+        <div class="commodity-specs">
+          <div class="commodity-spec"><span class="commodity-spec-label">Tipos</span><span class="commodity-spec-value">Todo uso &middot; De pan &middot; Repostería</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Empaque</span><span class="commodity-spec-value">Sacos de 25kg &middot; 50kg</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Orígenes</span><span class="commodity-spec-value">EE.UU. &middot; Canadá &middot; Argentina</span></div>
+        </div>
+      </div>
+      <div class="commodity-card">
+        <div class="commodity-icon">&#129361;</div>
+        <div class="commodity-name">Aceite de Cocina</div>
+        <div class="commodity-desc">Aceite de soja, palma y girasol en empaque a granel y listo para el consumidor para distribución minorista y de servicio de alimentos.</div>
+        <div class="commodity-specs">
+          <div class="commodity-spec"><span class="commodity-spec-label">Tipos</span><span class="commodity-spec-value">Soja &middot; Palma &middot; Girasol</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Empaque</span><span class="commodity-spec-value">Flexitanques &middot; tambores &middot; botellas 1-5L</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Orígenes</span><span class="commodity-spec-value">Brasil &middot; Argentina &middot; Malasia</span></div>
+        </div>
+      </div>
+      <div class="commodity-card">
+        <div class="commodity-icon">&#129372;</div>
+        <div class="commodity-name">Legumbres Secas</div>
+        <div class="commodity-desc">Frijoles rojos, negros, lentejas y garbanzos — alimentos básicos en los mercados caribeños, abastecidos por consistencia y calidad.</div>
+        <div class="commodity-specs">
+          <div class="commodity-spec"><span class="commodity-spec-label">Tipos</span><span class="commodity-spec-value">Rojo &middot; Negro &middot; Lentejas &middot; Gandul</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Empaque</span><span class="commodity-spec-value">Sacos de 25kg &middot; 50kg</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Orígenes</span><span class="commodity-spec-value">EE.UU. &middot; Canadá &middot; Myanmar</span></div>
+        </div>
+      </div>
+      <div class="commodity-card">
+        <div class="commodity-icon">&#127847;</div>
+        <div class="commodity-name">Aves y Proteínas</div>
+        <div class="commodity-desc">Cuartos traseros de pollo congelados, MDM y otros productos proteínicos para compradores mayoristas e institucionales en toda la región.</div>
+        <div class="commodity-specs">
+          <div class="commodity-spec"><span class="commodity-spec-label">Tipos</span><span class="commodity-spec-value">Cuartos traseros &middot; MDM &middot; Alas</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Empaque</span><span class="commodity-spec-value">Cajas de 40lb &middot; contenedores refrigerados</span></div>
+          <div class="commodity-spec"><span class="commodity-spec-label">Orígenes</span><span class="commodity-spec-value">EE.UU. &middot; Brasil</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DELIVERY PROCESS -->
+<div class="delivery-section">
+  <div class="delivery-inner">
+    <div class="delivery-label" data-lang="en">How It Works</div>
+    <div class="delivery-label" data-lang="es">Cómo Funciona</div>
+    <div data-lang="en">
+      <div class="delivery-grid">
+        <div class="delivery-item">
+          <div class="delivery-number">01</div>
+          <div class="delivery-title">Requirements</div>
+          <div class="delivery-desc">Share your product specifications, volumes, packaging preferences, and destination port. We respond with a competitive CIF quote within 48 hours.</div>
+        </div>
+        <div class="delivery-item">
+          <div class="delivery-number">02</div>
+          <div class="delivery-title">Sourcing</div>
+          <div class="delivery-desc">We procure from our established supplier network, ensure quality certifications, and arrange inspection if required before shipment.</div>
+        </div>
+        <div class="delivery-item">
+          <div class="delivery-number">03</div>
+          <div class="delivery-title">Delivery</div>
+          <div class="delivery-desc">Full CIF service — freight, marine insurance, and all export documentation handled. Product arrives at your port ready to clear customs.</div>
+        </div>
+      </div>
+    </div>
+    <div data-lang="es">
+      <div class="delivery-grid">
+        <div class="delivery-item">
+          <div class="delivery-number">01</div>
+          <div class="delivery-title">Requisitos</div>
+          <div class="delivery-desc">Comparta sus especificaciones de producto, volúmenes, preferencias de empaque y puerto de destino. Respondemos con una cotización CIF competitiva en 48 horas.</div>
+        </div>
+        <div class="delivery-item">
+          <div class="delivery-number">02</div>
+          <div class="delivery-title">Abastecimiento</div>
+          <div class="delivery-desc">Compramos de nuestra red de proveedores establecida, aseguramos certificaciones de calidad y organizamos inspección si se requiere antes del envío.</div>
+        </div>
+        <div class="delivery-item">
+          <div class="delivery-number">03</div>
+          <div class="delivery-title">Entrega</div>
+          <div class="delivery-desc">Servicio CIF completo — flete, seguro marítimo y toda la documentación de exportación gestionada. El producto llega a su puerto listo para despacho aduanero.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="product-cta">
+  <h3 data-lang="en">Ready to <em>source food commodities?</em></h3>
+  <h3 data-lang="es">Listo para <em>abastecerse de alimentos?</em></h3>
+  <p data-lang="en">Send us your requirements and destination port. We'll respond with competitive CIF pricing within 48 hours.</p>
+  <p data-lang="es">Envíenos sus requisitos y puerto de destino. Responderemos con precios CIF competitivos en 48 horas.</p>
+  <a href="index.html#contact" class="cta-btn" data-lang="en">Request a Quote</a>
+  <a href="index.html#contact" class="cta-btn" data-lang="es">Solicitar Cotización</a>
+</div>
+
+<!-- ALSO -->
+<div class="also-section">
+  <a href="fuel.html" class="also-link" data-lang="en">Explore Fuel Products</a>
+  <a href="fuel.html" class="also-link" data-lang="es">Explorar Productos de Combustible</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <img src="2.png" alt="Vector Trade Capital">
+    </div>
+    <div class="footer-right">
+      <div class="footer-copy">&copy; 2025 Vector Trade Capital LLC &nbsp;&middot;&nbsp; Houston &nbsp;&middot;&nbsp; Miami &nbsp;&middot;&nbsp; Dubai &nbsp;&middot;&nbsp; <a href="privacy.html" style="color:rgba(245,240,232,0.4);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#D4AE5A'" onmouseout="this.style.color='rgba(245,240,232,0.4)'" data-lang="en">Privacy Policy</a><a href="privacy.html" style="color:rgba(245,240,232,0.4);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#D4AE5A'" onmouseout="this.style.color='rgba(245,240,232,0.4)'" data-lang="es">Política de Privacidad</a></div>
+      <a href="https://www.linkedin.com/company/vector-trade-capital" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;color:rgba(245,240,232,0.3);text-decoration:none;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;transition:color .2s" onmouseover="this.style.color='#D4AE5A'" onmouseout="this.style.color='rgba(245,240,232,0.3)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
+    </div>
+  </div>
+  <div class="footer-legal" data-lang="en">
+    Vector Trade Capital LLC is a registered US commodity trading company. All export transactions are conducted in compliance with applicable US government regulations. This website is intended for qualified trade buyers and wholesale importers.
+  </div>
+  <div class="footer-legal" data-lang="es">
+    Vector Trade Capital LLC es una empresa comercial de productos básicos registrada en EE.UU. Todas las transacciones de exportación se realizan en cumplimiento con las regulaciones gubernamentales aplicables de EE.UU. Este sitio web está destinado a compradores comerciales calificados e importadores mayoristas.
+  </div>
+</footer>
+<script>
+function setLang(lang) {
+  document.documentElement.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.trim() === lang.toUpperCase());
+  });
+}
+const nav = document.getElementById('navbar');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  nav.classList.toggle('nav-scrolled', y > 80);
+  if(y > lastScroll && y > 200) nav.classList.add('nav-hidden');
+  else nav.classList.remove('nav-hidden');
+  lastScroll = y;
+});
+function toggleMobile(){
+  const links = document.querySelector('.nav-links');
+  const open = links.style.display === 'flex';
+  links.style.display = open ? 'none' : 'flex';
+  if(!open){
+    Object.assign(links.style, {
+      flexDirection:'column', position:'fixed', top:'88px', left:'0', right:'0',
+      background:'rgba(14,26,20,0.98)', padding:'28px 24px', gap:'20px',
+      borderBottom:'1px solid rgba(184,150,62,0.2)'
+    });
+  }
+}
+</script>
+</body>
+</html>
