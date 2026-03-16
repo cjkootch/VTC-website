@@ -131,21 +131,52 @@ nav.nav-scrolled .nav-logo img{height:60px}
 .reason-content h4{font-family:'DM Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--cream);margin-bottom:6px}
 .reason-content p{font-size:14px;color:rgba(245,240,232,0.55);line-height:1.7}
 /* ── MARKETS ── */
-#markets{background:var(--cream-dark);padding:120px 60px}
-.markets-inner{max-width:1200px;margin:0 auto}
-.markets-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:64px}
-.market-card{background:var(--cream);padding:48px 40px;position:relative;overflow:hidden;transition:all .35s cubic-bezier(.4,0,.2,1)}
-.market-card:hover{background:var(--white);transform:translateY(-4px);box-shadow:0 12px 40px rgba(14,26,20,0.08)}
-.market-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--teal);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.4,0,.2,1)}
-.market-card:hover::before{transform:scaleX(1)}
-.market-flag-custom{width:48px;height:32px;margin-bottom:24px;display:block;transition:transform .3s}
-.market-card:hover .market-flag-custom{transform:scale(1.1)}
-.market-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:500;color:var(--ink);margin-bottom:16px}
-.market-products{font-size:13px;color:rgba(14,26,20,0.6);line-height:1.7}
-.market-status{display:inline-block;margin-top:20px;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding:4px 12px;border:1px solid var(--border);color:var(--teal);transition:all .3s}
-.market-card:hover .market-status{border-color:var(--teal);background:rgba(26,122,94,0.06)}
-.market-card.expanding .market-status{color:var(--gold);border-color:rgba(184,150,62,0.3)}
-.market-card.expanding:hover .market-status{border-color:var(--gold);background:rgba(184,150,62,0.06)}
+#markets{background:var(--ink);padding:120px 60px;position:relative;overflow:hidden}
+#markets::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(26,122,94,.08) 0%,transparent 60%);pointer-events:none}
+.markets-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1}
+#markets .section-label{color:var(--gold)}
+#markets .section-label::before,#markets .section-label::after{background:var(--gold)}
+#markets .section-title{color:var(--cream)}
+.map-container{position:relative;margin-top:64px;width:100%;max-width:1000px;margin-left:auto;margin-right:auto}
+.map-svg{width:100%;height:auto;display:block}
+.map-svg .land{fill:rgba(245,240,232,0.06);stroke:rgba(245,240,232,0.12);stroke-width:.5;transition:fill .3s}
+.map-svg .water-line{fill:none;stroke:rgba(26,122,94,0.15);stroke-width:.3;stroke-dasharray:4 3}
+.map-svg .trade-route{fill:none;stroke:var(--gold);stroke-width:1;stroke-dasharray:6 4;opacity:.25;animation:routePulse 3s ease infinite}
+@keyframes routePulse{0%,100%{opacity:.15;stroke-dashoffset:0}50%{opacity:.35;stroke-dashoffset:-20}}
+/* Map markers */
+.map-marker{cursor:pointer}
+.map-marker .marker-ping{fill:var(--teal);opacity:0;animation:ping 2.5s ease infinite}
+.map-marker .marker-dot{fill:var(--teal);transition:all .3s}
+.map-marker .marker-ring{fill:none;stroke:var(--teal);stroke-width:1;opacity:.4;transition:all .3s}
+.map-marker.expanding .marker-dot{fill:var(--gold)}
+.map-marker.expanding .marker-ring{stroke:var(--gold)}
+.map-marker.expanding .marker-ping{fill:var(--gold)}
+.map-marker:hover .marker-dot{fill:var(--teal-bright);transform-origin:center;r:5}
+.map-marker.expanding:hover .marker-dot{fill:var(--gold-light)}
+.map-marker:hover .marker-ring{opacity:.7;r:14}
+.map-marker .marker-label{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;fill:rgba(245,240,232,0.5);transition:fill .3s}
+.map-marker:hover .marker-label{fill:var(--cream)}
+@keyframes ping{0%{r:4;opacity:.5}100%{r:20;opacity:0}}
+/* Map tooltip */
+.map-tooltip{position:absolute;pointer-events:none;background:rgba(14,26,20,0.96);backdrop-filter:blur(12px);border:1px solid rgba(184,150,62,0.2);padding:20px 24px;min-width:220px;opacity:0;transform:translateY(8px);transition:all .25s cubic-bezier(.4,0,.2,1);z-index:10}
+.map-tooltip.visible{opacity:1;transform:translateY(0)}
+.map-tooltip-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:500;color:var(--cream);margin-bottom:8px}
+.map-tooltip-desc{font-size:13px;color:rgba(245,240,232,0.55);line-height:1.6;margin-bottom:12px}
+.map-tooltip-status{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding:4px 12px;display:inline-block}
+.map-tooltip-status.active{color:var(--teal);border:1px solid rgba(26,122,94,0.4)}
+.map-tooltip-status.expanding{color:var(--gold);border:1px solid rgba(184,150,62,0.4)}
+/* Houston origin marker */
+.map-origin .marker-dot{fill:var(--cream)}
+.map-origin .marker-ring{stroke:var(--cream)}
+.map-origin .marker-label{fill:rgba(245,240,232,0.7);font-size:10px}
+.map-origin .marker-ping{fill:var(--cream)}
+/* Map legend */
+.map-legend{display:flex;gap:32px;justify-content:center;margin-top:40px}
+.map-legend-item{display:flex;align-items:center;gap:10px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,240,232,0.4)}
+.map-legend-dot{width:8px;height:8px;border-radius:50%}
+.map-legend-dot.hq{background:var(--cream)}
+.map-legend-dot.act{background:var(--teal)}
+.map-legend-dot.exp{background:var(--gold)}
 /* ── CONTACT ── */
 #contact{background:var(--ink-mid);padding:120px 60px;position:relative}
 .contact-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80') center/cover no-repeat;opacity:.05;pointer-events:none}
@@ -214,8 +245,10 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   #why{padding:80px 24px}
   .why-grid{grid-template-columns:1fr;gap:48px}
   #markets{padding:80px 24px}
-  .markets-grid{grid-template-columns:1fr}
-  .market-card:hover{transform:none;box-shadow:none}
+  .map-container{margin-top:40px}
+  .map-tooltip{min-width:180px;padding:16px 18px}
+  .map-legend{gap:20px;flex-wrap:wrap}
+  .map-svg .marker-label{font-size:7px!important}
   #contact{padding:80px 24px}
   .contact-grid{grid-template-columns:1fr;gap:52px}
   footer{padding:40px 24px 28px}
@@ -454,91 +487,155 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     <div class="section-label reveal" style="justify-content:center" data-lang="es">Mercados que Atendemos</div>
     <h2 class="section-title reveal" style="text-align:center" data-lang="en">Caribbean &amp; <em>Latin America</em></h2>
     <h2 class="section-title reveal" style="text-align:center" data-lang="es">Caribe y <em>América Latina</em></h2>
-    <div class="markets-grid">
-      <div class="market-card reveal reveal-delay-1">
-        <svg class="market-flag-custom" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
-          <rect width="48" height="32" fill="#000"/>
-          <polygon points="0,0 24,16 0,32" fill="#009B44"/>
-          <polygon points="48,0 24,16 48,32" fill="#009B44"/>
-          <polygon points="0,0 24,16 48,0" fill="#FED100"/>
-          <polygon points="0,32 24,16 48,32" fill="#FED100"/>
-        </svg>
-        <div class="market-name">Jamaica</div>
-        <div class="market-products" data-lang="en">Bulk commodity imports</div>
-        <div class="market-products" data-lang="es">Importación de materias primas al por mayor</div>
-        <span class="market-status" data-lang="en">Active</span>
-        <span class="market-status" data-lang="es">Activo</span>
+    <div class="map-container reveal">
+      <!-- Tooltip -->
+      <div class="map-tooltip" id="map-tooltip">
+        <div class="map-tooltip-name" id="tt-name"></div>
+        <div class="map-tooltip-desc" id="tt-desc"></div>
+        <span class="map-tooltip-status" id="tt-status"></span>
       </div>
-      <div class="market-card reveal reveal-delay-2">
-        <svg class="market-flag-custom" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
-          <rect width="48" height="32" fill="#fff"/>
-          <rect width="22" height="14" fill="#002D62"/>
-          <rect x="26" width="22" height="14" fill="#CF142B"/>
-          <rect y="18" width="22" height="14" fill="#CF142B"/>
-          <rect x="26" y="18" width="22" height="14" fill="#002D62"/>
-          <rect x="21" width="6" height="32" fill="#fff"/>
-          <rect y="13" width="48" height="6" fill="#fff"/>
-        </svg>
-        <div class="market-name" data-lang="en">Dominican Republic</div>
-        <div class="market-name" data-lang="es">República Dominicana</div>
-        <div class="market-products" data-lang="en">Bulk commodity imports</div>
-        <div class="market-products" data-lang="es">Importación de materias primas al por mayor</div>
-        <span class="market-status" data-lang="en">Active</span>
-        <span class="market-status" data-lang="es">Activo</span>
+      <!-- SVG Map -->
+      <svg class="map-svg" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="glow-teal" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#1A7A5E" stop-opacity=".3"/>
+            <stop offset="100%" stop-color="#1A7A5E" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="glow-gold" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#B8963E" stop-opacity=".3"/>
+            <stop offset="100%" stop-color="#B8963E" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Grid lines for style -->
+        <line x1="0" y1="112" x2="800" y2="112" class="water-line"/>
+        <line x1="0" y1="225" x2="800" y2="225" class="water-line"/>
+        <line x1="0" y1="337" x2="800" y2="337" class="water-line"/>
+        <line x1="200" y1="0" x2="200" y2="450" class="water-line"/>
+        <line x1="400" y1="0" x2="400" y2="450" class="water-line"/>
+        <line x1="600" y1="0" x2="600" y2="450" class="water-line"/>
+
+        <!-- LANDMASSES (simplified) -->
+        <!-- Florida -->
+        <path class="land" d="M175,30 L210,30 L215,45 L218,80 L215,110 L208,130 L198,128 L195,115 L192,90 L185,60 Z"/>
+        <!-- Cuba -->
+        <path class="land" d="M195,168 L240,158 L290,152 L340,150 L370,155 L385,162 L378,172 L340,175 L290,178 L245,178 L210,180 L195,177 Z"/>
+        <!-- Mexico/Yucatan -->
+        <path class="land" d="M60,100 L130,85 L145,100 L155,130 L160,155 L155,180 L140,195 L120,185 L105,165 L95,140 L75,120 Z"/>
+        <!-- Belize/Guatemala/Honduras -->
+        <path class="land" d="M105,195 L140,195 L160,200 L180,210 L175,230 L155,240 L130,235 L110,225 L100,210 Z"/>
+        <!-- Nicaragua/Costa Rica -->
+        <path class="land" d="M155,240 L185,235 L210,250 L220,270 L215,290 L195,300 L175,295 L160,280 L150,260 Z"/>
+        <!-- Panama -->
+        <path class="land" d="M215,290 L240,285 L270,290 L295,300 L310,310 L300,325 L280,320 L255,310 L235,305 L220,300 Z"/>
+        <!-- Colombia -->
+        <path class="land" d="M295,300 L330,290 L365,300 L390,320 L395,355 L380,385 L350,395 L320,385 L300,365 L290,340 L295,320 Z"/>
+        <!-- Venezuela -->
+        <path class="land" d="M390,280 L430,270 L475,265 L520,275 L545,290 L540,315 L510,330 L470,335 L435,325 L405,315 L395,300 Z"/>
+        <!-- Hispaniola (Haiti + DR) -->
+        <path class="land" d="M395,175 L430,168 L468,165 L500,170 L505,185 L495,195 L460,198 L430,195 L400,192 L392,185 Z"/>
+        <!-- Puerto Rico -->
+        <path class="land" d="M520,178 L550,175 L558,182 L552,190 L525,192 L518,186 Z"/>
+        <!-- Jamaica -->
+        <path class="land" d="M320,210 L350,205 L365,210 L360,220 L335,225 L318,218 Z"/>
+        <!-- Trinidad -->
+        <path class="land" d="M560,310 L575,305 L585,312 L580,325 L565,328 L555,320 Z"/>
+        <!-- Barbados -->
+        <ellipse class="land" cx="620" cy="295" rx="6" ry="10"/>
+        <!-- Lesser Antilles chain -->
+        <ellipse class="land" cx="588" cy="215" rx="5" ry="4"/>
+        <ellipse class="land" cx="598" cy="235" rx="4" ry="5"/>
+        <ellipse class="land" cx="605" cy="255" rx="4" ry="4"/>
+        <ellipse class="land" cx="610" cy="275" rx="4" ry="5"/>
+        <!-- Bahamas dots -->
+        <ellipse class="land" cx="280" cy="115" rx="6" ry="4"/>
+        <ellipse class="land" cx="305" cy="100" rx="5" ry="3"/>
+        <ellipse class="land" cx="320" cy="85" rx="7" ry="4"/>
+        <ellipse class="land" cx="340" cy="110" rx="5" ry="3"/>
+
+        <!-- TRADE ROUTES from Houston -->
+        <path class="trade-route" d="M145,55 C250,120 280,160 340,215" style="animation-delay:0s"/>
+        <path class="trade-route" d="M145,55 C280,100 350,140 445,180" style="animation-delay:.5s"/>
+        <path class="trade-route" d="M145,55 C320,110 420,160 570,315" style="animation-delay:1s"/>
+        <path class="trade-route" d="M145,55 C340,100 480,180 620,295" style="animation-delay:1.5s"/>
+        <path class="trade-route" d="M145,55 C260,100 310,130 400,185" style="animation-delay:.8s"/>
+
+        <!-- HOUSTON ORIGIN -->
+        <g class="map-marker map-origin" data-name="Houston, TX" data-name-es="Houston, TX" data-desc="Headquarters &amp; export origin" data-desc-es="Sede y origen de exportación" data-status="hq">
+          <circle class="marker-ping" cx="145" cy="55" r="4"/>
+          <circle class="marker-ring" cx="145" cy="55" r="10"/>
+          <circle class="marker-dot" cx="145" cy="55" r="4"/>
+          <text class="marker-label" x="145" y="42" text-anchor="middle">HOUSTON</text>
+        </g>
+
+        <!-- JAMAICA — Active -->
+        <g class="map-marker" data-name="Jamaica" data-name-es="Jamaica" data-desc="Bulk commodity imports" data-desc-es="Importación de materias primas al por mayor" data-status="active">
+          <circle cx="340" cy="215" r="24" fill="url(#glow-teal)"/>
+          <circle class="marker-ping" cx="340" cy="215" r="4"/>
+          <circle class="marker-ring" cx="340" cy="215" r="10"/>
+          <circle class="marker-dot" cx="340" cy="215" r="4"/>
+          <text class="marker-label" x="340" y="240" text-anchor="middle">JAMAICA</text>
+        </g>
+
+        <!-- HAITI — Expanding -->
+        <g class="map-marker expanding" data-name="Haiti" data-name-es="Haití" data-desc="Bulk commodity imports" data-desc-es="Importación de materias primas al por mayor" data-status="expanding">
+          <circle cx="415" cy="185" r="24" fill="url(#glow-gold)"/>
+          <circle class="marker-ping" cx="415" cy="185" r="4" style="animation-delay:.3s"/>
+          <circle class="marker-ring" cx="415" cy="185" r="10"/>
+          <circle class="marker-dot" cx="415" cy="185" r="4"/>
+          <text class="marker-label" x="415" y="210" text-anchor="middle">HAITI</text>
+        </g>
+
+        <!-- DOMINICAN REPUBLIC — Active -->
+        <g class="map-marker" data-name="Dominican Republic" data-name-es="República Dominicana" data-desc="Bulk commodity imports" data-desc-es="Importación de materias primas al por mayor" data-status="active">
+          <circle cx="475" cy="178" r="24" fill="url(#glow-teal)"/>
+          <circle class="marker-ping" cx="475" cy="178" r="4" style="animation-delay:.6s"/>
+          <circle class="marker-ring" cx="475" cy="178" r="10"/>
+          <circle class="marker-dot" cx="475" cy="178" r="4"/>
+          <text class="marker-label" x="475" y="164" text-anchor="middle">DOM. REP.</text>
+        </g>
+
+        <!-- BARBADOS — Expanding -->
+        <g class="map-marker expanding" data-name="Barbados" data-name-es="Barbados" data-desc="Bulk commodity imports" data-desc-es="Importación de materias primas al por mayor" data-status="expanding">
+          <circle cx="620" cy="295" r="24" fill="url(#glow-gold)"/>
+          <circle class="marker-ping" cx="620" cy="295" r="4" style="animation-delay:.9s"/>
+          <circle class="marker-ring" cx="620" cy="295" r="10"/>
+          <circle class="marker-dot" cx="620" cy="295" r="4"/>
+          <text class="marker-label" x="620" y="320" text-anchor="middle">BARBADOS</text>
+        </g>
+
+        <!-- TRINIDAD & TOBAGO — Active -->
+        <g class="map-marker" data-name="Trinidad &amp; Tobago" data-name-es="Trinidad y Tobago" data-desc="Commodity supply &amp; sourcing" data-desc-es="Suministro y abastecimiento de materias primas" data-status="active">
+          <circle cx="568" cy="315" r="24" fill="url(#glow-teal)"/>
+          <circle class="marker-ping" cx="568" cy="315" r="4" style="animation-delay:1.2s"/>
+          <circle class="marker-ring" cx="568" cy="315" r="10"/>
+          <circle class="marker-dot" cx="568" cy="315" r="4"/>
+          <text class="marker-label" x="568" y="340" text-anchor="middle">TRINIDAD</text>
+        </g>
+
+        <!-- EASTERN CARIBBEAN — Expanding -->
+        <g class="map-marker expanding" data-name="Caribbean Basin" data-name-es="Cuenca del Caribe" data-desc="Eastern Caribbean islands · Central America" data-desc-es="Islas del Caribe Oriental · América Central" data-status="expanding">
+          <circle cx="600" cy="250" r="24" fill="url(#glow-gold)"/>
+          <circle class="marker-ping" cx="600" cy="250" r="4" style="animation-delay:1.5s"/>
+          <circle class="marker-ring" cx="600" cy="250" r="10"/>
+          <circle class="marker-dot" cx="600" cy="250" r="4"/>
+          <text class="marker-label" x="628" y="254" text-anchor="start">E. CARIBBEAN</text>
+        </g>
+      </svg>
+    </div>
+    <!-- Legend -->
+    <div class="map-legend reveal">
+      <div class="map-legend-item">
+        <div class="map-legend-dot hq"></div>
+        <span>HQ</span>
       </div>
-      <div class="market-card reveal reveal-delay-3">
-        <svg class="market-flag-custom" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
-          <rect width="48" height="32" fill="#CE1126"/>
-          <polygon points="6,0 34,0 42,32 14,32" fill="#000"/>
-          <polygon points="9,0 37,0 45,32 17,32" fill="#fff"/>
-          <polygon points="12,0 40,0 48,32 20,32" fill="#000"/>
-        </svg>
-        <div class="market-name" data-lang="en">Trinidad &amp; Tobago</div>
-        <div class="market-name" data-lang="es">Trinidad y Tobago</div>
-        <div class="market-products" data-lang="en">Commodity supply &amp; sourcing</div>
-        <div class="market-products" data-lang="es">Suministro y abastecimiento de materias primas</div>
-        <span class="market-status" data-lang="en">Active</span>
-        <span class="market-status" data-lang="es">Activo</span>
+      <div class="map-legend-item">
+        <div class="map-legend-dot act"></div>
+        <span data-lang="en">Active Market</span><span data-lang="es">Mercado Activo</span>
       </div>
-      <div class="market-card expanding reveal reveal-delay-1">
-        <svg class="market-flag-custom" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
-          <rect width="16" height="32" fill="#00267F"/>
-          <rect x="16" width="16" height="32" fill="#FBBE00"/>
-          <rect x="32" width="16" height="32" fill="#00267F"/>
-          <polygon points="24,10 27,20 21,20" fill="#00267F"/>
-        </svg>
-        <div class="market-name">Barbados</div>
-        <div class="market-products" data-lang="en">Bulk commodity imports</div>
-        <div class="market-products" data-lang="es">Importación de materias primas al por mayor</div>
-        <span class="market-status" data-lang="en">Expanding</span>
-        <span class="market-status" data-lang="es">En expansión</span>
-      </div>
-      <div class="market-card expanding reveal reveal-delay-2">
-        <svg class="market-flag-custom" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
-          <rect width="48" height="16" fill="#00209F"/>
-          <rect y="16" width="48" height="16" fill="#D21034"/>
-        </svg>
-        <div class="market-name" data-lang="en">Haiti</div>
-        <div class="market-name" data-lang="es">Haití</div>
-        <div class="market-products" data-lang="en">Bulk commodity imports</div>
-        <div class="market-products" data-lang="es">Importación de materias primas al por mayor</div>
-        <span class="market-status" data-lang="en">Expanding</span>
-        <span class="market-status" data-lang="es">En expansión</span>
-      </div>
-      <div class="market-card expanding reveal reveal-delay-3">
-        <svg class="market-flag-custom" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
-          <rect width="48" height="32" rx="2" fill="#1C3326"/>
-          <circle cx="24" cy="16" r="10" fill="none" stroke="#B8963E" stroke-width="1.2"/>
-          <line x1="14" y1="16" x2="34" y2="16" stroke="#B8963E" stroke-width="1"/>
-          <line x1="24" y1="6" x2="24" y2="26" stroke="#B8963E" stroke-width="1"/>
-          <ellipse cx="24" cy="16" rx="5" ry="10" fill="none" stroke="#B8963E" stroke-width=".8"/>
-        </svg>
-        <div class="market-name" data-lang="en">Caribbean Basin</div>
-        <div class="market-name" data-lang="es">Cuenca del Caribe</div>
-        <div class="market-products" data-lang="en">Eastern Caribbean islands · Central America</div>
-        <div class="market-products" data-lang="es">Islas del Caribe Oriental · América Central</div>
-        <span class="market-status" data-lang="en">Expanding</span>
-        <span class="market-status" data-lang="es">En expansión</span>
+      <div class="map-legend-item">
+        <div class="map-legend-dot exp"></div>
+        <span data-lang="en">Expanding</span><span data-lang="es">En Expansión</span>
       </div>
     </div>
   </div>
@@ -757,6 +854,78 @@ document.querySelector('.contact-form').addEventListener('submit', function(e){
     }
   });
 });
+
+// ── Interactive Map ──
+(function(){
+  const tooltip = document.getElementById('map-tooltip');
+  const ttName = document.getElementById('tt-name');
+  const ttDesc = document.getElementById('tt-desc');
+  const ttStatus = document.getElementById('tt-status');
+  const mapContainer = document.querySelector('.map-container');
+  const markers = document.querySelectorAll('.map-marker');
+
+  markers.forEach(marker => {
+    marker.addEventListener('mouseenter', function(e){
+      const lang = document.documentElement.lang || 'en';
+      const name = lang === 'es' ? (this.dataset.nameEs || this.dataset.name) : this.dataset.name;
+      const desc = lang === 'es' ? (this.dataset.descEs || this.dataset.desc) : this.dataset.desc;
+      const status = this.dataset.status;
+
+      ttName.textContent = name;
+      ttDesc.textContent = desc;
+
+      if(status === 'active'){
+        ttStatus.textContent = lang === 'es' ? 'Activo' : 'Active';
+        ttStatus.className = 'map-tooltip-status active';
+      } else if(status === 'expanding'){
+        ttStatus.textContent = lang === 'es' ? 'En expansión' : 'Expanding';
+        ttStatus.className = 'map-tooltip-status expanding';
+      } else {
+        ttStatus.textContent = lang === 'es' ? 'Sede' : 'Headquarters';
+        ttStatus.className = 'map-tooltip-status active';
+      }
+
+      // Position tooltip near marker
+      const svgRect = document.querySelector('.map-svg').getBoundingClientRect();
+      const containerRect = mapContainer.getBoundingClientRect();
+      const markerCircle = this.querySelector('.marker-dot');
+      const cx = parseFloat(markerCircle.getAttribute('cx'));
+      const cy = parseFloat(markerCircle.getAttribute('cy'));
+      const svgViewBox = document.querySelector('.map-svg').viewBox.baseVal;
+      const scaleX = svgRect.width / svgViewBox.width;
+      const scaleY = svgRect.height / svgViewBox.height;
+
+      let left = (cx * scaleX) + (svgRect.left - containerRect.left) + 20;
+      let top = (cy * scaleY) + (svgRect.top - containerRect.top) - 30;
+
+      // Keep tooltip within container
+      if(left + 240 > containerRect.width) left = left - 260;
+      if(top < 0) top = 10;
+
+      tooltip.style.left = left + 'px';
+      tooltip.style.top = top + 'px';
+      tooltip.classList.add('visible');
+    });
+
+    marker.addEventListener('mouseleave', function(){
+      tooltip.classList.remove('visible');
+    });
+
+    // Touch support
+    marker.addEventListener('touchstart', function(e){
+      e.preventDefault();
+      markers.forEach(m => m.dispatchEvent(new Event('mouseleave')));
+      this.dispatchEvent(new Event('mouseenter'));
+    });
+  });
+
+  // Hide tooltip on touch outside
+  document.addEventListener('touchstart', function(e){
+    if(!e.target.closest('.map-marker')){
+      tooltip.classList.remove('visible');
+    }
+  });
+})();
 </script>
 </body>
 </html>
