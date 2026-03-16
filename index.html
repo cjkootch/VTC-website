@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vector Trade Capital — Commodity Supply to the Caribbean</title>
-<meta name="description" content="Bulk food and fuel supply to Caribbean importers. Competitive CIF pricing on beans, rice, ULSD, gasoline, and Jet-A delivered to your port.">
+<meta name="description" content="Bulk commodity supply to Caribbean importers. Competitive CIF pricing delivered to your port.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -69,21 +69,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .section-label::before,.section-label::after{content:'';display:block;width:32px;height:1px;background:var(--teal)}
 .section-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:400;color:var(--ink);line-height:1.15}
 .section-title em{font-style:italic;color:var(--teal)}
-.products-grid{display:grid;grid-template-columns:1fr 1fr}
-.product-panel{padding:72px 60px;position:relative;overflow:hidden}
-.product-panel.food{background:var(--cream)}
-.product-panel.fuel{background:var(--cream-dark)}
+.products-body{background:var(--cream);padding:72px 60px}
+.products-content{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
 .product-illustration{width:100%;max-width:180px;height:120px;margin-bottom:40px;display:block}
-.product-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
-.product-panel.fuel .product-label{color:var(--gold)}
-.product-name{font-family:'Playfair Display',serif;font-size:clamp(32px,3.5vw,48px);font-weight:500;color:var(--ink);line-height:1.1;margin-bottom:28px}
 .product-desc{font-size:15px;color:rgba(14,26,20,0.7);line-height:1.85;margin-bottom:36px;max-width:440px}
 .product-specs{display:flex;flex-direction:column;gap:0}
 .spec-row{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--border-light);padding:14px 0}
 .spec-row:last-child{border-bottom:1px solid var(--border-light)}
 .spec-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(14,26,20,0.4)}
 .spec-value{font-size:14px;font-weight:400;color:var(--ink)}
-.product-panel.fuel .spec-row{border-color:rgba(184,150,62,0.15)}
 /* ── WHY VECTOR ── */
 #why{background:var(--ink);padding:120px 60px}
 .why-inner{max-width:1200px;margin:0 auto}
@@ -163,8 +157,8 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   .lang-switch{position:fixed;top:18px;right:68px;z-index:201}
   #hero{padding:120px 24px 80px}
   #products .products-header{padding:60px 24px 40px}
-  .products-grid{grid-template-columns:1fr}
-  .product-panel{padding:52px 24px}
+  .products-body{padding:52px 24px}
+  .products-content{grid-template-columns:1fr;gap:40px}
   #why{padding:80px 24px}
   .why-grid{grid-template-columns:1fr;gap:48px}
   #markets{padding:80px 24px}
@@ -186,7 +180,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzAwIiB6b29tQW5kUGFuPSJtYWduaWZ5IiB2aWV3Qm94PSIwIDAgMjI0Ljg3OTk5IDIyNSIgaGVpZ2h0PSIzMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIG1lZXQiIHZlcnNpb249IjEuMCI+PC9zdmc+" alt="Vector Trade Capital">
   </a>
   <ul class="nav-links">
-    <li><a href="#products" data-lang="en">Products</a><a href="#products" data-lang="es">Productos</a></li>
+    <li><a href="#products" data-lang="en">What We Do</a><a href="#products" data-lang="es">Qué Hacemos</a></li>
     <li><a href="#why" data-lang="en">Why Vector</a><a href="#why" data-lang="es">Por Qué Vector</a></li>
     <li><a href="#markets" data-lang="en">Markets</a><a href="#markets" data-lang="es">Mercados</a></li>
     <li><a href="#contact" class="nav-contact" data-lang="en">Inquire</a><a href="#contact" class="nav-contact" data-lang="es">Consultar</a></li>
@@ -206,10 +200,10 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     <div data-lang="en">
       <div class="hero-lang-tag">Vector Trade Capital</div>
       <h1 class="hero-headline">
-        Bulk food &amp; fuel<br>delivered to <em>your port</em>
+        Bulk commodities<br>delivered to <em>your port</em>
       </h1>
       <p class="hero-sub">
-        Vector Trade Capital supplies Caribbean importers with competitive bulk pricing on beans, rice, ULSD, gasoline, and Jet-A — CIF delivered, fully documented, reliable shipments.
+        Vector Trade Capital supplies Caribbean importers with competitive bulk pricing on essential commodities — CIF delivered, fully documented, reliable shipments.
       </p>
       <a href="#contact" class="hero-cta">Request a Quote</a>
     </div>
@@ -217,10 +211,10 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     <div data-lang="es">
       <div class="hero-lang-tag">Vector Trade Capital</div>
       <h1 class="hero-headline">
-        Alimentos y combustible<br>entregados <em>a su puerto</em>
+        Materias primas al por mayor<br>entregadas <em>a su puerto</em>
       </h1>
       <p class="hero-sub">
-        Vector Trade Capital suministra a importadores del Caribe precios competitivos al por mayor en frijoles, arroz, ULSD, gasolina y Jet-A — entregados CIF, completamente documentados, envíos confiables.
+        Vector Trade Capital suministra a importadores del Caribe precios competitivos al por mayor en materias primas esenciales — entregadas CIF, completamente documentadas, envíos confiables.
       </p>
       <a href="#contact" class="hero-cta">Solicitar Cotización</a>
     </div>
@@ -229,166 +223,88 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 <!-- PRODUCTS -->
 <section id="products">
   <div class="products-header">
-    <div class="section-label reveal" data-lang="en">What We Supply</div>
-    <div class="section-label reveal" data-lang="es">Lo Que Suministramos</div>
-    <h2 class="section-title reveal" data-lang="en">Two commodities. <em>One reliable supplier.</em></h2>
-    <h2 class="section-title reveal" data-lang="es">Dos materias primas. <em>Un proveedor confiable.</em></h2>
+    <div class="section-label reveal" data-lang="en">What We Do</div>
+    <div class="section-label reveal" data-lang="es">Qué Hacemos</div>
+    <h2 class="section-title reveal" data-lang="en">Sourcing &amp; delivering <em>essential commodities</em></h2>
+    <h2 class="section-title reveal" data-lang="es">Abastecimiento y entrega de <em>materias primas esenciales</em></h2>
   </div>
-  <div class="products-grid">
-    <!-- FOOD -->
-    <div class="product-panel food">
-      <svg class="product-illustration" viewBox="0 0 180 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M40 90 Q40 105 90 108 Q140 105 140 90 L135 45 Q130 35 90 32 Q50 35 45 45 Z" fill="#1C3326" stroke="#2A4D39" stroke-width="1.5"/>
-        <path d="M55 42 Q90 36 125 42" stroke="#B8963E" stroke-width="1" stroke-dasharray="3 3" opacity=".6"/>
-        <path d="M50 55 Q90 48 130 55" stroke="#B8963E" stroke-width="1" stroke-dasharray="3 3" opacity=".5"/>
-        <path d="M47 68 Q90 61 133 68" stroke="#B8963E" stroke-width="1" stroke-dasharray="3 3" opacity=".4"/>
-        <path d="M75 32 Q90 28 105 32 Q100 24 90 22 Q80 24 75 32Z" fill="#B8963E" opacity=".8"/>
-        <ellipse cx="20" cy="85" rx="5" ry="3" fill="#B8963E" transform="rotate(-20 20 85)" opacity=".7"/>
-        <ellipse cx="32" cy="95" rx="5" ry="3" fill="#B8963E" transform="rotate(15 32 95)" opacity=".6"/>
-        <ellipse cx="15" cy="98" rx="5" ry="3" fill="#B8963E" transform="rotate(-5 15 98)" opacity=".5"/>
-        <ellipse cx="155" cy="88" rx="5" ry="3" fill="#B8963E" transform="rotate(25 155 88)" opacity=".7"/>
-        <ellipse cx="162" cy="98" rx="5" ry="3" fill="#B8963E" transform="rotate(-10 162 98)" opacity=".6"/>
-        <rect x="68" y="62" width="44" height="20" rx="2" fill="#B8963E" opacity=".15"/>
-        <text x="90" y="76" text-anchor="middle" font-family="DM Mono" font-size="8" fill="#B8963E" opacity=".8">BULK</text>
-        <line x1="0" y1="110" x2="180" y2="110" stroke="#2A4D39" stroke-width="1"/>
-        <line x1="10" y1="110" x2="10" y2="70" stroke="#2A4D39" stroke-width="1" opacity=".3"/>
-        <line x1="170" y1="110" x2="170" y2="70" stroke="#2A4D39" stroke-width="1" opacity=".3"/>
-      </svg>
-      <div data-lang="en">
-        <div class="product-label reveal">Food Commodities</div>
-        <div class="product-name reveal">Grains &amp;<br>Legumes</div>
-        <p class="product-desc reveal">
-          Sourced directly from Mexico — competitive pricing on staple bulk commodities for wholesale distributors, supermarket chains, and institutional buyers across the Caribbean.
-        </p>
-        <div class="product-specs reveal">
-          <div class="spec-row">
-            <span class="spec-label">Product</span>
-            <span class="spec-value">Pinto Beans · Black Beans</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Product</span>
-            <span class="spec-value">Long-Grain White Rice</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Origin</span>
-            <span class="spec-value">Mexico / United States</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Terms</span>
-            <span class="spec-value">CIF Caribbean Ports</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Volume</span>
-            <span class="spec-value">Full container loads +</span>
-          </div>
+  <div class="products-body">
+    <div class="products-content">
+      <div>
+        <!-- Custom illustration -->
+        <svg class="product-illustration" viewBox="0 0 180 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M40 90 Q40 105 90 108 Q140 105 140 90 L135 45 Q130 35 90 32 Q50 35 45 45 Z" fill="#1C3326" stroke="#2A4D39" stroke-width="1.5"/>
+          <path d="M55 42 Q90 36 125 42" stroke="#B8963E" stroke-width="1" stroke-dasharray="3 3" opacity=".6"/>
+          <path d="M50 55 Q90 48 130 55" stroke="#B8963E" stroke-width="1" stroke-dasharray="3 3" opacity=".5"/>
+          <path d="M47 68 Q90 61 133 68" stroke="#B8963E" stroke-width="1" stroke-dasharray="3 3" opacity=".4"/>
+          <path d="M75 32 Q90 28 105 32 Q100 24 90 22 Q80 24 75 32Z" fill="#B8963E" opacity=".8"/>
+          <ellipse cx="20" cy="85" rx="5" ry="3" fill="#B8963E" transform="rotate(-20 20 85)" opacity=".7"/>
+          <ellipse cx="32" cy="95" rx="5" ry="3" fill="#B8963E" transform="rotate(15 32 95)" opacity=".6"/>
+          <ellipse cx="155" cy="88" rx="5" ry="3" fill="#B8963E" transform="rotate(25 155 88)" opacity=".7"/>
+          <rect x="68" y="62" width="44" height="20" rx="2" fill="#B8963E" opacity=".15"/>
+          <text x="90" y="76" text-anchor="middle" font-family="DM Mono" font-size="8" fill="#B8963E" opacity=".8">BULK</text>
+          <line x1="0" y1="110" x2="180" y2="110" stroke="#2A4D39" stroke-width="1"/>
+          <line x1="10" y1="110" x2="10" y2="70" stroke="#2A4D39" stroke-width="1" opacity=".3"/>
+          <line x1="170" y1="110" x2="170" y2="70" stroke="#2A4D39" stroke-width="1" opacity=".3"/>
+        </svg>
+        <div data-lang="en">
+          <p class="product-desc reveal">
+            We source and deliver bulk commodities from established supply origins directly to Caribbean ports. Our focus is on competitive CIF pricing, complete documentation, and reliable logistics for wholesale importers and institutional buyers.
+          </p>
+        </div>
+        <div data-lang="es">
+          <p class="product-desc reveal">
+            Abastecemos y entregamos materias primas al por mayor desde orígenes de suministro establecidos directamente a puertos del Caribe. Nos enfocamos en precios CIF competitivos, documentación completa y logística confiable para importadores mayoristas y compradores institucionales.
+          </p>
         </div>
       </div>
-      <div data-lang="es">
-        <div class="product-label reveal">Productos Alimenticios</div>
-        <div class="product-name reveal">Granos y<br>Legumbres</div>
-        <p class="product-desc reveal">
-          Obtenidos directamente de México — precios competitivos en productos básicos al por mayor para distribuidores mayoristas, cadenas de supermercados y compradores institucionales en todo el Caribe.
-        </p>
-        <div class="product-specs reveal">
-          <div class="spec-row">
-            <span class="spec-label">Producto</span>
-            <span class="spec-value">Frijol Pinto · Frijol Negro</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Producto</span>
-            <span class="spec-value">Arroz Blanco Grano Largo</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Origen</span>
-            <span class="spec-value">México / Estados Unidos</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Términos</span>
-            <span class="spec-value">CIF Puertos del Caribe</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Volumen</span>
-            <span class="spec-value">Contenedores completos +</span>
+      <div>
+        <div data-lang="en">
+          <div class="product-specs reveal">
+            <div class="spec-row">
+              <span class="spec-label">Focus</span>
+              <span class="spec-value">Essential bulk commodities</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Supply Origins</span>
+              <span class="spec-value">Latin America · Caribbean Basin</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Delivery</span>
+              <span class="spec-value">CIF to Caribbean ports</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Volume</span>
+              <span class="spec-value">Full container loads +</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Buyers</span>
+              <span class="spec-value">Wholesale distributors · Institutional</span>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <!-- FUEL -->
-    <div class="product-panel fuel">
-      <svg class="product-illustration" viewBox="0 0 180 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="90" cy="38" rx="52" ry="14" fill="#1C3326" stroke="#B8963E" stroke-width="1.2"/>
-        <rect x="38" y="38" width="104" height="52" fill="#1C3326"/>
-        <ellipse cx="90" cy="90" rx="52" ry="14" fill="#132B1E" stroke="#2A4D39" stroke-width="1"/>
-        <path d="M50 42 Q90 48 130 42 L130 82 Q90 88 50 82Z" fill="url(#tankGrad)" opacity=".3"/>
-        <defs>
-          <linearGradient id="tankGrad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#B8963E" stop-opacity="0"/>
-            <stop offset="40%" stop-color="#B8963E" stop-opacity=".4"/>
-            <stop offset="100%" stop-color="#B8963E" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <circle cx="90" cy="64" r="12" fill="none" stroke="#B8963E" stroke-width="1" opacity=".6"/>
-        <path d="M84 64 L90 58 L96 64" stroke="#B8963E" stroke-width="1.2" opacity=".8"/>
-        <rect x="78" y="104" width="24" height="6" rx="1" fill="#2A4D39"/>
-        <rect x="84" y="100" width="12" height="8" rx="1" fill="#B8963E" opacity=".5"/>
-        <text x="90" y="75" text-anchor="middle" font-family="DM Mono" font-size="6.5" fill="#B8963E" opacity=".7">ULSD · GASOLINE · JET-A</text>
-        <line x1="0" y1="110" x2="180" y2="110" stroke="#2A4D39" stroke-width="1"/>
-      </svg>
-      <div data-lang="en">
-        <div class="product-label reveal">Petroleum Products</div>
-        <div class="product-name reveal">Fuel &amp;<br>Energy</div>
-        <p class="product-desc reveal">
-          Sourced from Trinidad &amp; Tobago and Colombia — reliable, competitively priced petroleum products for fuel distributors, utilities, and industrial buyers throughout the Caribbean Basin.
-        </p>
-        <div class="product-specs reveal">
-          <div class="spec-row">
-            <span class="spec-label">Product</span>
-            <span class="spec-value">Ultra-Low Sulfur Diesel</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Product</span>
-            <span class="spec-value">Unleaded Gasoline</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Product</span>
-            <span class="spec-value">Jet-A / Aviation Fuel</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Origin</span>
-            <span class="spec-value">Trinidad &amp; Tobago · Colombia</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Terms</span>
-            <span class="spec-value">CIF Caribbean Ports</span>
-          </div>
-        </div>
-      </div>
-      <div data-lang="es">
-        <div class="product-label reveal">Productos de Petróleo</div>
-        <div class="product-name reveal">Combustible y<br>Energía</div>
-        <p class="product-desc reveal">
-          Obtenidos de Trinidad y Tobago y Colombia — productos de petróleo confiables y a precios competitivos para distribuidores de combustible, servicios públicos y compradores industriales en toda la Cuenca del Caribe.
-        </p>
-        <div class="product-specs reveal">
-          <div class="spec-row">
-            <span class="spec-label">Producto</span>
-            <span class="spec-value">Diésel Ultra Bajo en Azufre</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Producto</span>
-            <span class="spec-value">Gasolina Sin Plomo</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Producto</span>
-            <span class="spec-value">Jet-A / Combustible de Aviación</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Origen</span>
-            <span class="spec-value">Trinidad y Tobago · Colombia</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Términos</span>
-            <span class="spec-value">CIF Puertos del Caribe</span>
+        <div data-lang="es">
+          <div class="product-specs reveal">
+            <div class="spec-row">
+              <span class="spec-label">Enfoque</span>
+              <span class="spec-value">Materias primas esenciales al por mayor</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Orígenes</span>
+              <span class="spec-value">América Latina · Cuenca del Caribe</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Entrega</span>
+              <span class="spec-value">CIF a puertos del Caribe</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Volumen</span>
+              <span class="spec-value">Contenedores completos +</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Compradores</span>
+              <span class="spec-value">Distribuidores mayoristas · Institucionales</span>
+            </div>
           </div>
         </div>
       </div>
@@ -416,14 +332,14 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
           <div class="reason-num">01</div>
           <div class="reason-content">
             <h4>Competitive Pricing</h4>
-            <p>Direct supplier relationships in Mexico, Trinidad &amp; Tobago, and Colombia mean we pass real savings to our buyers — not broker markups.</p>
+            <p>Direct supplier relationships mean we pass real savings to our buyers — not broker markups.</p>
           </div>
         </div>
         <div class="reason reveal" data-lang="es">
           <div class="reason-num">01</div>
           <div class="reason-content">
             <h4>Precios Competitivos</h4>
-            <p>Relaciones directas con proveedores en México, Trinidad y Tobago y Colombia significan que transferimos ahorros reales a nuestros compradores — no márgenes de intermediarios.</p>
+            <p>Relaciones directas con proveedores significan que transferimos ahorros reales a nuestros compradores — no márgenes de intermediarios.</p>
           </div>
         </div>
         <div class="reason reveal" data-lang="en">
@@ -443,15 +359,15 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         <div class="reason reveal" data-lang="en">
           <div class="reason-num">03</div>
           <div class="reason-content">
-            <h4>Reliable Supply</h4>
-            <p>Established supply chain infrastructure and working capital to support consistent, repeat shipments — not one-off deals.</p>
+            <h4>Reliable Supply Chain</h4>
+            <p>Established infrastructure and working capital to support consistent, repeat shipments — not one-off deals.</p>
           </div>
         </div>
         <div class="reason reveal" data-lang="es">
           <div class="reason-num">03</div>
           <div class="reason-content">
-            <h4>Suministro Confiable</h4>
-            <p>Infraestructura de cadena de suministro establecida y capital de trabajo para respaldar envíos consistentes y repetidos — no tratos únicos.</p>
+            <h4>Cadena de Suministro Confiable</h4>
+            <p>Infraestructura establecida y capital de trabajo para respaldar envíos consistentes y repetidos — no tratos únicos.</p>
           </div>
         </div>
         <div class="reason reveal" data-lang="en">
@@ -503,8 +419,8 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
           <polygon points="0,32 24,16 48,32" fill="#FED100"/>
         </svg>
         <div class="market-name">Jamaica</div>
-        <div class="market-products" data-lang="en">Bulk dry beans · Long-grain rice · ULSD · Gasoline · Marine fuel</div>
-        <div class="market-products" data-lang="es">Frijoles secos al por mayor · Arroz de grano largo · ULSD · Gasolina · Combustible marino</div>
+        <div class="market-products" data-lang="en">Bulk commodity imports</div>
+        <div class="market-products" data-lang="es">Importación de materias primas al por mayor</div>
         <span class="market-status" data-lang="en">Active</span>
         <span class="market-status" data-lang="es">Activo</span>
       </div>
@@ -520,8 +436,8 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </svg>
         <div class="market-name" data-lang="en">Dominican Republic</div>
         <div class="market-name" data-lang="es">República Dominicana</div>
-        <div class="market-products" data-lang="en">Bulk pinto &amp; black beans · Rice · Refined petroleum</div>
-        <div class="market-products" data-lang="es">Frijol pinto y negro al por mayor · Arroz · Petróleo refinado</div>
+        <div class="market-products" data-lang="en">Bulk commodity imports</div>
+        <div class="market-products" data-lang="es">Importación de materias primas al por mayor</div>
         <span class="market-status" data-lang="en">Active</span>
         <span class="market-status" data-lang="es">Activo</span>
       </div>
@@ -534,8 +450,8 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </svg>
         <div class="market-name" data-lang="en">Trinidad &amp; Tobago</div>
         <div class="market-name" data-lang="es">Trinidad y Tobago</div>
-        <div class="market-products" data-lang="en">Fuel supply hub · Food imports</div>
-        <div class="market-products" data-lang="es">Centro de suministro de combustible · Importaciones de alimentos</div>
+        <div class="market-products" data-lang="en">Commodity supply &amp; sourcing</div>
+        <div class="market-products" data-lang="es">Suministro y abastecimiento de materias primas</div>
         <span class="market-status" data-lang="en">Active</span>
         <span class="market-status" data-lang="es">Activo</span>
       </div>
@@ -547,8 +463,8 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
           <polygon points="24,10 27,20 21,20" fill="#00267F"/>
         </svg>
         <div class="market-name">Barbados</div>
-        <div class="market-products" data-lang="en">Petroleum products · Dry goods</div>
-        <div class="market-products" data-lang="es">Productos de petróleo · Productos secos</div>
+        <div class="market-products" data-lang="en">Bulk commodity imports</div>
+        <div class="market-products" data-lang="es">Importación de materias primas al por mayor</div>
         <span class="market-status" data-lang="en">Expanding</span>
         <span class="market-status" data-lang="es">En expansión</span>
       </div>
@@ -559,8 +475,8 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </svg>
         <div class="market-name" data-lang="en">Haiti</div>
         <div class="market-name" data-lang="es">Haití</div>
-        <div class="market-products" data-lang="en">Bulk food commodities · Fuel supply</div>
-        <div class="market-products" data-lang="es">Productos alimenticios al por mayor · Suministro de combustible</div>
+        <div class="market-products" data-lang="en">Bulk commodity imports</div>
+        <div class="market-products" data-lang="es">Importación de materias primas al por mayor</div>
         <span class="market-status" data-lang="en">Expanding</span>
         <span class="market-status" data-lang="es">En expansión</span>
       </div>
@@ -592,10 +508,10 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         <h2 class="section-title reveal" data-lang="en">Ready to discuss<br><em>a supply relationship?</em></h2>
         <h2 class="section-title reveal" data-lang="es">¿Listo para discutir<br><em>una relación de suministro?</em></h2>
         <p class="contact-intro reveal" data-lang="en">
-          Send us your product requirements, volumes, and destination port. We will respond with a competitive CIF price within 48 hours.
+          Send us your requirements, volumes, and destination port. We will respond with a competitive CIF price within 48 hours.
         </p>
         <p class="contact-intro reveal" data-lang="es">
-          Envíenos sus requisitos de producto, volúmenes y puerto de destino. Le responderemos con un precio CIF competitivo dentro de 48 horas.
+          Envíenos sus requisitos, volúmenes y puerto de destino. Le responderemos con un precio CIF competitivo dentro de 48 horas.
         </p>
         <div class="contact-details reveal">
           <div class="contact-item">
@@ -650,30 +566,26 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
             </select>
           </div>
           <div class="field">
-            <label data-lang="en">Product</label>
-            <label data-lang="es">Producto</label>
+            <label data-lang="en">Estimated Volume</label>
+            <label data-lang="es">Volumen Estimado</label>
             <select>
               <option value="" data-lang="en">Select</option>
               <option value="" data-lang="es">Seleccione</option>
-              <option data-lang="en">Pinto Beans</option>
-              <option data-lang="es">Frijol Pinto</option>
-              <option data-lang="en">Black Beans</option>
-              <option data-lang="es">Frijol Negro</option>
-              <option data-lang="en">Rice</option>
-              <option data-lang="es">Arroz</option>
-              <option>ULSD</option>
-              <option data-lang="en">Gasoline</option>
-              <option data-lang="es">Gasolina</option>
-              <option>Jet-A</option>
-              <option data-lang="en">Multiple products</option>
-              <option data-lang="es">Varios productos</option>
+              <option data-lang="en">1–5 containers</option>
+              <option data-lang="es">1–5 contenedores</option>
+              <option data-lang="en">5–20 containers</option>
+              <option data-lang="es">5–20 contenedores</option>
+              <option data-lang="en">20+ containers</option>
+              <option data-lang="es">20+ contenedores</option>
+              <option data-lang="en">Bulk / vessel quantities</option>
+              <option data-lang="es">Cantidades a granel / buque</option>
             </select>
           </div>
         </div>
         <div class="field field-full">
           <label data-lang="en">Message</label>
           <label data-lang="es">Mensaje</label>
-          <textarea data-placeholder-en="Volume needed, delivery port, frequency..." data-placeholder-es="Volumen necesario, puerto de entrega, frecuencia..." placeholder="Volume needed, delivery port, frequency..."></textarea>
+          <textarea data-placeholder-en="Tell us about your requirements, delivery port, and frequency..." data-placeholder-es="Cuéntenos sobre sus requisitos, puerto de entrega y frecuencia..." placeholder="Tell us about your requirements, delivery port, and frequency..."></textarea>
         </div>
         <button type="submit" class="btn-send" data-lang="en">Send Inquiry</button>
         <button type="submit" class="btn-send" data-lang="es">Enviar Consulta</button>
