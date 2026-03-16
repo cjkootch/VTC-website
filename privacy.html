@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Vector Trade Capital</title>
+<meta name="description" content="Privacy Policy for Vector Trade Capital LLC.">
+<link rel="icon" type="image/png" href="white.png">
+<link rel="apple-touch-icon" href="white.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0E1A14;
+  --ink-mid:#1C3326;
+  --ink-light:#2A4D39;
+  --cream:#F5F0E8;
+  --cream-dark:#EDE5D4;
+  --cream-mid:#E0D5C0;
+  --gold:#B8963E;
+  --gold-light:#D4AE5A;
+  --gold-pale:#F2E4C0;
+  --teal:#1A7A5E;
+  --teal-bright:#22A07C;
+  --teal-pale:#D4EDE6;
+  --white:#FFFFFF;
+  --border:rgba(184,150,62,0.2);
+  --border-light:rgba(184,150,62,0.1);
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
+/* ── LANGUAGE TOGGLE ── */
+[data-lang="es"]{display:none}
+html[lang="es"] [data-lang="en"]{display:none}
+html[lang="es"] [data-lang="es"]{display:block}
+html[lang="es"] span[data-lang="es"]{display:inline-block}
+html[lang="es"] a[data-lang="es"]{display:inline-flex}
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:4px 60px;background:rgba(14,26,20,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,150,62,0.15);transition:transform .35s ease,background .3s ease}
+nav.nav-hidden{transform:translateY(-100%)}
+nav.nav-scrolled{background:rgba(14,26,20,0.99);padding:2px 60px}
+.nav-logo img{height:80px;width:auto;transition:height .3s ease}
+nav.nav-scrolled .nav-logo img{height:60px}
+.nav-links{display:flex;gap:32px;list-style:none;align-items:center}
+.nav-links a{color:rgba(245,240,232,0.6);text-decoration:none;font-family:'DM Mono',monospace;font-size:11px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--gold-light)}
+.nav-contact{color:var(--gold)!important;border:1px solid rgba(184,150,62,0.4);padding:8px 20px;transition:all .25s!important}
+.nav-contact:hover{background:var(--gold)!important;color:var(--ink)!important}
+.lang-switch{display:flex;gap:0;margin-left:8px}
+.lang-btn{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;border:1px solid rgba(184,150,62,0.3);background:transparent;color:rgba(245,240,232,0.45);transition:all .2s}
+.lang-btn:first-child{border-radius:3px 0 0 3px;border-right:none}
+.lang-btn:last-child{border-radius:0 3px 3px 0}
+.lang-btn.active{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hamburger span{display:block;width:22px;height:1px;background:var(--cream)}
+/* ── PRIVACY HEADER ── */
+.privacy-header{background:var(--ink);padding:140px 60px 80px;text-align:center;position:relative}
+.privacy-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 80%,rgba(26,122,94,.1) 0%,transparent 70%);pointer-events:none}
+.privacy-header .section-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:12px}
+.privacy-header .section-label::before,.privacy-header .section-label::after{content:'';display:block;width:32px;height:1px;background:var(--teal)}
+.privacy-header .section-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:400;color:var(--cream);line-height:1.15}
+.privacy-header .section-title em{font-style:italic;color:var(--gold-light)}
+.privacy-updated{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;color:rgba(245,240,232,0.4);margin-top:20px}
+/* ── PRIVACY BODY ── */
+.privacy-body{max-width:800px;margin:0 auto;padding:80px 60px 120px}
+.privacy-section{margin-bottom:48px}
+.privacy-section h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:500;color:var(--ink);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-light)}
+.privacy-section h3{font-family:'DM Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;margin-top:24px}
+.privacy-section p{font-size:15px;color:rgba(14,26,20,0.7);line-height:1.85;margin-bottom:12px}
+.privacy-section ul{list-style:none;margin:12px 0;padding:0}
+.privacy-section ul li{font-size:15px;color:rgba(14,26,20,0.7);line-height:1.85;padding-left:20px;position:relative;margin-bottom:6px}
+.privacy-section ul li::before{content:'';position:absolute;left:0;top:12px;width:6px;height:1px;background:var(--teal)}
+.privacy-section a{color:var(--teal);text-decoration:none;transition:color .2s}
+.privacy-section a:hover{color:var(--teal-bright)}
+.back-link{display:inline-flex;align-items:center;gap:10px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);text-decoration:none;transition:all .2s;margin-bottom:48px}
+.back-link:hover{color:var(--teal-bright);transform:translateX(-4px)}
+.back-link::before{content:'←';font-size:14px}
+/* ── FOOTER ── */
+footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:48px 60px 36px}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px}
+.footer-logo img{height:112px;width:auto}
+.footer-right{text-align:right}
+.footer-copy{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,240,232,0.3)}
+.footer-legal{font-size:12px;color:rgba(245,240,232,0.2);max-width:1200px;margin:24px auto 0;padding-top:24px;border-top:1px solid rgba(184,150,62,0.08);line-height:1.6}
+/* ── MOBILE ── */
+@media(max-width:900px){
+  nav{padding:4px 24px}
+  nav.nav-scrolled{padding:2px 24px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .lang-switch{position:fixed;top:18px;right:68px;z-index:201}
+  .privacy-header{padding:120px 24px 60px}
+  .privacy-body{padding:48px 24px 80px}
+  footer{padding:40px 24px 28px}
+  .footer-inner{flex-direction:column;align-items:flex-start}
+  .footer-right{text-align:left}
+  .footer-legal{padding:20px 0 0}
+}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="2.png" alt="Vector Trade Capital">
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#products" data-lang="en">What We Do</a><a href="index.html#products" data-lang="es">Qué Hacemos</a></li>
+    <li><a href="index.html#why" data-lang="en">Why Vector</a><a href="index.html#why" data-lang="es">Por Qué Vector</a></li>
+    <li><a href="index.html#markets" data-lang="en">Markets</a><a href="index.html#markets" data-lang="es">Mercados</a></li>
+    <li><a href="index.html#contact" class="nav-contact" data-lang="en">Inquire</a><a href="index.html#contact" class="nav-contact" data-lang="es">Consultar</a></li>
+  </ul>
+  <div class="lang-switch">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('es')">ES</button>
+  </div>
+  <div class="hamburger" onclick="toggleMobile()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="privacy-header">
+  <div class="section-label" data-lang="en">Legal</div>
+  <div class="section-label" data-lang="es">Legal</div>
+  <h1 class="section-title" data-lang="en">Privacy <em>Policy</em></h1>
+  <h1 class="section-title" data-lang="es">Política de <em>Privacidad</em></h1>
+  <div class="privacy-updated" data-lang="en">Last updated — March 2026</div>
+  <div class="privacy-updated" data-lang="es">Última actualización — Marzo 2026</div>
+</div>
+
+<!-- PRIVACY CONTENT -->
+<div class="privacy-body">
+  <a href="index.html" class="back-link" data-lang="en">Back to Home</a>
+  <a href="index.html" class="back-link" data-lang="es">Volver al Inicio</a>
+
+  <!-- ENGLISH -->
+  <div data-lang="en">
+    <div class="privacy-section">
+      <h2>Introduction</h2>
+      <p>Vector Trade Capital LLC ("we," "us," or "our") is committed to protecting the privacy of our website visitors and business partners. This Privacy Policy explains how we collect, use, and safeguard your information when you visit <a href="https://vectortradecapital.com">vectortradecapital.com</a>.</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Information We Collect</h2>
+      <h3>Information You Provide</h3>
+      <p>When you submit an inquiry through our contact form, we collect:</p>
+      <ul>
+        <li>Name and company name</li>
+        <li>Email address</li>
+        <li>Country or destination port</li>
+        <li>Estimated volume requirements</li>
+        <li>Any additional information you include in your message</li>
+      </ul>
+      <h3>Automatically Collected Information</h3>
+      <p>When you visit our website, we may automatically collect certain technical information, including:</p>
+      <ul>
+        <li>IP address and approximate geographic location</li>
+        <li>Browser type and operating system</li>
+        <li>Pages visited and time spent on the site</li>
+        <li>Referring website or source</li>
+      </ul>
+    </div>
+
+    <div class="privacy-section">
+      <h2>How We Use Your Information</h2>
+      <p>We use the information we collect for the following purposes:</p>
+      <ul>
+        <li>To respond to your trade inquiries and provide pricing information</li>
+        <li>To communicate with you regarding potential supply relationships</li>
+        <li>To improve our website and services</li>
+        <li>To comply with applicable laws, regulations, and export compliance requirements</li>
+      </ul>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Information Sharing</h2>
+      <p>We do not sell, trade, or rent your personal information to third parties. We may share your information in the following limited circumstances:</p>
+      <ul>
+        <li><strong>Service providers</strong> — We use Formspree to process contact form submissions. Your form data is transmitted through their servers.</li>
+        <li><strong>Legal compliance</strong> — We may disclose information when required by law, regulation, or legal process, including US export compliance requirements.</li>
+        <li><strong>Business transfers</strong> — In the event of a merger, acquisition, or sale of assets, your information may be transferred as part of that transaction.</li>
+      </ul>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Data Security</h2>
+      <p>We implement reasonable security measures to protect the information you provide. However, no method of transmission over the internet or electronic storage is completely secure. We cannot guarantee absolute security of your data.</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Third-Party Services</h2>
+      <p>Our website uses the following third-party services:</p>
+      <ul>
+        <li><strong>Google Fonts</strong> — for typography. Google may collect usage data as described in their privacy policy.</li>
+        <li><strong>Formspree</strong> — for contact form processing. Submissions are subject to Formspree's privacy policy.</li>
+        <li><strong>Unsplash</strong> — for imagery served from their CDN.</li>
+      </ul>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Cookies</h2>
+      <p>This website does not use cookies or tracking technologies for advertising purposes. Basic technical data may be collected by our hosting provider (GitHub Pages) for operational and security purposes.</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Your Rights</h2>
+      <p>You have the right to:</p>
+      <ul>
+        <li>Request access to the personal information we hold about you</li>
+        <li>Request correction of inaccurate information</li>
+        <li>Request deletion of your personal information</li>
+        <li>Withdraw consent for future communications</li>
+      </ul>
+      <p>To exercise any of these rights, please contact us at <a href="mailto:info@vectortradecapital.com">info@vectortradecapital.com</a>.</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Children's Privacy</h2>
+      <p>Our website is intended for qualified trade buyers and wholesale importers. We do not knowingly collect information from individuals under the age of 18.</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated revision date. We encourage you to review this policy periodically.</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Contact Us</h2>
+      <p>If you have questions about this Privacy Policy or our data practices, please contact us:</p>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:info@vectortradecapital.com">info@vectortradecapital.com</a></li>
+        <li><strong>Location:</strong> Houston, Texas, USA</li>
+        <li><strong>Website:</strong> <a href="https://vectortradecapital.com">vectortradecapital.com</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SPANISH -->
+  <div data-lang="es">
+    <div class="privacy-section">
+      <h2>Introducción</h2>
+      <p>Vector Trade Capital LLC ("nosotros" o "nuestro") se compromete a proteger la privacidad de los visitantes de nuestro sitio web y socios comerciales. Esta Política de Privacidad explica cómo recopilamos, utilizamos y protegemos su información cuando visita <a href="https://vectortradecapital.com">vectortradecapital.com</a>.</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Información que Recopilamos</h2>
+      <h3>Información que Usted Proporciona</h3>
+      <p>Cuando envía una consulta a través de nuestro formulario de contacto, recopilamos:</p>
+      <ul>
+        <li>Nombre y nombre de la empresa</li>
+        <li>Dirección de correo electrónico</li>
+        <li>País o puerto de destino</li>
+        <li>Requisitos de volumen estimado</li>
+        <li>Cualquier información adicional que incluya en su mensaje</li>
+      </ul>
+      <h3>Información Recopilada Automáticamente</h3>
+      <p>Cuando visita nuestro sitio web, podemos recopilar automáticamente cierta información técnica, incluyendo:</p>
+      <ul>
+        <li>Dirección IP y ubicación geográfica aproximada</li>
+        <li>Tipo de navegador y sistema operativo</li>
+        <li>Páginas visitadas y tiempo en el sitio</li>
+        <li>Sitio web de referencia o fuente</li>
+      </ul>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Cómo Utilizamos su Información</h2>
+      <p>Utilizamos la información que recopilamos para los siguientes propósitos:</p>
+      <ul>
+        <li>Para responder a sus consultas comerciales y proporcionar información de precios</li>
+        <li>Para comunicarnos con usted sobre posibles relaciones de suministro</li>
+        <li>Para mejorar nuestro sitio web y servicios</li>
+        <li>Para cumplir con las leyes, regulaciones y requisitos de cumplimiento de exportación aplicables</li>
+      </ul>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Compartir Información</h2>
+      <p>No vendemos, comercializamos ni alquilamos su información personal a terceros. Podemos compartir su información en las siguientes circunstancias limitadas:</p>
+      <ul>
+        <li><strong>Proveedores de servicios</strong> — Utilizamos Formspree para procesar los envíos del formulario de contacto. Sus datos del formulario se transmiten a través de sus servidores.</li>
+        <li><strong>Cumplimiento legal</strong> — Podemos divulgar información cuando lo requiera la ley, regulación o proceso legal, incluidos los requisitos de cumplimiento de exportación de EE.UU.</li>
+        <li><strong>Transferencias comerciales</strong> — En caso de una fusión, adquisición o venta de activos, su información puede ser transferida como parte de esa transacción.</li>
+      </ul>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Seguridad de Datos</h2>
+      <p>Implementamos medidas de seguridad razonables para proteger la información que usted proporciona. Sin embargo, ningún método de transmisión por internet o almacenamiento electrónico es completamente seguro. No podemos garantizar la seguridad absoluta de sus datos.</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Servicios de Terceros</h2>
+      <p>Nuestro sitio web utiliza los siguientes servicios de terceros:</p>
+      <ul>
+        <li><strong>Google Fonts</strong> — para tipografía. Google puede recopilar datos de uso según se describe en su política de privacidad.</li>
+        <li><strong>Formspree</strong> — para el procesamiento del formulario de contacto. Los envíos están sujetos a la política de privacidad de Formspree.</li>
+        <li><strong>Unsplash</strong> — para imágenes servidas desde su CDN.</li>
+      </ul>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Cookies</h2>
+      <p>Este sitio web no utiliza cookies ni tecnologías de seguimiento con fines publicitarios. Nuestro proveedor de alojamiento (GitHub Pages) puede recopilar datos técnicos básicos con fines operativos y de seguridad.</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Sus Derechos</h2>
+      <p>Usted tiene derecho a:</p>
+      <ul>
+        <li>Solicitar acceso a la información personal que tenemos sobre usted</li>
+        <li>Solicitar la corrección de información inexacta</li>
+        <li>Solicitar la eliminación de su información personal</li>
+        <li>Retirar el consentimiento para futuras comunicaciones</li>
+      </ul>
+      <p>Para ejercer cualquiera de estos derechos, contáctenos en <a href="mailto:info@vectortradecapital.com">info@vectortradecapital.com</a>.</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Privacidad de Menores</h2>
+      <p>Nuestro sitio web está destinado a compradores comerciales calificados e importadores mayoristas. No recopilamos intencionalmente información de personas menores de 18 años.</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Cambios a Esta Política</h2>
+      <p>Podemos actualizar esta Política de Privacidad periódicamente. Los cambios se publicarán en esta página con una fecha de revisión actualizada. Le recomendamos revisar esta política periódicamente.</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Contáctenos</h2>
+      <p>Si tiene preguntas sobre esta Política de Privacidad o nuestras prácticas de datos, contáctenos:</p>
+      <ul>
+        <li><strong>Correo electrónico:</strong> <a href="mailto:info@vectortradecapital.com">info@vectortradecapital.com</a></li>
+        <li><strong>Ubicación:</strong> Houston, Texas, EE.UU.</li>
+        <li><strong>Sitio web:</strong> <a href="https://vectortradecapital.com">vectortradecapital.com</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <img src="2.png" alt="Vector Trade Capital">
+    </div>
+    <div class="footer-right">
+      <div class="footer-copy">&copy; 2025 Vector Trade Capital LLC &nbsp;·&nbsp; Houston, Texas</div>
+    </div>
+  </div>
+  <div class="footer-legal" data-lang="en">
+    Vector Trade Capital LLC is a registered US commodity trading company. All export transactions are conducted in compliance with applicable US government regulations. This website is intended for qualified trade buyers and wholesale importers.
+  </div>
+  <div class="footer-legal" data-lang="es">
+    Vector Trade Capital LLC es una empresa comercial de productos básicos registrada en EE.UU. Todas las transacciones de exportación se realizan en cumplimiento con las regulaciones gubernamentales aplicables de EE.UU. Este sitio web está destinado a compradores comerciales calificados e importadores mayoristas.
+  </div>
+</footer>
+<script>
+// Language toggle
+function setLang(lang) {
+  document.documentElement.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.trim() === lang.toUpperCase());
+  });
+}
+
+// Smart nav
+const nav = document.getElementById('navbar');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  nav.classList.toggle('nav-scrolled', y > 80);
+  if(y > lastScroll && y > 200) nav.classList.add('nav-hidden');
+  else nav.classList.remove('nav-hidden');
+  lastScroll = y;
+});
+
+// Mobile nav
+function toggleMobile(){
+  const links = document.querySelector('.nav-links');
+  const open = links.style.display === 'flex';
+  links.style.display = open ? 'none' : 'flex';
+  if(!open){
+    Object.assign(links.style, {
+      flexDirection:'column', position:'fixed', top:'88px', left:'0', right:'0',
+      background:'rgba(14,26,20,0.98)', padding:'28px 24px', gap:'20px',
+      borderBottom:'1px solid rgba(184,150,62,0.2)'
+    });
+  }
+}
+</script>
+</body>
+</html>
