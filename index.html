@@ -205,6 +205,9 @@ nav.nav-scrolled .nav-logo img{height:60px}
 /* Trade route animation */
 .trade-route-line{stroke-dasharray:8 6;animation:routeDash 30s linear infinite}
 @keyframes routeDash{to{stroke-dashoffset:-300}}
+/* Tooltip override */
+.vtc-tooltip{background:rgba(14,26,20,0.92)!important;border:1px solid rgba(184,150,62,0.25)!important;color:var(--cream)!important;font-family:'DM Mono',monospace!important;font-size:10px!important;font-weight:500!important;letter-spacing:.1em!important;text-transform:uppercase!important;padding:5px 12px!important;border-radius:0!important;box-shadow:0 4px 16px rgba(0,0,0,0.3)!important}
+.vtc-tooltip::before{border-top-color:rgba(14,26,20,0.92)!important}
 /* Map legend */
 .map-legend{display:flex;gap:32px;justify-content:center;margin-top:32px}
 .map-legend-item{display:flex;align-items:center;gap:10px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,240,232,0.4)}
@@ -1025,7 +1028,7 @@ document.querySelector('.contact-form').addEventListener('submit', function(e){
 // ── Interactive Leaflet Map ──
 (function(){
   const map = L.map('caribbean-map', {
-    center: [19.5, -74],
+    center: [19, -74],
     zoom: 5,
     minZoom: 4,
     maxZoom: 8,
@@ -1043,49 +1046,88 @@ document.querySelector('.contact-form').addEventListener('submit', function(e){
 
   // Market data
   const locations = [
+    // ── HQ / Offices ──
     {
       lat: 29.76, lng: -95.37, type: 'hq',
-      en: { name: 'Houston, TX', desc: 'Headquarters & export origin', status: 'Headquarters' },
-      es: { name: 'Houston, TX', desc: 'Sede y origen de exportación', status: 'Sede' }
+      en: { name: 'Houston, TX', desc: 'Headquarters & primary export origin — US Gulf Coast refineries and grain elevators', status: 'Headquarters' },
+      es: { name: 'Houston, TX', desc: 'Sede y origen principal de exportación — refinerías y elevadores de grano de la Costa del Golfo', status: 'Sede' }
     },
     {
       lat: 25.76, lng: -80.19, type: 'hq',
-      en: { name: 'Miami, FL', desc: 'Regional office & trade operations', status: 'Office' },
-      es: { name: 'Miami, FL', desc: 'Oficina regional y operaciones comerciales', status: 'Oficina' }
+      en: { name: 'Miami, FL', desc: 'Regional office & Caribbean trade operations', status: 'Office' },
+      es: { name: 'Miami, FL', desc: 'Oficina regional y operaciones comerciales del Caribe', status: 'Oficina' }
     },
+    // ── Active Markets ──
     {
       lat: 18.11, lng: -77.30, type: 'active',
-      en: { name: 'Jamaica', desc: 'Bulk commodity imports', status: 'Active' },
-      es: { name: 'Jamaica', desc: 'Importación de materias primas al por mayor', status: 'Activo' }
+      en: { name: 'Jamaica', desc: 'Rice · Sugar · Cooking oil · Frozen poultry · Diesel', status: 'Active' },
+      es: { name: 'Jamaica', desc: 'Arroz · Azúcar · Aceite · Pollo congelado · Diésel', status: 'Activo' }
     },
     {
       lat: 18.74, lng: -70.16, type: 'active',
-      en: { name: 'Dominican Republic', desc: 'Bulk commodity imports', status: 'Active' },
-      es: { name: 'República Dominicana', desc: 'Importación de materias primas al por mayor', status: 'Activo' }
+      en: { name: 'Dominican Republic', desc: 'Rice · Sugar · Cooking oil · Frozen poultry', status: 'Active' },
+      es: { name: 'República Dominicana', desc: 'Arroz · Azúcar · Aceite · Pollo congelado', status: 'Activo' }
     },
     {
       lat: 10.65, lng: -61.50, type: 'active',
-      en: { name: 'Trinidad & Tobago', desc: 'Commodity supply & sourcing', status: 'Active' },
-      es: { name: 'Trinidad y Tobago', desc: 'Suministro y abastecimiento de materias primas', status: 'Activo' }
+      en: { name: 'Trinidad & Tobago', desc: 'Rice · Sugar · Cooking oil · Frozen poultry', status: 'Active' },
+      es: { name: 'Trinidad y Tobago', desc: 'Arroz · Azúcar · Aceite · Pollo congelado', status: 'Activo' }
     },
     {
-      lat: 18.97, lng: -72.34, type: 'expanding',
-      en: { name: 'Haiti', desc: 'Bulk commodity imports', status: 'Expanding' },
-      es: { name: 'Haití', desc: 'Importación de materias primas al por mayor', status: 'En expansión' }
+      lat: 6.80, lng: -58.16, type: 'active',
+      en: { name: 'Guyana', desc: 'Diesel · Cooking oil · Frozen poultry', status: 'Active' },
+      es: { name: 'Guyana', desc: 'Diésel · Aceite · Pollo congelado', status: 'Activo' }
+    },
+    {
+      lat: 18.97, lng: -72.34, type: 'active',
+      en: { name: 'Haiti', desc: 'Rice · Sugar · Cooking oil · Frozen poultry', status: 'Active' },
+      es: { name: 'Haití', desc: 'Arroz · Azúcar · Aceite · Pollo congelado', status: 'Activo' }
+    },
+    // ── Expanding Markets ──
+    {
+      lat: 25.05, lng: -77.35, type: 'expanding',
+      en: { name: 'Bahamas', desc: 'Frozen poultry · Cooking oil · Rice', status: 'Expanding' },
+      es: { name: 'Bahamas', desc: 'Pollo congelado · Aceite · Arroz', status: 'En expansión' }
     },
     {
       lat: 13.19, lng: -59.54, type: 'expanding',
-      en: { name: 'Barbados', desc: 'Bulk commodity imports', status: 'Expanding' },
-      es: { name: 'Barbados', desc: 'Importación de materias primas al por mayor', status: 'En expansión' }
+      en: { name: 'Barbados', desc: 'Rice · Sugar · Cooking oil', status: 'Expanding' },
+      es: { name: 'Barbados', desc: 'Arroz · Azúcar · Aceite', status: 'En expansión' }
     },
     {
-      lat: 15.42, lng: -61.37, type: 'expanding',
-      en: { name: 'Caribbean Basin', desc: 'Eastern Caribbean islands · Central America', status: 'Expanding' },
-      es: { name: 'Cuenca del Caribe', desc: 'Islas del Caribe Oriental · América Central', status: 'En expansión' }
+      lat: 12.12, lng: -68.93, type: 'expanding',
+      en: { name: 'Curaçao', desc: 'Fuel · Cooking oil · Frozen poultry', status: 'Expanding' },
+      es: { name: 'Curazao', desc: 'Combustible · Aceite · Pollo congelado', status: 'En expansión' }
+    },
+    {
+      lat: 14.01, lng: -60.99, type: 'expanding',
+      en: { name: 'St. Lucia', desc: 'Rice · Sugar · Frozen poultry', status: 'Expanding' },
+      es: { name: 'Santa Lucía', desc: 'Arroz · Azúcar · Pollo congelado', status: 'En expansión' }
+    },
+    {
+      lat: 17.12, lng: -61.85, type: 'expanding',
+      en: { name: 'Antigua & Barbuda', desc: 'Rice · Cooking oil · Frozen poultry', status: 'Expanding' },
+      es: { name: 'Antigua y Barbuda', desc: 'Arroz · Aceite · Pollo congelado', status: 'En expansión' }
+    },
+    {
+      lat: 5.85, lng: -55.20, type: 'expanding',
+      en: { name: 'Suriname', desc: 'Rice · Cooking oil · Frozen poultry', status: 'Expanding' },
+      es: { name: 'Surinam', desc: 'Arroz · Aceite · Pollo congelado', status: 'En expansión' }
+    },
+    {
+      lat: 17.50, lng: -88.20, type: 'expanding',
+      en: { name: 'Belize', desc: 'Rice · Sugar · Diesel · Frozen poultry', status: 'Expanding' },
+      es: { name: 'Belice', desc: 'Arroz · Azúcar · Diésel · Pollo congelado', status: 'En expansión' }
+    },
+    {
+      lat: 15.78, lng: -86.79, type: 'expanding',
+      en: { name: 'Honduras', desc: 'Rice · Cooking oil · Diesel', status: 'Expanding' },
+      es: { name: 'Honduras', desc: 'Arroz · Aceite · Diésel', status: 'En expansión' }
     }
   ];
 
   const houston = locations[0];
+  const miami = locations[1];
   const markerObjects = [];
 
   // Helper: create custom div icon
@@ -1113,44 +1155,69 @@ document.querySelector('.contact-form').addEventListener('submit', function(e){
            '<span class="popup-status ' + statusClass + '">' + d.status + '</span>';
   }
 
-  // Draw curved trade routes from Houston to each destination
-  locations.forEach(function(loc, i) {
-    if (loc.type === 'hq') return; // skip office locations
-    const latlngs = [];
-    const steps = 40;
+  // Helper: draw a curved arc between two points
+  function drawRoute(origin, dest, opts) {
+    var latlngs = [];
+    var steps = 40;
     for (var t = 0; t <= steps; t++) {
       var f = t / steps;
-      var lat = houston.lat + (loc.lat - houston.lat) * f;
-      var lng = houston.lng + (loc.lng - houston.lng) * f;
-      // Add curve offset — arc bulges north
-      var bulge = Math.sin(f * Math.PI) * (6 + i * 1.2);
+      var lat = origin.lat + (dest.lat - origin.lat) * f;
+      var lng = origin.lng + (dest.lng - origin.lng) * f;
+      var dist = Math.sqrt(Math.pow(dest.lat - origin.lat, 2) + Math.pow(dest.lng - origin.lng, 2));
+      var bulge = Math.sin(f * Math.PI) * Math.min(dist * 0.35, 8);
       lat += bulge;
       latlngs.push([lat, lng]);
     }
-    L.polyline(latlngs, {
-      color: '#B8963E',
-      weight: 1.2,
-      opacity: 0.25,
-      dashArray: '8 6',
+    L.polyline(latlngs, opts).addTo(map);
+  }
+
+  // Draw trade routes from Houston & Miami to destinations
+  locations.forEach(function(loc) {
+    if (loc.type === 'hq') return;
+    // Pick closest origin for route (Houston for western Caribbean & Central America, Miami for eastern)
+    var origin = loc.lng > -65 ? miami : houston;
+    var isActive = loc.type === 'active';
+    drawRoute(origin, loc, {
+      color: isActive ? '#22A07C' : '#B8963E',
+      weight: isActive ? 1.4 : 1,
+      opacity: isActive ? 0.3 : 0.18,
+      dashArray: isActive ? '10 6' : '4 6',
       className: 'trade-route-line'
-    }).addTo(map);
+    });
   });
 
-  // Place markers
+  // Place markers with hover tooltips
   locations.forEach(function(loc) {
     var marker = L.marker([loc.lat, loc.lng], { icon: makeIcon(loc.type) }).addTo(map);
-    marker.bindPopup(popupHTML(loc), { maxWidth: 260, closeButton: true });
+    marker.bindPopup(popupHTML(loc), { maxWidth: 280, closeButton: true });
+    var lang = document.documentElement.lang || 'en';
+    var d = loc[lang] || loc.en;
+    marker.bindTooltip(d.name, {
+      permanent: false,
+      direction: 'top',
+      offset: [0, -14],
+      className: 'vtc-tooltip'
+    });
     markerObjects.push({ marker: marker, data: loc });
   });
 
-  // Update popups when language changes
+  // Update popups and tooltips when language changes
   var origSetLang = window.setLang;
   window.setLang = function(lang) {
     origSetLang(lang);
     markerObjects.forEach(function(obj) {
       obj.marker.setPopupContent(popupHTML(obj.data));
+      var d = obj.data[lang] || obj.data.en;
+      obj.marker.setTooltipContent(d.name);
     });
   };
+
+  // Fit map to show all markers with padding
+  var allCoords = locations.map(function(l) { return [l.lat, l.lng]; });
+  map.fitBounds(allCoords, { padding: [30, 30], maxZoom: 5 });
+
+  // Constrain map to relevant area
+  map.setMaxBounds([[-5, -110], [38, -45]]);
 
   // Fix map sizing when section scrolls into view
   var mapResized = false;
