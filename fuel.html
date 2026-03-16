@@ -4,13 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fuel &amp; Energy Products — Vector Trade Capital</title>
-<meta name="description" content="Bulk fuel and energy product exports — diesel, gasoline, jet fuel, LPG, and fuel oil. CIF delivered to Caribbean and global ports.">
+<meta name="description" content="Bulk fuel and energy product exports — diesel, gasoline, jet fuel, LPG, fuel oil, and MGO. CIF delivered to Caribbean ports.">
+<meta name="keywords" content="diesel supplier Caribbean, ULSD export, jet fuel wholesale, LPG propane, fuel oil HFO, marine gas oil, petroleum products">
+<meta property="og:title" content="Fuel &amp; Energy Products — Vector Trade Capital">
+<meta property="og:description" content="Diesel, gasoline, jet fuel, LPG, fuel oil, and MGO — refined petroleum products delivered CIF to Caribbean terminals.">
+<meta property="og:image" content="https://vectortradecapital.com/2.png">
+<meta property="og:url" content="https://vectortradecapital.com/fuel.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://vectortradecapital.com/fuel.html">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" as="style">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","name":"Fuel & Energy Products","description":"Refined petroleum products — diesel, gasoline, jet fuel, LPG, fuel oil, and MGO delivered CIF to Caribbean terminals.","url":"https://vectortradecapital.com/fuel.html","publisher":{"@type":"Organization","name":"Vector Trade Capital","url":"https://vectortradecapital.com","logo":{"@type":"ImageObject","url":"https://vectortradecapital.com/2.png"},"address":[{"@type":"PostalAddress","addressLocality":"Houston","addressRegion":"TX","addressCountry":"US"},{"@type":"PostalAddress","addressLocality":"Miami","addressRegion":"FL","addressCountry":"US"},{"@type":"PostalAddress","addressLocality":"Dubai","addressCountry":"AE"}]}}
+</script>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -131,6 +143,13 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 .footer-right{text-align:right}
 .footer-copy{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,240,232,0.3)}
 .footer-legal{font-size:12px;color:rgba(245,240,232,0.2);max-width:1200px;margin:24px auto 0;padding-top:24px;border-top:1px solid rgba(184,150,62,0.08);line-height:1.6}
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
 /* ── MOBILE ── */
 @media(max-width:900px){
   nav{padding:4px 24px}
@@ -138,6 +157,11 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   .nav-links{display:none}
   .hamburger{display:flex}
   .lang-switch{position:fixed;top:18px;right:68px;z-index:201}
+  .nav-links.mobile-open{display:flex!important;flex-direction:column;position:fixed;top:88px;left:0;right:0;background:rgba(14,26,20,0.98);padding:28px 24px;gap:20px;border-bottom:1px solid rgba(184,150,62,0.2);z-index:199}
+  .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+  .hamburger.active span:nth-child(2){opacity:0}
+  .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+  .hamburger span{transition:all .3s ease}
   .page-header{padding:120px 24px 60px}
   .page-body{padding:48px 24px 24px}
   .product-hero{height:220px}
@@ -191,23 +215,23 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   <a href="index.html" class="back-link" data-lang="en">Back to Home</a>
   <a href="index.html" class="back-link" data-lang="es">Volver al Inicio</a>
 
-  <img class="product-hero" src="https://images.unsplash.com/photo-1545259741-2ea3ebf61fa3?w=1200&q=80" alt="Oil refinery at dusk">
+  <img class="product-hero reveal" loading="lazy" src="https://images.unsplash.com/photo-1513828583688-c52646db42da?w=1200&q=80" alt="Oil refinery industrial complex at sunset">
 
   <!-- INTRO -->
-  <div class="product-intro" data-lang="en">
+  <div class="product-intro reveal" data-lang="en">
     <p>Vector Trade Capital sources and delivers refined petroleum products to importers, fuel distributors, and power utilities across the Caribbean and beyond. With offices in Houston, Miami, and Dubai, we leverage direct refinery relationships and established shipping routes to deliver consistent, competitively priced fuel supply.</p>
   </div>
-  <div class="product-intro" data-lang="es">
+  <div class="product-intro reveal" data-lang="es">
     <p>Vector Trade Capital abastece y entrega productos de petróleo refinado a importadores, distribuidores de combustible y empresas eléctricas en todo el Caribe y más allá. Con oficinas en Houston, Miami y Dubái, aprovechamos relaciones directas con refinerías y rutas de envío establecidas para entregar suministro de combustible consistente y a precios competitivos.</p>
   </div>
 
   <!-- COMMODITIES -->
-  <div class="commodities-label" data-lang="en">Products We Trade</div>
-  <div class="commodities-label" data-lang="es">Productos que Comercializamos</div>
+  <div class="commodities-label reveal" data-lang="en">Products We Trade</div>
+  <div class="commodities-label reveal" data-lang="es">Productos que Comercializamos</div>
 
   <div data-lang="en">
     <div class="commodity-grid">
-      <div class="commodity-card">
+      <div class="commodity-card reveal">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V4a2 2 0 012-2h8a2 2 0 012 2v18"/><path d="M2 22h16"/><path d="M16 8h2a2 2 0 012 2v4a2 2 0 01-2 2h0"/><rect x="6" y="6" width="6" height="4" rx="1"/></svg></div>
         <div class="commodity-name">Diesel (ULSD)</div>
         <div class="commodity-desc">Ultra-low sulfur diesel for transportation, power generation, and industrial use. The backbone of Caribbean energy infrastructure, delivered to meet local specifications.</div>
@@ -217,7 +241,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
           <div class="commodity-spec"><span class="commodity-spec-label">Origins</span><span class="commodity-spec-value">US Gulf &middot; USVI &middot; Panama</span></div>
         </div>
       </div>
-      <div class="commodity-card">
+      <div class="commodity-card reveal">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="18.5" r="2.5"/><circle cx="16.5" cy="18.5" r="2.5"/><path d="M2 16h3M19 16h3"/><path d="M5 16V8a2 2 0 012-2h6l4 4v6"/><path d="M13 6v4h4"/></svg></div>
         <div class="commodity-name">Gasoline</div>
         <div class="commodity-desc">Unleaded motor gasoline for retail distribution and blending operations. Sourced from Gulf Coast refineries with consistent octane specifications.</div>
@@ -227,7 +251,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
           <div class="commodity-spec"><span class="commodity-spec-label">Origins</span><span class="commodity-spec-value">US Gulf Coast refineries</span></div>
         </div>
       </div>
-      <div class="commodity-card">
+      <div class="commodity-card reveal">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12l19-7-7 19-3-8z"/><path d="M12 12l5-5"/></svg></div>
         <div class="commodity-name">Jet Fuel (Jet A-1)</div>
         <div class="commodity-desc">Aviation turbine kerosene meeting international specifications for commercial and private aviation throughout Caribbean airports and FBOs.</div>
@@ -237,7 +261,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
           <div class="commodity-spec"><span class="commodity-spec-label">Origins</span><span class="commodity-spec-value">US Gulf &middot; US East Coast</span></div>
         </div>
       </div>
-      <div class="commodity-card">
+      <div class="commodity-card reveal">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c0 4-4 6-4 10a4 4 0 008 0c0-4-4-6-4-10z"/><path d="M12 18a2 2 0 01-2-2c0-2 2-3 2-5 0 2 2 3 2 5a2 2 0 01-2 2z"/></svg></div>
         <div class="commodity-name">LPG (Propane / Butane)</div>
         <div class="commodity-desc">Liquefied petroleum gas for residential cooking, commercial use, and industrial processes. Critical household energy supply across the Caribbean islands.</div>
@@ -247,7 +271,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
           <div class="commodity-spec"><span class="commodity-spec-label">Origins</span><span class="commodity-spec-value">US Gulf &middot; Trinidad</span></div>
         </div>
       </div>
-      <div class="commodity-card">
+      <div class="commodity-card reveal">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22V8l6-6 6 6v14"/><path d="M15 22V12l4-2v12"/><rect x="6" y="10" width="3" height="3"/><rect x="6" y="15" width="3" height="3"/><path d="M19 8v2"/><path d="M22 22H2"/></svg></div>
         <div class="commodity-name">Fuel Oil (HFO / IFO)</div>
         <div class="commodity-desc">Heavy fuel oil for power generation and marine bunkering. Available in multiple viscosity grades to meet utility and marine specifications.</div>
@@ -257,7 +281,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
           <div class="commodity-spec"><span class="commodity-spec-label">Origins</span><span class="commodity-spec-value">US Gulf &middot; Venezuela &middot; Panama</span></div>
         </div>
       </div>
-      <div class="commodity-card">
+      <div class="commodity-card reveal">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20l1.5-4.5L12 12l8.5 3.5L22 20"/><path d="M6 12V8l6-4 6 4v4"/><path d="M12 4v8"/><path d="M2 20h20"/><circle cx="12" cy="20" r="0"/></svg></div>
         <div class="commodity-name">Marine Gas Oil (MGO)</div>
         <div class="commodity-desc">Low-sulfur marine fuel for shipping fleets operating under IMO 2020 regulations. Available for bunkering at major Caribbean port facilities.</div>
@@ -272,7 +296,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 
   <div data-lang="es">
     <div class="commodity-grid">
-      <div class="commodity-card">
+      <div class="commodity-card reveal">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V4a2 2 0 012-2h8a2 2 0 012 2v18"/><path d="M2 22h16"/><path d="M16 8h2a2 2 0 012 2v4a2 2 0 01-2 2h0"/><rect x="6" y="6" width="6" height="4" rx="1"/></svg></div>
         <div class="commodity-name">Diésel (ULSD)</div>
         <div class="commodity-desc">Diésel de ultra bajo azufre para transporte, generación eléctrica y uso industrial. La columna vertebral de la infraestructura energética del Caribe.</div>
@@ -282,7 +306,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
           <div class="commodity-spec"><span class="commodity-spec-label">Orígenes</span><span class="commodity-spec-value">Golfo de EE.UU. &middot; USVI &middot; Panamá</span></div>
         </div>
       </div>
-      <div class="commodity-card">
+      <div class="commodity-card reveal">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="18.5" r="2.5"/><circle cx="16.5" cy="18.5" r="2.5"/><path d="M2 16h3M19 16h3"/><path d="M5 16V8a2 2 0 012-2h6l4 4v6"/><path d="M13 6v4h4"/></svg></div>
         <div class="commodity-name">Gasolina</div>
         <div class="commodity-desc">Gasolina sin plomo para distribución minorista y operaciones de mezcla. Abastecida de refinerías de la Costa del Golfo con especificaciones de octano consistentes.</div>
@@ -292,7 +316,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
           <div class="commodity-spec"><span class="commodity-spec-label">Orígenes</span><span class="commodity-spec-value">Refinerías Costa del Golfo</span></div>
         </div>
       </div>
-      <div class="commodity-card">
+      <div class="commodity-card reveal">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12l19-7-7 19-3-8z"/><path d="M12 12l5-5"/></svg></div>
         <div class="commodity-name">Combustible de Aviación (Jet A-1)</div>
         <div class="commodity-desc">Queroseno de turbina de aviación que cumple con especificaciones internacionales para aviación comercial y privada en aeropuertos del Caribe.</div>
@@ -302,7 +326,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
           <div class="commodity-spec"><span class="commodity-spec-label">Orígenes</span><span class="commodity-spec-value">Golfo de EE.UU. &middot; Costa Este</span></div>
         </div>
       </div>
-      <div class="commodity-card">
+      <div class="commodity-card reveal">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c0 4-4 6-4 10a4 4 0 008 0c0-4-4-6-4-10z"/><path d="M12 18a2 2 0 01-2-2c0-2 2-3 2-5 0 2 2 3 2 5a2 2 0 01-2 2z"/></svg></div>
         <div class="commodity-name">GLP (Propano / Butano)</div>
         <div class="commodity-desc">Gas licuado de petróleo para cocina residencial, uso comercial y procesos industriales. Suministro energético doméstico crítico en las islas del Caribe.</div>
@@ -312,7 +336,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
           <div class="commodity-spec"><span class="commodity-spec-label">Orígenes</span><span class="commodity-spec-value">Golfo de EE.UU. &middot; Trinidad</span></div>
         </div>
       </div>
-      <div class="commodity-card">
+      <div class="commodity-card reveal">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22V8l6-6 6 6v14"/><path d="M15 22V12l4-2v12"/><rect x="6" y="10" width="3" height="3"/><rect x="6" y="15" width="3" height="3"/><path d="M19 8v2"/><path d="M22 22H2"/></svg></div>
         <div class="commodity-name">Fuel Oil (HFO / IFO)</div>
         <div class="commodity-desc">Fuel oil pesado para generación eléctrica y abastecimiento marino. Disponible en múltiples grados de viscosidad para especificaciones de servicios públicos y marinas.</div>
@@ -322,7 +346,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
           <div class="commodity-spec"><span class="commodity-spec-label">Orígenes</span><span class="commodity-spec-value">Golfo de EE.UU. &middot; Venezuela &middot; Panamá</span></div>
         </div>
       </div>
-      <div class="commodity-card">
+      <div class="commodity-card reveal">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20l1.5-4.5L12 12l8.5 3.5L22 20"/><path d="M6 12V8l6-4 6 4v4"/><path d="M12 4v8"/><path d="M2 20h20"/><circle cx="12" cy="20" r="0"/></svg></div>
         <div class="commodity-name">Gasóleo Marino (MGO)</div>
         <div class="commodity-desc">Combustible marino de bajo azufre para flotas que operan bajo las regulaciones IMO 2020. Disponible para abastecimiento en las principales instalaciones portuarias del Caribe.</div>
@@ -343,17 +367,17 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     <div class="compliance-label" data-lang="es">Estándares y Cumplimiento</div>
     <div data-lang="en">
       <div class="compliance-grid">
-        <div class="compliance-item">
+        <div class="compliance-item reveal">
           <div class="compliance-number">01</div>
           <div class="compliance-title">Quality Assurance</div>
           <div class="compliance-desc">All fuel shipments include SGS or equivalent independent inspection at load port. Certificates of quality and quantity provided with every delivery.</div>
         </div>
-        <div class="compliance-item">
+        <div class="compliance-item reveal">
           <div class="compliance-number">02</div>
           <div class="compliance-title">Regulatory Compliance</div>
           <div class="compliance-desc">Full compliance with US export regulations, OFAC sanctions screening, and destination-country import requirements. Clean, transparent documentation on every transaction.</div>
         </div>
-        <div class="compliance-item">
+        <div class="compliance-item reveal">
           <div class="compliance-number">03</div>
           <div class="compliance-title">Insurance &amp; Risk</div>
           <div class="compliance-desc">Marine cargo insurance, P&amp;I coverage, and pollution liability included in CIF terms. We manage supply chain risk so you can focus on distribution.</div>
@@ -362,17 +386,17 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     </div>
     <div data-lang="es">
       <div class="compliance-grid">
-        <div class="compliance-item">
+        <div class="compliance-item reveal">
           <div class="compliance-number">01</div>
           <div class="compliance-title">Control de Calidad</div>
           <div class="compliance-desc">Todos los envíos de combustible incluyen inspección independiente de SGS o equivalente en puerto de carga. Certificados de calidad y cantidad proporcionados con cada entrega.</div>
         </div>
-        <div class="compliance-item">
+        <div class="compliance-item reveal">
           <div class="compliance-number">02</div>
           <div class="compliance-title">Cumplimiento Regulatorio</div>
           <div class="compliance-desc">Cumplimiento total con regulaciones de exportación de EE.UU., verificación de sanciones OFAC y requisitos de importación del país de destino. Documentación limpia y transparente.</div>
         </div>
-        <div class="compliance-item">
+        <div class="compliance-item reveal">
           <div class="compliance-number">03</div>
           <div class="compliance-title">Seguro y Riesgo</div>
           <div class="compliance-desc">Seguro de carga marítima, cobertura P&amp;I y responsabilidad por contaminación incluidos en términos CIF. Gestionamos el riesgo de la cadena de suministro.</div>
@@ -390,17 +414,17 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
       <div class="delivery-label" data-lang="es">Cómo Funciona</div>
       <div data-lang="en">
         <div class="delivery-grid">
-          <div class="delivery-item">
+          <div class="delivery-item reveal">
             <div class="delivery-number">01</div>
             <div class="delivery-title">Specification</div>
             <div class="delivery-desc">Share your product requirements, volumes, quality specifications, and destination terminal. We provide a competitive CIF or FOB quote within 24-48 hours.</div>
           </div>
-          <div class="delivery-item">
+          <div class="delivery-item reveal">
             <div class="delivery-number">02</div>
             <div class="delivery-title">Procurement</div>
             <div class="delivery-desc">We source from our refinery network, arrange independent quality inspection, nominate vessels, and coordinate all logistics from load port to destination.</div>
           </div>
-          <div class="delivery-item">
+          <div class="delivery-item reveal">
             <div class="delivery-number">03</div>
             <div class="delivery-title">Delivery</div>
             <div class="delivery-desc">Product delivered to your terminal with full documentation — bill of lading, certificate of quality, certificate of quantity, and all customs clearance paperwork.</div>
@@ -409,17 +433,17 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
       </div>
       <div data-lang="es">
         <div class="delivery-grid">
-          <div class="delivery-item">
+          <div class="delivery-item reveal">
             <div class="delivery-number">01</div>
             <div class="delivery-title">Especificación</div>
             <div class="delivery-desc">Comparta sus requisitos de producto, volúmenes, especificaciones de calidad y terminal de destino. Proporcionamos una cotización CIF o FOB competitiva en 24-48 horas.</div>
           </div>
-          <div class="delivery-item">
+          <div class="delivery-item reveal">
             <div class="delivery-number">02</div>
             <div class="delivery-title">Adquisición</div>
             <div class="delivery-desc">Abastecemos de nuestra red de refinerías, organizamos inspección de calidad independiente, nominamos buques y coordinamos toda la logística.</div>
           </div>
-          <div class="delivery-item">
+          <div class="delivery-item reveal">
             <div class="delivery-number">03</div>
             <div class="delivery-title">Entrega</div>
             <div class="delivery-desc">Producto entregado en su terminal con documentación completa — conocimiento de embarque, certificado de calidad, certificado de cantidad y todo el papeleo aduanero.</div>
@@ -480,18 +504,32 @@ window.addEventListener('scroll', () => {
   else nav.classList.remove('nav-hidden');
   lastScroll = y;
 });
+// Mobile nav with animated hamburger
 function toggleMobile(){
   const links = document.querySelector('.nav-links');
-  const open = links.style.display === 'flex';
-  links.style.display = open ? 'none' : 'flex';
-  if(!open){
-    Object.assign(links.style, {
-      flexDirection:'column', position:'fixed', top:'88px', left:'0', right:'0',
-      background:'rgba(14,26,20,0.98)', padding:'28px 24px', gap:'20px',
-      borderBottom:'1px solid rgba(184,150,62,0.2)'
-    });
+  const hamburger = document.querySelector('.hamburger');
+  links.classList.toggle('mobile-open');
+  hamburger.classList.toggle('active');
+  if(!links.classList.contains('mobile-open')){
+    links.removeAttribute('style');
   }
 }
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => {
+    if(window.innerWidth <= 900){
+      document.querySelector('.nav-links').classList.remove('mobile-open');
+      document.querySelector('.hamburger').classList.remove('active');
+    }
+  });
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+}, {threshold: 0.06, rootMargin: '0px 0px -60px 0px'});
+document.querySelectorAll('.reveal').forEach(r => observer.observe(r));
 </script>
 </body>
 </html>
