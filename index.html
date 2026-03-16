@@ -412,10 +412,10 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         <h2 class="section-title reveal" data-lang="en">What makes us<br><em>the right partner</em></h2>
         <h2 class="section-title reveal" data-lang="es">Lo que nos hace<br><em>el socio ideal</em></h2>
         <p class="why-body reveal" data-lang="en">
-          We are a Houston-based trading company with direct supplier relationships, established Caribbean logistics, and the working capital to move product reliably — shipment after shipment.
+          Headquartered in Houston with offices in Miami and Dubai, we maintain direct supplier relationships, established Caribbean logistics, and the working capital to move product reliably — shipment after shipment.
         </p>
         <p class="why-body reveal" data-lang="es">
-          Somos una empresa comercial con sede en Houston con relaciones directas con proveedores, logística caribeña establecida y el capital de trabajo para mover productos de forma confiable — envío tras envío.
+          Con sede en Houston y oficinas en Miami y Dubái, mantenemos relaciones directas con proveedores, logística caribeña establecida y el capital de trabajo para mover productos de forma confiable — envío tras envío.
         </p>
       </div>
       <div class="why-reasons">
@@ -506,7 +506,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     <div class="map-legend reveal">
       <div class="map-legend-item">
         <div class="map-legend-dot hq"></div>
-        <span>HQ</span>
+        <span data-lang="en">HQ / Office</span><span data-lang="es">Sede / Oficina</span>
       </div>
       <div class="map-legend-item">
         <div class="map-legend-dot act"></div>
@@ -544,6 +544,11 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
             <div class="c-label" data-lang="en">Headquarters</div>
             <div class="c-label" data-lang="es">Sede</div>
             <div class="c-val">Houston, Texas · USA</div>
+          </div>
+          <div class="contact-item">
+            <div class="c-label" data-lang="en">Offices</div>
+            <div class="c-label" data-lang="es">Oficinas</div>
+            <div class="c-val">Miami, Florida · USA&nbsp; ·&nbsp; Dubai, UAE</div>
           </div>
           <div class="contact-item">
             <div class="c-label">Website</div>
@@ -628,7 +633,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
       <img src="2.png" alt="Vector Trade Capital">
     </div>
     <div class="footer-right">
-      <div class="footer-copy">&copy; 2025 Vector Trade Capital LLC &nbsp;·&nbsp; Houston, Texas &nbsp;·&nbsp; <a href="privacy.html" style="color:rgba(245,240,232,0.4);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#D4AE5A'" onmouseout="this.style.color='rgba(245,240,232,0.4)'" data-lang="en">Privacy Policy</a><a href="privacy.html" style="color:rgba(245,240,232,0.4);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#D4AE5A'" onmouseout="this.style.color='rgba(245,240,232,0.4)'" data-lang="es">Política de Privacidad</a></div>
+      <div class="footer-copy">&copy; 2025 Vector Trade Capital LLC &nbsp;·&nbsp; Houston &nbsp;·&nbsp; Miami &nbsp;·&nbsp; Dubai &nbsp;·&nbsp; <a href="privacy.html" style="color:rgba(245,240,232,0.4);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#D4AE5A'" onmouseout="this.style.color='rgba(245,240,232,0.4)'" data-lang="en">Privacy Policy</a><a href="privacy.html" style="color:rgba(245,240,232,0.4);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#D4AE5A'" onmouseout="this.style.color='rgba(245,240,232,0.4)'" data-lang="es">Política de Privacidad</a></div>
     </div>
   </div>
   <div class="footer-legal" data-lang="en">
@@ -761,6 +766,11 @@ document.querySelector('.contact-form').addEventListener('submit', function(e){
       es: { name: 'Houston, TX', desc: 'Sede y origen de exportación', status: 'Sede' }
     },
     {
+      lat: 25.76, lng: -80.19, type: 'hq',
+      en: { name: 'Miami, FL', desc: 'Regional office & trade operations', status: 'Office' },
+      es: { name: 'Miami, FL', desc: 'Oficina regional y operaciones comerciales', status: 'Oficina' }
+    },
+    {
       lat: 18.11, lng: -77.30, type: 'active',
       en: { name: 'Jamaica', desc: 'Bulk commodity imports', status: 'Active' },
       es: { name: 'Jamaica', desc: 'Importación de materias primas al por mayor', status: 'Activo' }
@@ -822,7 +832,7 @@ document.querySelector('.contact-form').addEventListener('submit', function(e){
 
   // Draw curved trade routes from Houston to each destination
   locations.forEach(function(loc, i) {
-    if (i === 0) return; // skip Houston
+    if (loc.type === 'hq') return; // skip office locations
     const latlngs = [];
     const steps = 40;
     for (var t = 0; t <= steps; t++) {
