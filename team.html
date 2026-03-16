@@ -7,11 +7,14 @@
 <meta name="description" content="Meet the leadership team behind Vector Trade Capital — Cole Kutschinski, Kevin Kutschinski, and Amber Lynn Hamby.">
 <meta property="og:title" content="Leadership — Vector Trade Capital">
 <meta property="og:description" content="Meet the leadership team behind Vector Trade Capital's global commodity operations.">
-<meta property="og:image" content="https://vectortradecapital.com/2.png">
+<meta property="og:image" content="https://vectortradecapital.com/vector-trade-capital-logo.png">
 <meta property="og:url" content="https://vectortradecapital.com/team.html">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://vectortradecapital.com/team.html">
+<link rel="alternate" hreflang="en" href="https://vectortradecapital.com/team.html">
+<link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/team.html">
+<meta name="robots" content="index, follow">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"AboutPage","name":"Leadership Team","url":"https://vectortradecapital.com/team.html","mainEntity":{"@type":"Organization","name":"Vector Trade Capital","member":[{"@type":"Person","name":"Amber Lynn Hamby","jobTitle":"Chairwoman","sameAs":"https://www.linkedin.com/in/amber-lynn-hamby-8ab42476/"},{"@type":"Person","name":"Cole Kutschinski","jobTitle":"President","sameAs":"https://www.linkedin.com/in/cole-kutschinski/"},{"@type":"Person","name":"Kevin Kutschinski","jobTitle":"Partner"}]}}
 </script>
@@ -107,6 +110,11 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   .nav-links{display:none}
   .hamburger{display:flex}
   .lang-switch{position:fixed;top:18px;right:68px;z-index:201}
+  .nav-links.mobile-open{display:flex!important;flex-direction:column;position:fixed;top:88px;left:0;right:0;background:rgba(14,26,20,0.98);padding:28px 24px;gap:20px;border-bottom:1px solid rgba(184,150,62,0.2);z-index:199}
+  .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+  .hamburger.active span:nth-child(2){opacity:0}
+  .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+  .hamburger span{transition:all .3s ease}
   .team-header{padding:120px 24px 60px}
   .team-body{padding:48px 24px 80px}
   .team-grid{grid-template-columns:1fr;gap:40px}
@@ -122,7 +130,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 <!-- NAV -->
 <nav id="navbar">
   <a href="index.html" class="nav-logo">
-    <img src="2.png" alt="Vector Trade Capital">
+    <img src="vector-trade-capital-logo.png" alt="Vector Trade Capital logo">
   </a>
   <ul class="nav-links">
     <li><a href="index.html#products" data-lang="en">What We Do</a><a href="index.html#products" data-lang="es">Qué Hacemos</a></li>
@@ -158,7 +166,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   <div class="team-grid">
     <div class="team-card">
       <div class="team-photo">
-        <img src="Amber Lynn.png" alt="Amber Lynn Hamby" loading="lazy">
+        <img src="amber-lynn-hamby.png" alt="Amber Lynn Hamby" loading="lazy">
       </div>
       <div class="team-name">Amber Lynn Hamby</div>
       <div class="team-title" data-lang="en">Chairwoman</div>
@@ -190,7 +198,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">
-      <img src="2.png" alt="Vector Trade Capital">
+      <img src="vector-trade-capital-logo.png" alt="Vector Trade Capital logo">
     </div>
     <div class="footer-right">
       <div class="footer-copy">&copy; 2025 Vector Trade Capital LLC &nbsp;&middot;&nbsp; Houston &nbsp;&middot;&nbsp; Miami &nbsp;&middot;&nbsp; Dubai &nbsp;&middot;&nbsp; <a href="privacy.html" style="color:rgba(245,240,232,0.4);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#D4AE5A'" onmouseout="this.style.color='rgba(245,240,232,0.4)'" data-lang="en">Privacy Policy</a><a href="privacy.html" style="color:rgba(245,240,232,0.4);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#D4AE5A'" onmouseout="this.style.color='rgba(245,240,232,0.4)'" data-lang="es">Política de Privacidad</a></div>
@@ -224,19 +232,24 @@ window.addEventListener('scroll', () => {
   lastScroll = y;
 });
 
-// Mobile nav
+// Mobile nav with animated hamburger
 function toggleMobile(){
   const links = document.querySelector('.nav-links');
-  const open = links.style.display === 'flex';
-  links.style.display = open ? 'none' : 'flex';
-  if(!open){
-    Object.assign(links.style, {
-      flexDirection:'column', position:'fixed', top:'88px', left:'0', right:'0',
-      background:'rgba(14,26,20,0.98)', padding:'28px 24px', gap:'20px',
-      borderBottom:'1px solid rgba(184,150,62,0.2)'
-    });
+  const hamburger = document.querySelector('.hamburger');
+  links.classList.toggle('mobile-open');
+  hamburger.classList.toggle('active');
+  if(!links.classList.contains('mobile-open')){
+    links.removeAttribute('style');
   }
 }
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => {
+    if(window.innerWidth <= 900){
+      document.querySelector('.nav-links').classList.remove('mobile-open');
+      document.querySelector('.hamburger').classList.remove('active');
+    }
+  });
+});
 </script>
 </body>
 </html>
