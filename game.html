@@ -267,17 +267,34 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
   let dockingVessels = [];  // Ships currently in docking animation
   let scorePopups = [];     // Floating score text popups
 
-  // Sprites
+  // Sprites (loaded from manifest)
   const spriteImages = {};
+  const islandSpriteImages = {};
   function loadSprites() {
-    const names = ['cargo-ship','fuel-tanker','speedboat','container-barge','lng-carrier'];
-    const types = ['cargo','tanker','speedboat','barge','lng'];
-    names.forEach((name, i) => {
-      const img = new Image();
-      img.onload = () => { spriteImages[types[i]] = img; };
-      img.onerror = () => {};
-      img.src = 'images/games/' + name + '.png';
-    });
+    fetch('images/games/sprite-manifest.json')
+      .then(r => r.json())
+      .then(manifest => {
+        const base = manifest.basePath || 'images/games/';
+        if (manifest.vessels) {
+          Object.keys(manifest.vessels).forEach(type => {
+            const entry = manifest.vessels[type];
+            const img = new Image();
+            img.onload = () => { spriteImages[type] = img; };
+            img.onerror = () => {}; // fallback to canvas drawing
+            img.src = base + entry.file;
+          });
+        }
+        if (manifest.islands) {
+          Object.keys(manifest.islands).forEach(type => {
+            const entry = manifest.islands[type];
+            const img = new Image();
+            img.onload = () => { islandSpriteImages[type] = img; };
+            img.onerror = () => {}; // fallback to canvas drawing
+            img.src = base + entry.file;
+          });
+        }
+      })
+      .catch(() => {}); // manifest missing — use canvas fallbacks
   }
   loadSprites();
 
@@ -647,6 +664,12 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
     islands.forEach(island => {
       const s = island.s;
 
+      // Use island sprite if available, otherwise fall back to canvas drawing
+      const islandSpr = islandSpriteImages[island.type];
+      if (islandSpr) {
+        const sprSize = s * 2.6;
+        ctx.drawImage(islandSpr, island.cx - sprSize / 2, island.cy - sprSize / 2, sprSize, sprSize);
+      } else {
       // Shadow
       ctx.save();
       ctx.translate(3, 4);
@@ -798,6 +821,7 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
           ctx.strokeStyle = 'rgba(34,160,124,0.6)'; ctx.lineWidth = 1; ctx.stroke();
         });
       }
+      } // end canvas fallback
 
       // --- PORT / DOCK ---
       // Draw pier extending from island

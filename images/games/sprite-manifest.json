@@ -1,0 +1,17 @@
+{
+  "basePath": "images/games/",
+  "vessels": {
+    "cargo":     { "file": "cargo-ship.png" },
+    "tanker":    { "file": "fuel-tanker.png" },
+    "speedboat": { "file": "speedboat.png" },
+    "barge":     { "file": "container-barge.png" },
+    "lng":       { "file": "lng-carrier.png" }
+  },
+  "islands": {
+    "cargo":     { "file": "island-cargo.png" },
+    "tanker":    { "file": "island-tanker.png" },
+    "speedboat": { "file": "island-speedboat.png" },
+    "barge":     { "file": "island-barge.png" },
+    "lng":       { "file": "island-lng.png" }
+  }
+}
