@@ -37,30 +37,31 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   z-index: 10; pointer-events: none; opacity: 0; transition: opacity 0.4s;
+  overflow-y: auto;
 }
 .overlay.active { opacity: 1; pointer-events: auto; }
 .overlay-bg {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(14, 26, 20, 0.85);
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(14, 26, 20, 0.88);
 }
 .overlay-content {
   position: relative; text-align: center; color: var(--cream);
-  max-width: 480px; padding: 40px 32px;
+  max-width: 600px; padding: 32px 24px; margin: auto;
 }
 .overlay-content h1 {
-  font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 700;
-  color: var(--gold); margin-bottom: 8px; line-height: 1.1;
+  font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 700;
+  color: var(--gold); margin-bottom: 6px; line-height: 1.1;
 }
 .overlay-content h2 {
-  font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 500;
-  color: var(--cream); margin-bottom: 20px;
+  font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500;
+  color: var(--cream); margin-bottom: 16px;
 }
 .overlay-content p {
   font-size: 14px; color: var(--cream-dark); margin-bottom: 6px; line-height: 1.5;
 }
 .overlay-content .instructions {
   font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .06em;
-  color: var(--gold-light); margin: 16px 0 24px; line-height: 1.8;
+  color: var(--gold-light); margin: 12px 0 18px; line-height: 1.8;
   text-transform: uppercase;
 }
 .btn-play {
@@ -70,7 +71,7 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
   cursor: pointer; transition: background 0.2s;
 }
 .btn-play:hover { background: var(--gold-light); }
-.logo-img { width: 60px; height: auto; margin-bottom: 16px; opacity: 0.9; }
+.logo-img { width: 50px; height: auto; margin-bottom: 12px; opacity: 0.9; }
 .score-display {
   font-family: 'DM Mono', monospace; font-size: 22px; color: var(--gold);
   margin: 12px 0 4px;
@@ -79,6 +80,29 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
   font-family: 'DM Mono', monospace; font-size: 14px; color: var(--cream-dark);
   margin-bottom: 20px;
 }
+
+.vessel-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  margin: 16px 0; text-align: left;
+}
+@media (max-width: 480px) { .vessel-grid { grid-template-columns: 1fr; } }
+.vessel-card {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,0.04); padding: 10px 12px; border-left: 3px solid;
+}
+.vessel-card .v-icon { width: 36px; height: 36px; flex-shrink: 0; }
+.vessel-card .v-icon canvas { width: 36px; height: 36px; }
+.vessel-card .v-info { flex: 1; min-width: 0; }
+.vessel-card .v-name {
+  font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
+  letter-spacing: .08em; text-transform: uppercase; margin-bottom: 2px;
+}
+.vessel-card .v-desc { font-size: 11px; color: var(--cream-dark); line-height: 1.3; }
+.vessel-card .v-pts {
+  font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold);
+  letter-spacing: .06em;
+}
+.vessel-card:nth-child(5) { grid-column: 1 / -1; max-width: 280px; justify-self: center; }
 
 #hud {
   position: fixed; top: 0; left: 0; width: 100%; padding: 16px 24px;
@@ -109,10 +133,11 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
     <img src="vector-trade-capital-logo.png" alt="VTC" class="logo-img">
     <h1>Caribbean Port Control</h1>
     <h2>A Vector Trade Capital Game</h2>
-    <p>Guide shipping vessels to their color-coded docks.</p>
+    <p>Draw paths to guide vessels to their matching island ports. Avoid collisions!</p>
     <div class="instructions">
-      Draw paths &middot; Match vessel colors to docks &middot; Avoid collisions
+      Click &amp; drag from a vessel to draw its route &middot; Match colors to ports
     </div>
+    <div class="vessel-grid" id="vesselGrid"></div>
     <button class="btn-play" id="btnPlay">Play</button>
   </div>
 </div>
@@ -132,33 +157,104 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
 (function() {
   'use strict';
 
-  // --- Constants ---
+  // ==================== VESSEL TYPES ====================
   const VESSEL_TYPES = [
-    { type: 'cargo',     speed: 1.0, radius: 30, color: '#1A7A5E', points: 10, label: 'Food Commodities', sprite: 'cargo-ship.png' },
-    { type: 'tanker',    speed: 1.8, radius: 22, color: '#B8963E', points: 20, label: 'Fuel & Energy',    sprite: 'fuel-tanker.png' },
-    { type: 'speedboat', speed: 3.0, radius: 14, color: '#8B3A2A', points: 30, label: 'Vehicle Parts',    sprite: 'speedboat.png' },
-    { type: 'barge',     speed: 0.7, radius: 36, color: '#2A4D39', points: 15, label: 'Bulk Dry Goods',   sprite: 'container-barge.png' },
-    { type: 'lng',       speed: 2.2, radius: 26, color: '#22A07C', points: 25, label: 'Liquefied Gas',    sprite: 'lng-carrier.png' },
+    { type: 'cargo',     speed: 1.0, radius: 28, color: '#1A7A5E', points: 10,
+      label: 'Cargo Ship', desc: 'Slow & heavy. Carries food commodities across the Caribbean.' },
+    { type: 'tanker',    speed: 1.8, radius: 22, color: '#B8963E', points: 20,
+      label: 'Fuel Tanker', desc: 'Medium speed. Transports fuel oil and refined petroleum.' },
+    { type: 'speedboat', speed: 3.0, radius: 13, color: '#8B3A2A', points: 30,
+      label: 'Speedboat', desc: 'Fast & nimble. Rushes vehicle parts between island ports.' },
+    { type: 'barge',     speed: 0.7, radius: 34, color: '#2A4D39', points: 15,
+      label: 'Container Barge', desc: 'Slowest & largest. Hauls bulk dry goods on a flat deck.' },
+    { type: 'lng',       speed: 2.2, radius: 24, color: '#22A07C', points: 25,
+      label: 'LNG Carrier', desc: 'Fast & mid-size. Delivers liquefied natural gas safely.' },
   ];
   const SPAWN_WEIGHTS = [0.25, 0.25, 0.20, 0.15, 0.15];
-  const DOCK_HEIGHT = 70;
-  const DOCK_PAD = 20;
+
+  // ==================== ISLAND DEFINITIONS ====================
+  // Each island has a unique shape, port position, and associated vessel type.
+  // Positions are in fractions of W,H and get computed on resize.
+  const ISLAND_DEFS = [
+    { // Cargo - large crescent-shaped island, top-left area
+      type: 'cargo', color: '#1A7A5E', label: 'Cargo Port',
+      cx: 0.14, cy: 0.28, portSide: 'right',
+      // Organic shape points (relative to center, will be scaled)
+      shape: [
+        {x:-1.0,y:-0.3},{x:-0.7,y:-0.9},{x:-0.1,y:-1.0},{x:0.5,y:-0.8},
+        {x:0.9,y:-0.4},{x:1.0,y:0.1},{x:0.8,y:0.5},{x:0.3,y:0.8},
+        {x:-0.2,y:1.0},{x:-0.7,y:0.7},{x:-1.0,y:0.3}
+      ],
+      scale: 70, trees: [{x:-0.2,y:-0.3,s:8},{x:0.1,y:0.2,s:7},{x:-0.5,y:0.1,s:6},{x:0.3,y:-0.4,s:5}],
+      mountain: {x:-0.1,y:-0.1,s:18}
+    },
+    { // Tanker - elongated island with fuel depot, top-right
+      type: 'tanker', color: '#B8963E', label: 'Fuel Depot',
+      cx: 0.82, cy: 0.22, portSide: 'left',
+      shape: [
+        {x:-1.0,y:-0.2},{x:-0.6,y:-0.7},{x:0.0,y:-0.9},{x:0.6,y:-0.7},
+        {x:1.0,y:-0.3},{x:1.1,y:0.2},{x:0.8,y:0.6},{x:0.2,y:0.8},
+        {x:-0.4,y:0.7},{x:-0.9,y:0.4},{x:-1.1,y:0.0}
+      ],
+      scale: 58, trees: [{x:0.2,y:-0.2,s:5},{x:0.4,y:0.1,s:4}],
+      mountain: null,
+      depot: {x:0.0,y:0.0,s:12} // fuel storage tanks
+    },
+    { // Speedboat - small rocky island, mid-right
+      type: 'speedboat', color: '#8B3A2A', label: 'Marina',
+      cx: 0.78, cy: 0.58, portSide: 'left',
+      shape: [
+        {x:-0.8,y:-0.4},{x:-0.3,y:-0.9},{x:0.3,y:-0.8},{x:0.8,y:-0.3},
+        {x:0.9,y:0.3},{x:0.4,y:0.8},{x:-0.2,y:0.9},{x:-0.7,y:0.5},
+        {x:-0.9,y:0.0}
+      ],
+      scale: 44, trees: [{x:0.1,y:-0.1,s:5},{x:-0.2,y:0.2,s:4}],
+      mountain: null
+    },
+    { // Barge - large flat island with warehouses, bottom-left
+      type: 'barge', color: '#2A4D39', label: 'Cargo Terminal',
+      cx: 0.18, cy: 0.7, portSide: 'right',
+      shape: [
+        {x:-1.0,y:-0.5},{x:-0.4,y:-0.9},{x:0.3,y:-1.0},{x:0.9,y:-0.6},
+        {x:1.1,y:0.0},{x:0.9,y:0.5},{x:0.3,y:0.9},{x:-0.4,y:0.8},
+        {x:-1.0,y:0.3},{x:-1.1,y:-0.1}
+      ],
+      scale: 72, trees: [{x:-0.4,y:-0.3,s:7},{x:-0.3,y:0.3,s:6},{x:0.4,y:-0.3,s:5}],
+      mountain: {x:0.1,y:-0.2,s:14},
+      warehouses: [{x:0.3,y:0.2,s:10},{x:0.5,y:0.0,s:8}]
+    },
+    { // LNG - volcanic island with gas facility, center
+      type: 'lng', color: '#22A07C', label: 'LNG Terminal',
+      cx: 0.48, cy: 0.45, portSide: 'bottom',
+      shape: [
+        {x:-0.6,y:-0.9},{x:0.1,y:-1.0},{x:0.7,y:-0.7},{x:1.0,y:-0.1},
+        {x:0.8,y:0.5},{x:0.3,y:0.9},{x:-0.3,y:0.8},{x:-0.8,y:0.4},
+        {x:-1.0,y:-0.2}
+      ],
+      scale: 54, trees: [{x:-0.3,y:0.2,s:5},{x:0.3,y:-0.2,s:6}],
+      mountain: {x:0.0,y:-0.2,s:16},
+      gasTanks: [{x:0.2,y:0.3,s:6},{x:0.0,y:0.4,s:5}]
+    },
+  ];
+
+  // ==================== CONSTANTS ====================
   const PATH_SAMPLE_DIST = 10;
   const COLLISION_WARN_MULT = 2.0;
   const INITIAL_SPAWN_INTERVAL = 4000;
   const MIN_SPAWN_INTERVAL = 1500;
   const SPAWN_DECREASE = 100;
   const DOCKINGS_PER_DECREASE = 5;
+  const PORT_RADIUS = 28;
 
-  // --- State ---
+  // ==================== STATE ====================
   const canvas = document.getElementById('gameCanvas');
   const ctx = canvas.getContext('2d');
   let W, H;
-  let state = 'TITLE'; // TITLE | PLAYING | GAME_OVER
+  let state = 'TITLE';
   let score = 0;
   let highScore = parseInt(localStorage.getItem('vtc_cpc_high') || '0', 10);
   let vessels = [];
-  let docks = [];
+  let islands = []; // computed from ISLAND_DEFS on resize
   let selectedVessel = null;
   let drawingPath = [];
   let spawnTimer = 0;
@@ -167,31 +263,23 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
   let lastTime = 0;
   let waveOffset = 0;
   let explosionEffects = [];
+  let dockEffects = [];
 
   // Sprites
   const spriteImages = {};
-  let spritesLoaded = false;
-
   function loadSprites() {
-    let loaded = 0;
-    const total = VESSEL_TYPES.length;
-    VESSEL_TYPES.forEach(vt => {
+    const names = ['cargo-ship','fuel-tanker','speedboat','container-barge','lng-carrier'];
+    const types = ['cargo','tanker','speedboat','barge','lng'];
+    names.forEach((name, i) => {
       const img = new Image();
-      img.onload = () => {
-        spriteImages[vt.type] = img;
-        loaded++;
-        if (loaded === total) spritesLoaded = true;
-      };
-      img.onerror = () => {
-        loaded++;
-        if (loaded === total) spritesLoaded = true;
-      };
-      img.src = 'images/games/' + vt.sprite;
+      img.onload = () => { spriteImages[types[i]] = img; };
+      img.onerror = () => {};
+      img.src = 'images/games/' + name + '.png';
     });
   }
   loadSprites();
 
-  // --- Resize ---
+  // ==================== RESIZE & ISLAND COMPUTATION ====================
   function resize() {
     const dpr = window.devicePixelRatio || 1;
     W = window.innerWidth;
@@ -201,177 +289,34 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
     canvas.style.width = W + 'px';
     canvas.style.height = H + 'px';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    buildDocks();
+    buildIslands();
   }
   window.addEventListener('resize', resize);
 
-  // --- Docks ---
-  function buildDocks() {
-    docks = [];
-    const dockW = (W - DOCK_PAD * 2) / 5;
-    for (let i = 0; i < 5; i++) {
-      docks.push({
-        x: DOCK_PAD + i * dockW,
-        y: H - DOCK_HEIGHT,
-        w: dockW,
-        h: DOCK_HEIGHT,
-        type: VESSEL_TYPES[i].type,
-        color: VESSEL_TYPES[i].color,
-        label: VESSEL_TYPES[i].label,
-      });
-    }
-  }
-
-  // --- Weighted random vessel type ---
-  function randomVesselType() {
-    let r = Math.random();
-    let cumulative = 0;
-    for (let i = 0; i < SPAWN_WEIGHTS.length; i++) {
-      cumulative += SPAWN_WEIGHTS[i];
-      if (r <= cumulative) return i;
-    }
-    return 0;
-  }
-
-  // --- Spawn vessel ---
-  function spawnVessel() {
-    const idx = randomVesselType();
-    const vt = VESSEL_TYPES[idx];
-    // Spawn from top, left, or right edge
-    const edge = Math.floor(Math.random() * 3); // 0=top, 1=left, 2=right
-    let x, y, angle;
-    const margin = 60;
-    if (edge === 0) {
-      x = margin + Math.random() * (W - margin * 2);
-      y = -vt.radius;
-      angle = Math.PI / 2 + (Math.random() - 0.5) * 0.6;
-    } else if (edge === 1) {
-      x = -vt.radius;
-      y = margin + Math.random() * (H - DOCK_HEIGHT - margin * 2);
-      angle = (Math.random() - 0.5) * 0.8;
-    } else {
-      x = W + vt.radius;
-      y = margin + Math.random() * (H - DOCK_HEIGHT - margin * 2);
-      angle = Math.PI + (Math.random() - 0.5) * 0.8;
-    }
-
-    vessels.push({
-      type: vt.type,
-      x: x,
-      y: y,
-      speed: vt.speed,
-      radius: vt.radius,
-      color: vt.color,
-      points: vt.points,
-      label: vt.label,
-      path: [],
-      pathIndex: 0,
-      angle: angle,
-      docked: false,
-      warning: false,
-      spriteIdx: idx,
-    });
-  }
-
-  // --- Distance helper ---
-  function dist(a, b) {
-    const dx = a.x - b.x;
-    const dy = a.y - b.y;
-    return Math.sqrt(dx * dx + dy * dy);
-  }
-
-  // --- Drawing ---
-  function drawWater() {
-    // Animated gradient water
-    const grad = ctx.createLinearGradient(0, 0, 0, H);
-    grad.addColorStop(0, '#0a3d5c');
-    grad.addColorStop(0.5, '#0e4a6a');
-    grad.addColorStop(1, '#0a2a3a');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, W, H);
-
-    // Wave lines
-    ctx.strokeStyle = 'rgba(100, 180, 220, 0.08)';
-    ctx.lineWidth = 1.5;
-    for (let row = 0; row < H; row += 40) {
-      ctx.beginPath();
-      for (let x = 0; x < W; x += 4) {
-        const yOff = Math.sin((x + waveOffset) * 0.02 + row * 0.1) * 6;
-        if (x === 0) ctx.moveTo(x, row + yOff);
-        else ctx.lineTo(x, row + yOff);
+  function buildIslands() {
+    islands = ISLAND_DEFS.map(def => {
+      const cx = def.cx * W;
+      const cy = def.cy * H;
+      const s = def.scale * Math.min(W, H) / 900;
+      // Compute world-space shape points
+      const pts = def.shape.map(p => ({ x: cx + p.x * s, y: cy + p.y * s }));
+      // Port position: extends from island edge
+      let px, py, portAngle;
+      if (def.portSide === 'right') {
+        px = cx + s * 1.05; py = cy; portAngle = 0;
+      } else if (def.portSide === 'left') {
+        px = cx - s * 1.05; py = cy; portAngle = Math.PI;
+      } else {
+        px = cx; py = cy + s * 1.05; portAngle = Math.PI / 2;
       }
-      ctx.stroke();
-    }
-  }
-
-  function drawIslands() {
-    // Small decorative islands
-    const islands = [
-      { x: W * 0.15, y: H * 0.2, r: 45 },
-      { x: W * 0.82, y: H * 0.15, r: 35 },
-      { x: W * 0.6, y: H * 0.35, r: 28 },
-    ];
-    islands.forEach(island => {
-      // Beach edge
-      ctx.beginPath();
-      ctx.arc(island.x, island.y, island.r + 4, 0, Math.PI * 2);
-      ctx.fillStyle = '#C4A44A';
-      ctx.fill();
-      // Green land
-      ctx.beginPath();
-      ctx.arc(island.x, island.y, island.r, 0, Math.PI * 2);
-      ctx.fillStyle = '#2A6B45';
-      ctx.fill();
-      // Highlight
-      ctx.beginPath();
-      ctx.arc(island.x - island.r * 0.2, island.y - island.r * 0.2, island.r * 0.5, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(60, 140, 80, 0.4)';
-      ctx.fill();
+      return {
+        ...def, cx, cy, s, pts, px, py, portAngle,
+      };
     });
   }
 
-  function drawDocks() {
-    docks.forEach(dock => {
-      // Dock area background
-      ctx.fillStyle = 'rgba(0,0,0,0.3)';
-      ctx.fillRect(dock.x + 2, dock.y + 2, dock.w - 4, dock.h - 4);
-
-      // Color indicator
-      ctx.fillStyle = dock.color;
-      ctx.globalAlpha = 0.25;
-      ctx.fillRect(dock.x + 2, dock.y + 2, dock.w - 4, dock.h - 4);
-      ctx.globalAlpha = 1;
-
-      // Border
-      ctx.strokeStyle = dock.color;
-      ctx.lineWidth = 2;
-      ctx.strokeRect(dock.x + 2, dock.y + 2, dock.w - 4, dock.h - 4);
-
-      // Pier lines
-      ctx.strokeStyle = 'rgba(255,255,255,0.2)';
-      ctx.lineWidth = 1;
-      for (let px = dock.x + 12; px < dock.x + dock.w - 8; px += 14) {
-        ctx.beginPath();
-        ctx.moveTo(px, dock.y + 6);
-        ctx.lineTo(px, dock.y + dock.h - 6);
-        ctx.stroke();
-      }
-
-      // Dock label
-      ctx.fillStyle = dock.color;
-      ctx.font = "500 9px 'DM Mono', monospace";
-      ctx.textAlign = 'center';
-      ctx.fillText(dock.label.toUpperCase(), dock.x + dock.w / 2, dock.y + dock.h / 2 + 3);
-
-      // Color dot
-      ctx.beginPath();
-      ctx.arc(dock.x + dock.w / 2, dock.y + 14, 5, 0, Math.PI * 2);
-      ctx.fillStyle = dock.color;
-      ctx.fill();
-    });
-  }
-
-  function drawVessel(v) {
+  // ==================== VESSEL DRAWING (distinct shapes) ====================
+  function drawVesselShape(v) {
     ctx.save();
     ctx.translate(v.x, v.y);
     ctx.rotate(v.angle);
@@ -380,38 +325,557 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
     if (spr) {
       const size = v.radius * 2.8;
       ctx.drawImage(spr, -size / 2, -size / 2, size, size);
-    } else {
-      // Fallback geometric shape
-      const r = v.radius;
+      ctx.restore();
+      return;
+    }
+
+    const r = v.radius;
+
+    if (v.type === 'cargo') {
+      // Wide-body freighter with containers
       ctx.fillStyle = v.color;
       ctx.beginPath();
       ctx.moveTo(0, -r);
-      ctx.lineTo(r * 0.6, r * 0.6);
-      ctx.lineTo(0, r * 0.35);
-      ctx.lineTo(-r * 0.6, r * 0.6);
+      ctx.quadraticCurveTo(r * 0.5, -r * 0.7, r * 0.55, -r * 0.2);
+      ctx.lineTo(r * 0.55, r * 0.5);
+      ctx.quadraticCurveTo(r * 0.4, r * 0.8, 0, r * 0.85);
+      ctx.quadraticCurveTo(-r * 0.4, r * 0.8, -r * 0.55, r * 0.5);
+      ctx.lineTo(-r * 0.55, -r * 0.2);
+      ctx.quadraticCurveTo(-r * 0.5, -r * 0.7, 0, -r);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.25)'; ctx.lineWidth = 1; ctx.stroke();
+      // Containers (colored rectangles on deck)
+      const colors = ['#3a8a6e', '#2d6b50', '#4a9a7e'];
+      for (let row = 0; row < 3; row++) {
+        ctx.fillStyle = colors[row];
+        ctx.fillRect(-r * 0.35, -r * 0.4 + row * r * 0.3, r * 0.7, r * 0.22);
+        ctx.strokeStyle = 'rgba(0,0,0,0.15)'; ctx.lineWidth = 0.5;
+        ctx.strokeRect(-r * 0.35, -r * 0.4 + row * r * 0.3, r * 0.7, r * 0.22);
+      }
+      // Bridge
+      ctx.fillStyle = '#ddd';
+      ctx.fillRect(-r * 0.15, r * 0.45, r * 0.3, r * 0.2);
+      ctx.fillStyle = '#aacfff';
+      ctx.fillRect(-r * 0.1, r * 0.48, r * 0.2, r * 0.1);
+
+    } else if (v.type === 'tanker') {
+      // Rounded tanker body with cylindrical tanks
+      ctx.fillStyle = v.color;
+      ctx.beginPath();
+      ctx.moveTo(0, -r);
+      ctx.quadraticCurveTo(r * 0.45, -r * 0.6, r * 0.5, 0);
+      ctx.quadraticCurveTo(r * 0.45, r * 0.6, 0, r * 0.8);
+      ctx.quadraticCurveTo(-r * 0.45, r * 0.6, -r * 0.5, 0);
+      ctx.quadraticCurveTo(-r * 0.45, -r * 0.6, 0, -r);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.2)'; ctx.lineWidth = 1; ctx.stroke();
+      // Tank cylinders (horizontal lines across deck)
+      ctx.strokeStyle = 'rgba(200,170,80,0.5)'; ctx.lineWidth = 1.5;
+      for (let ty = -r * 0.5; ty < r * 0.4; ty += r * 0.25) {
+        ctx.beginPath();
+        ctx.moveTo(-r * 0.3, ty); ctx.lineTo(r * 0.3, ty); ctx.stroke();
+      }
+      // Central pipe
+      ctx.strokeStyle = 'rgba(255,255,255,0.15)'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(0, -r * 0.6); ctx.lineTo(0, r * 0.5); ctx.stroke();
+      // Bridge at stern
+      ctx.fillStyle = '#d4b05a';
+      ctx.fillRect(-r * 0.18, r * 0.4, r * 0.36, r * 0.22);
+
+    } else if (v.type === 'speedboat') {
+      // Sleek, narrow speedboat with wake suggestion
+      ctx.fillStyle = v.color;
+      ctx.beginPath();
+      ctx.moveTo(0, -r * 1.1);
+      ctx.quadraticCurveTo(r * 0.35, -r * 0.4, r * 0.35, r * 0.2);
+      ctx.quadraticCurveTo(r * 0.3, r * 0.7, 0, r * 0.8);
+      ctx.quadraticCurveTo(-r * 0.3, r * 0.7, -r * 0.35, r * 0.2);
+      ctx.quadraticCurveTo(-r * 0.35, -r * 0.4, 0, -r * 1.1);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.3)'; ctx.lineWidth = 1; ctx.stroke();
+      // Windshield
+      ctx.fillStyle = 'rgba(170,200,255,0.5)';
+      ctx.beginPath();
+      ctx.moveTo(0, -r * 0.5);
+      ctx.lineTo(r * 0.2, -r * 0.1);
+      ctx.lineTo(-r * 0.2, -r * 0.1);
       ctx.closePath();
       ctx.fill();
+      // Engine at stern
+      ctx.fillStyle = 'rgba(60,20,10,0.6)';
+      ctx.fillRect(-r * 0.15, r * 0.4, r * 0.3, r * 0.25);
+      // Wake lines
+      ctx.strokeStyle = 'rgba(255,255,255,0.12)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(-r * 0.2, r * 0.7); ctx.lineTo(-r * 0.5, r * 1.3); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(r * 0.2, r * 0.7); ctx.lineTo(r * 0.5, r * 1.3); ctx.stroke();
 
-      // Hull outline
-      ctx.strokeStyle = 'rgba(255,255,255,0.3)';
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
+    } else if (v.type === 'barge') {
+      // Wide flat rectangle with containers
+      ctx.fillStyle = v.color;
+      ctx.beginPath();
+      ctx.moveTo(-r * 0.7, -r * 0.85);
+      ctx.lineTo(r * 0.7, -r * 0.85);
+      ctx.quadraticCurveTo(r * 0.8, -r * 0.7, r * 0.8, -r * 0.5);
+      ctx.lineTo(r * 0.8, r * 0.7);
+      ctx.quadraticCurveTo(r * 0.7, r * 0.85, r * 0.5, r * 0.9);
+      ctx.lineTo(-r * 0.5, r * 0.9);
+      ctx.quadraticCurveTo(-r * 0.7, r * 0.85, -r * 0.8, r * 0.7);
+      ctx.lineTo(-r * 0.8, -r * 0.5);
+      ctx.quadraticCurveTo(-r * 0.8, -r * 0.7, -r * 0.7, -r * 0.85);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.2)'; ctx.lineWidth = 1.5; ctx.stroke();
+      // Container grid
+      const cColors = ['#3d6b4f', '#4d7b5f', '#2d5b3f', '#3a7050', '#4a8060', '#2a5535'];
+      let ci = 0;
+      for (let row = 0; row < 3; row++) {
+        for (let col = 0; col < 2; col++) {
+          ctx.fillStyle = cColors[ci++ % cColors.length];
+          const bx = -r * 0.55 + col * r * 0.6;
+          const by = -r * 0.6 + row * r * 0.4;
+          ctx.fillRect(bx, by, r * 0.5, r * 0.32);
+          ctx.strokeStyle = 'rgba(0,0,0,0.2)'; ctx.lineWidth = 0.5;
+          ctx.strokeRect(bx, by, r * 0.5, r * 0.32);
+        }
+      }
+      // Tug bridge at stern
+      ctx.fillStyle = '#5a9070';
+      ctx.fillRect(-r * 0.2, r * 0.55, r * 0.4, r * 0.2);
+      ctx.fillStyle = '#aacfaa';
+      ctx.fillRect(-r * 0.12, r * 0.58, r * 0.24, r * 0.1);
 
-      // Cabin
-      ctx.fillStyle = 'rgba(255,255,255,0.2)';
-      ctx.fillRect(-r * 0.2, -r * 0.1, r * 0.4, r * 0.3);
+    } else if (v.type === 'lng') {
+      // Rounded hull with spherical LNG domes
+      ctx.fillStyle = v.color;
+      ctx.beginPath();
+      ctx.moveTo(0, -r);
+      ctx.quadraticCurveTo(r * 0.5, -r * 0.65, r * 0.5, -r * 0.1);
+      ctx.lineTo(r * 0.5, r * 0.4);
+      ctx.quadraticCurveTo(r * 0.4, r * 0.8, 0, r * 0.85);
+      ctx.quadraticCurveTo(-r * 0.4, r * 0.8, -r * 0.5, r * 0.4);
+      ctx.lineTo(-r * 0.5, -r * 0.1);
+      ctx.quadraticCurveTo(-r * 0.5, -r * 0.65, 0, -r);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.2)'; ctx.lineWidth = 1; ctx.stroke();
+      // Spherical LNG domes
+      const domeColor = 'rgba(200,240,220,0.35)';
+      [{ y: -r * 0.35 }, { y: r * 0.05 }, { y: r * 0.4 }].forEach(d => {
+        ctx.beginPath();
+        ctx.arc(0, d.y, r * 0.22, 0, Math.PI * 2);
+        ctx.fillStyle = domeColor;
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,0.15)'; ctx.lineWidth = 0.5; ctx.stroke();
+        // Dome highlight
+        ctx.beginPath();
+        ctx.arc(-r * 0.05, d.y - r * 0.06, r * 0.08, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,0.15)';
+        ctx.fill();
+      });
+      // Bridge
+      ctx.fillStyle = '#3ec9a0';
+      ctx.fillRect(-r * 0.15, r * 0.55, r * 0.3, r * 0.18);
     }
 
     ctx.restore();
+  }
 
-    // Warning indicator
-    if (v.warning) {
+  // Draw a small vessel icon on a mini canvas for the title screen
+  function drawVesselIcon(type, color, size) {
+    const c = document.createElement('canvas');
+    c.width = size * 2; c.height = size * 2;
+    const ic = c.getContext('2d');
+    // Temporarily swap ctx to draw with our vessel function
+    const fakeVessel = { type, color, radius: size * 0.7, x: 0, y: 0, angle: 0 };
+    ic.save();
+    ic.translate(size, size);
+    // Inline mini draw
+    const r = fakeVessel.radius;
+    ic.fillStyle = color;
+    if (type === 'cargo') {
+      ic.beginPath();
+      ic.moveTo(0, -r); ic.quadraticCurveTo(r*0.5,-r*0.7,r*0.55,-r*0.2);
+      ic.lineTo(r*0.55,r*0.5); ic.quadraticCurveTo(r*0.4,r*0.8,0,r*0.85);
+      ic.quadraticCurveTo(-r*0.4,r*0.8,-r*0.55,r*0.5); ic.lineTo(-r*0.55,-r*0.2);
+      ic.quadraticCurveTo(-r*0.5,-r*0.7,0,-r); ic.fill();
+      ic.fillStyle='#3a8a6e'; ic.fillRect(-r*0.3,-r*0.3,r*0.6,r*0.2);
+      ic.fillStyle='#2d6b50'; ic.fillRect(-r*0.3,0,r*0.6,r*0.2);
+    } else if (type === 'tanker') {
+      ic.beginPath();
+      ic.moveTo(0,-r); ic.quadraticCurveTo(r*0.45,-r*0.6,r*0.5,0);
+      ic.quadraticCurveTo(r*0.45,r*0.6,0,r*0.8); ic.quadraticCurveTo(-r*0.45,r*0.6,-r*0.5,0);
+      ic.quadraticCurveTo(-r*0.45,-r*0.6,0,-r); ic.fill();
+      ic.strokeStyle='rgba(200,170,80,0.5)'; ic.lineWidth=1;
+      ic.beginPath(); ic.moveTo(0,-r*0.6); ic.lineTo(0,r*0.5); ic.stroke();
+    } else if (type === 'speedboat') {
+      ic.beginPath();
+      ic.moveTo(0,-r*1.1); ic.quadraticCurveTo(r*0.35,-r*0.4,r*0.35,r*0.2);
+      ic.quadraticCurveTo(r*0.3,r*0.7,0,r*0.8); ic.quadraticCurveTo(-r*0.3,r*0.7,-r*0.35,r*0.2);
+      ic.quadraticCurveTo(-r*0.35,-r*0.4,0,-r*1.1); ic.fill();
+    } else if (type === 'barge') {
+      ic.beginPath();
+      ic.moveTo(-r*0.7,-r*0.85); ic.lineTo(r*0.7,-r*0.85);
+      ic.quadraticCurveTo(r*0.8,-r*0.7,r*0.8,-r*0.5); ic.lineTo(r*0.8,r*0.7);
+      ic.quadraticCurveTo(r*0.7,r*0.85,r*0.5,r*0.9); ic.lineTo(-r*0.5,r*0.9);
+      ic.quadraticCurveTo(-r*0.7,r*0.85,-r*0.8,r*0.7); ic.lineTo(-r*0.8,-r*0.5);
+      ic.quadraticCurveTo(-r*0.8,-r*0.7,-r*0.7,-r*0.85); ic.fill();
+      ic.fillStyle='#3d6b4f'; ic.fillRect(-r*0.5,-r*0.5,r*0.45,r*0.35);
+      ic.fillStyle='#4d7b5f'; ic.fillRect(r*0.05,-r*0.5,r*0.45,r*0.35);
+    } else if (type === 'lng') {
+      ic.beginPath();
+      ic.moveTo(0,-r); ic.quadraticCurveTo(r*0.5,-r*0.65,r*0.5,-r*0.1);
+      ic.lineTo(r*0.5,r*0.4); ic.quadraticCurveTo(r*0.4,r*0.8,0,r*0.85);
+      ic.quadraticCurveTo(-r*0.4,r*0.8,-r*0.5,r*0.4); ic.lineTo(-r*0.5,-r*0.1);
+      ic.quadraticCurveTo(-r*0.5,-r*0.65,0,-r); ic.fill();
+      ic.fillStyle='rgba(200,240,220,0.35)';
+      [{ y:-r*0.3 },{ y:r*0.15 }].forEach(d=>{
+        ic.beginPath(); ic.arc(0,d.y,r*0.2,0,Math.PI*2); ic.fill();
+      });
+    }
+    ic.restore();
+    return c;
+  }
+
+  // ==================== BUILD TITLE SCREEN VESSEL GRID ====================
+  function buildVesselGrid() {
+    const grid = document.getElementById('vesselGrid');
+    VESSEL_TYPES.forEach(vt => {
+      const card = document.createElement('div');
+      card.className = 'vessel-card';
+      card.style.borderColor = vt.color;
+      const iconCanvas = drawVesselIcon(vt.type, vt.color, 24);
+      const iconDiv = document.createElement('div');
+      iconDiv.className = 'v-icon';
+      iconDiv.appendChild(iconCanvas);
+      const info = document.createElement('div');
+      info.className = 'v-info';
+      info.innerHTML = '<div class="v-name" style="color:' + vt.color + '">' + vt.label + '</div>' +
+        '<div class="v-desc">' + vt.desc + '</div>' +
+        '<div class="v-pts">' + vt.points + ' pts</div>';
+      card.appendChild(iconDiv);
+      card.appendChild(info);
+      grid.appendChild(card);
+    });
+  }
+  buildVesselGrid();
+
+  // ==================== WEIGHTED RANDOM ====================
+  function randomVesselType() {
+    let r = Math.random(), cum = 0;
+    for (let i = 0; i < SPAWN_WEIGHTS.length; i++) {
+      cum += SPAWN_WEIGHTS[i];
+      if (r <= cum) return i;
+    }
+    return 0;
+  }
+
+  // ==================== SPAWN ====================
+  function spawnVessel() {
+    const idx = randomVesselType();
+    const vt = VESSEL_TYPES[idx];
+    const edge = Math.floor(Math.random() * 3);
+    let x, y, angle;
+    const margin = 60;
+    if (edge === 0) {
+      x = margin + Math.random() * (W - margin * 2); y = -vt.radius;
+      angle = Math.PI / 2 + (Math.random() - 0.5) * 0.6;
+    } else if (edge === 1) {
+      x = -vt.radius; y = margin + Math.random() * (H - margin * 2);
+      angle = (Math.random() - 0.5) * 0.8;
+    } else {
+      x = W + vt.radius; y = margin + Math.random() * (H - margin * 2);
+      angle = Math.PI + (Math.random() - 0.5) * 0.8;
+    }
+    vessels.push({
+      type: vt.type, x, y, speed: vt.speed, radius: vt.radius,
+      color: vt.color, points: vt.points, label: vt.label,
+      path: [], pathIndex: 0, angle, docked: false, warning: false,
+    });
+  }
+
+  // ==================== HELPERS ====================
+  function dist(a, b) {
+    const dx = a.x - b.x, dy = a.y - b.y;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  // ==================== DRAWING ====================
+  function drawWater() {
+    const grad = ctx.createLinearGradient(0, 0, W * 0.3, H);
+    grad.addColorStop(0, '#0b3f5e');
+    grad.addColorStop(0.3, '#0e4d6f');
+    grad.addColorStop(0.6, '#0c4262');
+    grad.addColorStop(1, '#092d45');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    // Animated wave lines
+    ctx.strokeStyle = 'rgba(100, 190, 230, 0.06)';
+    ctx.lineWidth = 1.2;
+    for (let row = 0; row < H; row += 35) {
       ctx.beginPath();
-      ctx.arc(v.x, v.y, v.radius + 8, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(255, 180, 0, ' + (0.4 + Math.sin(Date.now() * 0.01) * 0.3) + ')';
-      ctx.lineWidth = 2;
+      for (let x = 0; x < W; x += 3) {
+        const yOff = Math.sin((x + waveOffset) * 0.018 + row * 0.08) * 5 +
+                     Math.sin((x + waveOffset * 0.7) * 0.01 + row * 0.05) * 3;
+        if (x === 0) ctx.moveTo(x, row + yOff);
+        else ctx.lineTo(x, row + yOff);
+      }
       ctx.stroke();
     }
+  }
+
+  function drawIslandShape(island) {
+    const pts = island.pts;
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, pts[0].y);
+    for (let i = 1; i < pts.length; i++) {
+      const prev = pts[i - 1];
+      const curr = pts[i];
+      const cpx = (prev.x + curr.x) / 2;
+      const cpy = (prev.y + curr.y) / 2;
+      ctx.quadraticCurveTo(prev.x, prev.y, cpx, cpy);
+    }
+    // Close with smooth curve
+    const last = pts[pts.length - 1];
+    const first = pts[0];
+    ctx.quadraticCurveTo(last.x, last.y, (last.x + first.x) / 2, (last.y + first.y) / 2);
+    ctx.quadraticCurveTo(first.x, first.y, pts[0].x, pts[0].y);
+    ctx.closePath();
+  }
+
+  function drawIslands() {
+    islands.forEach(island => {
+      const s = island.s;
+
+      // Shadow
+      ctx.save();
+      ctx.translate(3, 4);
+      drawIslandShape(island);
+      ctx.fillStyle = 'rgba(0,0,0,0.2)';
+      ctx.fill();
+      ctx.restore();
+
+      // Shallow water shelf around island
+      ctx.save();
+      ctx.translate(0, 0);
+      ctx.scale(1.08, 1.08);
+      ctx.translate(-island.cx * 0.08, -island.cy * 0.08);
+      drawIslandShape(island);
+      ctx.fillStyle = 'rgba(20,140,160,0.15)';
+      ctx.fill();
+      ctx.restore();
+
+      // Beach/sand border
+      ctx.save();
+      ctx.translate(0, 0);
+      ctx.scale(1.04, 1.04);
+      ctx.translate(-island.cx * 0.04, -island.cy * 0.04);
+      drawIslandShape(island);
+      ctx.fillStyle = '#C4A44A';
+      ctx.fill();
+      ctx.restore();
+
+      // Main land
+      drawIslandShape(island);
+      ctx.fillStyle = '#2A7A4A';
+      ctx.fill();
+
+      // Terrain gradient overlay
+      drawIslandShape(island);
+      const tg = ctx.createRadialGradient(island.cx - s * 0.2, island.cy - s * 0.2, 0, island.cx, island.cy, s * 1.2);
+      tg.addColorStop(0, 'rgba(60, 160, 80, 0.3)');
+      tg.addColorStop(1, 'rgba(20, 60, 30, 0.2)');
+      ctx.fillStyle = tg;
+      ctx.fill();
+
+      // Mountain
+      if (island.mountain) {
+        const m = island.mountain;
+        const mx = island.cx + m.x * s;
+        const my = island.cy + m.y * s;
+        const ms = m.s * s / 60;
+        // Mountain shadow
+        ctx.beginPath();
+        ctx.moveTo(mx, my - ms * 1.2);
+        ctx.lineTo(mx + ms * 1.0, my + ms * 0.6);
+        ctx.lineTo(mx - ms * 0.8, my + ms * 0.6);
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(30, 80, 40, 0.5)';
+        ctx.fill();
+        // Mountain
+        ctx.beginPath();
+        ctx.moveTo(mx, my - ms * 1.3);
+        ctx.lineTo(mx + ms * 0.9, my + ms * 0.5);
+        ctx.lineTo(mx - ms * 0.7, my + ms * 0.5);
+        ctx.closePath();
+        ctx.fillStyle = '#1d5a30';
+        ctx.fill();
+        // Snow/peak highlight
+        ctx.beginPath();
+        ctx.moveTo(mx, my - ms * 1.3);
+        ctx.lineTo(mx + ms * 0.2, my - ms * 0.8);
+        ctx.lineTo(mx - ms * 0.15, my - ms * 0.8);
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(200, 220, 200, 0.4)';
+        ctx.fill();
+      }
+
+      // Trees (palm tree circles)
+      if (island.trees) {
+        island.trees.forEach(t => {
+          const tx = island.cx + t.x * s;
+          const ty = island.cy + t.y * s;
+          const ts = t.s * s / 60;
+          // Trunk
+          ctx.strokeStyle = '#6B4226';
+          ctx.lineWidth = ts * 0.3;
+          ctx.beginPath();
+          ctx.moveTo(tx, ty + ts * 0.5);
+          ctx.quadraticCurveTo(tx + ts * 0.2, ty, tx - ts * 0.1, ty - ts * 0.3);
+          ctx.stroke();
+          // Canopy
+          ctx.beginPath();
+          ctx.arc(tx - ts * 0.1, ty - ts * 0.4, ts * 0.6, 0, Math.PI * 2);
+          ctx.fillStyle = '#1B6030';
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(tx + ts * 0.2, ty - ts * 0.2, ts * 0.45, 0, Math.PI * 2);
+          ctx.fillStyle = '#228B3B';
+          ctx.fill();
+        });
+      }
+
+      // Fuel depot tanks
+      if (island.depot) {
+        const d = island.depot;
+        const dx = island.cx + d.x * s;
+        const dy = island.cy + d.y * s;
+        const ds = d.s * s / 60;
+        // Two cylindrical tanks
+        [{ ox: -ds * 0.6 }, { ox: ds * 0.6 }].forEach(t => {
+          ctx.beginPath();
+          ctx.arc(dx + t.ox, dy, ds * 0.5, 0, Math.PI * 2);
+          ctx.fillStyle = '#aaa';
+          ctx.fill();
+          ctx.strokeStyle = '#888'; ctx.lineWidth = 1; ctx.stroke();
+          // Tank top highlight
+          ctx.beginPath();
+          ctx.arc(dx + t.ox - ds * 0.1, dy - ds * 0.15, ds * 0.18, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255,255,255,0.2)';
+          ctx.fill();
+        });
+      }
+
+      // Warehouses
+      if (island.warehouses) {
+        island.warehouses.forEach(w => {
+          const wx = island.cx + w.x * s;
+          const wy = island.cy + w.y * s;
+          const ws = w.s * s / 60;
+          ctx.fillStyle = '#8B7355';
+          ctx.fillRect(wx - ws * 0.5, wy - ws * 0.3, ws, ws * 0.6);
+          ctx.fillStyle = '#705a3e';
+          // Roof
+          ctx.beginPath();
+          ctx.moveTo(wx - ws * 0.6, wy - ws * 0.3);
+          ctx.lineTo(wx, wy - ws * 0.6);
+          ctx.lineTo(wx + ws * 0.6, wy - ws * 0.3);
+          ctx.closePath();
+          ctx.fill();
+        });
+      }
+
+      // Gas tanks (spheres for LNG)
+      if (island.gasTanks) {
+        island.gasTanks.forEach(g => {
+          const gx = island.cx + g.x * s;
+          const gy = island.cy + g.y * s;
+          const gs = g.s * s / 60;
+          ctx.beginPath();
+          ctx.arc(gx, gy, gs * 0.6, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(200,240,220,0.5)';
+          ctx.fill();
+          ctx.strokeStyle = 'rgba(34,160,124,0.6)'; ctx.lineWidth = 1; ctx.stroke();
+        });
+      }
+
+      // --- PORT / DOCK ---
+      // Draw pier extending from island
+      const px = island.px, py = island.py;
+      const pierLen = PORT_RADIUS * 1.2;
+      let pierEndX = px, pierEndY = py;
+      if (island.portSide === 'right') {
+        pierEndX = px + pierLen;
+        // Pier planks
+        ctx.fillStyle = '#8B7355';
+        ctx.fillRect(px - 4, py - 8, pierLen + 8, 16);
+        ctx.strokeStyle = '#6B5335'; ctx.lineWidth = 1;
+        ctx.strokeRect(px - 4, py - 8, pierLen + 8, 16);
+        // Plank lines
+        for (let pl = px; pl < px + pierLen; pl += 8) {
+          ctx.beginPath(); ctx.moveTo(pl, py - 8); ctx.lineTo(pl, py + 8); ctx.stroke();
+        }
+        pierEndX = px + pierLen * 0.5;
+      } else if (island.portSide === 'left') {
+        pierEndX = px - pierLen;
+        ctx.fillStyle = '#8B7355';
+        ctx.fillRect(px - pierLen - 4, py - 8, pierLen + 8, 16);
+        ctx.strokeStyle = '#6B5335'; ctx.lineWidth = 1;
+        ctx.strokeRect(px - pierLen - 4, py - 8, pierLen + 8, 16);
+        for (let pl = px - pierLen; pl < px; pl += 8) {
+          ctx.beginPath(); ctx.moveTo(pl, py - 8); ctx.lineTo(pl, py + 8); ctx.stroke();
+        }
+        pierEndX = px - pierLen * 0.5;
+      } else {
+        pierEndY = py + pierLen;
+        ctx.fillStyle = '#8B7355';
+        ctx.fillRect(px - 8, py - 4, 16, pierLen + 8);
+        ctx.strokeStyle = '#6B5335'; ctx.lineWidth = 1;
+        ctx.strokeRect(px - 8, py - 4, 16, pierLen + 8);
+        for (let pl = py; pl < py + pierLen; pl += 8) {
+          ctx.beginPath(); ctx.moveTo(px - 8, pl); ctx.lineTo(px + 8, pl); ctx.stroke();
+        }
+        pierEndY = py + pierLen * 0.5;
+      }
+
+      // Port circle (docking zone)
+      const pcx = island.portSide === 'right' ? px + pierLen + PORT_RADIUS * 0.3 :
+                  island.portSide === 'left' ? px - pierLen - PORT_RADIUS * 0.3 :
+                  px;
+      const pcy = island.portSide === 'bottom' ? py + pierLen + PORT_RADIUS * 0.3 : py;
+
+      // Store computed port center for docking checks
+      island.portCX = pcx;
+      island.portCY = pcy;
+
+      // Glowing dock zone
+      const glow = ctx.createRadialGradient(pcx, pcy, 0, pcx, pcy, PORT_RADIUS * 1.5);
+      glow.addColorStop(0, island.color + '30');
+      glow.addColorStop(1, 'transparent');
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(pcx, pcy, PORT_RADIUS * 1.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Port circle outline
+      ctx.beginPath();
+      ctx.arc(pcx, pcy, PORT_RADIUS, 0, Math.PI * 2);
+      ctx.strokeStyle = island.color;
+      ctx.lineWidth = 2.5;
+      ctx.setLineDash([5, 4]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Port color fill
+      ctx.beginPath();
+      ctx.arc(pcx, pcy, PORT_RADIUS - 2, 0, Math.PI * 2);
+      ctx.fillStyle = island.color + '20';
+      ctx.fill();
+
+      // Port label
+      ctx.fillStyle = island.color;
+      ctx.font = "500 8px 'DM Mono', monospace";
+      ctx.textAlign = 'center';
+      ctx.fillText(island.label.toUpperCase(), pcx, pcy + PORT_RADIUS + 12);
+    });
   }
 
   function drawPaths() {
@@ -432,7 +896,6 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
       ctx.globalAlpha = 1;
     });
 
-    // Drawing preview
     if (selectedVessel && drawingPath.length > 1) {
       ctx.beginPath();
       ctx.setLineDash([4, 4]);
@@ -449,30 +912,53 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
     }
   }
 
-  function drawExplosions() {
+  function drawVessels() {
+    vessels.forEach(v => {
+      if (v.docked) return;
+      drawVesselShape(v);
+      // Warning ring
+      if (v.warning) {
+        ctx.beginPath();
+        ctx.arc(v.x, v.y, v.radius + 8, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(255, 180, 0, ' + (0.4 + Math.sin(Date.now() * 0.01) * 0.3) + ')';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+    });
+  }
+
+  function drawEffects() {
+    // Explosions
     explosionEffects = explosionEffects.filter(e => {
       e.t += 0.02;
       if (e.t >= 1) return false;
       const r = e.t * 60;
-      ctx.beginPath();
-      ctx.arc(e.x, e.y, r, 0, Math.PI * 2);
+      ctx.beginPath(); ctx.arc(e.x, e.y, r, 0, Math.PI * 2);
       ctx.fillStyle = 'rgba(255, 120, 30, ' + (1 - e.t) * 0.6 + ')';
       ctx.fill();
-      ctx.beginPath();
-      ctx.arc(e.x, e.y, r * 0.6, 0, Math.PI * 2);
+      ctx.beginPath(); ctx.arc(e.x, e.y, r * 0.6, 0, Math.PI * 2);
       ctx.fillStyle = 'rgba(255, 220, 80, ' + (1 - e.t) * 0.8 + ')';
       ctx.fill();
       return true;
     });
+    // Dock success rings
+    dockEffects = dockEffects.filter(e => {
+      e.t += 0.025;
+      if (e.t >= 1) return false;
+      ctx.beginPath(); ctx.arc(e.x, e.y, PORT_RADIUS + e.t * 30, 0, Math.PI * 2);
+      ctx.strokeStyle = e.color.replace(')', ', ' + (1 - e.t) * 0.5 + ')').replace('rgb', 'rgba');
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      return true;
+    });
   }
 
-  // --- Update ---
+  // ==================== UPDATE ====================
   function update(dt) {
     if (state !== 'PLAYING') return;
-
     waveOffset += dt * 30;
 
-    // Spawn timer
+    // Spawn
     spawnTimer += dt * 1000;
     if (spawnTimer >= spawnInterval) {
       spawnTimer = 0;
@@ -482,48 +968,42 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
     // Move vessels
     vessels.forEach(v => {
       if (v.docked) return;
-
       if (v.path.length > 0 && v.pathIndex < v.path.length) {
-        // Follow path
         const target = v.path[v.pathIndex];
-        const dx = target.x - v.x;
-        const dy = target.y - v.y;
+        const dx = target.x - v.x, dy = target.y - v.y;
         const d = Math.sqrt(dx * dx + dy * dy);
-        if (d < v.speed * 2) {
-          v.pathIndex++;
-        } else {
+        if (d < v.speed * 2) { v.pathIndex++; }
+        else {
           v.angle = Math.atan2(dy, dx) + Math.PI / 2;
           v.x += (dx / d) * v.speed;
           v.y += (dy / d) * v.speed;
         }
       } else {
-        // Free movement in initial direction
         v.x += Math.sin(v.angle) * v.speed;
         v.y -= Math.cos(v.angle) * v.speed;
       }
-
-      // Remove if off-screen (with margin)
-      const margin = 100;
+      // Off-screen removal
+      const margin = 120;
       if (v.x < -margin || v.x > W + margin || v.y < -margin || v.y > H + margin) {
-        v.docked = true; // mark for removal
+        v.docked = true;
       }
     });
 
-    // Dock check
+    // Dock check against island ports
     vessels.forEach(v => {
       if (v.docked) return;
-      docks.forEach(dock => {
-        if (dock.type !== v.type) return;
-        const cx = dock.x + dock.w / 2;
-        const cy = dock.y + dock.h / 2;
-        if (v.x > dock.x && v.x < dock.x + dock.w && v.y > dock.y && v.y < dock.y + dock.h) {
+      islands.forEach(island => {
+        if (island.type !== v.type) return;
+        if (island.portCX === undefined) return;
+        const d = dist({ x: v.x, y: v.y }, { x: island.portCX, y: island.portCY });
+        if (d < PORT_RADIUS + v.radius * 0.3) {
           v.docked = true;
           score += v.points;
           totalDockings++;
-          // Increase difficulty
           if (totalDockings % DOCKINGS_PER_DECREASE === 0) {
             spawnInterval = Math.max(MIN_SPAWN_INTERVAL, spawnInterval - SPAWN_DECREASE);
           }
+          dockEffects.push({ x: island.portCX, y: island.portCY, color: 'rgb(184,150,62)', t: 0 });
           updateHUD();
         }
       });
@@ -531,9 +1011,7 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
 
     // Collision detection
     let collision = false;
-    for (let i = 0; i < vessels.length; i++) {
-      vessels[i].warning = false;
-    }
+    for (let i = 0; i < vessels.length; i++) vessels[i].warning = false;
     for (let i = 0; i < vessels.length; i++) {
       if (vessels[i].docked) continue;
       for (let j = i + 1; j < vessels.length; j++) {
@@ -542,7 +1020,10 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
         const minDist = vessels[i].radius + vessels[j].radius;
         if (d < minDist) {
           collision = true;
-          explosionEffects.push({ x: (vessels[i].x + vessels[j].x) / 2, y: (vessels[i].y + vessels[j].y) / 2, t: 0 });
+          explosionEffects.push({
+            x: (vessels[i].x + vessels[j].x) / 2,
+            y: (vessels[i].y + vessels[j].y) / 2, t: 0
+          });
           break;
         }
         if (d < minDist * COLLISION_WARN_MULT) {
@@ -553,16 +1034,11 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
       if (collision) break;
     }
 
-    if (collision) {
-      gameOver();
-      return;
-    }
-
-    // Remove docked/off-screen vessels
+    if (collision) { gameOver(); return; }
     vessels = vessels.filter(v => !v.docked);
   }
 
-  // --- HUD ---
+  // ==================== HUD ====================
   function updateHUD() {
     document.getElementById('scoreVal').textContent = score;
     if (score > highScore) {
@@ -572,22 +1048,17 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
     document.getElementById('highVal').textContent = highScore;
   }
 
-  // --- State transitions ---
+  // ==================== STATE TRANSITIONS ====================
   function startGame() {
     state = 'PLAYING';
-    score = 0;
-    vessels = [];
-    totalDockings = 0;
-    spawnInterval = INITIAL_SPAWN_INTERVAL;
-    spawnTimer = 0;
-    selectedVessel = null;
-    drawingPath = [];
-    explosionEffects = [];
+    score = 0; vessels = []; totalDockings = 0;
+    spawnInterval = INITIAL_SPAWN_INTERVAL; spawnTimer = 0;
+    selectedVessel = null; drawingPath = [];
+    explosionEffects = []; dockEffects = [];
     updateHUD();
     document.getElementById('titleScreen').classList.remove('active');
     document.getElementById('gameOverScreen').classList.remove('active');
     document.getElementById('hud').classList.add('active');
-    // Spawn first few vessels
     spawnVessel();
     setTimeout(() => { if (state === 'PLAYING') spawnVessel(); }, 1200);
   }
@@ -601,25 +1072,22 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
       localStorage.setItem('vtc_cpc_high', highScore.toString());
     }
     document.getElementById('finalHigh').textContent = 'Best: ' + highScore;
-    // Short delay to show explosion
     setTimeout(() => {
       document.getElementById('gameOverScreen').classList.add('active');
     }, 600);
   }
 
-  // --- Input handling ---
+  // ==================== INPUT ====================
   function getPos(e) {
-    if (e.touches && e.touches.length > 0) {
+    if (e.touches && e.touches.length > 0)
       return { x: e.touches[0].clientX, y: e.touches[0].clientY };
-    }
     return { x: e.clientX, y: e.clientY };
   }
 
   function findVesselAt(pos) {
     for (let i = vessels.length - 1; i >= 0; i--) {
-      const v = vessels[i];
-      if (v.docked) continue;
-      if (dist(pos, v) < v.radius + 15) return v;
+      if (vessels[i].docked) continue;
+      if (dist(pos, vessels[i]) < vessels[i].radius + 18) return vessels[i];
     }
     return null;
   }
@@ -634,17 +1102,13 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
       drawingPath = [{ x: v.x, y: v.y }];
     }
   }
-
   function onPointerMove(e) {
     if (!selectedVessel || state !== 'PLAYING') return;
     e.preventDefault();
     const pos = getPos(e);
     const last = drawingPath[drawingPath.length - 1];
-    if (dist(pos, last) >= PATH_SAMPLE_DIST) {
-      drawingPath.push({ x: pos.x, y: pos.y });
-    }
+    if (dist(pos, last) >= PATH_SAMPLE_DIST) drawingPath.push({ x: pos.x, y: pos.y });
   }
-
   function onPointerUp(e) {
     if (!selectedVessel || state !== 'PLAYING') return;
     e.preventDefault();
@@ -663,29 +1127,25 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
   canvas.addEventListener('touchmove', onPointerMove, { passive: false });
   canvas.addEventListener('touchend', onPointerUp, { passive: false });
 
-  // --- Buttons ---
   document.getElementById('btnPlay').addEventListener('click', startGame);
   document.getElementById('btnRetry').addEventListener('click', startGame);
 
-  // --- Game loop ---
+  // ==================== GAME LOOP ====================
   function gameLoop(time) {
     const dt = Math.min((time - lastTime) / 1000, 0.05);
     lastTime = time;
-
     update(dt);
 
-    // Draw
     drawWater();
     drawIslands();
-    drawDocks();
     drawPaths();
-    vessels.forEach(drawVessel);
-    drawExplosions();
+    drawVessels();
+    drawEffects();
 
     requestAnimationFrame(gameLoop);
   }
 
-  // --- Init ---
+  // ==================== INIT ====================
   resize();
   updateHUD();
   requestAnimationFrame(function(time) {
