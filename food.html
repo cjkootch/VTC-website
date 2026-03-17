@@ -114,6 +114,8 @@ nav.nav-scrolled .nav-logo img{height:60px}
 .commodity-spec{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
 .commodity-spec-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(14,26,20,0.35);white-space:nowrap}
 .commodity-spec-value{font-size:13px;color:rgba(14,26,20,0.7);text-align:right}
+.commodity-img{width:100%;height:180px;object-fit:cover;border-radius:4px;margin-bottom:16px}
+.process-img{width:80px;height:80px;object-fit:cover;border-radius:50%;margin:0 auto 16px;display:block;border:2px solid rgba(184,150,62,0.3)}
 /* ── DELIVERY SECTION ── */
 .delivery-section{background:var(--ink);margin:0 -60px;padding:80px 60px}
 .delivery-inner{max-width:1100px;margin:0 auto}
@@ -229,7 +231,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     <a href="index.html">Inicio</a><span class="breadcrumb-sep">/</span><span>Productos Alimenticios</span>
   </nav>
 
-  <img class="product-hero reveal" loading="lazy" src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=1200&q=80" alt="Bulk grain cargo at port terminal">
+  <img class="product-hero reveal" loading="lazy" src="images/generated/hero-food.png" alt="Bulk grain cargo at port terminal">
 
   <!-- INTRO -->
   <div class="product-intro reveal" data-lang="en">
@@ -246,6 +248,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   <div data-lang="en">
     <div class="commodity-grid">
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/food-rice.png" alt="Bulk white long grain rice in burlap sacks">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c0-4 4.5-8 10-8s10 4 10 8"/><ellipse cx="12" cy="12" rx="10" ry="4"/><path d="M2 12c0 4 4.5 8 10 8s10-4 10-8"/><path d="M8 12c-.5-2 .5-4 2-5M14 12c.5-2-.5-4-2-5"/></svg></div>
         <div class="commodity-name">Rice</div>
         <div class="commodity-desc">Long grain white rice, parboiled rice, and specialty varieties. Sourced from established milling operations in the Americas and Southeast Asia.</div>
@@ -256,6 +259,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/food-sugar.png" alt="Refined white and raw brown sugar in bulk">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v16"/><path d="M16 4v16"/><path d="M4 8h16"/><path d="M4 16h16"/></svg></div>
         <div class="commodity-name">Sugar</div>
         <div class="commodity-desc">Raw and refined cane sugar for industrial and consumer markets. Consistent quality from top-tier refineries and mills.</div>
@@ -266,6 +270,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/food-flour.png" alt="Fine white wheat flour in bulk bags">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18a7 7 0 0114 0"/><path d="M5 18H3a1 1 0 01-1-1 10 10 0 0120 0 1 1 0 01-1 1h-2"/><path d="M5 18v2a1 1 0 001 1h12a1 1 0 001-1v-2"/><path d="M12 4v2M8 6l1 1M16 6l-1 1"/></svg></div>
         <div class="commodity-name">Wheat Flour</div>
         <div class="commodity-desc">All-purpose and bread flour for commercial bakeries, food manufacturers, and wholesale distribution throughout the Caribbean.</div>
@@ -276,6 +281,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/food-oil.png" alt="Golden cooking oil in bottles and bulk containers">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V4a2 2 0 012-2h0a2 2 0 012 2v16"/><path d="M6 12h4"/><path d="M6 8h4"/><path d="M14 20V10a4 4 0 018 0v10"/><path d="M14 14h8"/><path d="M2 20h20"/></svg></div>
         <div class="commodity-name">Cooking Oil</div>
         <div class="commodity-desc">Soybean oil, palm oil, and sunflower oil in bulk and consumer-ready packaging for retail and food service distribution.</div>
@@ -286,6 +292,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/food-legumes.png" alt="Assorted dried legumes and beans">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="14" r="3"/><circle cx="16" cy="14" r="3"/><circle cx="12" cy="8" r="3"/><path d="M12 5V2M7 12l-2-2M17 12l2-2"/></svg></div>
         <div class="commodity-name">Dried Legumes</div>
         <div class="commodity-desc">Pinto beans, black beans, kidney beans, lentils, and additional grains and pulses — dietary staples across Caribbean markets, sourced for consistency and quality.</div>
@@ -296,6 +303,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/food-poultry.png" alt="Frozen chicken leg quarters in commercial cases">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 11c0-4-3.5-7-7-7"/><path d="M9 11c0-4 3.5-7 7-7"/><path d="M3 15c0 3.3 4 6 9 6s9-2.7 9-6"/><path d="M3 15c0-2.2 4-4 9-4s9 1.8 9 4"/></svg></div>
         <div class="commodity-name">Poultry &amp; Proteins</div>
         <div class="commodity-desc">Frozen chicken leg quarters, MDM, and other protein products for wholesale and institutional buyers throughout the region.</div>
@@ -306,6 +314,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/food-pork.png" alt="Frozen pork cuts in commercial packaging">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11c0-4 3-8 9-8s9 4 9 8"/><path d="M3 11v6c0 3 3 5 9 5s9-2 9-5v-6"/><path d="M3 11c0 3 3 5 9 5s9-2 9-5"/><path d="M9 11c-.5-1.5.5-3 1.5-4M15 11c.5-1.5-.5-3-1.5-4"/></svg></div>
         <div class="commodity-name">Frozen Pork</div>
         <div class="commodity-desc">Frozen pork cuts for wholesale distributors, food processors, and institutional buyers. USDA-inspected product from established US packing operations.</div>
@@ -321,6 +330,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   <div data-lang="es">
     <div class="commodity-grid">
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/food-rice.png" alt="Arroz blanco de grano largo en sacos">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c0-4 4.5-8 10-8s10 4 10 8"/><ellipse cx="12" cy="12" rx="10" ry="4"/><path d="M2 12c0 4 4.5 8 10 8s10-4 10-8"/><path d="M8 12c-.5-2 .5-4 2-5M14 12c.5-2-.5-4-2-5"/></svg></div>
         <div class="commodity-name">Arroz</div>
         <div class="commodity-desc">Arroz blanco de grano largo, arroz parbolizado y variedades especiales. Abastecido de operaciones de molienda establecidas en las Américas y el Sudeste Asiático.</div>
@@ -331,6 +341,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/food-sugar.png" alt="Azúcar blanca refinada y cruda a granel">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v16"/><path d="M16 4v16"/><path d="M4 8h16"/><path d="M4 16h16"/></svg></div>
         <div class="commodity-name">Azúcar</div>
         <div class="commodity-desc">Azúcar de caña cruda y refinada para mercados industriales y de consumo. Calidad consistente de refinerías y molinos de primer nivel.</div>
@@ -341,6 +352,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/food-flour.png" alt="Harina de trigo blanca a granel">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18a7 7 0 0114 0"/><path d="M5 18H3a1 1 0 01-1-1 10 10 0 0120 0 1 1 0 01-1 1h-2"/><path d="M5 18v2a1 1 0 001 1h12a1 1 0 001-1v-2"/><path d="M12 4v2M8 6l1 1M16 6l-1 1"/></svg></div>
         <div class="commodity-name">Harina de Trigo</div>
         <div class="commodity-desc">Harina todo uso y de pan para panaderías comerciales, fabricantes de alimentos y distribución mayorista en todo el Caribe.</div>
@@ -351,6 +363,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/food-oil.png" alt="Aceite de cocina dorado en botellas y contenedores">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V4a2 2 0 012-2h0a2 2 0 012 2v16"/><path d="M6 12h4"/><path d="M6 8h4"/><path d="M14 20V10a4 4 0 018 0v10"/><path d="M14 14h8"/><path d="M2 20h20"/></svg></div>
         <div class="commodity-name">Aceite de Cocina</div>
         <div class="commodity-desc">Aceite de soja, palma y girasol en empaque a granel y listo para el consumidor para distribución minorista y de servicio de alimentos.</div>
@@ -361,6 +374,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/food-legumes.png" alt="Legumbres secas variadas">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="14" r="3"/><circle cx="16" cy="14" r="3"/><circle cx="12" cy="8" r="3"/><path d="M12 5V2M7 12l-2-2M17 12l2-2"/></svg></div>
         <div class="commodity-name">Legumbres Secas</div>
         <div class="commodity-desc">Frijoles pintos, negros, rojos, lentejas y granos y legumbres adicionales — alimentos básicos en los mercados caribeños, abastecidos por consistencia y calidad.</div>
@@ -371,6 +385,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/food-poultry.png" alt="Cuartos traseros de pollo congelados en cajas comerciales">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 11c0-4-3.5-7-7-7"/><path d="M9 11c0-4 3.5-7 7-7"/><path d="M3 15c0 3.3 4 6 9 6s9-2.7 9-6"/><path d="M3 15c0-2.2 4-4 9-4s9 1.8 9 4"/></svg></div>
         <div class="commodity-name">Aves y Proteínas</div>
         <div class="commodity-desc">Cuartos traseros de pollo congelados, MDM y otros productos proteínicos para compradores mayoristas e institucionales en toda la región.</div>
@@ -381,6 +396,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/food-pork.png" alt="Cortes de cerdo congelado en empaque comercial">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11c0-4 3-8 9-8s9 4 9 8"/><path d="M3 11v6c0 3 3 5 9 5s9-2 9-5v-6"/><path d="M3 11c0 3 3 5 9 5s9-2 9-5"/><path d="M9 11c-.5-1.5.5-3 1.5-4M15 11c.5-1.5-.5-3-1.5-4"/></svg></div>
         <div class="commodity-name">Cerdo Congelado</div>
         <div class="commodity-desc">Cortes de cerdo congelado para distribuidores mayoristas, procesadores de alimentos y compradores institucionales. Producto inspeccionado por USDA de operaciones de empaque establecidas en EE.UU.</div>
@@ -402,16 +418,19 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     <div data-lang="en">
       <div class="delivery-grid">
         <div class="delivery-item reveal">
+          <img class="process-img" loading="lazy" src="images/generated/process-requirements.png" alt="Requirements and quote">
           <div class="delivery-number">01</div>
           <div class="delivery-title">Requirements</div>
           <div class="delivery-desc">Share your product specifications, volumes, packaging preferences, and destination port. We respond with a competitive CIF quote within 48 hours.</div>
         </div>
         <div class="delivery-item reveal">
+          <img class="process-img" loading="lazy" src="images/generated/process-sourcing.png" alt="Sourcing and inspection">
           <div class="delivery-number">02</div>
           <div class="delivery-title">Sourcing</div>
           <div class="delivery-desc">We procure from our established supplier network, ensure quality certifications, and arrange inspection if required before shipment.</div>
         </div>
         <div class="delivery-item reveal">
+          <img class="process-img" loading="lazy" src="images/generated/process-delivery.png" alt="CIF delivery to port">
           <div class="delivery-number">03</div>
           <div class="delivery-title">Delivery</div>
           <div class="delivery-desc">Full CIF service — freight, marine insurance, and all export documentation handled. Product arrives at your port ready to clear customs.</div>
@@ -421,16 +440,19 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     <div data-lang="es">
       <div class="delivery-grid">
         <div class="delivery-item reveal">
+          <img class="process-img" loading="lazy" src="images/generated/process-requirements.png" alt="Requirements and quote">
           <div class="delivery-number">01</div>
           <div class="delivery-title">Requisitos</div>
           <div class="delivery-desc">Comparta sus especificaciones de producto, volúmenes, preferencias de empaque y puerto de destino. Respondemos con una cotización CIF competitiva en 48 horas.</div>
         </div>
         <div class="delivery-item reveal">
+          <img class="process-img" loading="lazy" src="images/generated/process-sourcing.png" alt="Sourcing and inspection">
           <div class="delivery-number">02</div>
           <div class="delivery-title">Abastecimiento</div>
           <div class="delivery-desc">Compramos de nuestra red de proveedores establecida, aseguramos certificaciones de calidad y organizamos inspección si se requiere antes del envío.</div>
         </div>
         <div class="delivery-item reveal">
+          <img class="process-img" loading="lazy" src="images/generated/process-delivery.png" alt="CIF delivery to port">
           <div class="delivery-number">03</div>
           <div class="delivery-title">Entrega</div>
           <div class="delivery-desc">Servicio CIF completo — flete, seguro marítimo y toda la documentación de exportación gestionada. El producto llega a su puerto listo para despacho aduanero.</div>

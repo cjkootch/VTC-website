@@ -114,6 +114,8 @@ nav.nav-scrolled .nav-logo img{height:60px}
 .commodity-spec{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
 .commodity-spec-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(14,26,20,0.35);white-space:nowrap}
 .commodity-spec-value{font-size:13px;color:rgba(14,26,20,0.7);text-align:right}
+.commodity-img{width:100%;height:180px;object-fit:cover;border-radius:4px;margin-bottom:16px}
+.process-img{width:80px;height:80px;object-fit:cover;border-radius:50%;margin:0 auto 16px;display:block;border:2px solid rgba(184,150,62,0.3)}
 /* ── COMPLIANCE SECTION ── */
 .compliance-section{background:var(--ink);margin:0 -60px;padding:80px 60px}
 .compliance-inner{max-width:1100px;margin:0 auto}
@@ -240,7 +242,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     <a href="index.html">Inicio</a><span class="breadcrumb-sep">/</span><span>Combustible y Energía</span>
   </nav>
 
-  <img class="product-hero reveal" loading="lazy" src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=1200&q=80" alt="Oil refinery and cargo ship — petroleum supply chain">
+  <img class="product-hero reveal" loading="lazy" src="images/generated/hero-fuel.png" alt="Oil refinery and cargo ship — petroleum supply chain">
 
   <!-- INTRO -->
   <div class="product-intro reveal" data-lang="en">
@@ -257,6 +259,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   <div data-lang="en">
     <div class="commodity-grid">
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/fuel-diesel.png" alt="Diesel fuel truck and storage tanks at port terminal">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V4a2 2 0 012-2h8a2 2 0 012 2v18"/><path d="M2 22h16"/><path d="M16 8h2a2 2 0 012 2v4a2 2 0 01-2 2h0"/><rect x="6" y="6" width="6" height="4" rx="1"/></svg></div>
         <div class="commodity-name">Diesel (ULSD)</div>
         <div class="commodity-desc">Ultra-low sulfur diesel for transportation, power generation, and industrial use. The backbone of Caribbean energy infrastructure, delivered to meet local specifications.</div>
@@ -267,6 +270,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/fuel-gasoline.png" alt="Gasoline fuel pumps at commercial depot">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="18.5" r="2.5"/><circle cx="16.5" cy="18.5" r="2.5"/><path d="M2 16h3M19 16h3"/><path d="M5 16V8a2 2 0 012-2h6l4 4v6"/><path d="M13 6v4h4"/></svg></div>
         <div class="commodity-name">Gasoline</div>
         <div class="commodity-desc">Unleaded motor gasoline for retail distribution and blending operations. Sourced from Gulf Coast refineries with consistent octane specifications.</div>
@@ -277,6 +281,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/fuel-jet.png" alt="Commercial airplane being refueled on tarmac">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12l19-7-7 19-3-8z"/><path d="M12 12l5-5"/></svg></div>
         <div class="commodity-name">Jet Fuel (Jet A-1)</div>
         <div class="commodity-desc">Aviation turbine kerosene meeting international specifications for commercial and private aviation throughout Caribbean airports and FBOs.</div>
@@ -287,6 +292,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/fuel-lpg.png" alt="LPG propane tanks and cylinders at distribution facility">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c0 4-4 6-4 10a4 4 0 008 0c0-4-4-6-4-10z"/><path d="M12 18a2 2 0 01-2-2c0-2 2-3 2-5 0 2 2 3 2 5a2 2 0 01-2 2z"/></svg></div>
         <div class="commodity-name">LPG (Propane / Butane)</div>
         <div class="commodity-desc">Liquefied petroleum gas for residential cooking, commercial use, and industrial processes. Critical household energy supply across the Caribbean islands.</div>
@@ -297,6 +303,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/fuel-hfo.png" alt="Fuel oil storage tanks at industrial port terminal">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22V8l6-6 6 6v14"/><path d="M15 22V12l4-2v12"/><rect x="6" y="10" width="3" height="3"/><rect x="6" y="15" width="3" height="3"/><path d="M19 8v2"/><path d="M22 22H2"/></svg></div>
         <div class="commodity-name">Fuel Oil (HFO / IFO)</div>
         <div class="commodity-desc">Heavy fuel oil for power generation and marine bunkering. Available in multiple viscosity grades to meet utility and marine specifications.</div>
@@ -307,6 +314,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/fuel-mgo.png" alt="Cargo ship being bunkered at port">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20l1.5-4.5L12 12l8.5 3.5L22 20"/><path d="M6 12V8l6-4 6 4v4"/><path d="M12 4v8"/><path d="M2 20h20"/><circle cx="12" cy="20" r="0"/></svg></div>
         <div class="commodity-name">Marine Gas Oil (MGO)</div>
         <div class="commodity-desc">Low-sulfur marine fuel for shipping fleets operating under IMO 2020 regulations. Available for bunkering at major Caribbean port facilities.</div>
@@ -322,6 +330,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   <div data-lang="es">
     <div class="commodity-grid">
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/fuel-diesel.png" alt="Camión de diésel y tanques de almacenamiento en terminal portuario">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V4a2 2 0 012-2h8a2 2 0 012 2v18"/><path d="M2 22h16"/><path d="M16 8h2a2 2 0 012 2v4a2 2 0 01-2 2h0"/><rect x="6" y="6" width="6" height="4" rx="1"/></svg></div>
         <div class="commodity-name">Diésel (ULSD)</div>
         <div class="commodity-desc">Diésel de ultra bajo azufre para transporte, generación eléctrica y uso industrial. La columna vertebral de la infraestructura energética del Caribe.</div>
@@ -332,6 +341,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/fuel-gasoline.png" alt="Bombas de gasolina en depósito comercial">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="18.5" r="2.5"/><circle cx="16.5" cy="18.5" r="2.5"/><path d="M2 16h3M19 16h3"/><path d="M5 16V8a2 2 0 012-2h6l4 4v6"/><path d="M13 6v4h4"/></svg></div>
         <div class="commodity-name">Gasolina</div>
         <div class="commodity-desc">Gasolina sin plomo para distribución minorista y operaciones de mezcla. Abastecida de refinerías de la Costa del Golfo con especificaciones de octano consistentes.</div>
@@ -342,6 +352,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/fuel-jet.png" alt="Avión comercial siendo reabastecido en pista">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12l19-7-7 19-3-8z"/><path d="M12 12l5-5"/></svg></div>
         <div class="commodity-name">Combustible de Aviación (Jet A-1)</div>
         <div class="commodity-desc">Queroseno de turbina de aviación que cumple con especificaciones internacionales para aviación comercial y privada en aeropuertos del Caribe.</div>
@@ -352,6 +363,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/fuel-lpg.png" alt="Tanques y cilindros de GLP propano en instalación de distribución">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c0 4-4 6-4 10a4 4 0 008 0c0-4-4-6-4-10z"/><path d="M12 18a2 2 0 01-2-2c0-2 2-3 2-5 0 2 2 3 2 5a2 2 0 01-2 2z"/></svg></div>
         <div class="commodity-name">GLP (Propano / Butano)</div>
         <div class="commodity-desc">Gas licuado de petróleo para cocina residencial, uso comercial y procesos industriales. Suministro energético doméstico crítico en las islas del Caribe.</div>
@@ -362,6 +374,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/fuel-hfo.png" alt="Tanques de fuel oil en terminal portuario industrial">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22V8l6-6 6 6v14"/><path d="M15 22V12l4-2v12"/><rect x="6" y="10" width="3" height="3"/><rect x="6" y="15" width="3" height="3"/><path d="M19 8v2"/><path d="M22 22H2"/></svg></div>
         <div class="commodity-name">Fuel Oil (HFO / IFO)</div>
         <div class="commodity-desc">Fuel oil pesado para generación eléctrica y abastecimiento marino. Disponible en múltiples grados de viscosidad para especificaciones de servicios públicos y marinas.</div>
@@ -372,6 +385,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/fuel-mgo.png" alt="Buque de carga siendo abastecido en puerto">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20l1.5-4.5L12 12l8.5 3.5L22 20"/><path d="M6 12V8l6-4 6 4v4"/><path d="M12 4v8"/><path d="M2 20h20"/><circle cx="12" cy="20" r="0"/></svg></div>
         <div class="commodity-name">Gasóleo Marino (MGO)</div>
         <div class="commodity-desc">Combustible marino de bajo azufre para flotas que operan bajo las regulaciones IMO 2020. Disponible para abastecimiento en las principales instalaciones portuarias del Caribe.</div>
@@ -440,16 +454,19 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
       <div data-lang="en">
         <div class="delivery-grid">
           <div class="delivery-item reveal">
+            <img class="process-img" loading="lazy" src="images/generated/process-requirements.png" alt="Specification and quote">
             <div class="delivery-number">01</div>
             <div class="delivery-title">Specification</div>
             <div class="delivery-desc">Share your product requirements, volumes, quality specifications, and destination terminal. We provide a competitive CIF or FOB quote within 24-48 hours.</div>
           </div>
           <div class="delivery-item reveal">
+            <img class="process-img" loading="lazy" src="images/generated/process-sourcing.png" alt="Procurement and inspection">
             <div class="delivery-number">02</div>
             <div class="delivery-title">Procurement</div>
             <div class="delivery-desc">We source from our refinery network, arrange independent quality inspection, nominate vessels, and coordinate all logistics from load port to destination.</div>
           </div>
           <div class="delivery-item reveal">
+            <img class="process-img" loading="lazy" src="images/generated/process-delivery.png" alt="Delivery to terminal">
             <div class="delivery-number">03</div>
             <div class="delivery-title">Delivery</div>
             <div class="delivery-desc">Product delivered to your terminal with full documentation — bill of lading, certificate of quality, certificate of quantity, and all customs clearance paperwork.</div>
@@ -459,16 +476,19 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
       <div data-lang="es">
         <div class="delivery-grid">
           <div class="delivery-item reveal">
+            <img class="process-img" loading="lazy" src="images/generated/process-requirements.png" alt="Specification and quote">
             <div class="delivery-number">01</div>
             <div class="delivery-title">Especificación</div>
             <div class="delivery-desc">Comparta sus requisitos de producto, volúmenes, especificaciones de calidad y terminal de destino. Proporcionamos una cotización CIF o FOB competitiva en 24-48 horas.</div>
           </div>
           <div class="delivery-item reveal">
+            <img class="process-img" loading="lazy" src="images/generated/process-sourcing.png" alt="Procurement and inspection">
             <div class="delivery-number">02</div>
             <div class="delivery-title">Adquisición</div>
             <div class="delivery-desc">Abastecemos de nuestra red de refinerías, organizamos inspección de calidad independiente, nominamos buques y coordinamos toda la logística.</div>
           </div>
           <div class="delivery-item reveal">
+            <img class="process-img" loading="lazy" src="images/generated/process-delivery.png" alt="Delivery to terminal">
             <div class="delivery-number">03</div>
             <div class="delivery-title">Entrega</div>
             <div class="delivery-desc">Producto entregado en su terminal con documentación completa — conocimiento de embarque, certificado de calidad, certificado de cantidad y todo el papeleo aduanero.</div>

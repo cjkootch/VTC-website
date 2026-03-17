@@ -115,6 +115,8 @@ nav#navbar.nav-scrolled .nav-logo img{height:60px}
 .commodity-spec{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
 .commodity-spec-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(14,26,20,0.35);white-space:nowrap}
 .commodity-spec-value{font-size:13px;color:rgba(14,26,20,0.7);text-align:right}
+.commodity-img{width:100%;height:180px;object-fit:cover;border-radius:4px;margin-bottom:16px}
+.process-img{width:80px;height:80px;object-fit:cover;border-radius:50%;margin:0 auto 16px;display:block;border:2px solid rgba(184,150,62,0.3)}
 /* ── DELIVERY SECTION ── */
 .delivery-section{background:var(--ink);margin:0 -60px;padding:80px 60px}
 .delivery-inner{max-width:1100px;margin:0 auto}
@@ -229,7 +231,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     <a href="index.html">Inicio</a><span class="breadcrumb-sep">/</span><span>Vehículos</span>
   </nav>
 
-  <img class="product-hero reveal" loading="lazy" src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1200&q=80" alt="Car dealership lot with rows of vehicles">
+  <img class="product-hero reveal" loading="lazy" src="images/generated/hero-vehicles.png" alt="Car dealership lot with rows of vehicles">
 
   <!-- INTRO -->
   <div class="product-intro reveal" data-lang="en">
@@ -246,6 +248,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   <div data-lang="en">
     <div class="commodity-grid">
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/vehicles-cars.png" alt="Row of clean SUVs and sedans at dealership lot">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M5 17a2 2 0 01-2-2V9a2 2 0 012-2h1l2-3h8l2 3h1a2 2 0 012 2v6a2 2 0 01-2 2M5 17l-1 2h16l-1-2"/><circle cx="8" cy="14" r="1.5"/><circle cx="16" cy="14" r="1.5"/></svg></div>
         <div class="commodity-name">Used &amp; New Vehicles</div>
         <div class="commodity-desc">Sedans, SUVs, pickup trucks, and specialty vehicles sourced from US dealers, auctions, and fleet programs. Clean titles, pre-export inspection, and competitive pricing for Caribbean markets.</div>
@@ -258,6 +261,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/vehicles-fleet.png" alt="Commercial fleet trucks and vans at depot">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
         <div class="commodity-name">Fleet &amp; Commercial Units</div>
         <div class="commodity-desc">Commercial trucks, vans, buses, and heavy equipment for Caribbean businesses. Sourced from US fleet sales and dealer networks with maintenance records and clear documentation.</div>
@@ -270,6 +274,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/vehicles-parts.png" alt="Organized automotive parts on warehouse shelving">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
         <div class="commodity-name">Parts &amp; Accessories</div>
         <div class="commodity-desc">OEM and aftermarket parts, tires, and accessories for automotive, commercial, and heavy equipment applications. Sourced from US distributors and shipped to Caribbean destinations.</div>
@@ -287,6 +292,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   <div data-lang="es">
     <div class="commodity-grid">
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/vehicles-cars.png" alt="Fila de SUVs y sedanes en lote de concesionario">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M5 17a2 2 0 01-2-2V9a2 2 0 012-2h1l2-3h8l2 3h1a2 2 0 012 2v6a2 2 0 01-2 2M5 17l-1 2h16l-1-2"/><circle cx="8" cy="14" r="1.5"/><circle cx="16" cy="14" r="1.5"/></svg></div>
         <div class="commodity-name">Vehículos Nuevos y Usados</div>
         <div class="commodity-desc">Sedanes, SUVs, camionetas y vehículos especializados adquiridos de concesionarios, subastas y programas de flotas en EE.UU. Títulos limpios, inspección previa a la exportación y precios competitivos para mercados del Caribe.</div>
@@ -299,6 +305,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/vehicles-fleet.png" alt="Camiones y furgonetas de flota comercial en depósito">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
         <div class="commodity-name">Unidades de Flota y Comerciales</div>
         <div class="commodity-desc">Camiones comerciales, furgonetas, autobuses y equipo pesado para negocios del Caribe. Adquiridos de ventas de flotas y redes de concesionarios en EE.UU. con registros de mantenimiento y documentación clara.</div>
@@ -311,6 +318,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         </div>
       </div>
       <div class="commodity-card reveal">
+        <img class="commodity-img" loading="lazy" src="images/generated/vehicles-parts.png" alt="Partes automotrices organizadas en estanterías de almacén">
         <div class="commodity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
         <div class="commodity-name">Partes y Accesorios</div>
         <div class="commodity-desc">Partes OEM y del mercado de repuestos, neumáticos y accesorios para aplicaciones automotrices, comerciales y de equipo pesado. Adquiridos de distribuidores en EE.UU. y enviados a destinos del Caribe.</div>
@@ -334,16 +342,19 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     <div data-lang="en">
       <div class="delivery-grid">
         <div class="delivery-item reveal">
+          <img class="process-img" loading="lazy" src="images/generated/process-requirements.png" alt="Requirements and quote">
           <div class="delivery-number">01</div>
           <div class="delivery-title">Requirements</div>
           <div class="delivery-desc">Share your vehicle specifications, quantities, and destination port. We respond with competitive pricing and sourcing options within 48 hours.</div>
         </div>
         <div class="delivery-item reveal">
+          <img class="process-img" loading="lazy" src="images/generated/process-sourcing.png" alt="Sourcing and inspection">
           <div class="delivery-number">02</div>
           <div class="delivery-title">Sourcing</div>
           <div class="delivery-desc">We source from our dealer and auction network, arrange pre-export inspection, and coordinate all logistics from origin to your port.</div>
         </div>
         <div class="delivery-item reveal">
+          <img class="process-img" loading="lazy" src="images/generated/process-delivery.png" alt="Delivery to port">
           <div class="delivery-number">03</div>
           <div class="delivery-title">Delivery</div>
           <div class="delivery-desc">Vehicles shipped via RoRo or container with full export documentation — title, bill of lading, and all customs clearance paperwork.</div>
@@ -353,16 +364,19 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     <div data-lang="es">
       <div class="delivery-grid">
         <div class="delivery-item reveal">
+          <img class="process-img" loading="lazy" src="images/generated/process-requirements.png" alt="Requirements and quote">
           <div class="delivery-number">01</div>
           <div class="delivery-title">Requisitos</div>
           <div class="delivery-desc">Comparta las especificaciones de vehículos, cantidades y puerto de destino. Respondemos con precios competitivos y opciones de abastecimiento en 48 horas.</div>
         </div>
         <div class="delivery-item reveal">
+          <img class="process-img" loading="lazy" src="images/generated/process-sourcing.png" alt="Sourcing and inspection">
           <div class="delivery-number">02</div>
           <div class="delivery-title">Abastecimiento</div>
           <div class="delivery-desc">Adquirimos de nuestra red de concesionarios y subastas, organizamos inspección previa a la exportación y coordinamos toda la logística desde el origen hasta su puerto.</div>
         </div>
         <div class="delivery-item reveal">
+          <img class="process-img" loading="lazy" src="images/generated/process-delivery.png" alt="Delivery to port">
           <div class="delivery-number">03</div>
           <div class="delivery-title">Entrega</div>
           <div class="delivery-desc">Vehículos enviados por RoRo o contenedor con documentación de exportación completa — título, conocimiento de embarque y todo el papeleo de despacho aduanero.</div>
