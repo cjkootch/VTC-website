@@ -572,7 +572,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
           <div class="contact-item">
             <div class="c-label" data-lang="en">Offices</div>
             <div class="c-label" data-lang="es">Oficinas</div>
-            <div class="c-val">Miami, Florida · USA&nbsp; ·&nbsp; Dubai, UAE</div>
+            <div class="c-val">Miami, Florida · USA&nbsp; ·&nbsp; Edmonton, Alberta · Canada&nbsp; ·&nbsp; Dubai, UAE</div>
           </div>
           <div class="contact-item">
             <div class="c-label">Website</div>
@@ -1074,7 +1074,7 @@ document.querySelector('.contact-form').addEventListener('submit', function(e){
   const map = L.map('caribbean-map', {
     center: [19, -74],
     zoom: 5,
-    minZoom: 4,
+    minZoom: 3,
     maxZoom: 8,
     scrollWheelZoom: false,
     zoomControl: true,
@@ -1100,6 +1100,11 @@ document.querySelector('.contact-form').addEventListener('submit', function(e){
       lat: 25.76, lng: -80.19, type: 'hq',
       en: { name: 'Miami, FL', desc: 'Regional office & Caribbean trade operations', status: 'Office' },
       es: { name: 'Miami, FL', desc: 'Oficina regional y operaciones comerciales del Caribe', status: 'Oficina' }
+    },
+    {
+      lat: 53.55, lng: -113.49, type: 'hq',
+      en: { name: 'Edmonton, AB', desc: 'Canadian office & automotive export operations', status: 'Office' },
+      es: { name: 'Edmonton, AB', desc: 'Oficina canadiense y operaciones de exportación automotriz', status: 'Oficina' }
     },
     // ── Active Markets ──
     {
@@ -1261,7 +1266,7 @@ document.querySelector('.contact-form').addEventListener('submit', function(e){
   map.fitBounds(allCoords, { padding: [30, 30], maxZoom: 5 });
 
   // Constrain map to relevant area
-  map.setMaxBounds([[-5, -110], [38, -45]]);
+  map.setMaxBounds([[-5, -120], [58, -45]]);
 
   // Fix map sizing when section scrolls into view
   var mapResized = false;
