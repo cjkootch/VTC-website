@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Caribbean Port Control — Vector Trade Capital</title>
+<meta name="description" content="Guide cargo ships, fuel tankers, and speedboats to their docks in this Caribbean shipping path-drawing game by Vector Trade Capital.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:title" content="Caribbean Port Control — Vector Trade Capital">
+<meta property="og:description" content="Guide cargo ships, fuel tankers, and speedboats to their docks in this Caribbean shipping path-drawing game.">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0E1A14;
+  --ink-mid: #1C3326;
+  --ink-light: #2A4D39;
+  --cream: #F5F0E8;
+  --cream-dark: #EDE5D4;
+  --gold: #B8963E;
+  --gold-light: #D4AE5A;
+  --gold-pale: #F2E4C0;
+  --teal: #1A7A5E;
+  --teal-bright: #22A07C;
+  --teal-pale: #D4EDE6;
+  --rust: #8B3A2A;
+  --white: #FFFFFF;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #0a2a3a; font-family: 'DM Sans', sans-serif; }
+canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
+
+.overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  z-index: 10; pointer-events: none; opacity: 0; transition: opacity 0.4s;
+}
+.overlay.active { opacity: 1; pointer-events: auto; }
+.overlay-bg {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(14, 26, 20, 0.85);
+}
+.overlay-content {
+  position: relative; text-align: center; color: var(--cream);
+  max-width: 480px; padding: 40px 32px;
+}
+.overlay-content h1 {
+  font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 700;
+  color: var(--gold); margin-bottom: 8px; line-height: 1.1;
+}
+.overlay-content h2 {
+  font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 500;
+  color: var(--cream); margin-bottom: 20px;
+}
+.overlay-content p {
+  font-size: 14px; color: var(--cream-dark); margin-bottom: 6px; line-height: 1.5;
+}
+.overlay-content .instructions {
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .06em;
+  color: var(--gold-light); margin: 16px 0 24px; line-height: 1.8;
+  text-transform: uppercase;
+}
+.btn-play {
+  display: inline-block; padding: 14px 40px; font-family: 'DM Mono', monospace;
+  font-size: 13px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink); background: var(--gold); border: none; border-radius: 0;
+  cursor: pointer; transition: background 0.2s;
+}
+.btn-play:hover { background: var(--gold-light); }
+.logo-img { width: 60px; height: auto; margin-bottom: 16px; opacity: 0.9; }
+.score-display {
+  font-family: 'DM Mono', monospace; font-size: 22px; color: var(--gold);
+  margin: 12px 0 4px;
+}
+.highscore-display {
+  font-family: 'DM Mono', monospace; font-size: 14px; color: var(--cream-dark);
+  margin-bottom: 20px;
+}
+
+#hud {
+  position: fixed; top: 0; left: 0; width: 100%; padding: 16px 24px;
+  display: flex; justify-content: space-between; z-index: 5;
+  pointer-events: none; opacity: 0; transition: opacity 0.3s;
+}
+#hud.active { opacity: 1; }
+#hud .hud-score, #hud .hud-high {
+  font-family: 'DM Mono', monospace; font-size: 14px; letter-spacing: .08em;
+  color: var(--cream); text-transform: uppercase;
+  background: rgba(14, 26, 20, 0.6); padding: 8px 14px; border-radius: 4px;
+}
+#hud .hud-score span, #hud .hud-high span { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<canvas id="gameCanvas"></canvas>
+
+<div id="hud">
+  <div class="hud-score">Score: <span id="scoreVal">0</span></div>
+  <div class="hud-high">Best: <span id="highVal">0</span></div>
+</div>
+
+<div id="titleScreen" class="overlay active">
+  <div class="overlay-bg"></div>
+  <div class="overlay-content">
+    <img src="vector-trade-capital-logo.png" alt="VTC" class="logo-img">
+    <h1>Caribbean Port Control</h1>
+    <h2>A Vector Trade Capital Game</h2>
+    <p>Guide shipping vessels to their color-coded docks.</p>
+    <div class="instructions">
+      Draw paths &middot; Match vessel colors to docks &middot; Avoid collisions
+    </div>
+    <button class="btn-play" id="btnPlay">Play</button>
+  </div>
+</div>
+
+<div id="gameOverScreen" class="overlay">
+  <div class="overlay-bg"></div>
+  <div class="overlay-content">
+    <h1>Game Over</h1>
+    <p>Two vessels collided!</p>
+    <div class="score-display" id="finalScore">0</div>
+    <div class="highscore-display" id="finalHigh">Best: 0</div>
+    <button class="btn-play" id="btnRetry">Try Again</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // --- Constants ---
+  const VESSEL_TYPES = [
+    { type: 'cargo',     speed: 1.0, radius: 30, color: '#1A7A5E', points: 10, label: 'Food Commodities', sprite: 'cargo-ship.png' },
+    { type: 'tanker',    speed: 1.8, radius: 22, color: '#B8963E', points: 20, label: 'Fuel & Energy',    sprite: 'fuel-tanker.png' },
+    { type: 'speedboat', speed: 3.0, radius: 14, color: '#8B3A2A', points: 30, label: 'Vehicle Parts',    sprite: 'speedboat.png' },
+    { type: 'barge',     speed: 0.7, radius: 36, color: '#2A4D39', points: 15, label: 'Bulk Dry Goods',   sprite: 'container-barge.png' },
+    { type: 'lng',       speed: 2.2, radius: 26, color: '#22A07C', points: 25, label: 'Liquefied Gas',    sprite: 'lng-carrier.png' },
+  ];
+  const SPAWN_WEIGHTS = [0.25, 0.25, 0.20, 0.15, 0.15];
+  const DOCK_HEIGHT = 70;
+  const DOCK_PAD = 20;
+  const PATH_SAMPLE_DIST = 10;
+  const COLLISION_WARN_MULT = 2.0;
+  const INITIAL_SPAWN_INTERVAL = 4000;
+  const MIN_SPAWN_INTERVAL = 1500;
+  const SPAWN_DECREASE = 100;
+  const DOCKINGS_PER_DECREASE = 5;
+
+  // --- State ---
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+  let state = 'TITLE'; // TITLE | PLAYING | GAME_OVER
+  let score = 0;
+  let highScore = parseInt(localStorage.getItem('vtc_cpc_high') || '0', 10);
+  let vessels = [];
+  let docks = [];
+  let selectedVessel = null;
+  let drawingPath = [];
+  let spawnTimer = 0;
+  let spawnInterval = INITIAL_SPAWN_INTERVAL;
+  let totalDockings = 0;
+  let lastTime = 0;
+  let waveOffset = 0;
+  let explosionEffects = [];
+
+  // Sprites
+  const spriteImages = {};
+  let spritesLoaded = false;
+
+  function loadSprites() {
+    let loaded = 0;
+    const total = VESSEL_TYPES.length;
+    VESSEL_TYPES.forEach(vt => {
+      const img = new Image();
+      img.onload = () => {
+        spriteImages[vt.type] = img;
+        loaded++;
+        if (loaded === total) spritesLoaded = true;
+      };
+      img.onerror = () => {
+        loaded++;
+        if (loaded === total) spritesLoaded = true;
+      };
+      img.src = 'images/games/' + vt.sprite;
+    });
+  }
+  loadSprites();
+
+  // --- Resize ---
+  function resize() {
+    const dpr = window.devicePixelRatio || 1;
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    buildDocks();
+  }
+  window.addEventListener('resize', resize);
+
+  // --- Docks ---
+  function buildDocks() {
+    docks = [];
+    const dockW = (W - DOCK_PAD * 2) / 5;
+    for (let i = 0; i < 5; i++) {
+      docks.push({
+        x: DOCK_PAD + i * dockW,
+        y: H - DOCK_HEIGHT,
+        w: dockW,
+        h: DOCK_HEIGHT,
+        type: VESSEL_TYPES[i].type,
+        color: VESSEL_TYPES[i].color,
+        label: VESSEL_TYPES[i].label,
+      });
+    }
+  }
+
+  // --- Weighted random vessel type ---
+  function randomVesselType() {
+    let r = Math.random();
+    let cumulative = 0;
+    for (let i = 0; i < SPAWN_WEIGHTS.length; i++) {
+      cumulative += SPAWN_WEIGHTS[i];
+      if (r <= cumulative) return i;
+    }
+    return 0;
+  }
+
+  // --- Spawn vessel ---
+  function spawnVessel() {
+    const idx = randomVesselType();
+    const vt = VESSEL_TYPES[idx];
+    // Spawn from top, left, or right edge
+    const edge = Math.floor(Math.random() * 3); // 0=top, 1=left, 2=right
+    let x, y, angle;
+    const margin = 60;
+    if (edge === 0) {
+      x = margin + Math.random() * (W - margin * 2);
+      y = -vt.radius;
+      angle = Math.PI / 2 + (Math.random() - 0.5) * 0.6;
+    } else if (edge === 1) {
+      x = -vt.radius;
+      y = margin + Math.random() * (H - DOCK_HEIGHT - margin * 2);
+      angle = (Math.random() - 0.5) * 0.8;
+    } else {
+      x = W + vt.radius;
+      y = margin + Math.random() * (H - DOCK_HEIGHT - margin * 2);
+      angle = Math.PI + (Math.random() - 0.5) * 0.8;
+    }
+
+    vessels.push({
+      type: vt.type,
+      x: x,
+      y: y,
+      speed: vt.speed,
+      radius: vt.radius,
+      color: vt.color,
+      points: vt.points,
+      label: vt.label,
+      path: [],
+      pathIndex: 0,
+      angle: angle,
+      docked: false,
+      warning: false,
+      spriteIdx: idx,
+    });
+  }
+
+  // --- Distance helper ---
+  function dist(a, b) {
+    const dx = a.x - b.x;
+    const dy = a.y - b.y;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  // --- Drawing ---
+  function drawWater() {
+    // Animated gradient water
+    const grad = ctx.createLinearGradient(0, 0, 0, H);
+    grad.addColorStop(0, '#0a3d5c');
+    grad.addColorStop(0.5, '#0e4a6a');
+    grad.addColorStop(1, '#0a2a3a');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    // Wave lines
+    ctx.strokeStyle = 'rgba(100, 180, 220, 0.08)';
+    ctx.lineWidth = 1.5;
+    for (let row = 0; row < H; row += 40) {
+      ctx.beginPath();
+      for (let x = 0; x < W; x += 4) {
+        const yOff = Math.sin((x + waveOffset) * 0.02 + row * 0.1) * 6;
+        if (x === 0) ctx.moveTo(x, row + yOff);
+        else ctx.lineTo(x, row + yOff);
+      }
+      ctx.stroke();
+    }
+  }
+
+  function drawIslands() {
+    // Small decorative islands
+    const islands = [
+      { x: W * 0.15, y: H * 0.2, r: 45 },
+      { x: W * 0.82, y: H * 0.15, r: 35 },
+      { x: W * 0.6, y: H * 0.35, r: 28 },
+    ];
+    islands.forEach(island => {
+      // Beach edge
+      ctx.beginPath();
+      ctx.arc(island.x, island.y, island.r + 4, 0, Math.PI * 2);
+      ctx.fillStyle = '#C4A44A';
+      ctx.fill();
+      // Green land
+      ctx.beginPath();
+      ctx.arc(island.x, island.y, island.r, 0, Math.PI * 2);
+      ctx.fillStyle = '#2A6B45';
+      ctx.fill();
+      // Highlight
+      ctx.beginPath();
+      ctx.arc(island.x - island.r * 0.2, island.y - island.r * 0.2, island.r * 0.5, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(60, 140, 80, 0.4)';
+      ctx.fill();
+    });
+  }
+
+  function drawDocks() {
+    docks.forEach(dock => {
+      // Dock area background
+      ctx.fillStyle = 'rgba(0,0,0,0.3)';
+      ctx.fillRect(dock.x + 2, dock.y + 2, dock.w - 4, dock.h - 4);
+
+      // Color indicator
+      ctx.fillStyle = dock.color;
+      ctx.globalAlpha = 0.25;
+      ctx.fillRect(dock.x + 2, dock.y + 2, dock.w - 4, dock.h - 4);
+      ctx.globalAlpha = 1;
+
+      // Border
+      ctx.strokeStyle = dock.color;
+      ctx.lineWidth = 2;
+      ctx.strokeRect(dock.x + 2, dock.y + 2, dock.w - 4, dock.h - 4);
+
+      // Pier lines
+      ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+      ctx.lineWidth = 1;
+      for (let px = dock.x + 12; px < dock.x + dock.w - 8; px += 14) {
+        ctx.beginPath();
+        ctx.moveTo(px, dock.y + 6);
+        ctx.lineTo(px, dock.y + dock.h - 6);
+        ctx.stroke();
+      }
+
+      // Dock label
+      ctx.fillStyle = dock.color;
+      ctx.font = "500 9px 'DM Mono', monospace";
+      ctx.textAlign = 'center';
+      ctx.fillText(dock.label.toUpperCase(), dock.x + dock.w / 2, dock.y + dock.h / 2 + 3);
+
+      // Color dot
+      ctx.beginPath();
+      ctx.arc(dock.x + dock.w / 2, dock.y + 14, 5, 0, Math.PI * 2);
+      ctx.fillStyle = dock.color;
+      ctx.fill();
+    });
+  }
+
+  function drawVessel(v) {
+    ctx.save();
+    ctx.translate(v.x, v.y);
+    ctx.rotate(v.angle);
+
+    const spr = spriteImages[v.type];
+    if (spr) {
+      const size = v.radius * 2.8;
+      ctx.drawImage(spr, -size / 2, -size / 2, size, size);
+    } else {
+      // Fallback geometric shape
+      const r = v.radius;
+      ctx.fillStyle = v.color;
+      ctx.beginPath();
+      ctx.moveTo(0, -r);
+      ctx.lineTo(r * 0.6, r * 0.6);
+      ctx.lineTo(0, r * 0.35);
+      ctx.lineTo(-r * 0.6, r * 0.6);
+      ctx.closePath();
+      ctx.fill();
+
+      // Hull outline
+      ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // Cabin
+      ctx.fillStyle = 'rgba(255,255,255,0.2)';
+      ctx.fillRect(-r * 0.2, -r * 0.1, r * 0.4, r * 0.3);
+    }
+
+    ctx.restore();
+
+    // Warning indicator
+    if (v.warning) {
+      ctx.beginPath();
+      ctx.arc(v.x, v.y, v.radius + 8, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(255, 180, 0, ' + (0.4 + Math.sin(Date.now() * 0.01) * 0.3) + ')';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+  }
+
+  function drawPaths() {
+    vessels.forEach(v => {
+      if (v.path.length < 2) return;
+      ctx.beginPath();
+      ctx.setLineDash([6, 6]);
+      ctx.strokeStyle = v.color;
+      ctx.globalAlpha = 0.5;
+      ctx.lineWidth = 2;
+      const startIdx = Math.max(0, v.pathIndex - 1);
+      ctx.moveTo(v.path[startIdx].x, v.path[startIdx].y);
+      for (let i = startIdx + 1; i < v.path.length; i++) {
+        ctx.lineTo(v.path[i].x, v.path[i].y);
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.globalAlpha = 1;
+    });
+
+    // Drawing preview
+    if (selectedVessel && drawingPath.length > 1) {
+      ctx.beginPath();
+      ctx.setLineDash([4, 4]);
+      ctx.strokeStyle = selectedVessel.color;
+      ctx.globalAlpha = 0.7;
+      ctx.lineWidth = 2.5;
+      ctx.moveTo(drawingPath[0].x, drawingPath[0].y);
+      for (let i = 1; i < drawingPath.length; i++) {
+        ctx.lineTo(drawingPath[i].x, drawingPath[i].y);
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  function drawExplosions() {
+    explosionEffects = explosionEffects.filter(e => {
+      e.t += 0.02;
+      if (e.t >= 1) return false;
+      const r = e.t * 60;
+      ctx.beginPath();
+      ctx.arc(e.x, e.y, r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255, 120, 30, ' + (1 - e.t) * 0.6 + ')';
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(e.x, e.y, r * 0.6, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255, 220, 80, ' + (1 - e.t) * 0.8 + ')';
+      ctx.fill();
+      return true;
+    });
+  }
+
+  // --- Update ---
+  function update(dt) {
+    if (state !== 'PLAYING') return;
+
+    waveOffset += dt * 30;
+
+    // Spawn timer
+    spawnTimer += dt * 1000;
+    if (spawnTimer >= spawnInterval) {
+      spawnTimer = 0;
+      spawnVessel();
+    }
+
+    // Move vessels
+    vessels.forEach(v => {
+      if (v.docked) return;
+
+      if (v.path.length > 0 && v.pathIndex < v.path.length) {
+        // Follow path
+        const target = v.path[v.pathIndex];
+        const dx = target.x - v.x;
+        const dy = target.y - v.y;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        if (d < v.speed * 2) {
+          v.pathIndex++;
+        } else {
+          v.angle = Math.atan2(dy, dx) + Math.PI / 2;
+          v.x += (dx / d) * v.speed;
+          v.y += (dy / d) * v.speed;
+        }
+      } else {
+        // Free movement in initial direction
+        v.x += Math.sin(v.angle) * v.speed;
+        v.y -= Math.cos(v.angle) * v.speed;
+      }
+
+      // Remove if off-screen (with margin)
+      const margin = 100;
+      if (v.x < -margin || v.x > W + margin || v.y < -margin || v.y > H + margin) {
+        v.docked = true; // mark for removal
+      }
+    });
+
+    // Dock check
+    vessels.forEach(v => {
+      if (v.docked) return;
+      docks.forEach(dock => {
+        if (dock.type !== v.type) return;
+        const cx = dock.x + dock.w / 2;
+        const cy = dock.y + dock.h / 2;
+        if (v.x > dock.x && v.x < dock.x + dock.w && v.y > dock.y && v.y < dock.y + dock.h) {
+          v.docked = true;
+          score += v.points;
+          totalDockings++;
+          // Increase difficulty
+          if (totalDockings % DOCKINGS_PER_DECREASE === 0) {
+            spawnInterval = Math.max(MIN_SPAWN_INTERVAL, spawnInterval - SPAWN_DECREASE);
+          }
+          updateHUD();
+        }
+      });
+    });
+
+    // Collision detection
+    let collision = false;
+    for (let i = 0; i < vessels.length; i++) {
+      vessels[i].warning = false;
+    }
+    for (let i = 0; i < vessels.length; i++) {
+      if (vessels[i].docked) continue;
+      for (let j = i + 1; j < vessels.length; j++) {
+        if (vessels[j].docked) continue;
+        const d = dist(vessels[i], vessels[j]);
+        const minDist = vessels[i].radius + vessels[j].radius;
+        if (d < minDist) {
+          collision = true;
+          explosionEffects.push({ x: (vessels[i].x + vessels[j].x) / 2, y: (vessels[i].y + vessels[j].y) / 2, t: 0 });
+          break;
+        }
+        if (d < minDist * COLLISION_WARN_MULT) {
+          vessels[i].warning = true;
+          vessels[j].warning = true;
+        }
+      }
+      if (collision) break;
+    }
+
+    if (collision) {
+      gameOver();
+      return;
+    }
+
+    // Remove docked/off-screen vessels
+    vessels = vessels.filter(v => !v.docked);
+  }
+
+  // --- HUD ---
+  function updateHUD() {
+    document.getElementById('scoreVal').textContent = score;
+    if (score > highScore) {
+      highScore = score;
+      localStorage.setItem('vtc_cpc_high', highScore.toString());
+    }
+    document.getElementById('highVal').textContent = highScore;
+  }
+
+  // --- State transitions ---
+  function startGame() {
+    state = 'PLAYING';
+    score = 0;
+    vessels = [];
+    totalDockings = 0;
+    spawnInterval = INITIAL_SPAWN_INTERVAL;
+    spawnTimer = 0;
+    selectedVessel = null;
+    drawingPath = [];
+    explosionEffects = [];
+    updateHUD();
+    document.getElementById('titleScreen').classList.remove('active');
+    document.getElementById('gameOverScreen').classList.remove('active');
+    document.getElementById('hud').classList.add('active');
+    // Spawn first few vessels
+    spawnVessel();
+    setTimeout(() => { if (state === 'PLAYING') spawnVessel(); }, 1200);
+  }
+
+  function gameOver() {
+    state = 'GAME_OVER';
+    document.getElementById('hud').classList.remove('active');
+    document.getElementById('finalScore').textContent = score;
+    if (score > highScore) {
+      highScore = score;
+      localStorage.setItem('vtc_cpc_high', highScore.toString());
+    }
+    document.getElementById('finalHigh').textContent = 'Best: ' + highScore;
+    // Short delay to show explosion
+    setTimeout(() => {
+      document.getElementById('gameOverScreen').classList.add('active');
+    }, 600);
+  }
+
+  // --- Input handling ---
+  function getPos(e) {
+    if (e.touches && e.touches.length > 0) {
+      return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }
+    return { x: e.clientX, y: e.clientY };
+  }
+
+  function findVesselAt(pos) {
+    for (let i = vessels.length - 1; i >= 0; i--) {
+      const v = vessels[i];
+      if (v.docked) continue;
+      if (dist(pos, v) < v.radius + 15) return v;
+    }
+    return null;
+  }
+
+  function onPointerDown(e) {
+    if (state !== 'PLAYING') return;
+    e.preventDefault();
+    const pos = getPos(e);
+    const v = findVesselAt(pos);
+    if (v) {
+      selectedVessel = v;
+      drawingPath = [{ x: v.x, y: v.y }];
+    }
+  }
+
+  function onPointerMove(e) {
+    if (!selectedVessel || state !== 'PLAYING') return;
+    e.preventDefault();
+    const pos = getPos(e);
+    const last = drawingPath[drawingPath.length - 1];
+    if (dist(pos, last) >= PATH_SAMPLE_DIST) {
+      drawingPath.push({ x: pos.x, y: pos.y });
+    }
+  }
+
+  function onPointerUp(e) {
+    if (!selectedVessel || state !== 'PLAYING') return;
+    e.preventDefault();
+    if (drawingPath.length > 1) {
+      selectedVessel.path = drawingPath.slice();
+      selectedVessel.pathIndex = 0;
+    }
+    selectedVessel = null;
+    drawingPath = [];
+  }
+
+  canvas.addEventListener('mousedown', onPointerDown);
+  canvas.addEventListener('mousemove', onPointerMove);
+  canvas.addEventListener('mouseup', onPointerUp);
+  canvas.addEventListener('touchstart', onPointerDown, { passive: false });
+  canvas.addEventListener('touchmove', onPointerMove, { passive: false });
+  canvas.addEventListener('touchend', onPointerUp, { passive: false });
+
+  // --- Buttons ---
+  document.getElementById('btnPlay').addEventListener('click', startGame);
+  document.getElementById('btnRetry').addEventListener('click', startGame);
+
+  // --- Game loop ---
+  function gameLoop(time) {
+    const dt = Math.min((time - lastTime) / 1000, 0.05);
+    lastTime = time;
+
+    update(dt);
+
+    // Draw
+    drawWater();
+    drawIslands();
+    drawDocks();
+    drawPaths();
+    vessels.forEach(drawVessel);
+    drawExplosions();
+
+    requestAnimationFrame(gameLoop);
+  }
+
+  // --- Init ---
+  resize();
+  updateHUD();
+  requestAnimationFrame(function(time) {
+    lastTime = time;
+    gameLoop(time);
+  });
+
+})();
+</script>
+</body>
+</html>
