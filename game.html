@@ -1134,13 +1134,16 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
       return sp.t < 1;
     });
 
-    // Collision detection
+    // Collision detection (only for vessels visible on screen)
+    function isOnScreen(v) {
+      return v.x + v.radius > 0 && v.x - v.radius < W && v.y + v.radius > 0 && v.y - v.radius < H;
+    }
     let collision = false;
     for (let i = 0; i < vessels.length; i++) vessels[i].warning = false;
     for (let i = 0; i < vessels.length; i++) {
-      if (vessels[i].docked) continue;
+      if (vessels[i].docked || !isOnScreen(vessels[i])) continue;
       for (let j = i + 1; j < vessels.length; j++) {
-        if (vessels[j].docked) continue;
+        if (vessels[j].docked || !isOnScreen(vessels[j])) continue;
         const d = dist(vessels[i], vessels[j]);
         const minDist = vessels[i].radius + vessels[j].radius;
         if (d < minDist) {
