@@ -18,12 +18,20 @@ if (!fs.existsSync(OUTPUT_DIR)) {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 }
 
-const sprites = [
-  { name: 'cargo-ship', prompt: 'Top-down view of a cargo ship carrying containers, game sprite, clean flat art style, Caribbean sea colors, transparent background, 2D top-down perspective, no shadow' },
-  { name: 'fuel-tanker', prompt: 'Top-down view of an oil fuel tanker ship, game sprite, clean flat art style, Caribbean sea colors, transparent background, 2D top-down perspective, no shadow' },
-  { name: 'speedboat', prompt: 'Top-down view of a small fast speedboat, game sprite, clean flat art style, Caribbean sea colors, transparent background, 2D top-down perspective, no shadow' },
-  { name: 'container-barge', prompt: 'Top-down view of a large flat container barge ship, game sprite, clean flat art style, Caribbean sea colors, transparent background, 2D top-down perspective, no shadow' },
-  { name: 'lng-carrier', prompt: 'Top-down view of an LNG liquefied natural gas carrier ship with spherical tanks, game sprite, clean flat art style, Caribbean sea colors, transparent background, 2D top-down perspective, no shadow' },
+const vesselSprites = [
+  { name: 'cargo-ship', type: 'cargo', prompt: 'Top-down view of a cargo ship carrying containers, game sprite, clean flat art style, Caribbean sea colors, transparent background, 2D top-down perspective, no shadow' },
+  { name: 'fuel-tanker', type: 'tanker', prompt: 'Top-down view of an oil fuel tanker ship, game sprite, clean flat art style, Caribbean sea colors, transparent background, 2D top-down perspective, no shadow' },
+  { name: 'speedboat', type: 'speedboat', prompt: 'Top-down view of a small fast speedboat, game sprite, clean flat art style, Caribbean sea colors, transparent background, 2D top-down perspective, no shadow' },
+  { name: 'container-barge', type: 'barge', prompt: 'Top-down view of a large flat container barge ship, game sprite, clean flat art style, Caribbean sea colors, transparent background, 2D top-down perspective, no shadow' },
+  { name: 'lng-carrier', type: 'lng', prompt: 'Top-down view of an LNG liquefied natural gas carrier ship with spherical tanks, game sprite, clean flat art style, Caribbean sea colors, transparent background, 2D top-down perspective, no shadow' },
+];
+
+const islandSprites = [
+  { name: 'island-cargo', type: 'cargo', prompt: 'Top-down view of a tropical Caribbean island with a cargo port and crescent shape, game sprite, clean flat art style, green land with sandy beach, transparent background, 2D top-down perspective, no shadow' },
+  { name: 'island-tanker', type: 'tanker', prompt: 'Top-down view of an elongated tropical island with fuel storage depot tanks, game sprite, clean flat art style, green land with sandy beach, transparent background, 2D top-down perspective, no shadow' },
+  { name: 'island-speedboat', type: 'speedboat', prompt: 'Top-down view of a small rocky tropical island with a marina, game sprite, clean flat art style, green land with sandy beach, transparent background, 2D top-down perspective, no shadow' },
+  { name: 'island-barge', type: 'barge', prompt: 'Top-down view of a large flat tropical island with cargo warehouses, game sprite, clean flat art style, green land with sandy beach, transparent background, 2D top-down perspective, no shadow' },
+  { name: 'island-lng', type: 'lng', prompt: 'Top-down view of a volcanic tropical island with spherical LNG gas storage tanks, game sprite, clean flat art style, green land with sandy beach, transparent background, 2D top-down perspective, no shadow' },
 ];
 
 function generateImage(prompt) {
@@ -87,9 +95,10 @@ function downloadFile(url, filepath) {
 }
 
 async function main() {
-  console.log('Generating vessel sprites with DALL-E 3...\n');
+  const allSprites = [...vesselSprites, ...islandSprites];
+  console.log('Generating vessel and island sprites with DALL-E 3...\n');
 
-  for (const sprite of sprites) {
+  for (const sprite of allSprites) {
     const filepath = path.join(OUTPUT_DIR, `${sprite.name}.png`);
     console.log(`Generating ${sprite.name}...`);
     try {
@@ -101,6 +110,18 @@ async function main() {
       console.error(`  Error generating ${sprite.name}: ${err.message}`);
     }
   }
+
+  // Write sprite manifest
+  const manifest = {
+    basePath: 'images/games/',
+    vessels: {},
+    islands: {},
+  };
+  vesselSprites.forEach(s => { manifest.vessels[s.type] = { file: s.name + '.png' }; });
+  islandSprites.forEach(s => { manifest.islands[s.type] = { file: s.name + '.png' }; });
+  const manifestPath = path.join(OUTPUT_DIR, 'sprite-manifest.json');
+  fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
+  console.log(`\nManifest written: ${manifestPath}`);
 
   console.log('\nSprite generation complete.');
   console.log(`Output directory: ${OUTPUT_DIR}`);
