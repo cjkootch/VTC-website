@@ -179,6 +179,7 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
     { // Cargo - large crescent-shaped island, top-left area
       type: 'cargo', color: '#1A7A5E', label: 'Cargo Port',
       cx: 0.14, cy: 0.28, portSide: 'right',
+      biome: 'rainforest', landColor: '#2A7A4A', beachColor: '#C9B064', shelfColor: 'rgba(65,180,175,0.2)',
       // Organic shape points (relative to center, will be scaled)
       shape: [
         {x:-1.0,y:-0.3},{x:-0.7,y:-0.9},{x:-0.1,y:-1.0},{x:0.5,y:-0.8},
@@ -186,11 +187,14 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
         {x:-0.2,y:1.0},{x:-0.7,y:0.7},{x:-1.0,y:0.3}
       ],
       scale: 70, trees: [{x:-0.2,y:-0.3,s:8},{x:0.1,y:0.2,s:7},{x:-0.5,y:0.1,s:6},{x:0.3,y:-0.4,s:5}],
-      mountain: {x:-0.1,y:-0.1,s:18}
+      mountain: {x:-0.1,y:-0.1,s:18},
+      reefs: [{x:1.3,y:-0.2,s:7},{x:1.15,y:0.2,s:5},{x:0.95,y:-0.35,s:4}],
+      palms: [{x:0.45,y:0.2,s:7},{x:0.35,y:-0.05,s:6}]
     },
     { // Tanker - elongated island with fuel depot, top-right
       type: 'tanker', color: '#B8963E', label: 'Fuel Depot',
       cx: 0.82, cy: 0.22, portSide: 'left',
+      biome: 'arid', landColor: '#8D7A4C', beachColor: '#D7C385', shelfColor: 'rgba(45,150,175,0.16)',
       shape: [
         {x:-1.0,y:-0.2},{x:-0.6,y:-0.7},{x:0.0,y:-0.9},{x:0.6,y:-0.7},
         {x:1.0,y:-0.3},{x:1.1,y:0.2},{x:0.8,y:0.6},{x:0.2,y:0.8},
@@ -198,22 +202,28 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
       ],
       scale: 58, trees: [{x:0.2,y:-0.2,s:5},{x:0.4,y:0.1,s:4}],
       mountain: null,
-      depot: {x:0.0,y:0.0,s:12} // fuel storage tanks
+      depot: {x:0.0,y:0.0,s:12}, // fuel storage tanks
+      cranes: [{x:-0.55,y:0.05,s:8},{x:-0.4,y:-0.15,s:7}],
+      breakwater: [{x:-1.35,y:-0.25},{x:-1.25,y:-0.05},{x:-1.2,y:0.2}]
     },
     { // Speedboat - small rocky island, mid-right
       type: 'speedboat', color: '#8B3A2A', label: 'Marina',
       cx: 0.78, cy: 0.58, portSide: 'left',
+      biome: 'rocky', landColor: '#566B58', beachColor: '#B9A477', shelfColor: 'rgba(40,165,180,0.14)',
       shape: [
         {x:-0.8,y:-0.4},{x:-0.3,y:-0.9},{x:0.3,y:-0.8},{x:0.8,y:-0.3},
         {x:0.9,y:0.3},{x:0.4,y:0.8},{x:-0.2,y:0.9},{x:-0.7,y:0.5},
         {x:-0.9,y:0.0}
       ],
       scale: 44, trees: [{x:0.1,y:-0.1,s:5},{x:-0.2,y:0.2,s:4}],
-      mountain: null
+      mountain: {x:-0.15,y:-0.15,s:10},
+      marina: [{x:-0.35,y:0.15,s:7},{x:-0.25,y:0.28,s:6},{x:-0.12,y:0.36,s:5}],
+      reefs: [{x:-1.15,y:0.28,s:4},{x:-0.95,y:0.52,s:3}]
     },
     { // Barge - large flat island with warehouses, bottom-left
       type: 'barge', color: '#2A4D39', label: 'Cargo Terminal',
       cx: 0.18, cy: 0.7, portSide: 'right',
+      biome: 'industrial', landColor: '#446E4E', beachColor: '#B79A60', shelfColor: 'rgba(55,140,160,0.16)',
       shape: [
         {x:-1.0,y:-0.5},{x:-0.4,y:-0.9},{x:0.3,y:-1.0},{x:0.9,y:-0.6},
         {x:1.1,y:0.0},{x:0.9,y:0.5},{x:0.3,y:0.9},{x:-0.4,y:0.8},
@@ -221,11 +231,13 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
       ],
       scale: 72, trees: [{x:-0.4,y:-0.3,s:7},{x:-0.3,y:0.3,s:6},{x:0.4,y:-0.3,s:5}],
       mountain: {x:0.1,y:-0.2,s:14},
-      warehouses: [{x:0.3,y:0.2,s:10},{x:0.5,y:0.0,s:8}]
+      warehouses: [{x:0.3,y:0.2,s:10},{x:0.5,y:0.0,s:8}],
+      containerStacks: [{x:0.1,y:0.35,w:12,h:8},{x:0.26,y:0.36,w:10,h:7},{x:0.4,y:0.34,w:11,h:7}]
     },
     { // LNG - volcanic island with gas facility, center
       type: 'lng', color: '#22A07C', label: 'LNG Terminal',
       cx: 0.48, cy: 0.45, portSide: 'bottom',
+      biome: 'volcanic', landColor: '#3D5F45', beachColor: '#A99163', shelfColor: 'rgba(35,170,155,0.14)',
       shape: [
         {x:-0.6,y:-0.9},{x:0.1,y:-1.0},{x:0.7,y:-0.7},{x:1.0,y:-0.1},
         {x:0.8,y:0.5},{x:0.3,y:0.9},{x:-0.3,y:0.8},{x:-0.8,y:0.4},
@@ -233,7 +245,9 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
       ],
       scale: 54, trees: [{x:-0.3,y:0.2,s:5},{x:0.3,y:-0.2,s:6}],
       mountain: {x:0.0,y:-0.2,s:16},
-      gasTanks: [{x:0.2,y:0.3,s:6},{x:0.0,y:0.4,s:5}]
+      gasTanks: [{x:0.2,y:0.3,s:6},{x:0.0,y:0.4,s:5}],
+      flare: {x:0.32,y:0.08,s:8},
+      lagoon: {x:-0.2,y:0.22,s:14}
     },
   ];
 
@@ -661,7 +675,7 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
       ctx.scale(1.08, 1.08);
       ctx.translate(-island.cx * 0.08, -island.cy * 0.08);
       drawIslandShape(island);
-      ctx.fillStyle = 'rgba(20,140,160,0.15)';
+      ctx.fillStyle = island.shelfColor || 'rgba(20,140,160,0.15)';
       ctx.fill();
       ctx.restore();
 
@@ -671,22 +685,37 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
       ctx.scale(1.04, 1.04);
       ctx.translate(-island.cx * 0.04, -island.cy * 0.04);
       drawIslandShape(island);
-      ctx.fillStyle = '#C4A44A';
+      ctx.fillStyle = island.beachColor || '#C4A44A';
       ctx.fill();
       ctx.restore();
 
       // Main land
       drawIslandShape(island);
-      ctx.fillStyle = '#2A7A4A';
+      ctx.fillStyle = island.landColor || '#2A7A4A';
       ctx.fill();
 
       // Terrain gradient overlay
       drawIslandShape(island);
       const tg = ctx.createRadialGradient(island.cx - s * 0.2, island.cy - s * 0.2, 0, island.cx, island.cy, s * 1.2);
-      tg.addColorStop(0, 'rgba(60, 160, 80, 0.3)');
-      tg.addColorStop(1, 'rgba(20, 60, 30, 0.2)');
+      tg.addColorStop(0, island.biome === 'arid' ? 'rgba(220, 190, 120, 0.28)' : 'rgba(60, 160, 80, 0.3)');
+      tg.addColorStop(1, island.biome === 'volcanic' ? 'rgba(30, 35, 30, 0.3)' : 'rgba(20, 60, 30, 0.2)');
       ctx.fillStyle = tg;
       ctx.fill();
+
+      // Lagoons for select islands
+      if (island.lagoon) {
+        const l = island.lagoon;
+        const lx = island.cx + l.x * s;
+        const ly = island.cy + l.y * s;
+        const ls = l.s * s / 60;
+        ctx.beginPath();
+        ctx.ellipse(lx, ly, ls * 0.9, ls * 0.65, 0.2, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(72, 184, 196, 0.45)';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(170, 240, 245, 0.4)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
 
       // Mountain
       if (island.mountain) {
@@ -799,6 +828,126 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
         });
       }
 
+      // Coral reefs / shoals near islands
+      if (island.reefs) {
+        island.reefs.forEach(rf => {
+          const rx = island.cx + rf.x * s;
+          const ry = island.cy + rf.y * s;
+          const rr = rf.s * s / 60;
+          ctx.beginPath();
+          ctx.arc(rx, ry, rr, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(113, 223, 205, 0.24)';
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(rx - rr * 0.2, ry - rr * 0.15, rr * 0.45, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(174, 252, 236, 0.22)';
+          ctx.fill();
+        });
+      }
+
+      // Palm clusters
+      if (island.palms) {
+        island.palms.forEach(p => {
+          const pxm = island.cx + p.x * s;
+          const pym = island.cy + p.y * s;
+          const ps = p.s * s / 60;
+          ctx.strokeStyle = '#7b5332';
+          ctx.lineWidth = Math.max(1, ps * 0.25);
+          ctx.beginPath();
+          ctx.moveTo(pxm, pym + ps * 0.9);
+          ctx.quadraticCurveTo(pxm + ps * 0.4, pym + ps * 0.1, pxm + ps * 0.1, pym - ps * 0.5);
+          ctx.stroke();
+          ctx.fillStyle = '#1d7f42';
+          for (let k = 0; k < 5; k++) {
+            const a = (-Math.PI / 2) + (k - 2) * 0.35;
+            ctx.beginPath();
+            ctx.ellipse(pxm + ps * 0.1, pym - ps * 0.55, ps * 0.52, ps * 0.17, a, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        });
+      }
+
+      // Industrial details
+      if (island.cranes) {
+        island.cranes.forEach(c => {
+          const cx = island.cx + c.x * s;
+          const cy = island.cy + c.y * s;
+          const cs = c.s * s / 60;
+          ctx.strokeStyle = '#a9a39a';
+          ctx.lineWidth = Math.max(1, cs * 0.18);
+          ctx.beginPath();
+          ctx.moveTo(cx, cy + cs * 0.7);
+          ctx.lineTo(cx, cy - cs * 0.6);
+          ctx.lineTo(cx + cs * 0.9, cy - cs * 0.95);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(cx + cs * 0.5, cy - cs * 0.8);
+          ctx.lineTo(cx + cs * 0.5, cy - cs * 0.35);
+          ctx.stroke();
+        });
+      }
+      if (island.containerStacks) {
+        island.containerStacks.forEach(st => {
+          const sx = island.cx + st.x * s;
+          const sy = island.cy + st.y * s;
+          const sw = st.w * s / 60;
+          const sh = st.h * s / 60;
+          ctx.fillStyle = '#ab5c35';
+          ctx.fillRect(sx - sw, sy - sh, sw, sh);
+          ctx.fillStyle = '#3f88c5';
+          ctx.fillRect(sx, sy - sh, sw, sh);
+          ctx.fillStyle = '#cfa24f';
+          ctx.fillRect(sx - sw * 0.45, sy - sh * 1.9, sw * 0.9, sh * 0.82);
+        });
+      }
+      if (island.breakwater) {
+        ctx.strokeStyle = 'rgba(170,175,168,0.8)';
+        ctx.lineWidth = Math.max(2, s * 0.08);
+        ctx.beginPath();
+        island.breakwater.forEach((p, idx) => {
+          const bx = island.cx + p.x * s;
+          const by = island.cy + p.y * s;
+          if (idx === 0) ctx.moveTo(bx, by);
+          else ctx.lineTo(bx, by);
+        });
+        ctx.stroke();
+      }
+      if (island.marina) {
+        island.marina.forEach(m => {
+          const mx = island.cx + m.x * s;
+          const my = island.cy + m.y * s;
+          const ms = m.s * s / 60;
+          ctx.fillStyle = '#f2f4f5';
+          ctx.fillRect(mx - ms * 0.35, my - ms * 0.1, ms * 0.7, ms * 0.2);
+          ctx.fillStyle = '#9bd1ef';
+          ctx.beginPath();
+          ctx.moveTo(mx - ms * 0.4, my - ms * 0.2);
+          ctx.lineTo(mx, my - ms * 0.7);
+          ctx.lineTo(mx + ms * 0.2, my - ms * 0.2);
+          ctx.closePath();
+          ctx.fill();
+        });
+      }
+      if (island.flare) {
+        const f = island.flare;
+        const fx = island.cx + f.x * s;
+        const fy = island.cy + f.y * s;
+        const fs = f.s * s / 60;
+        ctx.strokeStyle = '#7a7a7a';
+        ctx.lineWidth = Math.max(1, fs * 0.18);
+        ctx.beginPath();
+        ctx.moveTo(fx, fy + fs * 0.8);
+        ctx.lineTo(fx, fy - fs * 0.4);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(fx, fy - fs * 0.55);
+        ctx.lineTo(fx - fs * 0.22, fy - fs * 0.15);
+        ctx.lineTo(fx + fs * 0.22, fy - fs * 0.15);
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(255, 149, 56, 0.9)';
+        ctx.fill();
+      }
+
       // --- PORT / DOCK ---
       // Draw pier extending from island
       const px = island.px, py = island.py;
@@ -871,6 +1020,35 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
       ctx.arc(pcx, pcy, PORT_RADIUS - 2, 0, Math.PI * 2);
       ctx.fillStyle = island.color + '20';
       ctx.fill();
+
+      // Port architecture accents per port type
+      if (island.type === 'speedboat') {
+        ctx.fillStyle = '#f6f6f6';
+        ctx.fillRect(pcx - 3, pcy - PORT_RADIUS - 12, 6, 13);
+        ctx.beginPath();
+        ctx.moveTo(pcx + 3, pcy - PORT_RADIUS - 10);
+        ctx.lineTo(pcx + 14, pcy - PORT_RADIUS - 6);
+        ctx.lineTo(pcx + 3, pcy - PORT_RADIUS - 2);
+        ctx.closePath();
+        ctx.fillStyle = '#fffcfb';
+        ctx.fill();
+      } else if (island.type === 'tanker') {
+        ctx.fillStyle = '#7a7a7a';
+        ctx.fillRect(pcx - 13, pcy - 5, 10, 10);
+        ctx.fillRect(pcx + 3, pcy - 5, 10, 10);
+        ctx.strokeStyle = '#cfcfcf';
+        ctx.beginPath();
+        ctx.moveTo(pcx - 3, pcy - 8);
+        ctx.lineTo(pcx + 3, pcy - 8);
+        ctx.stroke();
+      } else if (island.type === 'barge') {
+        ctx.fillStyle = '#59636f';
+        ctx.fillRect(pcx - 12, pcy - 4, 24, 8);
+        ctx.fillStyle = '#c0643b';
+        ctx.fillRect(pcx - 8, pcy - 9, 5, 4);
+        ctx.fillRect(pcx - 2, pcy - 9, 5, 4);
+        ctx.fillRect(pcx + 4, pcy - 9, 5, 4);
+      }
 
       // Port label
       ctx.fillStyle = island.color;
