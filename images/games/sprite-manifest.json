@@ -1,0 +1,13 @@
+{
+  "game": "Caribbean Port Control",
+  "version": 1,
+  "format": "svg",
+  "basePath": "images/games",
+  "sprites": [
+    {"type": "cargo", "file": "cargo-ship.svg", "size": 256},
+    {"type": "tanker", "file": "fuel-tanker.svg", "size": 256},
+    {"type": "speedboat", "file": "speedboat.svg", "size": 256},
+    {"type": "barge", "file": "container-barge.svg", "size": 256},
+    {"type": "lng", "file": "lng-carrier.svg", "size": 256}
+  ]
+}

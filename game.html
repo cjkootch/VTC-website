@@ -270,13 +270,13 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
   // Sprites
   const spriteImages = {};
   function loadSprites() {
-    const names = ['cargo-ship','fuel-tanker','speedboat','container-barge','lng-carrier'];
+    const names = ['cargo-ship.svg','fuel-tanker.svg','speedboat.svg','container-barge.svg','lng-carrier.svg'];
     const types = ['cargo','tanker','speedboat','barge','lng'];
     names.forEach((name, i) => {
       const img = new Image();
       img.onload = () => { spriteImages[types[i]] = img; };
       img.onerror = () => {};
-      img.src = 'images/games/' + name + '.png';
+      img.src = 'images/games/' + name;
     });
   }
   loadSprites();
