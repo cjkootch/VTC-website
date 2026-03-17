@@ -264,6 +264,8 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
   let waveOffset = 0;
   let explosionEffects = [];
   let dockEffects = [];
+  let dockingVessels = [];  // Ships currently in docking animation
+  let scorePopups = [];     // Floating score text popups
 
   // Sprites
   const spriteImages = {};
@@ -927,6 +929,75 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
     });
   }
 
+  function drawDockingVessels() {
+    dockingVessels.forEach(dv => {
+      const t = dv.t;
+      // Shrink from full size to 0 over the animation
+      const scale = Math.max(0, 1 - t * 1.2);
+      // Fade out
+      const alpha = Math.max(0, 1 - t * 1.5);
+      if (scale <= 0 || alpha <= 0) return;
+
+      // Use the real drawVesselShape by creating a temporary vessel-like object
+      // with adjusted position, and wrapping in save/restore with alpha+scale
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      // Apply scale around docking vessel position
+      ctx.translate(dv.x, dv.y);
+      ctx.scale(scale, scale);
+      ctx.translate(-dv.x, -dv.y);
+      drawVesselShape(dv);
+      ctx.restore();
+
+      // Sparkle particles around docking vessel
+      if (t > 0.1 && t < 0.8) {
+        const numParticles = 5;
+        for (let i = 0; i < numParticles; i++) {
+          const angle = (i / numParticles) * Math.PI * 2 + t * 4;
+          const dist = dv.radius * (0.5 + t * 1.5);
+          const px = dv.x + Math.cos(angle) * dist;
+          const py = dv.y + Math.sin(angle) * dist;
+          const pAlpha = (1 - t) * 0.6;
+          const pSize = 2 + (1 - t) * 3;
+          ctx.beginPath();
+          ctx.arc(px, py, pSize, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255, 255, 200, ' + pAlpha + ')';
+          ctx.fill();
+        }
+      }
+    });
+  }
+
+  function drawScorePopups() {
+    scorePopups.forEach(sp => {
+      const t = sp.t;
+      const alpha = t < 0.2 ? t / 0.2 : Math.max(0, 1 - (t - 0.2) / 0.8);
+      const yOff = -t * 50; // Float upward
+      const scale = t < 0.15 ? 0.5 + (t / 0.15) * 0.8 : 1.3 - t * 0.3;
+
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.translate(sp.x, sp.y + yOff);
+      ctx.scale(scale, scale);
+
+      // Text shadow
+      ctx.font = 'bold 22px monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+      ctx.fillText(sp.text, 1, 1);
+      // Main text
+      ctx.fillStyle = '#FFE566';
+      ctx.fillText(sp.text, 0, 0);
+      // Stroke
+      ctx.strokeStyle = 'rgba(180, 140, 20, 0.8)';
+      ctx.lineWidth = 1;
+      ctx.strokeText(sp.text, 0, 0);
+
+      ctx.restore();
+    });
+  }
+
   function drawEffects() {
     // Explosions
     explosionEffects = explosionEffects.filter(e => {
@@ -941,14 +1012,31 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
       ctx.fill();
       return true;
     });
-    // Dock success rings
+    // Dock success rings — double expanding ring + green flash
     dockEffects = dockEffects.filter(e => {
-      e.t += 0.025;
+      e.t += 0.02;
       if (e.t >= 1) return false;
-      ctx.beginPath(); ctx.arc(e.x, e.y, PORT_RADIUS + e.t * 30, 0, Math.PI * 2);
-      ctx.strokeStyle = e.color.replace(')', ', ' + (1 - e.t) * 0.5 + ')').replace('rgb', 'rgba');
-      ctx.lineWidth = 2;
+      // Inner green flash
+      if (e.t < 0.3) {
+        const flashAlpha = (1 - e.t / 0.3) * 0.35;
+        const flashR = PORT_RADIUS + e.t * 20;
+        ctx.beginPath(); ctx.arc(e.x, e.y, flashR, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(100, 255, 150, ' + flashAlpha + ')';
+        ctx.fill();
+      }
+      // Outer expanding ring
+      ctx.beginPath(); ctx.arc(e.x, e.y, PORT_RADIUS + e.t * 45, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(255, 230, 100, ' + (1 - e.t) * 0.6 + ')';
+      ctx.lineWidth = 2.5 * (1 - e.t);
       ctx.stroke();
+      // Second ring, slightly delayed
+      if (e.t > 0.15) {
+        const t2 = e.t - 0.15;
+        ctx.beginPath(); ctx.arc(e.x, e.y, PORT_RADIUS + t2 * 45, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(200, 255, 200, ' + (1 - e.t) * 0.4 + ')';
+        ctx.lineWidth = 1.5 * (1 - e.t);
+        ctx.stroke();
+      }
       return true;
     });
   }
@@ -1003,10 +1091,47 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
           if (totalDockings % DOCKINGS_PER_DECREASE === 0) {
             spawnInterval = Math.max(MIN_SPAWN_INTERVAL, spawnInterval - SPAWN_DECREASE);
           }
+          // Start docking animation instead of instant removal
+          dockingVessels.push({
+            type: v.type, x: v.x, y: v.y, angle: v.angle,
+            radius: v.radius, color: v.color, label: v.label,
+            portX: island.portCX, portY: island.portCY,
+            startX: v.x, startY: v.y, startAngle: v.angle,
+            t: 0, duration: 0.8,
+            points: v.points, islandColor: island.color || v.color
+          });
+          // Floating score popup
+          scorePopups.push({
+            x: island.portCX, y: island.portCY - 10,
+            text: '+' + v.points,
+            t: 0, duration: 1.2,
+            color: v.color
+          });
+          // Dock ring effect
           dockEffects.push({ x: island.portCX, y: island.portCY, color: 'rgb(184,150,62)', t: 0 });
           updateHUD();
         }
       });
+    });
+
+    // Update docking animations
+    dockingVessels = dockingVessels.filter(dv => {
+      dv.t += dt / dv.duration;
+      if (dv.t >= 1) return false;
+      // Ease-in curve for smooth slide into port
+      const ease = dv.t < 0.5 ? 2 * dv.t * dv.t : 1 - Math.pow(-2 * dv.t + 2, 2) / 2;
+      dv.x = dv.startX + (dv.portX - dv.startX) * ease;
+      dv.y = dv.startY + (dv.portY - dv.startY) * ease;
+      // Compute target angle: face toward port
+      const targetAngle = Math.atan2(dv.portY - dv.startY, dv.portX - dv.startX) + Math.PI / 2;
+      dv.angle = dv.startAngle + (targetAngle - dv.startAngle) * Math.min(ease * 2, 1);
+      return true;
+    });
+
+    // Update score popups
+    scorePopups = scorePopups.filter(sp => {
+      sp.t += dt / sp.duration;
+      return sp.t < 1;
     });
 
     // Collision detection
@@ -1055,6 +1180,7 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
     spawnInterval = INITIAL_SPAWN_INTERVAL; spawnTimer = 0;
     selectedVessel = null; drawingPath = [];
     explosionEffects = []; dockEffects = [];
+    dockingVessels = []; scorePopups = [];
     updateHUD();
     document.getElementById('titleScreen').classList.remove('active');
     document.getElementById('gameOverScreen').classList.remove('active');
@@ -1140,7 +1266,9 @@ canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
     drawIslands();
     drawPaths();
     drawVessels();
+    drawDockingVessels();
     drawEffects();
+    drawScorePopups();
 
     requestAnimationFrame(gameLoop);
   }
