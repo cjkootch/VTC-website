@@ -427,6 +427,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 
     <form class="playbook-form" id="playbook-form" onsubmit="handlePlaybookSubmit(event)">
       <!-- Hidden fields -->
+      <input type="hidden" name="_subject" value="New Playbook Lead" id="form-subject">
       <input type="hidden" name="source_page" value="playbook">
       <input type="hidden" name="timestamp" id="form-timestamp">
       <input type="hidden" name="utm_source" id="utm-source">
@@ -622,23 +623,30 @@ function handlePlaybookSubmit(e) {
   var formData = new FormData(form);
   var data = {};
   formData.forEach(function(value, key) { data[key] = value; });
-  data.timestamp = new Date().toISOString();
+
+  // Set dynamic subject line for Formspree notification email
+  var subject = 'New Playbook Lead – ' + (data.company || 'Unknown') + ' – ' + (data.product_interest || 'General');
+  formData.set('_subject', subject);
+
+  // Set _replyto so you can reply directly to the lead
+  formData.set('_replyto', data.email);
+
+  // Update timestamp
+  formData.set('timestamp', new Date().toISOString());
 
   // Store lead in localStorage as backup
+  data.timestamp = new Date().toISOString();
   var leads = JSON.parse(localStorage.getItem('vtc_playbook_leads') || '[]');
   leads.push(data);
   localStorage.setItem('vtc_playbook_leads', JSON.stringify(leads));
 
-  // Send to Formspree (or your backend endpoint)
-  fetch('https://formspree.io/f/xpwzgkdl', {
+  // Send to Formspree
+  fetch('https://formspree.io/f/mojkkvdl', {
     method: 'POST',
     body: formData,
     headers: { 'Accept': 'application/json' }
   }).then(function(response) {
     if (response.ok) {
-      // Send internal notification email via second form submission
-      sendInternalNotification(data);
-      // Redirect to thank-you page
       window.location.href = 'thank-you/';
     } else {
       throw new Error('Form submission failed');
@@ -648,36 +656,6 @@ function handlePlaybookSubmit(e) {
     // Still redirect — the lead is captured locally
     window.location.href = 'thank-you/';
   });
-}
-
-function sendInternalNotification(data) {
-  // Construct notification subject
-  var subject = 'New Playbook Lead – ' + (data.company || 'Unknown') + ' – ' + (data.product_interest || 'General');
-
-  // Send via Formspree to internal notification endpoint
-  var notifData = new FormData();
-  notifData.append('_subject', subject);
-  notifData.append('Name', data.first_name + ' ' + data.last_name);
-  notifData.append('Company', data.company);
-  notifData.append('Email', data.email);
-  notifData.append('Country', data.country);
-  notifData.append('Role', data.role);
-  notifData.append('Product', data.product_interest);
-  notifData.append('Volume', data.volume);
-  notifData.append('Phone', data.phone || 'Not provided');
-  notifData.append('Delivery Port', data.delivery_port || 'Not specified');
-  notifData.append('Notes', data.notes || 'None');
-  notifData.append('Source', data.source_page);
-  notifData.append('UTM Source', data.utm_source || 'direct');
-  notifData.append('UTM Medium', data.utm_medium || 'none');
-  notifData.append('UTM Campaign', data.utm_campaign || 'none');
-  notifData.append('Submitted', data.timestamp);
-
-  fetch('https://formspree.io/f/xpwzgkdl', {
-    method: 'POST',
-    body: notifData,
-    headers: { 'Accept': 'application/json' }
-  }).catch(function() { /* silent fail — primary lead already captured */ });
 }
 
 // ── Form field tracking ──
