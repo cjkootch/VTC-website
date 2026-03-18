@@ -218,6 +218,27 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   .footer-right{text-align:left;grid-column:span 2}
   .footer-legal{padding:20px 0 0}
 }
+/* ── POPUP MODAL ── */
+.popup-overlay{position:fixed;inset:0;background:rgba(14,26,20,0.7);backdrop-filter:blur(4px);z-index:9998;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+.popup-overlay.active{opacity:1;visibility:visible}
+.popup-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.92);z-index:9999;background:var(--ink-mid);border:1px solid rgba(184,150,62,0.15);box-shadow:0 32px 80px rgba(0,0,0,0.5);max-width:520px;width:calc(100% - 40px);max-height:90vh;overflow-y:auto;padding:48px 40px 40px;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s,transform .4s cubic-bezier(.4,0,.2,1)}
+.popup-modal.active{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}
+.popup-close{position:absolute;top:16px;right:16px;background:none;border:none;color:rgba(245,240,232,0.4);font-size:24px;cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center;transition:color .2s}
+.popup-close:hover{color:var(--gold-light)}
+.popup-modal .section-label{justify-content:center}
+.popup-modal h2{color:var(--cream);text-align:center;font-size:clamp(22px,3vw,30px);margin-bottom:8px}
+.popup-modal h2 em{color:var(--gold-light)}
+.popup-subtitle{font-size:14px;color:rgba(245,240,232,0.45);text-align:center;margin-bottom:32px;line-height:1.7}
+.popup-form{display:flex;flex-direction:column;gap:3px}
+.popup-form .form-row{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.popup-form .btn-submit{margin-top:12px}
+.popup-form .form-note{font-size:11px;color:rgba(245,240,232,0.25);text-align:center;margin-top:12px;line-height:1.6}
+.popup-skip{display:block;background:none;border:none;color:rgba(245,240,232,0.3);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;margin:16px auto 0;padding:8px 16px;transition:color .2s}
+.popup-skip:hover{color:var(--gold-light)}
+@media(max-width:600px){
+  .popup-modal{padding:36px 24px 28px}
+  .popup-form .form-row{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -639,6 +660,7 @@ function handlePlaybookSubmit(e) {
   var leads = JSON.parse(localStorage.getItem('vtc_playbook_leads') || '[]');
   leads.push(data);
   localStorage.setItem('vtc_playbook_leads', JSON.stringify(leads));
+  localStorage.setItem('vtc_playbook_submitted', '1');
 
   // Send to Formspree
   fetch('https://formspree.io/f/mojkkvdl', {
@@ -703,6 +725,176 @@ var observer = new IntersectionObserver(function(entries) {
   });
 }, { threshold: 0.06, rootMargin: '0px 0px -60px 0px' });
 document.querySelectorAll('.reveal').forEach(function(r) { observer.observe(r); });
+</script>
+
+<!-- POPUP MODAL -->
+<div class="popup-overlay" id="popup-overlay"></div>
+<div class="popup-modal" id="popup-modal">
+  <button class="popup-close" id="popup-close" aria-label="Close">&times;</button>
+  <div class="section-label">Free Download</div>
+  <h2>Get the <em>Playbook</em></h2>
+  <p class="popup-subtitle">Enter your details to download the Caribbean Fuel &amp; Commodity Import Playbook (2026).</p>
+  <form class="popup-form" id="popup-form" onsubmit="handlePopupSubmit(event)">
+    <input type="hidden" name="_subject" value="New Playbook Lead (Popup)">
+    <input type="hidden" name="source_page" value="playbook_popup">
+    <input type="hidden" name="timestamp" id="popup-timestamp">
+    <input type="hidden" name="utm_source" id="popup-utm-source">
+    <input type="hidden" name="utm_medium" id="popup-utm-medium">
+    <input type="hidden" name="utm_campaign" id="popup-utm-campaign">
+    <div class="form-row">
+      <div class="field">
+        <label>First Name <span class="required">*</span></label>
+        <input type="text" name="first_name" required placeholder="First name">
+      </div>
+      <div class="field">
+        <label>Last Name <span class="required">*</span></label>
+        <input type="text" name="last_name" required placeholder="Last name">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="field">
+        <label>Company <span class="required">*</span></label>
+        <input type="text" name="company" required placeholder="Company">
+      </div>
+      <div class="field">
+        <label>Email <span class="required">*</span></label>
+        <input type="email" name="email" required placeholder="name@company.com">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="field">
+        <label>Country / Market <span class="required">*</span></label>
+        <select name="country" required>
+          <option value="">Select country</option>
+          <optgroup label="Caribbean">
+            <option>Jamaica</option>
+            <option>Dominican Republic</option>
+            <option>Trinidad and Tobago</option>
+            <option>Haiti</option>
+            <option>Bahamas</option>
+            <option>Barbados</option>
+            <option>Guyana</option>
+            <option>Cuba</option>
+            <option>Other Caribbean</option>
+          </optgroup>
+          <optgroup label="Other">
+            <option>United States</option>
+            <option>Other</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="field">
+        <label>Product Interest <span class="required">*</span></label>
+        <select name="product_interest" required>
+          <option value="">Select product</option>
+          <option>ULSD / Diesel</option>
+          <option>Gasoline</option>
+          <option>Jet Fuel</option>
+          <option>Rice</option>
+          <option>Poultry</option>
+          <option>Trade Finance</option>
+          <option>General Inquiry</option>
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="btn-submit">Download Playbook</button>
+    <p class="form-note">We do not sell or share your data.</p>
+  </form>
+  <button class="popup-skip" id="popup-skip">No thanks, I'll keep reading</button>
+</div>
+
+<script>
+(function() {
+  var POPUP_DELAY = 45000; // 45 seconds
+  var overlay = document.getElementById('popup-overlay');
+  var modal = document.getElementById('popup-modal');
+
+  // Don't show if already submitted or dismissed this session
+  if (localStorage.getItem('vtc_playbook_submitted') || sessionStorage.getItem('vtc_popup_dismissed')) return;
+
+  // Don't show if user is already at the form section
+  function isFormVisible() {
+    var formSection = document.getElementById('download');
+    if (!formSection) return false;
+    var rect = formSection.getBoundingClientRect();
+    return rect.top < window.innerHeight && rect.bottom > 0;
+  }
+
+  var popupTimer = setTimeout(function() {
+    if (isFormVisible()) return; // don't interrupt if they're already at the form
+    openPopup();
+  }, POPUP_DELAY);
+
+  function openPopup() {
+    overlay.classList.add('active');
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    trackEvent('playbook_popup_shown', 'playbook_page');
+
+    // Set UTM values
+    var params = new URLSearchParams(window.location.search);
+    var ps = document.getElementById('popup-utm-source');
+    var pm = document.getElementById('popup-utm-medium');
+    var pc = document.getElementById('popup-utm-campaign');
+    if (ps) ps.value = params.get('utm_source') || '';
+    if (pm) pm.value = params.get('utm_medium') || '';
+    if (pc) pc.value = params.get('utm_campaign') || '';
+    document.getElementById('popup-timestamp').value = new Date().toISOString();
+  }
+
+  function closePopup() {
+    overlay.classList.remove('active');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+    sessionStorage.setItem('vtc_popup_dismissed', '1');
+  }
+
+  document.getElementById('popup-close').addEventListener('click', closePopup);
+  document.getElementById('popup-skip').addEventListener('click', closePopup);
+  overlay.addEventListener('click', closePopup);
+
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.classList.contains('active')) closePopup();
+  });
+})();
+
+function handlePopupSubmit(event) {
+  event.preventDefault();
+  var form = event.target;
+  var formData = new FormData(form);
+  var data = {};
+  formData.forEach(function(value, key) { data[key] = value; });
+
+  // Dynamic subject
+  var subject = 'New Playbook Lead (Popup) – ' + (data.company || 'Unknown') + ' – ' + (data.product_interest || 'General');
+  formData.set('_subject', subject);
+  formData.set('_replyto', data.email);
+  formData.set('timestamp', new Date().toISOString());
+
+  // localStorage backup
+  data.timestamp = new Date().toISOString();
+  var leads = JSON.parse(localStorage.getItem('vtc_playbook_leads') || '[]');
+  leads.push(data);
+  localStorage.setItem('vtc_playbook_leads', JSON.stringify(leads));
+  localStorage.setItem('vtc_playbook_submitted', '1');
+
+  // Send to Formspree
+  fetch('https://formspree.io/f/mojkkvdl', {
+    method: 'POST',
+    body: formData,
+    headers: { 'Accept': 'application/json' }
+  }).then(function(response) {
+    if (response.ok) {
+      trackEvent('playbook_popup_submitted', 'playbook_page');
+      window.location.href = 'thank-you/';
+    } else {
+      throw new Error('Submission failed');
+    }
+  }).catch(function() {
+    window.location.href = 'thank-you/';
+  });
+}
 </script>
 </body>
 </html>
