@@ -72,7 +72,8 @@ nav.nav-scrolled .nav-logo img{height:60px}
 .playbook-hero{background:var(--ink);padding:160px 60px 100px;position:relative;overflow:hidden}
 .playbook-hero::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1920&q=80') center/cover no-repeat;opacity:.08;pointer-events:none}
 .playbook-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(26,122,94,.1) 0%,transparent 60%);pointer-events:none}
-.hero-inner{max-width:800px;position:relative;z-index:2}
+.hero-inner{max-width:1100px;position:relative;z-index:2;display:grid;grid-template-columns:1fr 340px;gap:60px;align-items:center}
+.hero-text .breadcrumb{margin-bottom:32px}
 .breadcrumb{display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:32px}
 .breadcrumb a{color:var(--teal);text-decoration:none;transition:color .2s}
 .breadcrumb a:hover{color:var(--teal-bright)}
@@ -89,6 +90,11 @@ h1 em{font-style:italic;color:var(--gold-light)}
 .btn-primary:hover::after{width:36px}
 .btn-secondary{display:inline-flex;align-items:center;gap:12px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--gold);padding:16px 32px;border:1px solid rgba(184,150,62,0.4);transition:all .3s;background:transparent;cursor:pointer}
 .btn-secondary:hover{background:var(--gold);color:var(--ink)}
+/* ── COVER IMAGE ── */
+.cover-wrapper{position:relative;perspective:800px}
+.cover-img{width:100%;height:auto;box-shadow:0 24px 64px rgba(0,0,0,0.4),0 8px 24px rgba(0,0,0,0.2);border:1px solid rgba(184,150,62,0.15);transition:transform .5s ease}
+.cover-wrapper:hover .cover-img{transform:rotateY(-3deg) translateY(-4px)}
+.cover-glow{position:absolute;inset:-20px;background:radial-gradient(ellipse at center,rgba(26,122,94,0.12) 0%,transparent 70%);pointer-events:none;z-index:-1}
 /* ── CONTENT SECTIONS ── */
 .content-section{padding:80px 60px;max-width:900px;margin:0 auto}
 .content-section.alt-bg{background:var(--cream-dark);max-width:100%;padding:80px 60px}
@@ -132,7 +138,10 @@ h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:500;color:var
 /* ── FORM SECTION ── */
 .form-section{background:var(--ink-mid);padding:100px 60px;position:relative}
 .form-section::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80') center/cover no-repeat;opacity:.05;pointer-events:none}
-.form-inner{max-width:700px;margin:0 auto;position:relative;z-index:1}
+.form-inner{max-width:900px;margin:0 auto;position:relative;z-index:1;display:grid;grid-template-columns:260px 1fr;gap:48px;align-items:start}
+.form-cover{position:sticky;top:120px}
+.form-cover .cover-img{width:100%;box-shadow:0 16px 48px rgba(0,0,0,0.35);border:1px solid rgba(184,150,62,0.12)}
+.form-right{}
 .form-section h2{color:var(--cream);text-align:center;margin-bottom:8px}
 .form-section .section-label{justify-content:center}
 .form-section .section-label::after{content:'';display:block;width:32px;height:1px;background:var(--gold)}
@@ -192,11 +201,15 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
   .hamburger span{transition:all .3s ease}
   .playbook-hero{padding:120px 24px 60px}
+  .hero-inner{grid-template-columns:1fr;gap:40px}
+  .cover-wrapper{max-width:280px;margin:0 auto}
   .content-section{padding:60px 24px}
   .content-section.alt-bg,.content-section.dark-bg{padding:60px 24px}
   .port-grid{grid-template-columns:1fr}
   .link-grid{grid-template-columns:1fr}
   .form-section{padding:60px 24px}
+  .form-inner{grid-template-columns:1fr;gap:32px}
+  .form-cover{position:static;max-width:200px;margin:0 auto}
   .form-row{grid-template-columns:1fr}
   .hero-ctas{flex-direction:column}
   footer{padding:40px 24px 28px}
@@ -230,17 +243,23 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 <!-- HERO -->
 <section class="playbook-hero">
   <div class="hero-inner">
-    <div class="breadcrumb">
-      <a href="../">Home</a>
-      <span>/</span>
-      <span style="color:rgba(245,240,232,0.5)">Playbook</span>
+    <div class="hero-text">
+      <div class="breadcrumb">
+        <a href="../">Home</a>
+        <span>/</span>
+        <span style="color:rgba(245,240,232,0.5)">Playbook</span>
+      </div>
+      <div class="hero-tag">2026 Edition</div>
+      <h1>Fuel &amp; Food Supply to <em>Caribbean Markets</em></h1>
+      <p class="hero-sub">A practical guide to CIF delivery, pricing, logistics, documentation, and trade finance for importers and distributors across Jamaica, the Dominican Republic, and the wider Caribbean.</p>
+      <div class="hero-ctas">
+        <a href="#download" class="btn-primary" onclick="trackEvent('playbook_cta_clicked','hero_download')">Download the Playbook</a>
+        <a href="../#contact" class="btn-secondary" onclick="trackEvent('rfq_clicked','hero_rfq')">Submit Import Requirement</a>
+      </div>
     </div>
-    <div class="hero-tag">2026 Edition</div>
-    <h1>Fuel &amp; Food Supply to <em>Caribbean Markets</em></h1>
-    <p class="hero-sub">A practical guide to CIF delivery, pricing, logistics, documentation, and trade finance for importers and distributors across Jamaica, the Dominican Republic, and the wider Caribbean.</p>
-    <div class="hero-ctas">
-      <a href="#download" class="btn-primary" onclick="trackEvent('playbook_cta_clicked','hero_download')">Download the Playbook</a>
-      <a href="../#contact" class="btn-secondary" onclick="trackEvent('rfq_clicked','hero_rfq')">Submit Import Requirement</a>
+    <div class="cover-wrapper">
+      <div class="cover-glow"></div>
+      <img src="../images/generated/playbook-cover-01.png" alt="Caribbean Fuel &amp; Commodity Import Playbook 2026 cover" class="cover-img">
     </div>
   </div>
 </section>
@@ -398,9 +417,13 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 <!-- SECTION 7: GATED FORM -->
 <section class="form-section" id="download">
   <div class="form-inner">
+    <div class="form-cover">
+      <img src="../images/generated/playbook-cover-01.png" alt="Caribbean Fuel &amp; Commodity Import Playbook 2026" class="cover-img">
+    </div>
+    <div class="form-right">
     <div class="section-label">Free Download</div>
     <h2>Get the Full <em style="color:var(--gold-light)">Playbook</em></h2>
-    <p class="form-subtitle">Download the complete Caribbean Fuel &amp; Commodity Import Playbook (2026) — covering CIF delivery, pricing structures, port logistics, documentation requirements, and trade finance options.</p>
+    <p class="form-subtitle" style="text-align:left">Download the complete Caribbean Fuel &amp; Commodity Import Playbook (2026) — covering CIF delivery, pricing structures, port logistics, documentation requirements, and trade finance options.</p>
 
     <form class="playbook-form" id="playbook-form" onsubmit="handlePlaybookSubmit(event)">
       <!-- Hidden fields -->
@@ -516,6 +539,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
       <div class="form-error" id="form-error">Something went wrong. Please try again or email info@vectortradecapital.com.</div>
       <p class="form-note">Your information will only be used to send you the playbook and relevant trade communications. We do not sell or share your data.</p>
     </form>
+    </div>
   </div>
 </section>
 
