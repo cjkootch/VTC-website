@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Playbook Is Ready | Vector Trade Capital</title>
+<meta name="description" content="Download the Caribbean Fuel & Commodity Import Playbook (2026). Your guide to CIF delivery, pricing, logistics, and trade finance.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="../../favicon.png">
+<link rel="icon" type="image/x-icon" href="../../favicon.ico">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0E1A14;
+  --ink-mid:#1C3326;
+  --ink-light:#2A4D39;
+  --cream:#F5F0E8;
+  --cream-dark:#EDE5D4;
+  --cream-mid:#E0D5C0;
+  --gold:#B8963E;
+  --gold-light:#D4AE5A;
+  --gold-pale:#F2E4C0;
+  --teal:#1A7A5E;
+  --teal-bright:#22A07C;
+  --teal-pale:#D4EDE6;
+  --white:#FFFFFF;
+  --border:rgba(184,150,62,0.2);
+  --border-light:rgba(184,150,62,0.1);
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:4px 60px;background:rgba(14,26,20,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,150,62,0.15);transition:transform .35s ease,background .3s ease}
+nav.nav-hidden{transform:translateY(-100%)}
+nav.nav-scrolled{background:rgba(14,26,20,0.99);padding:2px 60px}
+.nav-logo img{height:80px;width:auto;transition:height .3s ease}
+nav.nav-scrolled .nav-logo img{height:60px}
+.nav-links{display:flex;gap:32px;list-style:none;align-items:center}
+.nav-links a{color:rgba(245,240,232,0.6);text-decoration:none;font-family:'DM Mono',monospace;font-size:11px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--gold-light)}
+.nav-contact{color:var(--gold)!important;border:1px solid rgba(184,150,62,0.4);padding:8px 20px;transition:all .25s!important}
+.nav-contact:hover{background:var(--gold)!important;color:var(--ink)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hamburger span{display:block;width:22px;height:1px;background:var(--cream)}
+/* ── THANK YOU ── */
+.thank-you-hero{background:var(--ink);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:140px 60px 100px;position:relative;overflow:hidden;text-align:center}
+.thank-you-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(26,122,94,.1) 0%,transparent 60%);pointer-events:none}
+.thank-you-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(184,150,62,.06) 0%,transparent 50%);pointer-events:none}
+.ty-inner{max-width:640px;position:relative;z-index:2}
+.ty-check{width:72px;height:72px;border-radius:50%;border:2px solid var(--teal);display:flex;align-items:center;justify-content:center;margin:0 auto 32px;animation:fadeUp .6s ease .1s forwards;opacity:0}
+.ty-check svg{width:32px;height:32px;stroke:var(--teal);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ty-tag{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;justify-content:center;gap:12px;opacity:0;animation:fadeUp .6s ease .2s forwards}
+.ty-tag::before,.ty-tag::after{content:'';display:block;width:32px;height:1px;background:var(--gold)}
+h1{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,56px);font-weight:400;line-height:1.15;color:var(--cream);margin-bottom:20px;opacity:0;animation:fadeUp .6s ease .3s forwards}
+h1 em{font-style:italic;color:var(--gold-light)}
+.ty-sub{font-size:17px;color:rgba(245,240,232,0.55);line-height:1.85;margin-bottom:48px;opacity:0;animation:fadeUp .6s ease .4s forwards}
+.ty-ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp .6s ease .5s forwards}
+.btn-primary{display:inline-flex;align-items:center;gap:12px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;background:var(--teal);color:var(--white);padding:16px 32px;transition:all .3s cubic-bezier(.4,0,.2,1);border:none;cursor:pointer}
+.btn-primary:hover{background:var(--teal-bright);transform:translateY(-2px);box-shadow:0 8px 32px rgba(26,122,94,0.3)}
+.btn-primary::after{content:'';display:block;width:20px;height:1px;background:currentColor;transition:width .3s}
+.btn-primary:hover::after{width:36px}
+.btn-secondary{display:inline-flex;align-items:center;gap:12px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--gold);padding:16px 32px;border:1px solid rgba(184,150,62,0.4);transition:all .3s;background:transparent;cursor:pointer}
+.btn-secondary:hover{background:var(--gold);color:var(--ink)}
+.btn-outline{display:inline-flex;align-items:center;gap:12px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--cream);padding:16px 32px;border:1px solid rgba(245,240,232,0.2);transition:all .3s;background:transparent;cursor:pointer}
+.btn-outline:hover{border-color:rgba(245,240,232,0.5);background:rgba(245,240,232,0.05)}
+.ty-note{font-size:14px;color:rgba(245,240,232,0.35);margin-top:48px;line-height:1.7;opacity:0;animation:fadeUp .6s ease .6s forwards}
+.ty-note a{color:var(--teal);text-decoration:none;transition:color .2s}
+.ty-note a:hover{color:var(--teal-bright)}
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+/* ── MOBILE ── */
+@media(max-width:900px){
+  nav{padding:4px 24px}
+  nav.nav-scrolled{padding:2px 24px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .nav-links.mobile-open{display:flex!important;flex-direction:column;position:fixed;top:88px;left:0;right:0;background:rgba(14,26,20,0.98);padding:28px 24px;gap:20px;border-bottom:1px solid rgba(184,150,62,0.2);z-index:199}
+  .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+  .hamburger.active span:nth-child(2){opacity:0}
+  .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+  .hamburger span{transition:all .3s ease}
+  .thank-you-hero{padding:120px 24px 60px}
+  .ty-ctas{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav id="navbar">
+  <a href="../../" class="nav-logo">
+    <img src="../../vector-trade-capital-logo.png" alt="Vector Trade Capital logo">
+  </a>
+  <ul class="nav-links">
+    <li><a href="../../fuel.html">Fuel</a></li>
+    <li><a href="../../food.html">Food</a></li>
+    <li><a href="../../vehicles.html">Vehicles</a></li>
+    <li><a href="../../team.html">Team</a></li>
+    <li><a href="../../blog.html">Blog</a></li>
+    <li><a href="../">Playbook</a></li>
+    <li><a href="../../#contact" class="nav-contact">Request Quote</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMobile()" aria-label="Toggle navigation menu" role="button" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- THANK YOU -->
+<section class="thank-you-hero">
+  <div class="ty-inner">
+    <div class="ty-check">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </div>
+    <div class="ty-tag">Playbook Ready</div>
+    <h1>Your Playbook Is <em>Ready</em></h1>
+    <p class="ty-sub">Thank you for your interest in Caribbean commodity imports. Click below to download the full playbook. If you are actively sourcing, our trade desk can review your requirement and provide CIF pricing within 48 hours.</p>
+    <div class="ty-ctas">
+      <a href="../../downloads/caribbean-playbook-2026.pdf" class="btn-primary" download onclick="trackEvent('playbook_pdf_downloaded','thank_you')">Download PDF</a>
+      <a href="../../#contact" class="btn-secondary" onclick="trackEvent('rfq_clicked','thank_you')">Submit Import Requirement</a>
+      <a href="../../fuel.html" class="btn-outline" onclick="trackEvent('rfq_clicked','thank_you_fuel')">Request Fuel Quote</a>
+    </div>
+    <p class="ty-note">Have questions? Contact us directly at <a href="mailto:info@vectortradecapital.com">info@vectortradecapital.com</a></p>
+  </div>
+</section>
+
+<script>
+// ── Analytics tracking ──
+function trackEvent(eventName, label) {
+  if (typeof gtag === 'function') {
+    gtag('event', eventName, { event_label: label });
+  }
+  var events = JSON.parse(sessionStorage.getItem('vtc_events') || '[]');
+  events.push({ event: eventName, label: label, time: new Date().toISOString() });
+  sessionStorage.setItem('vtc_events', JSON.stringify(events));
+}
+
+// ── Nav scroll behavior ──
+var navEl = document.getElementById('navbar');
+var lastScroll = 0;
+window.addEventListener('scroll', function() {
+  var y = window.scrollY;
+  navEl.classList.toggle('nav-scrolled', y > 80);
+  if (y > lastScroll && y > 200) navEl.classList.add('nav-hidden');
+  else navEl.classList.remove('nav-hidden');
+  lastScroll = y;
+});
+
+// ── Mobile nav ──
+function toggleMobile() {
+  var links = document.querySelector('.nav-links');
+  var hamburger = document.querySelector('.hamburger');
+  links.classList.toggle('mobile-open');
+  hamburger.classList.toggle('active');
+}
+document.querySelectorAll('.nav-links a').forEach(function(a) {
+  a.addEventListener('click', function() {
+    if (window.innerWidth <= 900) {
+      document.querySelector('.nav-links').classList.remove('mobile-open');
+      document.querySelector('.hamburger').classList.remove('active');
+    }
+  });
+});
+</script>
+</body>
+</html>
