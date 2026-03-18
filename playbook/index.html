@@ -805,7 +805,7 @@ document.querySelectorAll('.reveal').forEach(function(r) { observer.observe(r); 
 
 <script>
 (function() {
-  var POPUP_DELAY = 45000; // 45 seconds
+  var POPUP_DELAY = 15000; // 15 seconds
   var overlay = document.getElementById('popup-overlay');
   var modal = document.getElementById('popup-modal');
 
@@ -821,8 +821,17 @@ document.querySelectorAll('.reveal').forEach(function(r) { observer.observe(r); 
   }
 
   var popupTimer = setTimeout(function() {
-    if (isFormVisible()) return; // don't interrupt if they're already at the form
-    openPopup();
+    if (isFormVisible()) {
+      // User is at the form already — wait and try again when they scroll away
+      var retryCheck = setInterval(function() {
+        if (!isFormVisible()) {
+          clearInterval(retryCheck);
+          openPopup();
+        }
+      }, 3000);
+    } else {
+      openPopup();
+    }
   }, POPUP_DELAY);
 
   function openPopup() {
