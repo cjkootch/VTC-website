@@ -94,7 +94,7 @@ nav.nav-scrolled .nav-logo img{height:60px}
 .team-header .section-title em{font-style:italic;color:var(--gold-light)}
 .team-header .section-sub{font-size:16px;color:rgba(245,240,232,0.5);max-width:540px;margin:20px auto 0;line-height:1.8}
 /* ── TEAM BODY ── */
-.team-body{max-width:1100px;margin:0 auto;padding:80px 60px 120px;position:relative;overflow:hidden}
+.team-body{max-width:1100px;margin:0 auto;padding:80px 60px 120px}
 .breadcrumb{display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:48px}
 .breadcrumb a{color:var(--teal);text-decoration:none;transition:color .2s}
 .breadcrumb a:hover{color:var(--teal-bright)}
@@ -126,16 +126,8 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 .footer-social{display:inline-flex;align-items:center;gap:6px;margin-top:8px;color:rgba(245,240,232,0.3);text-decoration:none;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
 .footer-social:hover{color:var(--gold-light)}
 .footer-legal{font-size:12px;color:rgba(245,240,232,0.2);max-width:1200px;margin:24px auto 0;padding-top:24px;border-top:1px solid rgba(184,150,62,0.08);line-height:1.6}
-/* ── BRAND GRAPHICS ── */
-.geo-accent{position:absolute;pointer-events:none;z-index:1;opacity:.7}
-.geo-accent svg{display:block}
-.geo-header-tr{top:60px;right:-20px;width:200px;height:200px}
-.geo-header-bl{bottom:-20px;left:-10px;width:120px;height:120px}
-.geo-body-br{position:absolute;bottom:20px;right:-10px;width:140px;height:140px;pointer-events:none;z-index:0;opacity:.5}
-.geo-body-br svg{display:block}
 /* ── MOBILE ── */
 @media(max-width:900px){
-  .geo-header-tr{top:70px;right:-30px;width:150px;height:150px}.geo-header-bl{bottom:-10px;left:-10px;width:90px;height:90px}.geo-body-br{bottom:10px;right:-10px;width:100px;height:100px}
   nav{padding:4px 24px}
   nav.nav-scrolled{padding:2px 24px}
   .nav-links{display:none}
@@ -183,27 +175,6 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 
 <!-- HEADER -->
 <div class="team-header">
-  <!-- Brand geometric accent — top right (matching pitch deck style) -->
-  <div class="geo-accent geo-header-tr" aria-hidden="true">
-    <svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M64 0C64 35.3 35.3 64 0 64V0h64z" fill="#22A07C"/>
-      <path d="M128 64c0-35.3-28.7-64-64-64v32c17.7 0 32 14.3 32 32H128z" fill="#F5F0E8" opacity=".5"/>
-      <path d="M64 128v-32c17.7 0 32-14.3 32-32h32c0 35.3-28.7 64-64 64z" fill="#B8963E"/>
-      <path d="M0 64c0 35.3 28.7 64 64 64V96c-17.7 0-32-14.3-32-32H0z" fill="#B8963E"/>
-      <circle cx="64" cy="64" r="20" fill="#8B3A2A"/>
-      <path d="M96 0h32v32c-17.7 0-32-14.3-32-32z" fill="#8B3A2A"/>
-      <path d="M96 32h32v32c-17.7 0-32-14.3-32-32z" fill="#1A7A5E"/>
-      <path d="M64 0h32v32c-17.7 0-32-14.3-32-32z" fill="#F5F0E8" opacity=".5"/>
-    </svg>
-  </div>
-  <!-- Brand geometric accent — bottom left -->
-  <div class="geo-accent geo-header-bl" aria-hidden="true">
-    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 0l50 50H0V0z" fill="#8B3A2A"/>
-      <path d="M50 50c0-27.6-22.4-50-50-50v50h50z" fill="#B8963E"/>
-      <path d="M50 50c0 27.6 22.4 50 50 50V50H50z" fill="#1A7A5E"/>
-    </svg>
-  </div>
   <div class="section-label" data-lang="en">Leadership</div>
   <div class="section-label" data-lang="es">Liderazgo</div>
   <h1 class="section-title" data-lang="en">Our <em>Team</em></h1>
@@ -249,15 +220,6 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
       <div class="team-title" data-lang="es">Socio</div>
       <a href="https://www.linkedin.com/company/vector-trade-capital" target="_blank" rel="noopener" class="team-linkedin"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
     </div>
-  </div>
-  <!-- Brand geometric accent — bottom right -->
-  <div class="geo-body-br" aria-hidden="true">
-    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 0v50c27.6 0 50-22.4 50-50H0z" fill="#B8963E"/>
-      <path d="M50 0v50c-27.6 0-50-22.4-50-50h50z" fill="#22A07C"/>
-      <path d="M50 50c27.6 0 50 22.4 50 50-27.6 0-50-22.4-50-50z" fill="#1A7A5E"/>
-      <path d="M50 50c0 27.6-22.4 50-50 50 0-27.6 22.4-50 50-50z" fill="#8B3A2A"/>
-    </svg>
   </div>
 </div>
 

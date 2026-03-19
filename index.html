@@ -291,14 +291,6 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 .footer-social{display:inline-flex;align-items:center;gap:6px;margin-top:8px;color:rgba(245,240,232,0.3);text-decoration:none;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
 .footer-social:hover{color:var(--gold-light)}
 .footer-legal{font-size:12px;color:rgba(245,240,232,0.2);max-width:1200px;margin:24px auto 0;padding-top:24px;border-top:1px solid rgba(184,150,62,0.08);line-height:1.6}
-/* ── BRAND GRAPHICS ── */
-.geo-accent{position:absolute;pointer-events:none;z-index:1;opacity:.7;transition:opacity .6s ease}
-.geo-accent svg{display:block}
-.geo-hero-tr{top:60px;right:-20px;width:220px;height:220px}
-.geo-why-tr{top:-30px;right:-20px;width:180px;height:180px}
-.geo-why-bl{bottom:-10px;left:-10px;width:140px;height:140px}
-.geo-contact-tr{top:-10px;right:-20px;width:160px;height:160px}
-@media(max-width:900px){.geo-hero-tr{top:70px;right:-30px;width:160px;height:160px}.geo-why-tr{top:-20px;right:-20px;width:130px;height:130px}.geo-why-bl{bottom:-10px;left:-10px;width:100px;height:100px}.geo-contact-tr{top:-10px;right:-20px;width:120px;height:120px}}
 /* ── ANIMATIONS ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1)}
@@ -382,19 +374,6 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     </video>
   </div>
   <div class="hero-overlay"></div>
-  <!-- Brand geometric accent — top right -->
-  <div class="geo-accent geo-hero-tr" aria-hidden="true">
-    <svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 0v42c23.2 0 42-18.8 42-42H0z" fill="#B8963E"/>
-      <path d="M84 0c0 23.2-18.8 42-42 42s-42-18.8-42-42c23.2 0 42 18.8 42 42 0-23.2 18.8-42 42-42z" fill="#1A7A5E" opacity=".7"/>
-      <path d="M42 0c0 23.2 18.8 42 42 42s42-18.8 42-42c-23.2 0-42 18.8-42 42 0-23.2-18.8-42-42-42z" fill="#F5F0E8" opacity=".5"/>
-      <path d="M84 42v42c-23.2 0-42-18.8-42-42h42z" fill="#22A07C"/>
-      <path d="M42 42c23.2 0 42 18.8 42 42s-18.8 42-42 42v-21c11.6 0 21-9.4 21-21s-9.4-21-21-21V42z" fill="#8B3A2A"/>
-      <circle cx="42" cy="42" r="10" fill="#B8963E"/>
-      <circle cx="84" cy="84" r="10" fill="#8B3A2A"/>
-      <path d="M84 48h44v5H84zM84 60h44v5H84zM84 72h44v5H84zM84 84h44v5H84z" fill="#8B3A2A"/>
-    </svg>
-  </div>
   <div class="hero-inner">
     <!-- English -->
     <div data-lang="en">
@@ -599,28 +578,6 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 <!-- WHY VECTOR -->
 <section id="why">
   <div class="why-bg"></div>
-  <!-- Brand geometric accent — top right -->
-  <div class="geo-accent geo-why-tr" aria-hidden="true">
-    <svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M64 0C64 35.3 35.3 64 0 64V0h64z" fill="#22A07C"/>
-      <path d="M128 64c0-35.3-28.7-64-64-64v32c17.7 0 32 14.3 32 32H128z" fill="#F5F0E8" opacity=".5"/>
-      <path d="M64 128v-32c17.7 0 32-14.3 32-32h32c0 35.3-28.7 64-64 64z" fill="#B8963E"/>
-      <path d="M0 64c0 35.3 28.7 64 64 64V96c-17.7 0-32-14.3-32-32H0z" fill="#B8963E"/>
-      <circle cx="64" cy="64" r="20" fill="#8B3A2A"/>
-      <path d="M96 0h32v32c-17.7 0-32-14.3-32-32z" fill="#8B3A2A"/>
-      <path d="M96 32h32v32c-17.7 0-32-14.3-32-32z" fill="#1A7A5E"/>
-      <path d="M64 0h32v32c-17.7 0-32-14.3-32-32z" fill="#F5F0E8" opacity=".5"/>
-    </svg>
-  </div>
-  <!-- Brand geometric accent — bottom left -->
-  <div class="geo-accent geo-why-bl" aria-hidden="true">
-    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 0l50 50H0V0z" fill="#8B3A2A"/>
-      <path d="M0 50c0-27.6 22.4-50 50-50v50H0z" fill="#B8963E"/>
-      <path d="M50 50c27.6 0 50 22.4 50 50H50V50z" fill="#1A7A5E"/>
-      <path d="M50 50c0 27.6-22.4 50-50 50V50h50z" fill="#22A07C"/>
-    </svg>
-  </div>
   <div class="why-inner">
     <div class="why-grid">
       <div class="why-left">
@@ -746,17 +703,6 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-bg"></div>
-  <!-- Brand geometric accent — top right -->
-  <div class="geo-accent geo-contact-tr" aria-hidden="true">
-    <svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 0v42c23.2 0 42-18.8 42-42H0z" fill="#B8963E"/>
-      <path d="M42 0v42c-23.2 0-42-18.8-42-42h42z" fill="#22A07C"/>
-      <path d="M42 42c23.2 0 42 18.8 42 42-23.2 0-42-18.8-42-42z" fill="#1A7A5E"/>
-      <path d="M42 42c0 23.2-18.8 42-42 42 0-23.2 18.8-42 42-42z" fill="#F5F0E8" opacity=".5"/>
-      <circle cx="42" cy="42" r="10" fill="#B8963E"/>
-      <path d="M84 84l44 44H84V84z" fill="#1A7A5E" opacity=".6"/>
-    </svg>
-  </div>
   <div class="contact-inner">
     <div class="contact-grid">
       <div class="contact-left">
