@@ -127,15 +127,15 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 .footer-social:hover{color:var(--gold-light)}
 .footer-legal{font-size:12px;color:rgba(245,240,232,0.2);max-width:1200px;margin:24px auto 0;padding-top:24px;border-top:1px solid rgba(184,150,62,0.08);line-height:1.6}
 /* ── BRAND GRAPHICS ── */
-.geo-accent{position:absolute;pointer-events:none;z-index:1;opacity:.18}
+.geo-accent{position:absolute;pointer-events:none;z-index:1;opacity:.55}
 .geo-accent svg{display:block}
 .geo-header-tr{top:80px;right:0;width:140px;height:140px}
 .geo-header-bl{bottom:-20px;left:30px;width:90px;height:90px}
-.geo-body-br{position:absolute;bottom:40px;right:20px;width:100px;height:100px;pointer-events:none;z-index:0;opacity:.1}
+.geo-body-br{position:absolute;bottom:40px;right:20px;width:100px;height:100px;pointer-events:none;z-index:0;opacity:.35}
 .geo-body-br svg{display:block}
 /* ── MOBILE ── */
 @media(max-width:900px){
-  .geo-accent,.geo-body-br{display:none}
+  .geo-header-tr{top:70px;right:-20px;width:90px;height:90px}.geo-header-bl{bottom:-10px;left:10px;width:60px;height:60px}.geo-body-br{bottom:20px;right:10px;width:70px;height:70px}
   nav{padding:4px 24px}
   nav.nav-scrolled{padding:2px 24px}
   .nav-links{display:none}
