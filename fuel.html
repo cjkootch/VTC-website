@@ -97,11 +97,6 @@ nav.nav-scrolled .nav-logo img{height:60px}
 .page-header .section-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:400;color:var(--cream);line-height:1.15}
 .page-header .section-title em{font-style:italic;color:var(--gold-light)}
 .page-header .section-sub{font-size:16px;color:rgba(245,240,232,0.5);max-width:600px;margin:20px auto 0;line-height:1.8}
-/* ── BRAND GRAPHICS ── */
-.geo-accent{position:absolute;pointer-events:none;z-index:1;opacity:.7}
-.geo-accent svg{display:block}
-.geo-header-tr{top:60px;right:-20px;width:200px;height:200px}
-.geo-header-bl{bottom:-20px;left:-10px;width:120px;height:120px}
 /* ── BACK LINK ── */
 .breadcrumb{display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:48px}
 .breadcrumb a{color:var(--teal);text-decoration:none;transition:color .2s}
@@ -218,7 +213,6 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 .reveal-delay-3{transition-delay:.3s}
 /* ── MOBILE ── */
 @media(max-width:900px){
-  .geo-header-tr{top:70px;right:-30px;width:150px;height:150px}.geo-header-bl{bottom:-10px;left:-10px;width:90px;height:90px}
   nav{padding:4px 24px}
   nav.nav-scrolled{padding:2px 24px}
   .nav-links{display:none}
@@ -276,27 +270,6 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 
 <!-- HEADER -->
 <div class="page-header">
-  <!-- Brand geometric accent — top right -->
-  <div class="geo-accent geo-header-tr" aria-hidden="true">
-    <svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M64 0C64 35.3 35.3 64 0 64V0h64z" fill="#22A07C"/>
-      <path d="M128 64c0-35.3-28.7-64-64-64v32c17.7 0 32 14.3 32 32H128z" fill="#F5F0E8" opacity=".5"/>
-      <path d="M64 128v-32c17.7 0 32-14.3 32-32h32c0 35.3-28.7 64-64 64z" fill="#B8963E"/>
-      <path d="M0 64c0 35.3 28.7 64 64 64V96c-17.7 0-32-14.3-32-32H0z" fill="#B8963E"/>
-      <circle cx="64" cy="64" r="20" fill="#8B3A2A"/>
-      <path d="M96 0h32v32c-17.7 0-32-14.3-32-32z" fill="#8B3A2A"/>
-      <path d="M96 32h32v32c-17.7 0-32-14.3-32-32z" fill="#1A7A5E"/>
-      <path d="M64 0h32v32c-17.7 0-32-14.3-32-32z" fill="#F5F0E8" opacity=".5"/>
-    </svg>
-  </div>
-  <!-- Brand geometric accent — bottom left -->
-  <div class="geo-accent geo-header-bl" aria-hidden="true">
-    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 0l50 50H0V0z" fill="#8B3A2A"/>
-      <path d="M50 50c0-27.6-22.4-50-50-50v50h50z" fill="#B8963E"/>
-      <path d="M50 50c27.6 0 50 22.4 50 50H50V50z" fill="#1A7A5E"/>
-    </svg>
-  </div>
   <div class="section-label" data-lang="en">Fuel &amp; Energy</div>
   <div class="section-label" data-lang="es">Combustible y Energía</div>
   <h1 class="section-title" data-lang="en">Fuel Supplier <em>Caribbean</em></h1>
