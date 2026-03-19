@@ -293,14 +293,34 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 .footer-legal{font-size:12px;color:rgba(245,240,232,0.2);max-width:1200px;margin:24px auto 0;padding-top:24px;border-top:1px solid rgba(184,150,62,0.08);line-height:1.6}
 /* ── ANIMATIONS ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1)}
+/* Base reveal */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
 .reveal.visible{opacity:1;transform:translateY(0)}
-/* Staggered delays for child reveals */
+/* Direction variants */
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal-left.visible,.reveal-right.visible{opacity:1;transform:translateX(0)}
+/* Scale reveal for cards */
+.reveal-scale{opacity:0;transform:scale(.92);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.reveal-scale.visible{opacity:1;transform:scale(1)}
+/* Staggered delays */
 .reveal-delay-1{transition-delay:.1s}
 .reveal-delay-2{transition-delay:.2s}
 .reveal-delay-3{transition-delay:.3s}
 .reveal-delay-4{transition-delay:.4s}
 .reveal-delay-5{transition-delay:.5s}
+/* Auto-stagger children */
+.stagger-children>.reveal:nth-child(1),.stagger-children>.reveal-scale:nth-child(1){transition-delay:.05s}
+.stagger-children>.reveal:nth-child(2),.stagger-children>.reveal-scale:nth-child(2){transition-delay:.12s}
+.stagger-children>.reveal:nth-child(3),.stagger-children>.reveal-scale:nth-child(3){transition-delay:.19s}
+.stagger-children>.reveal:nth-child(4),.stagger-children>.reveal-scale:nth-child(4){transition-delay:.26s}
+.stagger-children>.reveal:nth-child(5),.stagger-children>.reveal-scale:nth-child(5){transition-delay:.33s}
+/* Section divider line animation */
+.reveal-line{width:0;transition:width 1.2s cubic-bezier(.16,1,.3,1)}
+.reveal-line.visible{width:100%}
+/* Smooth scroll sections */
+section,#hero,.page-header{will-change:opacity}
+@media(prefers-reduced-motion:reduce){.reveal,.reveal-left,.reveal-right,.reveal-scale{transition:none!important;opacity:1!important;transform:none!important}}
 /* ── MOBILE ── */
 @media(max-width:900px){
   nav{padding:4px 24px}
@@ -339,7 +359,8 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   .footer-right{text-align:left;grid-column:span 2}
   .footer-legal{padding:20px 0 0}
   .form-row{grid-template-columns:1fr}
-  .playbook-grid{grid-template-columns:1fr!important;gap:32px!important}
+  .playbook-grid{grid-template-columns:1fr!important;gap:32px!important;text-align:center}
+  .playbook-grid>div:first-child{display:flex;flex-direction:column;align-items:center}
   .playbook-grid>div:last-child{max-width:200px;margin:0 auto}
 }
 </style>
@@ -531,8 +552,8 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
     <p class="products-intro reveal" data-lang="es">Vector Trade Capital es una empresa de comercio de materias primas con sede en Houston que abastece y entrega productos alimenticios y de combustible al por mayor a importadores en todo el Caribe, América Latina y más allá. Desde arroz, azúcar y harina de trigo hasta diésel, combustible de aviación y GLP, gestionamos toda la cadena de suministro — adquisición, inspección de calidad, flete, seguro marítimo y documentación de exportación completa — para que usted reciba el producto en su puerto listo para despacho aduanero. Con oficinas en Houston, Miami y Dubái, aprovechamos relaciones directas con proveedores y rutas de envío establecidas para proporcionar suministro consistente y a precios competitivos en cada envío.</p>
   </div>
   <div class="products-body">
-    <div class="products-content">
-      <a href="food.html" class="product-card reveal">
+    <div class="products-content stagger-children">
+      <a href="food.html" class="product-card reveal-scale">
         <div class="product-card-bg" style="background-image:url('https://images.unsplash.com/photo-1586201375761-83865001e31c?w=800&q=80')"></div>
         <div class="product-card-overlay"></div>
         <div class="product-card-content">
@@ -546,7 +567,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
           <div class="product-card-link" data-lang="es">Explorar Productos</div>
         </div>
       </a>
-      <a href="fuel.html" class="product-card reveal">
+      <a href="fuel.html" class="product-card reveal-scale">
         <div class="product-card-bg" style="background-image:url('https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=800&q=80')"></div>
         <div class="product-card-overlay"></div>
         <div class="product-card-content">
@@ -560,7 +581,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
           <div class="product-card-link" data-lang="es">Explorar Productos</div>
         </div>
       </a>
-      <a href="vehicles.html" class="product-card reveal">
+      <a href="vehicles.html" class="product-card reveal-scale">
         <div class="product-card-bg" style="background-image:url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80')"></div>
         <div class="product-card-overlay"></div>
         <div class="product-card-content">
@@ -583,82 +604,82 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   <div class="why-inner">
     <div class="why-grid">
       <div class="why-left">
-        <div class="section-label reveal" data-lang="en">Why Vector Trade Capital</div>
-        <div class="section-label reveal" data-lang="es">Por Qué Vector Trade Capital</div>
-        <h2 class="section-title reveal" data-lang="en">What makes us <br><em>the right partner</em></h2>
-        <h2 class="section-title reveal" data-lang="es">Lo que nos hace <br><em>el socio ideal</em></h2>
-        <p class="why-body reveal" data-lang="en">
+        <div class="section-label reveal-left" data-lang="en">Why Vector Trade Capital</div>
+        <div class="section-label reveal-left" data-lang="es">Por Qué Vector Trade Capital</div>
+        <h2 class="section-title reveal-left" data-lang="en">What makes us <br><em>the right partner</em></h2>
+        <h2 class="section-title reveal-left" data-lang="es">Lo que nos hace <br><em>el socio ideal</em></h2>
+        <p class="why-body reveal-left" data-lang="en">
           Headquartered in Houston with offices in Miami and Dubai, we maintain direct supplier relationships, established Caribbean logistics, and the working capital to move product reliably — shipment after shipment. Whether you need a bulk diesel supplier for Caribbean power generation, a wholesale rice exporter for island distribution, or a CIF fuel oil partner for your terminal, Vector Trade Capital delivers with transparency, competitive pricing, and full regulatory compliance. We specialize in serving importers across Jamaica, Trinidad &amp; Tobago, the Dominican Republic, Haiti, Barbados, and the wider Caribbean Basin.
         </p>
-        <p class="why-body reveal" data-lang="es">
+        <p class="why-body reveal-left" data-lang="es">
           Con sede en Houston y oficinas en Miami y Dubái, mantenemos relaciones directas con proveedores, logística caribeña establecida y el capital de trabajo para mover productos de forma confiable — envío tras envío. Ya sea que necesite un proveedor de diésel al por mayor para generación de energía en el Caribe, un exportador mayorista de arroz para distribución insular, o un socio CIF de fuel oil para su terminal, Vector Trade Capital entrega con transparencia, precios competitivos y pleno cumplimiento regulatorio. Nos especializamos en atender a importadores en Jamaica, Trinidad y Tobago, República Dominicana, Haití, Barbados y toda la cuenca del Caribe.
         </p>
       </div>
       <div class="why-reasons">
-        <div class="reason reveal reveal-delay-1" data-lang="en">
+        <div class="reason reveal-right reveal-delay-1" data-lang="en">
           <div class="reason-num">01</div>
           <div class="reason-content">
             <h4>Competitive Pricing</h4>
             <p>Direct supplier relationships mean we pass real savings to our buyers — not broker markups.</p>
           </div>
         </div>
-        <div class="reason reveal reveal-delay-1" data-lang="es">
+        <div class="reason reveal-right reveal-delay-1" data-lang="es">
           <div class="reason-num">01</div>
           <div class="reason-content">
             <h4>Precios Competitivos</h4>
             <p>Relaciones directas con proveedores significan que transferimos ahorros reales a nuestros compradores — no márgenes de intermediarios.</p>
           </div>
         </div>
-        <div class="reason reveal reveal-delay-2" data-lang="en">
+        <div class="reason reveal-right reveal-delay-2" data-lang="en">
           <div class="reason-num">02</div>
           <div class="reason-content">
             <h4>CIF Delivery</h4>
             <p>We handle freight, insurance, and delivery to your port. You receive product at your dock, fully documented and ready to clear customs.</p>
           </div>
         </div>
-        <div class="reason reveal reveal-delay-2" data-lang="es">
+        <div class="reason reveal-right reveal-delay-2" data-lang="es">
           <div class="reason-num">02</div>
           <div class="reason-content">
             <h4>Entrega CIF</h4>
             <p>Nos encargamos del flete, seguro y entrega a su puerto. Usted recibe el producto en su muelle, completamente documentado y listo para despacho aduanero.</p>
           </div>
         </div>
-        <div class="reason reveal reveal-delay-3" data-lang="en">
+        <div class="reason reveal-right reveal-delay-3" data-lang="en">
           <div class="reason-num">03</div>
           <div class="reason-content">
             <h4>Capital-Backed Execution</h4>
             <p>We finance every transaction with our own capital — procurement, freight, and insurance — so your supply chain never depends on a broker's ability to find a counterparty.</p>
           </div>
         </div>
-        <div class="reason reveal reveal-delay-3" data-lang="es">
+        <div class="reason reveal-right reveal-delay-3" data-lang="es">
           <div class="reason-num">03</div>
           <div class="reason-content">
             <h4>Ejecución Respaldada por Capital</h4>
             <p>Financiamos cada transacción con nuestro propio capital — adquisición, flete y seguro — para que su cadena de suministro nunca dependa de la capacidad de un intermediario.</p>
           </div>
         </div>
-        <div class="reason reveal reveal-delay-4" data-lang="en">
+        <div class="reason reveal-right reveal-delay-4" data-lang="en">
           <div class="reason-num">04</div>
           <div class="reason-content">
             <h4>Full Documentation</h4>
             <p>Every shipment arrives with complete export documentation, certificates of origin, and quality certifications as required by your customs authority.</p>
           </div>
         </div>
-        <div class="reason reveal reveal-delay-4" data-lang="es">
+        <div class="reason reveal-right reveal-delay-4" data-lang="es">
           <div class="reason-num">04</div>
           <div class="reason-content">
             <h4>Documentación Completa</h4>
             <p>Cada envío llega con documentación de exportación completa, certificados de origen y certificaciones de calidad según lo requiera su autoridad aduanera.</p>
           </div>
         </div>
-        <div class="reason reveal reveal-delay-5" data-lang="en">
+        <div class="reason reveal-right reveal-delay-5" data-lang="en">
           <div class="reason-num">05</div>
           <div class="reason-content">
             <h4>US-Based Exporter</h4>
             <p>Fully registered US company with active export authorizations. All transactions conducted with complete regulatory compliance.</p>
           </div>
         </div>
-        <div class="reason reveal reveal-delay-5" data-lang="es">
+        <div class="reason reveal-right reveal-delay-5" data-lang="es">
           <div class="reason-num">05</div>
           <div class="reason-content">
             <h4>Exportador con Base en EE.UU.</h4>
@@ -708,17 +729,17 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   <div class="contact-inner">
     <div class="contact-grid">
       <div class="contact-left">
-        <div class="section-label reveal" data-lang="en">Trade Desk</div>
-        <div class="section-label reveal" data-lang="es">Mesa de Operaciones</div>
-        <h2 class="section-title reveal" data-lang="en">Submit your <br><em>import requirement</em></h2>
-        <h2 class="section-title reveal" data-lang="es">Envíe su <br><em>requerimiento de importación</em></h2>
-        <p class="contact-intro reveal" data-lang="en">
+        <div class="section-label reveal-left" data-lang="en">Trade Desk</div>
+        <div class="section-label reveal-left" data-lang="es">Mesa de Operaciones</div>
+        <h2 class="section-title reveal-left" data-lang="en">Submit your <br><em>import requirement</em></h2>
+        <h2 class="section-title reveal-left" data-lang="es">Envíe su <br><em>requerimiento de importación</em></h2>
+        <p class="contact-intro reveal-left" data-lang="en">
           Tell us what you need, where it's going, and how much. Our trade desk will respond with a firm CIF price within 48 hours.
         </p>
-        <p class="contact-intro reveal" data-lang="es">
+        <p class="contact-intro reveal-left" data-lang="es">
           Díganos qué necesita, a dónde va y cuánto. Nuestra mesa de operaciones responderá con un precio CIF firme en 48 horas.
         </p>
-        <div class="contact-details reveal">
+        <div class="contact-details reveal-left">
           <div class="contact-item">
             <div class="c-label">Email</div>
             <div class="c-val"><a href="mailto:info@vectortradecapital.com">info@vectortradecapital.com</a></div>
@@ -739,7 +760,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
           </div>
         </div>
       </div>
-      <form class="contact-form reveal" action="https://formspree.io/f/mojkkvdl" method="POST">
+      <form class="contact-form reveal-right" action="https://formspree.io/f/mojkkvdl" method="POST">
         <div class="form-row">
           <div class="field">
             <label data-lang="en">Name</label>
@@ -1233,7 +1254,7 @@ function setLang(lang) {
   if(ogTitleEl) ogTitleEl.setAttribute('content', meta.ogTitle);
   var ogDescEl = document.querySelector('meta[property="og:description"]');
   if(ogDescEl) ogDescEl.setAttribute('content', meta.ogDesc);
-  document.querySelectorAll('[data-lang="' + lang + '"] .reveal, .reveal[data-lang="' + lang + '"]').forEach(r => {
+  document.querySelectorAll('[data-lang="' + lang + '"] .reveal, .reveal[data-lang="' + lang + '"],[data-lang="' + lang + '"] .reveal-left, .reveal-left[data-lang="' + lang + '"],[data-lang="' + lang + '"] .reveal-right, .reveal-right[data-lang="' + lang + '"],[data-lang="' + lang + '"] .reveal-scale, .reveal-scale[data-lang="' + lang + '"]').forEach(r => {
     observer.observe(r);
   });
 }
@@ -1273,7 +1294,7 @@ const observer = new IntersectionObserver((entries) => {
     if(e.isIntersecting) e.target.classList.add('visible');
   });
 }, {threshold: 0.06, rootMargin: '0px 0px -60px 0px'});
-document.querySelectorAll('.reveal').forEach(r => observer.observe(r));
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale,.reveal-line').forEach(r => observer.observe(r));
 
 // Mobile nav with animated hamburger
 function toggleMobile(){
