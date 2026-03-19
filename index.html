@@ -339,6 +339,8 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   .footer-right{text-align:left;grid-column:span 2}
   .footer-legal{padding:20px 0 0}
   .form-row{grid-template-columns:1fr}
+  .playbook-grid{grid-template-columns:1fr!important;gap:32px!important}
+  .playbook-grid>div:last-child{max-width:200px;margin:0 auto}
 }
 </style>
 </head>
@@ -1086,7 +1088,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 <!-- PLAYBOOK CTA -->
 <section style="background:var(--ink-mid);padding:80px 60px;position:relative;overflow:hidden">
   <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(184,150,62,.06) 0%,transparent 60%);pointer-events:none"></div>
-  <div style="max-width:1000px;margin:0 auto;position:relative;z-index:1;display:grid;grid-template-columns:1fr 220px;gap:56px;align-items:center" class="reveal">
+  <div style="max-width:1000px;margin:0 auto;position:relative;z-index:1;display:grid;grid-template-columns:1fr 220px;gap:56px;align-items:center" class="reveal playbook-grid">
     <div>
       <div style="font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:12px"><span style="display:block;width:32px;height:1px;background:var(--gold)"></span>Free Download</div>
       <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,40px);font-weight:400;color:var(--cream);line-height:1.2;margin-bottom:16px">Caribbean Fuel &amp; Commodity Import <em style="font-style:italic;color:var(--gold-light)">Playbook</em> (2026)</h2>
