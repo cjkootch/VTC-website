@@ -1749,6 +1749,13 @@ function submitRfq() {
   }).then(function(r) {
     if (r.ok) {
       rfqNext('success');
+      dataLayer.push({
+        'event': 'RFQ_Complete',
+        'rfq_category': rfqData.category,
+        'rfq_product': rfqData.product,
+        'rfq_destination': rfqData.port,
+        'rfq_incoterm': rfqData.incoterm
+      });
     }
   });
 }
