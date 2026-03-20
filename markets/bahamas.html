@@ -299,5 +299,6 @@ function toggleMobile(){const links=document.querySelector('.nav-links');const h
 document.querySelectorAll('.nav-links a').forEach(a=>{a.addEventListener('click',()=>{if(window.innerWidth<=900){document.querySelector('.nav-links').classList.remove('mobile-open');document.querySelector('.hamburger').classList.remove('active')}})});
 const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.06,rootMargin:'0px 0px -60px 0px'});document.querySelectorAll('.reveal').forEach(r=>observer.observe(r));
 </script>
+<script src="../chat-widget.js" defer></script>
 </body>
 </html>
