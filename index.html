@@ -1669,7 +1669,10 @@ function buildSpecsStep(category) {
 function submitRfq() {
   var name = document.getElementById('rfq-name').value.trim();
   var email = document.getElementById('rfq-email').value.trim();
-  if (!name || !email) { alert('Please provide your name and email.'); return; }
+  if (!name || !email) {
+    var msg = getLang() === 'es' ? 'Por favor, complete su nombre y correo electrónico.' : 'Please fill in your name and email to continue.';
+    alert(msg); return;
+  }
 
   rfqData.product = (document.getElementById('rfq-product') || {}).value || '';
   rfqData.volume = (document.getElementById('rfq-volume') || {}).value || '';
