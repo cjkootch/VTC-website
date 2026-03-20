@@ -79,12 +79,15 @@ Transit from US Gulf Coast to Kingston: 4-7 days.
 5. Ask qualifying questions: What product? What volume? What destination port? What timeline?
 6. Keep responses concise and professional. You represent a commodity trading company, not a chatbot startup.
 7. If asked something outside VTC's scope, politely redirect to what VTC does offer.
-8. Reference specific blog articles or the playbook when relevant to the user's question.`;
+8. Reference specific blog articles or the playbook when relevant to the user's question.
+9. NEVER use emojis, markdown headings (#), or horizontal rules. Use only **bold**, [links](url), and plain line breaks for formatting. Keep it clean and corporate.
+10. Keep responses short — 2-4 short paragraphs max. Do not write walls of text.`;
 
 // ── STATE ──
 var messages = [];
 var isOpen = false;
 var isLoading = false;
+var sessionId = 'vtc-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
 
 // ── BUILD UI ──
 function init() {
@@ -194,10 +197,12 @@ function addMessage(role, content) {
   var container = document.getElementById('vtc-chat-messages');
   var div = document.createElement('div');
   div.className = 'vtc-msg vtc-msg-' + role;
-  // Basic markdown: bold, links
+  // Markdown parsing: headings, bold, links, lists
   var html = content
+    .replace(/^#{1,3}\s+(.+)$/gm, '<strong>$1</strong>')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+    .replace(/^[-–•]\s+/gm, '&bull; ')
     .replace(/\n/g, '<br>');
   div.innerHTML = html;
   container.appendChild(div);
@@ -243,7 +248,9 @@ function sendMessage() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       system: SYSTEM_PROMPT,
-      messages: sendMessages
+      messages: sendMessages,
+      sessionId: sessionId,
+      pageUrl: window.location.href
     })
   })
   .then(function(res) {
