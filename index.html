@@ -862,29 +862,49 @@ section,#hero,.page-header{will-change:opacity}
             <div class="rfq-step-label" data-lang="es">Paso 3 de 4 — Entrega</div>
             <div class="rfq-step-title" data-lang="en">Where and when?</div>
             <div class="rfq-step-title" data-lang="es">¿Dónde y cuándo?</div>
-            <div class="field" style="margin-bottom:12px">
-              <label data-lang="en">Destination Port</label>
-              <label data-lang="es">Puerto de Destino</label>
-              <select id="rfq-port">
-                <option value="" data-lang="en">Select port</option>
-                <option value="" data-lang="es">Seleccione puerto</option>
-                <option>Kingston, Jamaica</option>
-                <option>Montego Bay, Jamaica</option>
-                <option>Caucedo, Dominican Republic</option>
-                <option>Haina, Dominican Republic</option>
-                <option>Port of Spain, Trinidad</option>
-                <option>Point Lisas, Trinidad</option>
-                <option>Nassau, Bahamas</option>
-                <option>Freeport, Bahamas</option>
-                <option>Georgetown, Guyana</option>
-                <option>Bridgetown, Barbados</option>
-                <option>Port-au-Prince, Haiti</option>
-                <option>Cap-Haitien, Haiti</option>
-                <option>Castries, Saint Lucia</option>
-                <option>Basseterre, Saint Kitts</option>
-                <option data-lang="en">Other (specify in notes)</option>
-                <option data-lang="es">Otro (especificar en notas)</option>
-              </select>
+            <div class="form-row" style="margin-bottom:12px">
+              <div class="field">
+                <label data-lang="en">Destination Country</label>
+                <label data-lang="es">País de Destino</label>
+                <select id="rfq-country" onchange="updatePorts()">
+                  <option value="" data-lang="en">Select country</option>
+                  <option value="" data-lang="es">Seleccione país</option>
+                  <option value="Jamaica">Jamaica</option>
+                  <option value="Dominican Republic" data-lang="en">Dominican Republic</option>
+                  <option value="Dominican Republic" data-lang="es">República Dominicana</option>
+                  <option value="Trinidad & Tobago" data-lang="en">Trinidad & Tobago</option>
+                  <option value="Trinidad & Tobago" data-lang="es">Trinidad y Tobago</option>
+                  <option value="Bahamas">Bahamas</option>
+                  <option value="Guyana">Guyana</option>
+                  <option value="Barbados">Barbados</option>
+                  <option value="Haiti" data-lang="en">Haiti</option>
+                  <option value="Haiti" data-lang="es">Haití</option>
+                  <option value="Saint Lucia" data-lang="en">Saint Lucia</option>
+                  <option value="Saint Lucia" data-lang="es">Santa Lucía</option>
+                  <option value="Saint Kitts & Nevis" data-lang="en">Saint Kitts & Nevis</option>
+                  <option value="Saint Kitts & Nevis" data-lang="es">San Cristóbal y Nieves</option>
+                  <option value="Antigua & Barbuda" data-lang="en">Antigua & Barbuda</option>
+                  <option value="Antigua & Barbuda" data-lang="es">Antigua y Barbuda</option>
+                  <option value="Grenada" data-lang="en">Grenada</option>
+                  <option value="Grenada" data-lang="es">Granada</option>
+                  <option value="Belize" data-lang="en">Belize</option>
+                  <option value="Belize" data-lang="es">Belice</option>
+                  <option value="Suriname" data-lang="en">Suriname</option>
+                  <option value="Suriname" data-lang="es">Surinam</option>
+                  <option value="Panama" data-lang="en">Panama</option>
+                  <option value="Panama" data-lang="es">Panamá</option>
+                  <option value="Other" data-lang="en">Other</option>
+                  <option value="Other" data-lang="es">Otro</option>
+                </select>
+              </div>
+              <div class="field">
+                <label data-lang="en">Destination Port</label>
+                <label data-lang="es">Puerto de Destino</label>
+                <select id="rfq-port">
+                  <option value="" data-lang="en">Select country first</option>
+                  <option value="" data-lang="es">Seleccione país primero</option>
+                </select>
+              </div>
             </div>
             <div class="form-row" style="margin-bottom:12px">
               <div class="field">
@@ -1532,6 +1552,50 @@ window.addEventListener('scroll', () => {
 // ── RFQ Generator ──
 var rfqData = {};
 var rfqStep = 1;
+var portsByCountry = {
+  'Jamaica': ['Kingston', 'Montego Bay', 'Ocho Rios', 'Port Antonio'],
+  'Dominican Republic': ['Caucedo', 'Haina', 'Puerto Plata', 'San Pedro de Macorís', 'Boca Chica'],
+  'Trinidad & Tobago': ['Port of Spain', 'Point Lisas', 'Scarborough (Tobago)', 'Chaguaramas'],
+  'Bahamas': ['Nassau', 'Freeport', 'Marsh Harbour'],
+  'Guyana': ['Georgetown', 'Linden', 'New Amsterdam'],
+  'Barbados': ['Bridgetown'],
+  'Haiti': ['Port-au-Prince', 'Cap-Haitien', 'Gonaïves', 'Les Cayes'],
+  'Saint Lucia': ['Castries', 'Vieux Fort'],
+  'Saint Kitts & Nevis': ['Basseterre', 'Charlestown'],
+  'Antigua & Barbuda': ['St. John\'s'],
+  'Grenada': ['St. George\'s'],
+  'Belize': ['Belize City', 'Big Creek'],
+  'Suriname': ['Paramaribo', 'Nieuw Nickerie'],
+  'Panama': ['Colón', 'Balboa', 'Cristóbal', 'Manzanillo']
+};
+
+function updatePorts() {
+  var country = document.getElementById('rfq-country').value;
+  var portSelect = document.getElementById('rfq-port');
+  var isEs = (document.documentElement.lang === 'es');
+  var ports = portsByCountry[country];
+
+  portSelect.innerHTML = '';
+  if (!ports) {
+    var opt = document.createElement('option');
+    opt.value = '';
+    opt.textContent = country === 'Other'
+      ? (isEs ? 'Especificar en notas' : 'Specify in notes')
+      : (isEs ? 'Seleccione país primero' : 'Select country first');
+    portSelect.appendChild(opt);
+    return;
+  }
+  ports.forEach(function(port) {
+    var opt = document.createElement('option');
+    opt.value = port + ', ' + country;
+    opt.textContent = port;
+    portSelect.appendChild(opt);
+  });
+  var otherOpt = document.createElement('option');
+  otherOpt.value = 'Other - ' + country;
+  otherOpt.textContent = isEs ? 'Otro (especificar en notas)' : 'Other (specify in notes)';
+  portSelect.appendChild(otherOpt);
+}
 
 function switchTab(tab) {
   document.querySelectorAll('.form-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
@@ -1602,6 +1666,7 @@ function submitRfq() {
   rfqData.product = (document.getElementById('rfq-product') || {}).value || '';
   rfqData.volume = (document.getElementById('rfq-volume') || {}).value || '';
   rfqData.packaging = (document.getElementById('rfq-packaging') || {}).value || '';
+  rfqData.country = document.getElementById('rfq-country').value;
   rfqData.port = document.getElementById('rfq-port').value;
   rfqData.incoterm = document.getElementById('rfq-incoterm').value;
   rfqData.timeline = document.getElementById('rfq-timeline').value;
@@ -1624,6 +1689,7 @@ function submitRfq() {
   formData.append('product', rfqData.product);
   formData.append('volume', rfqData.volume);
   formData.append('packaging', rfqData.packaging);
+  formData.append('destination_country', rfqData.country);
   formData.append('destination_port', rfqData.port);
   formData.append('delivery_term', rfqData.incoterm);
   formData.append('timeline', rfqData.timeline);
