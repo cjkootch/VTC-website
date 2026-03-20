@@ -13,7 +13,10 @@
 // ── Vercel / Netlify Serverless Function ──
 export default async function handler(req, res) {
   // CORS headers
-  res.setHeader('Access-Control-Allow-Origin', 'https://vectortradecapital.com');
+  const origin = req.headers.origin || '';
+  const allowed = ['https://vectortradecapital.com', 'https://www.vectortradecapital.com'];
+  const corsOrigin = allowed.includes(origin) ? origin : allowed[0];
+  res.setHeader('Access-Control-Allow-Origin', corsOrigin);
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
