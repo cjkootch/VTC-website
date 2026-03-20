@@ -499,7 +499,23 @@ var localeMeta = {
   en: { title: 'Letters of Credit for Caribbean Commodity Trade: How LCs Work and When to Use Them — Vector Trade Capital', description: 'How documentary letters of credit work for Caribbean commodity importers — LC types, required documents, bank fees, common discrepancies, and alternative payment terms.', ogTitle: 'Letters of Credit for Caribbean Commodity Trade: How LCs Work and When to Use Them', ogDesc: 'A practical guide to documentary letters of credit for Caribbean commodity importers.', ogLocale: 'en_US' },
   es: { title: 'Cartas de Crédito para el Comercio de Materias Primas del Caribe: Cómo Funcionan las LC y Cuándo Utilizarlas — Vector Trade Capital', description: 'Cómo funcionan las cartas de crédito documentarias para importadores de materias primas del Caribe — tipos de LC, documentos requeridos, costos bancarios y alternativas.', ogTitle: 'Cartas de Crédito para el Comercio de Materias Primas del Caribe', ogDesc: 'Guía práctica de cartas de crédito documentarias para importadores de materias primas del Caribe.', ogLocale: 'es_419' }
 };
+
+// Auto-detect browser language on first visit
+(function(){
+  if (!localStorage.getItem('vtc-lang')) {
+    var browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+    if (browserLang.startsWith('es')) {
+      setLang('es');
+      localStorage.setItem('vtc-lang', 'es');
+      return;
+    }
+  }
+  var saved = localStorage.getItem('vtc-lang');
+  if (saved && saved !== 'en') setLang(saved);
+})();
+
 function setLang(lang) {
+  localStorage.setItem('vtc-lang', lang);
   document.documentElement.lang = lang;
   document.querySelectorAll('.lang-btn').forEach(function(btn) { btn.classList.toggle('active', btn.textContent.trim() === lang.toUpperCase()); });
   var meta = localeMeta[lang] || localeMeta.en;
