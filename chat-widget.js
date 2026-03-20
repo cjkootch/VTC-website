@@ -178,8 +178,7 @@ function init() {
     this.style.height = Math.min(this.scrollHeight, 80) + 'px';
   });
 
-  // Welcome message based on current language
-  showWelcome();
+  // Welcome message deferred until chat is opened
 }
 
 function getLang() {
@@ -212,6 +211,7 @@ function toggleChat() {
   document.getElementById('vtc-chat-panel').classList.toggle('open', isOpen);
   document.getElementById('vtc-chat-btn').classList.toggle('open', isOpen);
   if (isOpen) {
+    showWelcome();
     setTimeout(function() {
       document.getElementById('vtc-chat-input').focus();
     }, 300);
