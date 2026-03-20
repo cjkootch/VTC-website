@@ -429,7 +429,23 @@ var localeMeta = {
   en: { title: 'Privacy Policy — Vector Trade Capital', description: 'Privacy Policy for Vector Trade Capital LLC. How we collect, use, and protect your information.' },
   es: { title: 'Política de Privacidad — Vector Trade Capital', description: 'Política de Privacidad de Vector Trade Capital LLC. Cómo recopilamos, utilizamos y protegemos su información.' }
 };
+
+// Auto-detect browser language on first visit
+(function(){
+  if (!localStorage.getItem('vtc-lang')) {
+    var browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+    if (browserLang.startsWith('es')) {
+      setLang('es');
+      localStorage.setItem('vtc-lang', 'es');
+      return;
+    }
+  }
+  var saved = localStorage.getItem('vtc-lang');
+  if (saved && saved !== 'en') setLang(saved);
+})();
+
 function setLang(lang) {
+  localStorage.setItem('vtc-lang', lang);
   document.documentElement.lang = lang;
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.textContent.trim() === lang.toUpperCase());

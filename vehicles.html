@@ -525,7 +525,23 @@ var localeMeta = {
     description: 'Vehículos nuevos y usados, unidades de flota y repuestos exportados de EE.UU. a mercados del Caribe. Entrega FOB y CIF.'
   }
 };
+
+// Auto-detect browser language on first visit
+(function(){
+  if (!localStorage.getItem('vtc-lang')) {
+    var browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+    if (browserLang.startsWith('es')) {
+      setLang('es');
+      localStorage.setItem('vtc-lang', 'es');
+      return;
+    }
+  }
+  var saved = localStorage.getItem('vtc-lang');
+  if (saved && saved !== 'en') setLang(saved);
+})();
+
 function setLang(lang) {
+  localStorage.setItem('vtc-lang', lang);
   document.documentElement.lang = lang;
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.textContent.trim() === lang.toUpperCase());
