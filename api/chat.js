@@ -1,16 +1,35 @@
-// Serverless proxy for Claude API
-// Deploy to Vercel, Netlify Functions, or any Node.js serverless platform.
-// Set ANTHROPIC_API_KEY as an environment variable — never hardcode it.
-//
-// If deploying to Vercel:
-//   1. Put this file at /api/chat.js
-//   2. Add ANTHROPIC_API_KEY to your Vercel environment variables
-//   3. Deploy — the endpoint will be available at /api/chat
-//
-// If deploying standalone (e.g., on Neon or Railway):
-//   Use the Express version at the bottom of this file.
+// Serverless proxy for Claude API with Neon conversation logging
+// Environment variables needed:
+//   ANTHROPIC_API_KEY — your Claude API key
+//   DATABASE_URL — your Neon PostgreSQL connection string
 
-// ── Vercel / Netlify Serverless Function ──
+import { neon } from '@neondatabase/serverless';
+
+// ── Database Setup (runs once on cold start) ──
+async function getDb() {
+  const sql = neon(process.env.DATABASE_URL);
+  // Create tables if they don't exist
+  await sql`
+    CREATE TABLE IF NOT EXISTS chat_sessions (
+      id TEXT PRIMARY KEY,
+      started_at TIMESTAMPTZ DEFAULT NOW(),
+      page_url TEXT,
+      user_agent TEXT,
+      ip_country TEXT
+    )
+  `;
+  await sql`
+    CREATE TABLE IF NOT EXISTS chat_messages (
+      id SERIAL PRIMARY KEY,
+      session_id TEXT REFERENCES chat_sessions(id),
+      role TEXT NOT NULL,
+      content TEXT NOT NULL,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `;
+  return sql;
+}
+
 export default async function handler(req, res) {
   // CORS headers
   const origin = req.headers.origin || '';
@@ -28,19 +47,18 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { system, messages } = req.body;
+  const { system, messages, sessionId, pageUrl } = req.body;
 
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
     return res.status(400).json({ error: 'Messages required' });
   }
 
-  // Rate limiting: basic check (enhance with Redis/Neon for production)
-  // For now, just limit message count per request
   if (messages.length > 30) {
     return res.status(400).json({ error: 'Too many messages' });
   }
 
   try {
+    // Call Claude API
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -68,24 +86,36 @@ export default async function handler(req, res) {
     const data = await response.json();
     const reply = data.content?.[0]?.text || 'I could not generate a response.';
 
+    // Log to Neon (non-blocking — don't let DB errors break the chat)
+    if (process.env.DATABASE_URL && sessionId) {
+      try {
+        const sql = await getDb();
+        const lastUserMsg = messages[messages.length - 1];
+
+        // Upsert session
+        await sql`
+          INSERT INTO chat_sessions (id, page_url, user_agent)
+          VALUES (${sessionId}, ${pageUrl || null}, ${req.headers['user-agent'] || null})
+          ON CONFLICT (id) DO NOTHING
+        `;
+
+        // Log user message + assistant reply
+        await sql`
+          INSERT INTO chat_messages (session_id, role, content)
+          VALUES (${sessionId}, ${lastUserMsg.role}, ${lastUserMsg.content})
+        `;
+        await sql`
+          INSERT INTO chat_messages (session_id, role, content)
+          VALUES (${sessionId}, 'assistant', ${reply})
+        `;
+      } catch (dbErr) {
+        console.error('DB logging error (non-fatal):', dbErr.message);
+      }
+    }
+
     return res.status(200).json({ content: reply });
   } catch (err) {
     console.error('Proxy error:', err);
     return res.status(500).json({ error: 'Internal server error' });
   }
 }
-
-// ── Express Standalone Version ──
-// Uncomment the block below if deploying as a standalone Node.js server
-// (e.g., on Railway, Render, Fly.io, or a VPS)
-//
-// import express from 'express';
-// import cors from 'cors';
-//
-// const app = express();
-// app.use(cors({ origin: 'https://vectortradecapital.com' }));
-// app.use(express.json());
-// app.post('/api/chat', handler);
-// app.listen(process.env.PORT || 3000, () => {
-//   console.log('VTC Chat proxy running on port', process.env.PORT || 3000);
-// });

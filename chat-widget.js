@@ -87,6 +87,7 @@ Transit from US Gulf Coast to Kingston: 4-7 days.
 var messages = [];
 var isOpen = false;
 var isLoading = false;
+var sessionId = 'vtc-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
 
 // ── BUILD UI ──
 function init() {
@@ -247,7 +248,9 @@ function sendMessage() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       system: SYSTEM_PROMPT,
-      messages: sendMessages
+      messages: sendMessages,
+      sessionId: sessionId,
+      pageUrl: window.location.href
     })
   })
   .then(function(res) {
