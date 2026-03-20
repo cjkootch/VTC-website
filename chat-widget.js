@@ -2,7 +2,7 @@
 'use strict';
 
 // ── CONFIG ──
-var API_URL = 'https://YOUR-PROXY-URL/api/chat'; // Replace with your deployed proxy URL
+var API_URL = 'https://vtc-website-alpha.vercel.app/api/chat';
 var MAX_MESSAGES = 20; // Max conversation history to send
 
 // ── SYSTEM PROMPT ──

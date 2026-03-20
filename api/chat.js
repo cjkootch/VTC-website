@@ -14,7 +14,7 @@
 export default async function handler(req, res) {
   // CORS headers
   const origin = req.headers.origin || '';
-  const allowed = ['https://vectortradecapital.com', 'https://www.vectortradecapital.com'];
+  const allowed = ['https://vectortradecapital.com', 'https://www.vectortradecapital.com', 'https://vtc-website-alpha.vercel.app'];
   const corsOrigin = allowed.includes(origin) ? origin : allowed[0];
   res.setHeader('Access-Control-Allow-Origin', corsOrigin);
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
