@@ -178,8 +178,33 @@ function init() {
     this.style.height = Math.min(this.scrollHeight, 80) + 'px';
   });
 
-  // Welcome message
-  addMessage('assistant', 'Hello! I\'m the Vector Trade Capital trade assistant. I can help you with questions about our **food, fuel, and vehicle** supply to the Caribbean.\n\nWhat are you looking to import?');
+  // Welcome message based on current language
+  showWelcome();
+}
+
+function getLang() {
+  return document.documentElement.lang || 'en';
+}
+
+// Listen for language changes and update placeholder
+var langObserver = new MutationObserver(function() {
+  var input = document.getElementById('vtc-chat-input');
+  if (input) {
+    input.placeholder = getLang() === 'es'
+      ? 'Pregunte sobre productos, entregas o mercados...'
+      : 'Ask about our products, delivery, or markets...';
+  }
+});
+langObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+
+function showWelcome() {
+  var container = document.getElementById('vtc-chat-messages');
+  if (container.children.length > 0) return; // Already shown
+  if (getLang() === 'es') {
+    addMessage('assistant', 'Hola, soy el asistente comercial de Vector Trade Capital. Puedo ayudarle con preguntas sobre nuestro suministro de **alimentos, combustible y vehículos** al Caribe.\n\n¿Qué está buscando importar?');
+  } else {
+    addMessage('assistant', 'Hello! I\'m the Vector Trade Capital trade assistant. I can help you with questions about our **food, fuel, and vehicle** supply to the Caribbean.\n\nWhat are you looking to import?');
+  }
 }
 
 function toggleChat() {
@@ -247,7 +272,7 @@ function sendMessage() {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      system: SYSTEM_PROMPT,
+      system: SYSTEM_PROMPT + '\n\nThe website is currently set to language: ' + getLang() + '. If the user has not written in a specific language yet, default to ' + (getLang() === 'es' ? 'Spanish' : 'English') + '.',
       messages: sendMessages,
       sessionId: sessionId,
       pageUrl: window.location.href
