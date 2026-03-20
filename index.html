@@ -291,6 +291,40 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 .footer-social{display:inline-flex;align-items:center;gap:6px;margin-top:8px;color:rgba(245,240,232,0.3);text-decoration:none;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
 .footer-social:hover{color:var(--gold-light)}
 .footer-legal{font-size:12px;color:rgba(245,240,232,0.2);max-width:1200px;margin:24px auto 0;padding-top:24px;border-top:1px solid rgba(184,150,62,0.08);line-height:1.6}
+/* ── FORM TABS & RFQ ── */
+.form-tabs{display:flex;gap:0;margin-bottom:0}
+.form-tab{flex:1;padding:12px 16px;font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;border:none;cursor:pointer;background:rgba(245,240,232,0.05);color:rgba(245,240,232,0.35);border-bottom:2px solid transparent;transition:all .2s}
+.form-tab.active{background:rgba(245,240,232,0.08);color:var(--gold);border-bottom-color:var(--gold)}
+.form-tab:hover{color:var(--gold-light)}
+.form-panel{display:none}
+.form-panel.active{display:flex;flex-direction:column}
+#rfq-panel.active{display:block}
+#rfq-panel{background:rgba(245,240,232,0.03);padding:28px 24px;border:1px solid rgba(184,150,62,0.1);border-top:none}
+.rfq-step{display:none}
+.rfq-step.active{display:block}
+.rfq-step-label{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.rfq-step-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;color:var(--cream);margin-bottom:20px}
+.rfq-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.rfq-card{background:rgba(245,240,232,0.04);border:1px solid rgba(184,150,62,0.12);padding:20px 14px;cursor:pointer;text-align:center;transition:all .25s;display:flex;flex-direction:column;align-items:center;gap:6px}
+.rfq-card:hover{background:rgba(26,122,94,0.1);border-color:var(--teal)}
+.rfq-card.selected{background:rgba(26,122,94,0.15);border-color:var(--teal)}
+.rfq-card svg{width:28px;height:28px;color:var(--teal);margin-bottom:4px}
+.rfq-card span{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--cream)}
+.rfq-card small{font-size:11px;color:rgba(245,240,232,0.35);line-height:1.4}
+.rfq-nav{display:flex;justify-content:space-between;margin-top:20px}
+.rfq-back{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;background:none;border:1px solid rgba(184,150,62,0.25);color:rgba(245,240,232,0.5);padding:12px 24px;cursor:pointer;transition:all .2s}
+.rfq-back:hover{border-color:var(--gold);color:var(--gold)}
+.rfq-next,.rfq-submit{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;background:var(--teal);border:none;color:var(--white);padding:12px 28px;cursor:pointer;transition:all .2s}
+.rfq-next:hover,.rfq-submit:hover{background:var(--teal-bright)}
+#rfq-panel .field{margin-bottom:0}
+#rfq-panel .field label{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,240,232,0.4);margin-bottom:6px;display:block}
+#rfq-panel .field input,#rfq-panel .field select,#rfq-panel .field textarea{background:rgba(245,240,232,0.05);border:1px solid rgba(184,150,62,0.15);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:14px;padding:12px 14px;outline:none;width:100%;transition:border .2s}
+#rfq-panel .field input:focus,#rfq-panel .field select:focus,#rfq-panel .field textarea:focus{border-color:rgba(184,150,62,0.4)}
+#rfq-panel .field select{appearance:none;cursor:pointer}
+#rfq-panel .field select option{background:var(--ink-mid);color:var(--cream)}
+#rfq-panel .field input::placeholder,#rfq-panel .field textarea::placeholder{color:rgba(245,240,232,0.25)}
+#rfq-panel .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:900px){.rfq-cards{grid-template-columns:1fr}.form-tabs{flex-wrap:wrap}#rfq-panel .form-row{grid-template-columns:1fr}}
 /* ── ANIMATIONS ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 /* Base reveal */
@@ -760,7 +794,194 @@ section,#hero,.page-header{will-change:opacity}
           </div>
         </div>
       </div>
-      <form class="contact-form reveal-right" action="https://formspree.io/f/mojkkvdl" method="POST">
+      <!-- FORM TABS -->
+      <div class="reveal-right" style="width:100%">
+      <div class="form-tabs">
+        <button class="form-tab active" data-tab="rfq" data-lang="en" onclick="switchTab('rfq')">Guided RFQ</button>
+        <button class="form-tab active" data-tab="rfq" data-lang="es" onclick="switchTab('rfq')">RFQ Guiada</button>
+        <button class="form-tab" data-tab="general" data-lang="en" onclick="switchTab('general')">General Inquiry</button>
+        <button class="form-tab" data-tab="general" data-lang="es" onclick="switchTab('general')">Consulta General</button>
+      </div>
+
+      <!-- RFQ GENERATOR -->
+      <div id="rfq-panel" class="form-panel active">
+        <div id="rfq-steps">
+          <!-- Step 1: Product -->
+          <div class="rfq-step active" data-step="1">
+            <div class="rfq-step-label" data-lang="en">Step 1 of 4 — Product</div>
+            <div class="rfq-step-label" data-lang="es">Paso 1 de 4 — Producto</div>
+            <div class="rfq-step-title" data-lang="en">What do you need?</div>
+            <div class="rfq-step-title" data-lang="es">¿Qué necesita?</div>
+            <div class="rfq-cards">
+              <button class="rfq-card" onclick="rfqSelect('category','fuel')" data-val="fuel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="10" r="1"/><circle cx="15" cy="10" r="1"/></svg>
+                <span data-lang="en">Fuel & Energy</span>
+                <span data-lang="es">Combustible</span>
+                <small data-lang="en">Diesel, Gasoline, Jet A-1, LPG, HFO</small>
+                <small data-lang="es">Diésel, Gasolina, Jet A-1, GLP</small>
+              </button>
+              <button class="rfq-card" onclick="rfqSelect('category','food')" data-val="food">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="10" r="1"/><circle cx="15" cy="10" r="1"/></svg>
+                <span data-lang="en">Food Commodities</span>
+                <span data-lang="es">Alimentos</span>
+                <small data-lang="en">Rice, Sugar, Oil, Flour, Poultry</small>
+                <small data-lang="es">Arroz, Azúcar, Aceite, Harina, Pollo</small>
+              </button>
+              <button class="rfq-card" onclick="rfqSelect('category','vehicles')" data-val="vehicles">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="10" r="1"/><circle cx="15" cy="10" r="1"/></svg>
+                <span data-lang="en">Vehicles & Equipment</span>
+                <span data-lang="es">Vehículos</span>
+                <small data-lang="en">Cars, Trucks, Fleet, Parts</small>
+                <small data-lang="es">Autos, Camiones, Flota, Repuestos</small>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2: Specs (dynamic based on category) -->
+          <div class="rfq-step" data-step="2">
+            <div class="rfq-step-label" data-lang="en">Step 2 of 4 — Specifications</div>
+            <div class="rfq-step-label" data-lang="es">Paso 2 de 4 — Especificaciones</div>
+            <div class="rfq-step-title" id="rfq-specs-title" data-lang="en">Product details</div>
+            <div class="rfq-step-title" id="rfq-specs-title-es" data-lang="es">Detalles del producto</div>
+            <div id="rfq-specs-fields"></div>
+            <div class="rfq-nav">
+              <button class="rfq-back" onclick="rfqBack()" data-lang="en">Back</button>
+              <button class="rfq-back" onclick="rfqBack()" data-lang="es">Atrás</button>
+              <button class="rfq-next" onclick="rfqNext(3)" data-lang="en">Next</button>
+              <button class="rfq-next" onclick="rfqNext(3)" data-lang="es">Siguiente</button>
+            </div>
+          </div>
+
+          <!-- Step 3: Delivery -->
+          <div class="rfq-step" data-step="3">
+            <div class="rfq-step-label" data-lang="en">Step 3 of 4 — Delivery</div>
+            <div class="rfq-step-label" data-lang="es">Paso 3 de 4 — Entrega</div>
+            <div class="rfq-step-title" data-lang="en">Where and when?</div>
+            <div class="rfq-step-title" data-lang="es">¿Dónde y cuándo?</div>
+            <div class="field" style="margin-bottom:12px">
+              <label data-lang="en">Destination Port</label>
+              <label data-lang="es">Puerto de Destino</label>
+              <select id="rfq-port">
+                <option value="" data-lang="en">Select port</option>
+                <option value="" data-lang="es">Seleccione puerto</option>
+                <option>Kingston, Jamaica</option>
+                <option>Montego Bay, Jamaica</option>
+                <option>Caucedo, Dominican Republic</option>
+                <option>Haina, Dominican Republic</option>
+                <option>Port of Spain, Trinidad</option>
+                <option>Point Lisas, Trinidad</option>
+                <option>Nassau, Bahamas</option>
+                <option>Freeport, Bahamas</option>
+                <option>Georgetown, Guyana</option>
+                <option>Bridgetown, Barbados</option>
+                <option>Port-au-Prince, Haiti</option>
+                <option>Cap-Haitien, Haiti</option>
+                <option>Castries, Saint Lucia</option>
+                <option>Basseterre, Saint Kitts</option>
+                <option data-lang="en">Other (specify in notes)</option>
+                <option data-lang="es">Otro (especificar en notas)</option>
+              </select>
+            </div>
+            <div class="form-row" style="margin-bottom:12px">
+              <div class="field">
+                <label data-lang="en">Delivery Term</label>
+                <label data-lang="es">Término de Entrega</label>
+                <select id="rfq-incoterm">
+                  <option value="CIF">CIF</option>
+                  <option value="FOB">FOB</option>
+                </select>
+              </div>
+              <div class="field">
+                <label data-lang="en">Timeline</label>
+                <label data-lang="es">Plazo</label>
+                <select id="rfq-timeline">
+                  <option value="urgent" data-lang="en">Urgent (under 2 weeks)</option>
+                  <option value="urgent" data-lang="es">Urgente (menos de 2 semanas)</option>
+                  <option value="30" data-lang="en">Within 30 days</option>
+                  <option value="30" data-lang="es">Dentro de 30 días</option>
+                  <option value="60" data-lang="en">Within 60 days</option>
+                  <option value="60" data-lang="es">Dentro de 60 días</option>
+                  <option value="flexible" data-lang="en">Flexible</option>
+                  <option value="flexible" data-lang="es">Flexible</option>
+                </select>
+              </div>
+            </div>
+            <div class="field" style="margin-bottom:12px">
+              <label data-lang="en">Additional Notes</label>
+              <label data-lang="es">Notas Adicionales</label>
+              <textarea id="rfq-notes" rows="2" data-placeholder-en="Recurring order, specific certifications needed, etc." data-placeholder-es="Pedido recurrente, certificaciones específicas, etc." placeholder="Recurring order, specific certifications needed, etc." style="min-height:60px"></textarea>
+            </div>
+            <div class="rfq-nav">
+              <button class="rfq-back" onclick="rfqBack()" data-lang="en">Back</button>
+              <button class="rfq-back" onclick="rfqBack()" data-lang="es">Atrás</button>
+              <button class="rfq-next" onclick="rfqNext(4)" data-lang="en">Next</button>
+              <button class="rfq-next" onclick="rfqNext(4)" data-lang="es">Siguiente</button>
+            </div>
+          </div>
+
+          <!-- Step 4: Contact -->
+          <div class="rfq-step" data-step="4">
+            <div class="rfq-step-label" data-lang="en">Step 4 of 4 — Your Details</div>
+            <div class="rfq-step-label" data-lang="es">Paso 4 de 4 — Sus Datos</div>
+            <div class="rfq-step-title" data-lang="en">Who should we send the quote to?</div>
+            <div class="rfq-step-title" data-lang="es">¿A quién enviamos la cotización?</div>
+            <div class="form-row" style="margin-bottom:12px">
+              <div class="field">
+                <label data-lang="en">Name</label>
+                <label data-lang="es">Nombre</label>
+                <input type="text" id="rfq-name" placeholder="Your name" required>
+              </div>
+              <div class="field">
+                <label data-lang="en">Company</label>
+                <label data-lang="es">Empresa</label>
+                <input type="text" id="rfq-company" placeholder="Company name">
+              </div>
+            </div>
+            <div class="form-row" style="margin-bottom:12px">
+              <div class="field">
+                <label>Email</label>
+                <input type="email" id="rfq-email" placeholder="your@email.com" required>
+              </div>
+              <div class="field">
+                <label data-lang="en">Phone</label>
+                <label data-lang="es">Teléfono</label>
+                <input type="tel" id="rfq-phone" placeholder="+1-000-000-0000">
+              </div>
+            </div>
+            <div class="field" style="margin-bottom:12px">
+              <label data-lang="en">Company Type</label>
+              <label data-lang="es">Tipo de Empresa</label>
+              <select id="rfq-companytype">
+                <option value="" data-lang="en">Select</option>
+                <option value="" data-lang="es">Seleccione</option>
+                <option value="distributor" data-lang="en">Distributor</option><option value="distributor" data-lang="es">Distribuidor</option>
+                <option value="government" data-lang="en">Government / State</option><option value="government" data-lang="es">Gobierno / Estado</option>
+                <option value="retailer" data-lang="en">Retailer</option><option value="retailer" data-lang="es">Minorista</option>
+                <option value="manufacturer" data-lang="en">Manufacturer</option><option value="manufacturer" data-lang="es">Fabricante</option>
+                <option value="other" data-lang="en">Other</option><option value="other" data-lang="es">Otro</option>
+              </select>
+            </div>
+            <div class="rfq-nav">
+              <button class="rfq-back" onclick="rfqBack()" data-lang="en">Back</button>
+              <button class="rfq-back" onclick="rfqBack()" data-lang="es">Atrás</button>
+              <button class="rfq-submit" onclick="submitRfq()" data-lang="en">Submit RFQ</button>
+              <button class="rfq-submit" onclick="submitRfq()" data-lang="es">Enviar Solicitud</button>
+            </div>
+          </div>
+
+          <!-- Success -->
+          <div class="rfq-step" data-step="success" style="text-align:center;padding:40px 0">
+            <div style="width:56px;height:56px;border-radius:50%;background:var(--teal);margin:0 auto 20px;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="rfq-step-title" data-lang="en">RFQ Submitted</div>
+            <div class="rfq-step-title" data-lang="es">Solicitud Enviada</div>
+            <p style="color:rgba(245,240,232,0.5);margin-top:12px;font-size:14px;line-height:1.7" data-lang="en">Our trade desk will review your requirements and respond with a firm CIF quote within 48 hours.</p>
+            <p style="color:rgba(245,240,232,0.5);margin-top:12px;font-size:14px;line-height:1.7" data-lang="es">Nuestra mesa de operaciones revisará sus requisitos y responderá con una cotización CIF firme en 48 horas.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- GENERAL INQUIRY (existing form, hidden by default) -->
+      <form class="contact-form form-panel" id="general-panel" action="https://formspree.io/f/mojkkvdl" method="POST">
         <div class="form-row">
           <div class="field">
             <label data-lang="en">Name</label>
@@ -1103,6 +1324,7 @@ section,#hero,.page-header{will-change:opacity}
           Recibido. Responderemos en 48 horas.
         </div>
       </form>
+      </div><!-- end form tabs wrapper -->
     </div>
   </div>
 </section>
@@ -1302,6 +1524,97 @@ window.addEventListener('scroll', () => {
     });
   }, 50);
 });
+
+// ── RFQ Generator ──
+var rfqData = {};
+var rfqStep = 1;
+
+function switchTab(tab) {
+  document.querySelectorAll('.form-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  document.getElementById('rfq-panel').classList.toggle('active', tab === 'rfq');
+  document.getElementById('general-panel').classList.toggle('active', tab === 'general');
+}
+
+function rfqSelect(key, val) {
+  rfqData[key] = val;
+  document.querySelectorAll('.rfq-card').forEach(c => c.classList.toggle('selected', c.dataset.val === val));
+  // Build step 2 fields based on category
+  setTimeout(function(){ buildSpecsStep(val); rfqNext(2); }, 200);
+}
+
+function rfqNext(step) {
+  rfqStep = step;
+  document.querySelectorAll('.rfq-step').forEach(s => s.classList.toggle('active', parseInt(s.dataset.step) === step));
+}
+
+function rfqBack() {
+  rfqNext(rfqStep - 1);
+}
+
+function buildSpecsStep(category) {
+  var container = document.getElementById('rfq-specs-fields');
+  var isEs = (document.documentElement.lang === 'es');
+  var html = '';
+
+  if (category === 'fuel') {
+    html = '<div class="field" style="margin-bottom:12px"><label>' + (isEs ? 'Tipo de Combustible' : 'Fuel Type') + '</label><select id="rfq-product"><option value="ULSD Diesel (15ppm)">ULSD Diesel (15ppm)</option><option value="EN590 Diesel">EN590 Diesel</option><option value="D2 Diesel">D2 Diesel</option><option value="Gasoline 87 Octane">' + (isEs ? 'Gasolina 87' : 'Gasoline 87 Octane') + '</option><option value="Gasoline 93 Octane">' + (isEs ? 'Gasolina 93' : 'Gasoline 93 Octane') + '</option><option value="Jet A-1">Jet A-1</option><option value="LPG Propane">' + (isEs ? 'GLP Propano' : 'LPG Propane') + '</option><option value="HFO 380">HFO / IFO 380</option><option value="MGO 0.5%">MGO 0.5%</option></select></div>';
+    html += '<div class="form-row" style="margin-bottom:12px"><div class="field"><label>' + (isEs ? 'Volumen' : 'Volume') + '</label><input type="text" id="rfq-volume" placeholder="' + (isEs ? 'Ej: 5,000 MT' : 'e.g. 5,000 MT') + '"></div><div class="field"><label>' + (isEs ? 'Entrega' : 'Delivery Method') + '</label><select id="rfq-packaging"><option value="Tanker">' + (isEs ? 'Buque tanque' : 'Tanker') + '</option><option value="ISO Tank">ISO Tank</option><option value="Flexitank">Flexitank</option></select></div></div>';
+  } else if (category === 'food') {
+    html = '<div class="field" style="margin-bottom:12px"><label>' + (isEs ? 'Tipo de Producto' : 'Product Type') + '</label><select id="rfq-product"><option value="Rice - Long Grain White">' + (isEs ? 'Arroz - Grano largo blanco' : 'Rice - Long Grain White') + '</option><option value="Rice - Parboiled">' + (isEs ? 'Arroz - Precocido' : 'Rice - Parboiled') + '</option><option value="Sugar - ICUMSA 45">' + (isEs ? 'Azúcar - ICUMSA 45' : 'Sugar - ICUMSA 45') + '</option><option value="Sugar - Raw VHP">' + (isEs ? 'Azúcar - Cruda VHP' : 'Sugar - Raw VHP') + '</option><option value="Wheat Flour">' + (isEs ? 'Harina de Trigo' : 'Wheat Flour') + '</option><option value="Soybean Oil">' + (isEs ? 'Aceite de Soya' : 'Soybean Oil') + '</option><option value="Palm Oil">' + (isEs ? 'Aceite de Palma' : 'Palm Oil') + '</option><option value="Sunflower Oil">' + (isEs ? 'Aceite de Girasol' : 'Sunflower Oil') + '</option><option value="Frozen Poultry - Leg Quarters">' + (isEs ? 'Pollo Congelado - Cuartos' : 'Frozen Poultry - Leg Quarters') + '</option><option value="Frozen Poultry - MDM">' + (isEs ? 'Pollo Congelado - MDM' : 'Frozen Poultry - MDM') + '</option><option value="Dried Legumes">' + (isEs ? 'Legumbres Secas' : 'Dried Legumes') + '</option></select></div>';
+    html += '<div class="form-row" style="margin-bottom:12px"><div class="field"><label>' + (isEs ? 'Volumen' : 'Volume') + '</label><input type="text" id="rfq-volume" placeholder="' + (isEs ? 'Ej: 500 MT o 20 contenedores' : 'e.g. 500 MT or 20 containers') + '"></div><div class="field"><label>' + (isEs ? 'Empaque' : 'Packaging') + '</label><select id="rfq-packaging"><option value="25kg bags">' + (isEs ? 'Bolsas de 25kg' : '25kg bags') + '</option><option value="50kg bags">' + (isEs ? 'Bolsas de 50kg' : '50kg bags') + '</option><option value="Bulk">' + (isEs ? 'A granel' : 'Bulk') + '</option><option value="Flexitank">Flexitank</option><option value="40lb cases">' + (isEs ? 'Cajas de 40lb' : '40lb cases') + '</option></select></div></div>';
+  } else {
+    html = '<div class="field" style="margin-bottom:12px"><label>' + (isEs ? 'Tipo de Vehículo' : 'Vehicle Type') + '</label><select id="rfq-product"><option value="Sedans">' + (isEs ? 'Sedanes' : 'Sedans') + '</option><option value="SUVs">SUVs</option><option value="Pickup Trucks">' + (isEs ? 'Camionetas' : 'Pickup Trucks') + '</option><option value="Commercial Trucks">' + (isEs ? 'Camiones Comerciales' : 'Commercial Trucks') + '</option><option value="Vans">' + (isEs ? 'Furgonetas' : 'Vans') + '</option><option value="Buses">' + (isEs ? 'Autobuses' : 'Buses') + '</option><option value="Parts & Accessories">' + (isEs ? 'Repuestos' : 'Parts & Accessories') + '</option></select></div>';
+    html += '<div class="form-row" style="margin-bottom:12px"><div class="field"><label>' + (isEs ? 'Cantidad' : 'Quantity') + '</label><input type="text" id="rfq-volume" placeholder="' + (isEs ? 'Ej: 10 unidades' : 'e.g. 10 units') + '"></div><div class="field"><label>' + (isEs ? 'Condición' : 'Condition') + '</label><select id="rfq-packaging"><option value="New">' + (isEs ? 'Nuevo' : 'New') + '</option><option value="Used">' + (isEs ? 'Usado' : 'Used') + '</option><option value="Either">' + (isEs ? 'Cualquiera' : 'Either') + '</option></select></div></div>';
+  }
+  container.innerHTML = html;
+}
+
+function submitRfq() {
+  var name = document.getElementById('rfq-name').value.trim();
+  var email = document.getElementById('rfq-email').value.trim();
+  if (!name || !email) { alert('Please provide your name and email.'); return; }
+
+  rfqData.product = (document.getElementById('rfq-product') || {}).value || '';
+  rfqData.volume = (document.getElementById('rfq-volume') || {}).value || '';
+  rfqData.packaging = (document.getElementById('rfq-packaging') || {}).value || '';
+  rfqData.port = document.getElementById('rfq-port').value;
+  rfqData.incoterm = document.getElementById('rfq-incoterm').value;
+  rfqData.timeline = document.getElementById('rfq-timeline').value;
+  rfqData.notes = document.getElementById('rfq-notes').value;
+  rfqData.name = name;
+  rfqData.company = document.getElementById('rfq-company').value;
+  rfqData.email = email;
+  rfqData.phone = document.getElementById('rfq-phone').value;
+  rfqData.companyType = document.getElementById('rfq-companytype').value;
+
+  // Send via Formspree
+  var formData = new FormData();
+  formData.append('_subject', 'New RFQ: ' + rfqData.product + ' to ' + rfqData.port);
+  formData.append('name', rfqData.name);
+  formData.append('email', rfqData.email);
+  formData.append('company', rfqData.company);
+  formData.append('phone', rfqData.phone);
+  formData.append('company_type', rfqData.companyType);
+  formData.append('category', rfqData.category);
+  formData.append('product', rfqData.product);
+  formData.append('volume', rfqData.volume);
+  formData.append('packaging', rfqData.packaging);
+  formData.append('destination_port', rfqData.port);
+  formData.append('delivery_term', rfqData.incoterm);
+  formData.append('timeline', rfqData.timeline);
+  formData.append('notes', rfqData.notes);
+
+  fetch('https://formspree.io/f/mojkkvdl', {
+    method: 'POST',
+    body: formData,
+    headers: { 'Accept': 'application/json' }
+  }).then(function(r) {
+    if (r.ok) {
+      document.querySelectorAll('.rfq-step').forEach(s => s.classList.remove('active'));
+      document.querySelector('.rfq-step[data-step="success"]').classList.add('active');
+    }
+  });
+}
 
 // Reveal on scroll with stagger
 const observer = new IntersectionObserver((entries) => {
