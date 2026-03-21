@@ -709,7 +709,7 @@ function handlePlaybookSubmit(e) {
     headers: { 'Accept': 'application/json' }
   }).then(function(response) {
     if (response.ok) {
-      window.location.href = 'thank-you/';
+      gtag_report_conversion('thank-you/');
     } else {
       throw new Error('Form submission failed');
     }
@@ -936,7 +936,7 @@ function handlePopupSubmit(event) {
   }).then(function(response) {
     if (response.ok) {
       trackEvent('playbook_popup_submitted', 'playbook_page');
-      window.location.href = 'thank-you/';
+      gtag_report_conversion('thank-you/');
     } else {
       throw new Error('Submission failed');
     }
