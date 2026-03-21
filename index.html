@@ -1828,6 +1828,7 @@ document.querySelector('.contact-form').addEventListener('submit', function(e){
     headers: {'Accept': 'application/json'}
   }).then(r => {
     if(r.ok){
+      gtag_report_conversion();
       document.getElementById('form-msg').classList.add('show');
       document.getElementById('form-msg-es').classList.add('show');
       form.reset();
