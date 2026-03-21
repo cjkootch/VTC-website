@@ -26,7 +26,7 @@ function gtag_report_conversion(url) {
     }
   };
   gtag('event', 'conversion', {
-      'send_to': 'AW-18030544849/7Gd7CPWtxowcENGP0ZVD',
+      'send_to': 'AW-18030544849/GLDQCIGMzowcENGP0ZVD',
       'value': 1.0,
       'currency': 'USD',
       'event_callback': callback
@@ -1776,6 +1776,7 @@ function submitRfq() {
   }).then(function(r) {
     if (r.ok) {
       rfqNext('success');
+      gtag_report_conversion();
       dataLayer.push({
         'event': 'RFQ_Complete',
         'rfq_category': rfqData.category,
