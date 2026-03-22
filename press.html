@@ -166,6 +166,30 @@ nav.nav-scrolled .nav-logo img{height:60px}
 .media-contact p{font-size:15px;color:var(--ink-mid);line-height:1.8;max-width:480px;margin:0 auto 24px}
 .media-email{display:inline-flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid rgba(184,150,62,0.4);padding:12px 28px;border-radius:24px;transition:all .25s}
 .media-email:hover{background:var(--gold);color:var(--ink)}
+/* ── PRESS KIT ── */
+.press-kit{margin-bottom:64px}
+.press-kit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.kit-card{background:var(--white);border:1px solid var(--border-light);border-radius:16px;padding:32px 28px;text-align:center;transition:box-shadow .3s ease}
+.kit-card:hover{box-shadow:0 8px 32px rgba(14,26,20,0.06)}
+.kit-icon{width:56px;height:56px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:var(--cream-dark)}
+.kit-icon svg{width:28px;height:28px;stroke:var(--teal);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.kit-card h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:500;color:var(--ink);margin-bottom:8px}
+.kit-card p{font-size:13.5px;color:var(--ink-mid);line-height:1.7;margin-bottom:20px}
+.kit-download{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);text-decoration:none;border:1px solid rgba(26,122,94,0.3);padding:10px 20px;border-radius:20px;transition:all .25s}
+.kit-download:hover{background:var(--teal);color:var(--white);border-color:var(--teal)}
+.kit-download svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+/* ── BOILERPLATE ── */
+.boilerplate{background:var(--white);border:1px solid var(--border-light);border-radius:16px;padding:48px;margin-bottom:64px}
+.boilerplate h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:400;color:var(--ink);margin-bottom:20px}
+.boilerplate p{font-size:15px;color:var(--ink-mid);line-height:1.8}
+.boilerplate .company-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px;padding-top:32px;border-top:1px solid var(--border-light)}
+.fact-item .fact-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:4px}
+.fact-item .fact-value{font-family:'Playfair Display',serif;font-size:20px;font-weight:500;color:var(--ink)}
+@media(max-width:900px){
+  .press-kit-grid{grid-template-columns:1fr}
+  .boilerplate{padding:32px 20px}
+  .boilerplate .company-facts{grid-template-columns:1fr;gap:16px}
+}
 /* ── FOOTER ── */
 footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:48px 60px 36px}
 .footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:auto 1fr 1fr auto;gap:48px;align-items:start}
@@ -263,6 +287,73 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
         <p data-lang="es">Vector Trade Capital anuncia el lanzamiento de su plataforma de comercio de materias primas, entregando alimentos b&aacute;sicos, combustible y veh&iacute;culos a los mercados del Caribe y Am&eacute;rica Latina desde sus operaciones en Houston y Miami.</p>
         <span class="press-source" data-lang="en">Company Announcement</span>
         <span class="press-source" data-lang="es">Comunicado de la Empresa</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRESS KIT -->
+  <div class="press-kit">
+    <div class="press-section-title" data-lang="en">Press Kit Downloads</div>
+    <div class="press-section-title" data-lang="es">Descargas del Kit de Prensa</div>
+    <div class="press-kit-grid">
+      <div class="kit-card">
+        <div class="kit-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3 data-lang="en">Company Logo</h3>
+        <h3 data-lang="es">Logotipo</h3>
+        <p data-lang="en">Vector Trade Capital logo in PNG format on dark and light backgrounds.</p>
+        <p data-lang="es">Logotipo de Vector Trade Capital en formato PNG sobre fondos oscuros y claros.</p>
+        <a href="vector-trade-capital-logo.png" download class="kit-download" data-lang="en"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Dark Logo (PNG)</a>
+        <a href="vector-trade-capital-logo.png" download class="kit-download" data-lang="es"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Logo Oscuro (PNG)</a>
+      </div>
+      <div class="kit-card">
+        <div class="kit-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3 data-lang="en">White Logo</h3>
+        <h3 data-lang="es">Logotipo Blanco</h3>
+        <p data-lang="en">White logo variant for use on dark backgrounds and print materials.</p>
+        <p data-lang="es">Variante de logotipo blanco para fondos oscuros y materiales impresos.</p>
+        <a href="vector-trade-capital-logo-white.png" download class="kit-download" data-lang="en"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>White Logo (PNG)</a>
+        <a href="vector-trade-capital-logo-white.png" download class="kit-download" data-lang="es"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Logo Blanco (PNG)</a>
+      </div>
+      <div class="kit-card">
+        <div class="kit-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h3 data-lang="en">Caribbean Import Playbook</h3>
+        <h3 data-lang="es">Gu&iacute;a de Importaci&oacute;n del Caribe</h3>
+        <p data-lang="en">2026 commodity import playbook covering fuel, food, and trade finance for Caribbean markets.</p>
+        <p data-lang="es">Gu&iacute;a de importaci&oacute;n de materias primas 2026 para combustible, alimentos y financiamiento comercial en el Caribe.</p>
+        <a href="downloads/caribbean-playbook-2026.pdf" download class="kit-download" data-lang="en"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Playbook (PDF)</a>
+        <a href="downloads/caribbean-playbook-2026.pdf" download class="kit-download" data-lang="es"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Gu&iacute;a (PDF)</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPANY BOILERPLATE -->
+  <div class="boilerplate">
+    <h2 data-lang="en">About Vector Trade Capital</h2>
+    <h2 data-lang="es">Acerca de Vector Trade Capital</h2>
+    <p data-lang="en">Vector Trade Capital LLC is a Houston-based commodity trading company specializing in the export of food staples, fuel, and vehicles to the Caribbean and Latin America. Operating from Houston and Miami, VTC delivers bulk commodities CIF with integrated trade finance — sourcing directly from US Gulf Coast producers and managing the full supply chain from procurement through port delivery. The company serves qualified trade buyers and wholesale importers across the region.</p>
+    <p data-lang="es">Vector Trade Capital LLC es una empresa de comercio de materias primas con sede en Houston, especializada en la exportaci&oacute;n de alimentos b&aacute;sicos, combustible y veh&iacute;culos al Caribe y Am&eacute;rica Latina. Operando desde Houston y Miami, VTC entrega materias primas a granel CIF con financiamiento comercial integrado — abasteci&eacute;ndose directamente de productores de la Costa del Golfo de EE.UU. y gestionando toda la cadena de suministro desde la adquisici&oacute;n hasta la entrega en puerto.</p>
+    <div class="company-facts">
+      <div class="fact-item">
+        <div class="fact-label" data-lang="en">Headquarters</div>
+        <div class="fact-label" data-lang="es">Sede Central</div>
+        <div class="fact-value">Houston, TX</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-label" data-lang="en">Operations</div>
+        <div class="fact-label" data-lang="es">Operaciones</div>
+        <div class="fact-value">Houston &middot; Miami</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-label" data-lang="en">Markets</div>
+        <div class="fact-label" data-lang="es">Mercados</div>
+        <div class="fact-value" data-lang="en">Caribbean &amp; LATAM</div>
+        <div class="fact-value" data-lang="es">Caribe y LATAM</div>
       </div>
     </div>
   </div>
