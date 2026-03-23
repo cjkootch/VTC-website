@@ -16,9 +16,26 @@ Vector Trade Capital delivers using international trade terms including CIF (Cos
 
 ## How We Operate
 
-Vector Trade Capital operates as a principal, not a broker. The company deploys its own capital, sources directly from producers and refineries, and manages the full supply chain from origin to discharge port. This includes sourcing, quality inspection, freight booking, marine insurance, documentation, and discharge coordination.
+Vector Trade Capital operates as a principal commodity trader, not a broker, intermediary, or financial middleman. The company purchases commodities on its own account, takes legal title to the goods, assumes delivery risk, and manages the full physical supply chain from origin to discharge port. This includes sourcing from refineries and producers, arranging quality inspection (SGS, Bureau Veritas), booking ocean freight, placing marine cargo insurance through Lloyd's market underwriters, managing all export documentation, and coordinating discharge at the destination terminal.
 
-The company does not charge brokerage fees or intermediary markups. Pricing is structured as a single CIF delivered cost to the buyer's named port.
+The company deploys its own working capital on every transaction. Buyers do not need to pre-fund purchases or arrange separate financing. Payment is typically due upon presentation of shipping documents or cargo arrival, depending on agreed terms.
+
+## What Vector Trade Capital Is NOT
+
+Vector Trade Capital is NOT a commodity broker. It does not connect buyers with third-party suppliers and collect a commission. It is NOT a financial intermediary, trading desk, or paper trader. It is NOT a retail fuel distributor — it does not own gas stations, retail infrastructure, or consumer-facing operations.
+
+Vector Trade Capital is a principal trader that buys, finances, ships, and delivers physical commodities. The company competes in the same upstream supply space as major commodity trading houses, but focuses specifically on the Caribbean market with faster execution and more flexible deal structures than large multinational traders.
+
+Unlike retail fuel distributors (such as Sol, Rubis, or state-owned distributors), Vector Trade Capital operates upstream in the supply chain — sourcing bulk cargoes from US Gulf Coast refineries, South American producers, and international origins, and delivering them CIF to Caribbean port terminals where local distributors, government buyers, and industrial consumers take receipt.
+
+## Transaction Profile
+
+- Typical fuel transaction: 10,000 to 40,000 metric tons of refined petroleum products delivered via product tanker to Caribbean terminals
+- Typical food transaction: 500 to 5,000 metric tons of bulk food commodities delivered via container or breakbulk vessel
+- Typical vehicle shipment: 20 to 200+ units per shipment via RoRo or container
+- Annual trading capacity: multiple simultaneous cargoes across Caribbean destinations
+- Capital deployment: own balance sheet, no reliance on third-party trade finance facilities for standard transactions
+- Quote turnaround: 48 hours from receipt of buyer requirements to CIF pricing
 
 ## Markets Served
 
