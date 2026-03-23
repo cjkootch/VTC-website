@@ -157,6 +157,20 @@ nav.nav-scrolled .nav-logo img{height:60px}
 .press-content h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:500;color:var(--ink);margin-bottom:8px;line-height:1.4}
 .press-content p{font-size:14.5px;color:var(--ink-mid);line-height:1.7}
 .press-source{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-top:10px;display:inline-block}
+.press-item{cursor:pointer}
+.press-item .press-toggle{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-top:12px;display:flex;align-items:center;gap:6px;transition:color .2s}
+.press-item .press-toggle svg{width:12px;height:12px;transition:transform .3s}
+.press-item.expanded .press-toggle svg{transform:rotate(180deg)}
+.press-item .press-toggle:hover{color:var(--teal-bright)}
+.press-full-article{max-height:0;overflow:hidden;transition:max-height .5s ease,opacity .3s ease;opacity:0}
+.press-item.expanded .press-full-article{max-height:2000px;opacity:1}
+.press-full-article-inner{padding:24px 0 8px;border-top:1px solid var(--border-light);margin-top:16px}
+.press-full-article-inner p{font-size:14.5px;color:var(--ink-mid);line-height:1.8;margin-bottom:16px}
+.press-full-article-inner blockquote{border-left:3px solid var(--gold);padding-left:20px;margin:20px 0;font-style:italic}
+.press-full-article-inner blockquote p{color:var(--ink)}
+.press-full-article .press-source-link{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-top:8px;transition:color .2s}
+.press-full-article .press-source-link:hover{color:var(--teal-bright)}
+.press-full-article .press-source-link svg{width:12px;height:12px}
 .press-link{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);text-decoration:none;margin-top:10px;transition:color .2s}
 .press-link:hover{color:var(--teal-bright)}
 .press-link svg{width:12px;height:12px;fill:currentColor}
@@ -278,17 +292,30 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   <div class="press-section-title" data-lang="es">Comunicados de Prensa</div>
 
   <div class="press-list">
-    <div class="press-item">
-      <div class="press-date">2025</div>
+    <div class="press-item" onclick="this.classList.toggle('expanded')">
+      <div class="press-date">March 2026</div>
       <div class="press-content">
-        <a href="https://www.prlog.org/13134646-vector-trade-capital-expands-caribbean-commodity-supply-operations-with-delivery-and-trade-finance.html" target="_blank" rel="noopener">
-          <h3 data-lang="en">Vector Trade Capital Expands Caribbean Commodity Supply Operations with Delivery and Trade Finance</h3>
-          <h3 data-lang="es">Vector Trade Capital Ampl&iacute;a Operaciones de Suministro de Materias Primas en el Caribe con Entrega y Financiamiento Comercial</h3>
-        </a>
+        <h3 data-lang="en">Vector Trade Capital Expands Caribbean Commodity Supply Operations with Delivery and Trade Finance</h3>
+        <h3 data-lang="es">Vector Trade Capital Ampl&iacute;a Operaciones de Suministro de Materias Primas en el Caribe con Entrega y Financiamiento Comercial</h3>
         <p data-lang="en">Vector Trade Capital expands its Caribbean commodity supply operations, offering integrated delivery and trade finance solutions for food staples, fuel, and vehicles across the region.</p>
         <p data-lang="es">Vector Trade Capital ampl&iacute;a sus operaciones de suministro de materias primas en el Caribe, ofreciendo soluciones integradas de entrega y financiamiento comercial para alimentos b&aacute;sicos, combustible y veh&iacute;culos en toda la regi&oacute;n.</p>
         <span class="press-source" data-lang="en">PRLog</span>
         <span class="press-source" data-lang="es">PRLog</span>
+        <div class="press-toggle" data-lang="en"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>Read Full Release</div>
+        <div class="press-toggle" data-lang="es"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>Leer Comunicado Completo</div>
+        <div class="press-full-article">
+          <div class="press-full-article-inner">
+            <p><strong>Houston, Texas &mdash; March 22, 2026</strong></p>
+            <p>Vector Trade Capital, a U.S.-based commodity supply and logistics firm, today announced the continued expansion of its operations across Caribbean markets, providing bulk fuel and food commodities to importers through a fully integrated CIF (Cost, Insurance, Freight) delivery model.</p>
+            <p>The company supports wholesale importers, fuel distributors, and government buyers across key markets including Jamaica, the Dominican Republic, Trinidad &amp; Tobago, the Bahamas, and Guyana. Vector Trade Capital supplies refined petroleum products such as diesel (ULSD), gasoline, and jet fuel, alongside essential food commodities including rice, frozen poultry, cooking oil, and sugar.</p>
+            <p>Vector Trade Capital&rsquo;s model is built around end-to-end execution, managing sourcing, logistics, inspection, and delivery to the destination port. By operating as a principal in transactions and deploying internal capital, the company enables faster execution timelines and reduces reliance on intermediaries, allowing buyers to secure supply with greater certainty.</p>
+            <blockquote><p>&ldquo;Importers across the Caribbean face ongoing challenges around reliability, timing, and access to capital,&rdquo; said Cole Kutschinski, President of Vector Trade Capital. &ldquo;Our focus is to simplify that process.&rdquo;</p></blockquote>
+            <p>The company sources primarily from U.S. Gulf Coast suppliers and structures transactions with third-party inspection and full export documentation, ensuring compliance and product integrity across shipments. Vector Trade Capital is designed to respond quickly to market demand, providing CIF pricing within 48 hours and executing transactions within standard commercial timelines.</p>
+            <p>As demand for both fuel and essential food commodities remains strong across the region, Vector Trade Capital continues to build long-term supply relationships with importers seeking dependable partners capable of delivering at scale.</p>
+            <p>In addition to its core supply operations, the company has developed structured trade finance capabilities to support importers navigating working capital constraints, further strengthening its role as a comprehensive supply partner in the region.</p>
+            <a href="https://www.prlog.org/13134646-vector-trade-capital-expands-caribbean-commodity-supply-operations-with-delivery-and-trade-finance.html" target="_blank" rel="noopener" class="press-source-link" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View on PRLog</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
