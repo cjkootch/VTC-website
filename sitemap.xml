@@ -179,4 +179,20 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://vectortradecapital.com/press.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/press.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/press.html"/>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://vectortradecapital.com/restricted-markets.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/restricted-markets.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/restricted-markets.html"/>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
 </urlset>
