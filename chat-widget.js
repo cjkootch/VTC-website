@@ -151,7 +151,7 @@ function init() {
     '.vtc-quick-replies{display:flex;flex-wrap:wrap;gap:6px;padding:8px 16px}',
     '.vtc-quick-btn{font-family:"DM Mono",monospace;font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;border-radius:20px;border:1px solid var(--vtc-teal);color:var(--vtc-teal);background:transparent;cursor:pointer;transition:all .2s}',
     '.vtc-quick-btn:hover{background:var(--vtc-teal);color:white}',
-    '@media(max-width:600px){#vtc-chat-panel{position:fixed;inset:0;width:100%;height:100%;max-height:100%;border:none;border-radius:0;display:none;flex-direction:column;overflow:hidden}#vtc-chat-panel.open{display:flex}#vtc-chat-panel.open~#vtc-chat-btn{display:none}#vtc-chat-btn{bottom:16px;right:16px;width:50px;height:50px}#vtc-chat-btn svg{width:22px;height:22px}#vtc-chat-header{flex:0 0 auto;padding:14px 16px;padding-top:max(14px,env(safe-area-inset-top))}#vtc-chat-messages{flex:1 1 auto;overflow-y:auto;min-height:0;max-height:none}#vtc-chat-input-wrap{flex:0 0 auto;padding:10px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom));background:var(--vtc-cream);border-top:1px solid rgba(184,150,62,0.15)}}'
+    '@media(max-width:600px){#vtc-chat-panel{position:fixed;inset:0;width:100%;height:100%;max-height:100%;border:none;border-radius:0;display:none;flex-direction:column;overflow:hidden;transform:none;opacity:0}#vtc-chat-panel.open{display:flex;opacity:1;transform:none}#vtc-chat-panel.open~#vtc-chat-btn{display:none}#vtc-chat-btn{bottom:16px;right:16px;width:50px;height:50px}#vtc-chat-btn svg{width:22px;height:22px}#vtc-chat-header{flex:0 0 auto;padding:14px 16px;padding-top:max(14px,env(safe-area-inset-top))}#vtc-chat-messages{flex:1 1 auto;overflow-y:auto;min-height:0;max-height:none}#vtc-chat-input-wrap{flex:0 0 auto;padding:10px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom));background:var(--vtc-cream);border-top:1px solid rgba(184,150,62,0.15)}}'
   ].join('\n');
   document.head.appendChild(style);
 
@@ -270,6 +270,12 @@ function showWelcome() {
 function toggleChat() {
   isOpen = !isOpen;
   document.getElementById('vtc-chat-panel').classList.toggle('open', isOpen);
+    // Reset viewport zoom on mobile when closing
+    if (!isOpen && window.innerWidth <= 600) {
+      var vp = document.querySelector('meta[name="viewport"]');
+      if (vp) { vp.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0'; setTimeout(function(){ vp.content = 'width=device-width, initial-scale=1.0'; }, 100); }
+      window.scrollTo(0, 0);
+    }
   document.getElementById('vtc-chat-btn').classList.toggle('open', isOpen);
   if (isOpen) {
     showWelcome();
