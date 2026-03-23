@@ -51,6 +51,12 @@ function gtag_report_conversion(url) {
 }
 </script>
 <!-- End Google Ads Conversion Tracking -->
+<script>
+// Force scroll to top on page load/reload
+if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+window.addEventListener('load', function() { window.scrollTo(0, 0); });
+window.addEventListener('beforeunload', function() { window.scrollTo(0, 0); });
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Caribbean Commodity Supplier | Fuel, Food &amp; Vehicles CIF Delivery — Vector Trade Capital</title>
