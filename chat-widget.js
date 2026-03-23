@@ -381,17 +381,15 @@ if (window.visualViewport) {
   window.visualViewport.addEventListener('resize', function() {
     var panel = document.getElementById('vtc-chat-panel');
     if (panel && panel.classList.contains('open') && window.innerWidth <= 600) {
-      panel.style.height = window.visualViewport.height + 'px';
-      panel.style.maxHeight = window.visualViewport.height + 'px';
-      // Scroll messages to bottom
+      var vh = window.visualViewport.height;
+      panel.style.height = vh + 'px';
+      panel.style.maxHeight = vh + 'px';
       var msgs = document.getElementById('vtc-chat-messages');
       if (msgs) msgs.scrollTop = msgs.scrollHeight;
-    }
-  });
-  window.visualViewport.addEventListener('scroll', function() {
-    var panel = document.getElementById('vtc-chat-panel');
-    if (panel && panel.classList.contains('open') && window.innerWidth <= 600) {
-      panel.style.top = window.visualViewport.offsetTop + 'px';
+    } else if (panel && !panel.classList.contains('open')) {
+      panel.style.height = '';
+      panel.style.maxHeight = '';
+      panel.style.top = '';
     }
   });
 }
