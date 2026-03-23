@@ -1,204 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Main pages -->
   <url>
     <loc>https://vectortradecapital.com/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/"/>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/food.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/food.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/food.html"/>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/fuel.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/fuel.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/fuel.html"/>
-    <lastmod>2026-03-18</lastmod>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  <url>
-    <loc>https://vectortradecapital.com/team.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/team.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/team.html"/>
-    <lastmod>2026-03-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/privacy.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/privacy.html"/>
-    <lastmod>2026-03-16</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
+  
   <url>
     <loc>https://vectortradecapital.com/blog.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/blog.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/blog.html"/>
-    <lastmod>2026-03-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/blog/cif-delivery-caribbean.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/blog/cif-delivery-caribbean.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/blog/cif-delivery-caribbean.html"/>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/blog/bulk-rice-import-guide.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/blog/bulk-rice-import-guide.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/blog/bulk-rice-import-guide.html"/>
-    <lastmod>2026-03-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/blog/caribbean-fuel-supply-chain.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/blog/caribbean-fuel-supply-chain.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/blog/caribbean-fuel-supply-chain.html"/>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/blog/caribbean-sugar-import-guide.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/blog/caribbean-sugar-import-guide.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/blog/caribbean-sugar-import-guide.html"/>
-    <lastmod>2026-03-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/blog/letters-of-credit-caribbean-trade.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/blog/letters-of-credit-caribbean-trade.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/blog/letters-of-credit-caribbean-trade.html"/>
-    <lastmod>2026-03-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/blog/caribbean-port-infrastructure-guide.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/blog/caribbean-port-infrastructure-guide.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/blog/caribbean-port-infrastructure-guide.html"/>
-    <lastmod>2026-03-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/blog/cooking-oil-caribbean-supply.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/blog/cooking-oil-caribbean-supply.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/blog/cooking-oil-caribbean-supply.html"/>
-    <lastmod>2026-03-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/blog/frozen-poultry-import-caribbean.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/blog/frozen-poultry-import-caribbean.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/blog/frozen-poultry-import-caribbean.html"/>
-    <lastmod>2026-03-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/blog/diesel-import-caribbean-guide.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/blog/diesel-import-caribbean-guide.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/blog/diesel-import-caribbean-guide.html"/>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/vehicles.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/vehicles.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/vehicles.html"/>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/game.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/game.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/game.html"/>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/llms.txt</loc>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/playbook/</loc>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/markets/jamaica.html</loc>
-    <lastmod>2026-03-18</lastmod>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+
+  <!-- Blog posts -->
   <url>
-    <loc>https://vectortradecapital.com/markets/dominican-republic.html</loc>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/markets/trinidad-and-tobago.html</loc>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/markets/bahamas.html</loc>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/markets/guyana.html</loc>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vectortradecapital.com/press.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/press.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/press.html"/>
+    <loc>https://vectortradecapital.com/blog/how-to-find-reliable-fuel-supplier-caribbean.html</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.8</priority>
   </url>
+
   <url>
-    <loc>https://vectortradecapital.com/restricted-markets.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/restricted-markets.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/restricted-markets.html"/>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>  <url>
-    <loc>https://vectortradecapital.com/markets/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://vectortradecapital.com/markets/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vectortradecapital.com/markets/"/>
+    <loc>https://vectortradecapital.com/blog/bulk-food-commodity-suppliers-caribbean.html</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://vectortradecapital.com/blog/caribbean-fuel-pricing-cif-explained.html</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://vectortradecapital.com/blog/principal-trader-vs-broker-commodity-imports.html</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://vectortradecapital.com/blog/trade-finance-caribbean-commodity-imports.html</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>
