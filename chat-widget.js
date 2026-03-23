@@ -21,6 +21,9 @@ Leadership: Amber Lynn Hamby (Chairwoman), Cole Kutschinski (President), Kevin K
 Offices: Houston TX (HQ), Miami FL, Dubai UAE.
 Contact: info@vectortradecapital.com
 
+## CRITICAL: VTC is NOT a Broker
+Vector Trade Capital is a PRINCIPAL commodity trader. The company purchases commodities on its own account, takes legal title to the goods, deploys its own working capital, assumes delivery risk, and manages the full physical supply chain. It is NOT a broker, intermediary, or financial middleman. Unlike retail distributors (Sol, Rubis, Petrojam), VTC operates upstream — sourcing bulk cargoes from refineries and delivering them CIF to Caribbean terminals. When relevant, proactively clarify this distinction.
+
 ## Products
 
 ### Food Commodities
@@ -60,6 +63,18 @@ Primary: Jamaica (Kingston), Trinidad & Tobago (Port of Spain), Dominican Republ
 Secondary: Wider Caribbean and Latin America.
 Transit from US Gulf Coast to Kingston: 4-7 days.
 
+## Blog Content References
+When a user asks about these topics, reference the relevant blog article:
+- CIF delivery / shipping terms → https://vectortradecapital.com/blog/cif-delivery-caribbean.html
+- Rice importing → https://vectortradecapital.com/blog/bulk-rice-import-guide.html
+- Fuel supply chain → https://vectortradecapital.com/blog/caribbean-fuel-supply-chain.html
+- Sugar importing → https://vectortradecapital.com/blog/caribbean-sugar-import-guide.html
+- Letters of credit / payment → https://vectortradecapital.com/blog/letters-of-credit-caribbean-trade.html
+- Port infrastructure → https://vectortradecapital.com/blog/caribbean-port-infrastructure-guide.html
+- Cooking oil → https://vectortradecapital.com/blog/cooking-oil-caribbean-supply.html
+- Frozen poultry → https://vectortradecapital.com/blog/frozen-poultry-import-caribbean.html
+- Diesel importing → https://vectortradecapital.com/blog/diesel-import-caribbean-guide.html
+
 ## Process
 1. Buyer submits requirements (product, specs, volume, destination port)
 2. VTC responds with firm CIF quote within 48 hours
@@ -81,7 +96,9 @@ Transit from US Gulf Coast to Kingston: 4-7 days.
 7. If asked something outside VTC's scope, politely redirect to what VTC does offer.
 8. Reference specific blog articles or the playbook when relevant to the user's question.
 9. NEVER use emojis, markdown headings (#), or horizontal rules. Use only **bold**, [links](url), and plain line breaks for formatting. Keep it clean and corporate.
-10. Keep responses short — 2-4 short paragraphs max. Do not write walls of text.`;
+10. Keep responses short — 2-4 short paragraphs max. Do not write walls of text.
+11. After the user mentions a specific product, volume, AND destination, proactively offer to collect their contact details to send a formal quote. Say something like: "I can have our trade desk send you a CIF quote within 48 hours. Would you like to share your email and company name so we can follow up directly?"
+12. If the user provides their email or company name in chat, acknowledge it and confirm that the trade desk will follow up. Do not ask for more information than needed.`;
 
 // ── STATE ──
 var messages = [];
@@ -131,6 +148,9 @@ function init() {
     '#vtc-chat-send:hover{background:var(--vtc-teal-bright)}',
     '#vtc-chat-send:disabled{background:rgba(26,122,94,0.3);cursor:default}',
     '#vtc-chat-send svg{width:18px;height:18px;fill:white}',
+    '.vtc-quick-replies{display:flex;flex-wrap:wrap;gap:6px;padding:8px 16px}',
+    '.vtc-quick-btn{font-family:"DM Mono",monospace;font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;border-radius:20px;border:1px solid var(--vtc-teal);color:var(--vtc-teal);background:transparent;cursor:pointer;transition:all .2s}',
+    '.vtc-quick-btn:hover{background:var(--vtc-teal);color:white}',
     '@media(max-width:600px){#vtc-chat-panel{right:0;left:0;bottom:0;top:0;width:100%;max-height:none;border:none;border-radius:0}#vtc-chat-panel.open~#vtc-chat-btn{display:none}#vtc-chat-btn{bottom:16px;right:16px;width:50px;height:50px}#vtc-chat-btn svg{width:22px;height:22px}#vtc-chat-messages{min-height:0;flex:1;max-height:none}#vtc-chat-header{padding:14px 16px;padding-top:max(14px,env(safe-area-inset-top))}#vtc-chat-input-wrap{padding:10px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom))}}'
   ].join('\n');
   document.head.appendChild(style);
@@ -196,14 +216,55 @@ var langObserver = new MutationObserver(function() {
 });
 langObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
 
+function getPageContext() {
+  var pageContext = '';
+  var path = window.location.pathname;
+  if (path.includes('fuel')) pageContext = '\n\n## Current Page Context\nThe user is on the FUEL page. Prioritize fuel-related responses (diesel, gasoline, jet fuel, LPG, HFO, MGO).';
+  else if (path.includes('food')) pageContext = '\n\n## Current Page Context\nThe user is on the FOOD page. Prioritize food commodity responses (rice, sugar, flour, cooking oil, poultry).';
+  else if (path.includes('vehicles')) pageContext = '\n\n## Current Page Context\nThe user is on the VEHICLES page. Prioritize vehicle and equipment export responses.';
+  else if (path.includes('market') || path.includes('jamaica') || path.includes('trinidad') || path.includes('dominican') || path.includes('bahamas') || path.includes('guyana')) pageContext = '\n\n## Current Page Context\nThe user is on a MARKET page. They are likely researching imports for a specific Caribbean country.';
+  else if (path.includes('blog')) pageContext = '\n\n## Current Page Context\nThe user is reading a blog article. They may have specific questions about the topic covered.';
+  else if (path.includes('playbook')) pageContext = '\n\n## Current Page Context\nThe user is viewing the Caribbean Import Playbook. They are likely a serious buyer researching the import process.';
+  return pageContext;
+}
+
 function showWelcome() {
   var container = document.getElementById('vtc-chat-messages');
   if (container.children.length > 0) return; // Already shown
+  
   if (getLang() === 'es') {
     addMessage('assistant', 'Hola, soy el asistente comercial de Vector Trade Capital. Puedo ayudarle con preguntas sobre nuestro suministro de **alimentos, combustible y vehículos** al Caribe.\n\n¿Qué está buscando importar?');
   } else {
     addMessage('assistant', 'Hello! I\'m the Vector Trade Capital trade assistant. I can help you with questions about our **food, fuel, and vehicle** supply to the Caribbean.\n\nWhat are you looking to import?');
   }
+  
+  // Show quick replies
+  var quickReplies = [
+    { label: 'Fuel Pricing', text: 'I need CIF pricing on fuel products for the Caribbean' },
+    { label: 'Food Commodities', text: 'What food commodities do you supply?' },
+    { label: 'How CIF Works', text: 'Can you explain how CIF delivery works?' },
+    { label: 'Request a Quote', text: 'I want to request a quote for a shipment' }
+  ];
+  
+  var repliesDiv = document.createElement('div');
+  repliesDiv.className = 'vtc-quick-replies';
+  repliesDiv.id = 'vtc-quick-replies-container';
+  
+  for (var i = 0; i < quickReplies.length; i++) {
+    (function(reply) {
+      var btn = document.createElement('button');
+      btn.className = 'vtc-quick-btn';
+      btn.textContent = reply.label;
+      btn.onclick = function() {
+        document.getElementById('vtc-chat-input').value = reply.text;
+        document.getElementById('vtc-quick-replies-container').style.display = 'none';
+        sendMessage();
+      };
+      repliesDiv.appendChild(btn);
+    })(quickReplies[i]);
+  }
+  
+  container.appendChild(repliesDiv);
 }
 
 function toggleChat() {
@@ -260,6 +321,10 @@ function sendMessage() {
   input.style.height = 'auto';
   addMessage('user', text);
   messages.push({ role: 'user', content: text });
+  
+  // Hide quick replies after first message
+  var quickReplies = document.getElementById('vtc-quick-replies-container');
+  if (quickReplies) quickReplies.style.display = 'none';
 
   isLoading = true;
   document.getElementById('vtc-chat-send').disabled = true;
@@ -267,12 +332,16 @@ function sendMessage() {
 
   // Trim conversation history
   var sendMessages = messages.slice(-MAX_MESSAGES);
+  
+  // Get page context and append to system prompt
+  var pageContext = getPageContext();
+  var systemWithContext = SYSTEM_PROMPT + '\n\nThe website is currently set to language: ' + getLang() + '. If the user has not written in a specific language yet, default to ' + (getLang() === 'es' ? 'Spanish' : 'English') + '.' + pageContext;
 
   fetch(API_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      system: SYSTEM_PROMPT + '\n\nThe website is currently set to language: ' + getLang() + '. If the user has not written in a specific language yet, default to ' + (getLang() === 'es' ? 'Spanish' : 'English') + '.',
+      system: systemWithContext,
       messages: sendMessages,
       sessionId: sessionId,
       pageUrl: window.location.href
