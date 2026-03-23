@@ -151,7 +151,7 @@ function init() {
     '.vtc-quick-replies{display:flex;flex-wrap:wrap;gap:6px;padding:8px 16px}',
     '.vtc-quick-btn{font-family:"DM Mono",monospace;font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;border-radius:20px;border:1px solid var(--vtc-teal);color:var(--vtc-teal);background:transparent;cursor:pointer;transition:all .2s}',
     '.vtc-quick-btn:hover{background:var(--vtc-teal);color:white}',
-    '@media(max-width:600px){#vtc-chat-panel{right:0;left:0;bottom:0;top:0;width:100%;max-height:none;border:none;border-radius:0}#vtc-chat-panel.open~#vtc-chat-btn{display:none}#vtc-chat-btn{bottom:16px;right:16px;width:50px;height:50px}#vtc-chat-btn svg{width:22px;height:22px}#vtc-chat-messages{min-height:0;flex:1;max-height:none}#vtc-chat-header{padding:14px 16px;padding-top:max(14px,env(safe-area-inset-top))}#vtc-chat-input-wrap{padding:10px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom))}}'
+    '@media(max-width:600px){#vtc-chat-panel{position:fixed;right:0;left:0;bottom:0;top:0;width:100%;height:100dvh;max-height:100dvh;border:none;border-radius:0;display:flex;flex-direction:column}#vtc-chat-panel.open~#vtc-chat-btn{display:none}#vtc-chat-btn{bottom:16px;right:16px;width:50px;height:50px}#vtc-chat-btn svg{width:22px;height:22px}#vtc-chat-messages{min-height:0;flex:1;max-height:none;overflow-y:auto}#vtc-chat-header{padding:14px 16px;padding-top:max(14px,env(safe-area-inset-top));flex-shrink:0}#vtc-chat-input-wrap{padding:10px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom));flex-shrink:0;position:sticky;bottom:0;background:var(--vtc-cream);border-top:1px solid rgba(184,150,62,0.15)}}'
   ].join('\n');
   document.head.appendChild(style);
 
@@ -375,4 +375,25 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
+
+// Mobile keyboard resize handler
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', function() {
+    var panel = document.getElementById('vtc-chat-panel');
+    if (panel && panel.classList.contains('open') && window.innerWidth <= 600) {
+      panel.style.height = window.visualViewport.height + 'px';
+      panel.style.maxHeight = window.visualViewport.height + 'px';
+      // Scroll messages to bottom
+      var msgs = document.getElementById('vtc-chat-messages');
+      if (msgs) msgs.scrollTop = msgs.scrollHeight;
+    }
+  });
+  window.visualViewport.addEventListener('scroll', function() {
+    var panel = document.getElementById('vtc-chat-panel');
+    if (panel && panel.classList.contains('open') && window.innerWidth <= 600) {
+      panel.style.top = window.visualViewport.offsetTop + 'px';
+    }
+  });
+}
+
 })();
