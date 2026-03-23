@@ -1793,26 +1793,37 @@ function submitRfq() {
   formData.append('timeline', rfqData.timeline);
   formData.append('notes', rfqData.notes);
 
+  // Fire conversion BEFORE form submission
+  gtag('event', 'generate_lead', {
+    'event_category': 'form',
+    'event_label': 'rfq_submit',
+    'value': 1.0
+  });
+  gtag_report_conversion();
+  
   grecaptcha.ready(function() {
     grecaptcha.execute('6LcpCVkrAAAAAJzSbNMBSXjMHMdQFaMCO3v4GUvH', {action: 'rfq_submit'}).then(function(token) {
       formData.append('g-recaptcha-response', token);
-      fetch('https://formspree.io/f/mojkkvdl', {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      }).then(function(r) {
-        if (r.ok) {
-          rfqNext('success');
-          gtag_report_conversion();
-          dataLayer.push({
-            'event': 'RFQ_Complete',
-            'rfq_category': rfqData.category,
-            'rfq_product': rfqData.product,
-            'rfq_destination': rfqData.port,
-            'rfq_incoterm': rfqData.incoterm
-          });
-        }
-      });
+      
+      // Wait 500ms for conversion tag to fire before submitting
+      setTimeout(function() {
+        fetch('https://formspree.io/f/mojkkvdl', {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        }).then(function(r) {
+          if (r.ok) {
+            rfqNext('success');
+            dataLayer.push({
+              'event': 'RFQ_Complete',
+              'rfq_category': rfqData.category,
+              'rfq_product': rfqData.product,
+              'rfq_destination': rfqData.port,
+              'rfq_incoterm': rfqData.incoterm
+            });
+          }
+        });
+      }, 500);
     });
   });
 }
@@ -1852,26 +1863,38 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 document.querySelector('.contact-form').addEventListener('submit', function(e){
   e.preventDefault();
   const form = e.target;
+  
+  // Fire conversion BEFORE form submission
+  gtag('event', 'generate_lead', {
+    'event_category': 'form',
+    'event_label': 'contact_submit',
+    'value': 1.0
+  });
+  gtag_report_conversion();
+  
   grecaptcha.ready(function() {
     grecaptcha.execute('6LcpCVkrAAAAAJzSbNMBSXjMHMdQFaMCO3v4GUvH', {action: 'contact_submit'}).then(function(token) {
       const fd = new FormData(form);
       fd.append('g-recaptcha-response', token);
-      fetch(form.action, {
-        method: 'POST',
-        body: fd,
-        headers: {'Accept': 'application/json'}
-      }).then(r => {
-        if(r.ok){
-          gtag_report_conversion();
-          document.getElementById('form-msg').classList.add('show');
-          document.getElementById('form-msg-es').classList.add('show');
-          form.reset();
-          setTimeout(() => {
-            document.getElementById('form-msg').classList.remove('show');
-            document.getElementById('form-msg-es').classList.remove('show');
-          }, 6000);
-        }
-      });
+      
+      // Wait 500ms for conversion tag to fire before submitting
+      setTimeout(function() {
+        fetch(form.action, {
+          method: 'POST',
+          body: fd,
+          headers: {'Accept': 'application/json'}
+        }).then(r => {
+          if(r.ok){
+            document.getElementById('form-msg').classList.add('show');
+            document.getElementById('form-msg-es').classList.add('show');
+            form.reset();
+            setTimeout(() => {
+              document.getElementById('form-msg').classList.remove('show');
+              document.getElementById('form-msg-es').classList.remove('show');
+            }, 6000);
+          }
+        });
+      }, 500);
     });
   });
 });
