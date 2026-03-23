@@ -141,7 +141,7 @@ function init() {
     '.vtc-typing span:nth-child(3){animation-delay:.3s}',
     '@keyframes vtcBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}',
     '#vtc-chat-input-wrap{padding:12px;border-top:1px solid rgba(184,150,62,0.12);display:flex;gap:8px;background:var(--vtc-cream)}',
-    '#vtc-chat-input{flex:1;border:1px solid rgba(184,150,62,0.2);background:white;padding:10px 14px;font-family:"DM Sans",sans-serif;font-size:13.5px;color:var(--vtc-ink);outline:none;resize:none;min-height:40px;max-height:80px;line-height:1.5;border-radius:20px;transition:border-color .2s}',
+    '#vtc-chat-input{flex:1;border:1px solid rgba(184,150,62,0.2);background:white;padding:10px 14px;font-family:"DM Sans",sans-serif;font-size:16px;color:var(--vtc-ink);outline:none;resize:none;min-height:40px;max-height:80px;line-height:1.5;border-radius:20px;transition:border-color .2s}',
     '#vtc-chat-input:focus{border-color:var(--vtc-teal)}',
     '#vtc-chat-input::placeholder{color:rgba(14,26,20,0.3)}',
     '#vtc-chat-send{width:40px;height:40px;border-radius:50%;background:var(--vtc-teal);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}',
@@ -376,11 +376,6 @@ if (document.readyState === 'loading') {
   init();
 }
 
-// Mobile keyboard: scroll input into view on focus
-document.addEventListener('focusin', function(e) {
-  if (e.target.id === 'vtc-chat-input' && window.innerWidth <= 600) {
-    setTimeout(function() { e.target.scrollIntoView({block:'nearest'}); }, 300);
-  }
-});
+
 
 })();
