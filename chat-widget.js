@@ -270,10 +270,8 @@ function showWelcome() {
 function toggleChat() {
   isOpen = !isOpen;
   document.getElementById('vtc-chat-panel').classList.toggle('open', isOpen);
-    // Reset viewport zoom on mobile when closing
+    // Scroll to top on mobile when closing
     if (!isOpen && window.innerWidth <= 600) {
-      var vp = document.querySelector('meta[name="viewport"]');
-      if (vp) { vp.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0'; setTimeout(function(){ vp.content = 'width=device-width, initial-scale=1.0'; }, 100); }
       window.scrollTo(0, 0);
     }
   document.getElementById('vtc-chat-btn').classList.toggle('open', isOpen);
