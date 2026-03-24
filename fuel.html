@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Google Ads tag -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18030544849"></script>
 <script>
@@ -12,20 +14,17 @@
 </script>
 <!-- End Google Ads tag -->
 <!-- LinkedIn Insight Tag -->
-<script type="text/javascript">
-_linkedin_partner_id = "8979716";
-window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
-window._linkedin_data_partner_ids.push(_linkedin_partner_id);
-</script>
-<script type="text/javascript">
-(function(l) {
-if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
-window.lintrk.q=[]}
-var s = document.getElementsByTagName("script")[0];
-var b = document.createElement("script");
-b.type = "text/javascript";b.async = true;
-b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
-s.parentNode.insertBefore(b, s);})(window.lintrk);
+<script>
+window.addEventListener('load', function() {
+  _linkedin_partner_id = "8979716";
+  window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+  window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+  var s = document.getElementsByTagName("script")[0];
+  var b = document.createElement("script");
+  b.type = "text/javascript";b.async = true;
+  b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+  s.parentNode.insertBefore(b, s);
+});
 </script>
 <noscript>
 <img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=8979716&fmt=gif" />
@@ -49,8 +48,6 @@ function gtag_report_conversion(url) {
 }
 </script>
 <!-- End Google Ads Conversion Tracking -->
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Caribbean Fuel Supplier | CIF Diesel & Gasoline — VTC</title>
 <meta name="description" content="ULSD diesel, gasoline, jet fuel, and LPG delivered CIF to Caribbean terminals. Bulk supply from US Gulf Coast refineries.">
 <meta name="keywords" content="fuel supplier Caribbean, diesel supplier Caribbean, CIF fuel supplier Caribbean, fuel supplier Jamaica, fuel supplier Dominican Republic, bulk fuel supplier Caribbean, gasoline supplier Caribbean, jet fuel supplier Caribbean, ULSD export Caribbean, fuel delivery Caribbean">
@@ -78,6 +75,9 @@ function gtag_report_conversion(url) {
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://images.unsplash.com">
+<link rel="dns-prefetch" href="https://snap.licdn.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" as="style">
@@ -293,13 +293,16 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
   .footer-right{grid-column:span 2;text-align:center;margin-top:8px;padding-top:16px;border-top:1px solid rgba(184,150,62,0.1)}
   .footer-legal{padding:16px 0 0;font-size:11px}
 }
+
+/* Performance: content-visibility for below-fold sections */
+section:not(:first-of-type),footer{content-visibility:auto;contain-intrinsic-size:auto 600px}
 </style>
 </head>
 <body>
 <!-- NAV -->
 <nav id="navbar">
   <a href="index.html" class="nav-logo">
-    <img src="vector-trade-capital-logo.png" alt="Vector Trade Capital logo">
+    <img src="vector-trade-capital-logo.png" alt="Vector Trade Capital logo" width="80" height="80">
   </a>
   <ul class="nav-links">
     <li><a href="index.html#products" data-lang="en">What We Do</a><a href="index.html#products" data-lang="es">Qué Hacemos</a></li>
@@ -865,7 +868,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">
-      <img src="vector-trade-capital-logo.png" alt="Vector Trade Capital logo">
+      <img src="vector-trade-capital-logo.png" alt="Vector Trade Capital logo" width="80" height="80">
     </div>
     <div class="footer-nav">
       <div class="footer-nav-title" data-lang="en">Products</div>
@@ -999,3 +1002,4 @@ document.querySelectorAll('.reveal').forEach(r => observer.observe(r));
 </script>
 </body>
 </html>
+
