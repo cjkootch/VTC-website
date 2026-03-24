@@ -210,9 +210,6 @@ window.addEventListener('beforeunload', function() { window.scrollTo(0, 0); });
   ]
 }
 </script>
-<!-- Leaflet Map -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -243,11 +240,9 @@ body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;f
 [data-lang="es"]{display:none!important}
 html[lang="es"] [data-lang="en"]{display:none!important}
 html[lang="es"] [data-lang="es"]{display:block!important}
-html[lang="es"] .reason[data-lang="es"]{display:grid!important}
 html[lang="es"] .section-label[data-lang="es"]{display:flex!important}
 html[lang="es"] span[data-lang="es"]{display:inline-block!important}
 html[lang="es"] a[data-lang="es"]{display:inline-flex!important}
-html[lang="es"] button.btn-send[data-lang="es"]{display:flex!important}
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:4px 60px;background:rgba(14,26,20,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,150,62,0.15);transition:transform .35s ease,background .3s ease}
 nav.nav-hidden{transform:translateY(-100%)}
@@ -267,100 +262,129 @@ nav.nav-scrolled .nav-logo img{height:60px}
 .lang-btn.active{background:var(--gold);color:var(--ink);border-color:var(--gold)}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
 .hamburger span{display:block;width:22px;height:1px;background:var(--cream)}
-/* ── BLOG HERO ── */
-#blog-hero{min-height:60vh;display:flex;flex-direction:column;justify-content:center;position:relative;padding:140px 60px 80px;overflow:hidden;background:var(--ink)}
-.blog-hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(14,26,20,0.9) 0%,rgba(14,26,20,0.7) 100%);pointer-events:none}
-#blog-hero::before{content:'';position:absolute;top:-100px;left:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(26,122,94,.08) 0%,transparent 70%);pointer-events:none;z-index:1}
-#blog-hero::after{content:'';position:absolute;bottom:-100px;right:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(184,150,62,.06) 0%,transparent 70%);pointer-events:none;z-index:1}
-.blog-hero-inner{max-width:900px;position:relative;z-index:2}
-.breadcrumb{display:flex;align-items:center;gap:12px;margin-bottom:32px;font-size:12px;flex-wrap:wrap}
-.breadcrumb a{color:rgba(245,240,232,0.5);text-decoration:none;transition:color .2s}
-.breadcrumb a:hover{color:var(--gold)}
-.breadcrumb span{color:rgba(245,240,232,0.3)}
-.blog-category{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;opacity:0;animation:fadeUp .8s ease .2s forwards}
-.blog-headline{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,60px);font-weight:400;line-height:1.15;color:var(--cream);margin-bottom:24px;opacity:0;animation:fadeUp .8s ease .4s forwards}
-.blog-meta{display:flex;gap:24px;font-size:13px;color:rgba(245,240,232,0.55);margin-top:24px;opacity:0;animation:fadeUp .8s ease .6s forwards}
-.blog-date::before{content:'📅 '}
-.blog-read::before{content:'⏱ '}
-/* ── CONTENT SECTION ── */
-#content{background:var(--white);padding:100px 60px}
-.content-inner{max-width:900px;margin:0 auto}
-.content-inner h2{font-family:'Playfair Display',serif;font-size:32px;font-weight:400;color:var(--ink);line-height:1.25;margin:64px 0 24px}
-.content-inner h2:first-child{margin-top:0}
-.content-inner h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;color:var(--ink-mid);line-height:1.3;margin:48px 0 16px}
-.content-inner p{font-size:16px;color:rgba(14,26,20,0.65);line-height:1.8;margin-bottom:18px}
-.content-inner strong{color:var(--ink);font-weight:500}
-.content-inner em{color:var(--teal);font-style:italic}
-.content-inner ul,.content-inner ol{margin:24px 0 24px 32px}
-.content-inner li{font-size:15px;color:rgba(14,26,20,0.65);line-height:1.8;margin-bottom:12px}
-.content-inner a{color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(26,122,94,0.3);transition:all .2s}
-.content-inner a:hover{color:var(--teal-bright);border-bottom-color:var(--teal-bright)}
-.cta-box{background:linear-gradient(135deg,rgba(26,122,94,0.08) 0%,rgba(184,150,62,0.04) 100%);border:1px solid var(--border);border-radius:12px;padding:40px;margin:48px 0;text-align:center}
-.cta-box h3{font-size:24px;margin:0 0 16px}
-.cta-box p{margin-bottom:24px;color:rgba(14,26,20,0.65)}
-.cta-btn{display:inline-flex;align-items:center;gap:8px;background:var(--teal);color:var(--white);padding:14px 28px;border:none;border-radius:24px;cursor:pointer;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:all .3s}
-.cta-btn:hover{background:var(--teal-bright);transform:translateX(4px)}
+/* ── ARTICLE HEADER ── */
+.article-header{background:var(--ink);padding:140px 60px 80px;position:relative;overflow:hidden}
+.article-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 80%,rgba(26,122,94,.1) 0%,transparent 70%);pointer-events:none}
+.article-header::after{content:'';position:absolute;top:-120px;right:-120px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(184,150,62,.06) 0%,transparent 70%);pointer-events:none}
+.article-header-inner{max-width:800px;margin:0 auto;position:relative;z-index:1}
+.article-meta{display:flex;align-items:center;gap:16px;margin-bottom:28px}
+.article-tag{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(184,150,62,0.35);padding:4px 12px;line-height:1.5}
+.article-date{font-family:'DM Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,240,232,0.35)}
+.article-author{font-family:'DM Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,240,232,0.35)}
+.article-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,52px);font-weight:400;color:var(--cream);line-height:1.12;margin-bottom:28px}
+.article-title em{font-style:italic;color:var(--gold-light)}
+.article-intro{font-size:17px;color:rgba(245,240,232,0.55);line-height:1.85;max-width:680px}
+/* ── ARTICLE BODY ── */
+.article-body-wrap{max-width:800px;margin:0 auto;padding:80px 60px 120px}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:48px}
+.breadcrumb a{color:var(--teal);text-decoration:none;transition:color .2s}
+.breadcrumb a:hover{color:var(--teal-bright)}
+.breadcrumb span{color:rgba(14,26,20,0.35)}
+.breadcrumb .breadcrumb-sep{color:rgba(14,26,20,0.2);font-size:13px}
+/* ── ARTICLE PROSE ── */
+.article-prose h2{font-family:'Playfair Display',serif;font-size:clamp(22px,2.4vw,30px);font-weight:400;color:var(--ink);line-height:1.2;margin:52px 0 18px;padding-top:12px;border-top:1px solid var(--border-light)}
+.article-prose h2:first-child{margin-top:0;border-top:none;padding-top:0}
+.article-prose p{font-size:16px;color:rgba(14,26,20,0.78);line-height:1.85;margin-bottom:20px}
+.article-prose ul,.article-prose ol{margin:0 0 20px 0;padding-left:0;list-style:none}
+.article-prose ul li,.article-prose ol li{font-size:16px;color:rgba(14,26,20,0.78);line-height:1.85;padding:6px 0 6px 28px;position:relative;border-bottom:1px solid rgba(184,150,62,0.07)}
+.article-prose ul li:last-child,.article-prose ol li:last-child{border-bottom:none}
+.article-prose ul li::before{content:'—';position:absolute;left:0;color:var(--gold);font-family:'DM Mono',monospace;font-size:12px;top:9px}
+.article-prose ol{counter-reset:ol-counter}
+.article-prose ol li{counter-increment:ol-counter}
+.article-prose ol li::before{content:counter(ol-counter,decimal-leading-zero);position:absolute;left:0;color:var(--teal);font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.06em;top:10px}
+.article-prose strong{font-weight:500;color:var(--ink)}
+.article-prose a{color:var(--teal);text-decoration:underline;text-decoration-color:rgba(26,122,94,0.3);text-underline-offset:3px;transition:color .2s,text-decoration-color .2s}
+.article-prose a:hover{color:var(--teal-bright);text-decoration-color:rgba(34,160,124,0.5)}
+/* ── CALLOUT BOX ── */
+.callout{background:var(--ink);border-left:3px solid var(--gold);padding:28px 32px;margin:36px 0;position:relative;overflow:hidden}
+.callout::before{content:'';position:absolute;top:0;right:0;width:200px;height:100%;background:radial-gradient(ellipse at 100% 50%,rgba(184,150,62,.05) 0%,transparent 70%);pointer-events:none}
+.callout-label{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.callout p{font-size:15px;color:rgba(245,240,232,0.65);line-height:1.8;margin-bottom:0}
+.callout p strong{color:var(--cream)}
+/* ── CTA STRIP ── */
+.article-cta{background:var(--ink-mid);padding:48px 52px;margin:56px 0 0;border:1px solid rgba(184,150,62,0.15);position:relative;overflow:hidden}
+.article-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(26,122,94,.08) 0%,transparent 65%);pointer-events:none}
+.article-cta-inner{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.article-cta-text{}
+.article-cta-label{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--teal-bright);margin-bottom:10px}
+.article-cta-title{font-family:'Playfair Display',serif;font-size:clamp(20px,2vw,26px);font-weight:400;color:var(--cream);line-height:1.25;margin-bottom:8px}
+.article-cta-sub{font-size:14px;color:rgba(245,240,232,0.5);line-height:1.7}
+.article-cta-btn{display:inline-flex;align-items:center;gap:12px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;background:var(--teal);color:var(--white);padding:16px 32px;border-radius:28px;transition:all .3s cubic-bezier(.4,0,.2,1);white-space:nowrap;flex-shrink:0}
+.article-cta-btn:hover{background:var(--teal-bright);transform:translateX(4px);box-shadow:0 8px 28px rgba(26,122,94,0.25)}
+.article-cta-btn::after{content:'';display:block;width:18px;height:1px;background:currentColor;transition:width .3s}
+.article-cta-btn:hover::after{width:28px}
 /* ── CARD GRID ── */
-.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin:48px 0}
-.card{background:var(--cream-dark);border:1px solid var(--border-light);border-radius:12px;padding:32px;transition:all .3s}
-.card:hover{border-color:var(--gold);box-shadow:0 12px 32px rgba(184,150,62,0.1)}
-.card h4{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;color:var(--ink);margin-bottom:12px}
-.card p{font-size:14px;color:rgba(14,26,20,0.6);line-height:1.7;margin:0}
+.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:36px 0}
+.card{background:var(--cream-dark);border:1px solid var(--border-light);border-radius:8px;padding:28px;transition:all .3s}
+.card:hover{border-color:var(--gold);box-shadow:0 8px 24px rgba(184,150,62,0.12)}
+.card h4{font-family:'Playfair Display',serif;font-size:18px;font-weight:400;color:var(--ink);margin-bottom:12px}
+.card p{font-size:15px;color:rgba(14,26,20,0.65);line-height:1.75}
 /* ── PROCESS FLOW ── */
-.process-flow{display:grid;grid-template-columns:repeat(5,1fr);gap:32px;margin:48px 0}
+.process-flow{display:grid;grid-template-columns:repeat(5,1fr);gap:28px;margin:44px 0}
 .process-step{text-align:center;padding:0}
-.process-step-num{font-family:'Playfair Display',serif;font-size:48px;font-weight:400;color:var(--gold);line-height:1;margin-bottom:12px}
+.process-step-num{font-family:'Playfair Display',serif;font-size:44px;font-weight:400;color:var(--gold);line-height:1;margin-bottom:12px}
 .process-step h4{font-size:16px;color:var(--ink);font-weight:500;margin-bottom:8px}
-.process-step p{font-size:13px;color:rgba(14,26,20,0.6);line-height:1.65}
+.process-step p{font-size:14px;color:rgba(14,26,20,0.65);line-height:1.65}
 /* ── FAQ SECTION ── */
-.faq-container{margin:64px 0}
-.faq-item{border-bottom:1px solid var(--border);padding:28px 0}
+.faq-container{margin:48px 0}
+.faq-item{border-bottom:1px solid var(--border);padding:24px 0}
 .faq-item:last-child{border-bottom:none}
 .faq-question{display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:16px;font-weight:500;color:var(--ink);transition:all .3s}
 .faq-question:hover{color:var(--teal)}
-.faq-toggle{font-size:20px;transition:transform .3s}
+.faq-toggle{font-size:18px;transition:transform .3s}
 .faq-item.open .faq-toggle{transform:rotate(180deg)}
 .faq-answer{display:none;margin-top:16px;font-size:15px;color:rgba(14,26,20,0.65);line-height:1.8}
 .faq-item.open .faq-answer{display:block;animation:slideDown .3s ease}
 @keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 /* ── FOOTER ── */
-footer{background:var(--ink);color:var(--cream);padding:64px 60px 32px;border-top:1px solid rgba(184,150,62,0.1)}
+footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:48px 60px 36px}
+.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:auto 1fr 1fr auto;gap:48px;align-items:start}
+.footer-logo img{height:112px;width:auto}
 .footer-nav{display:flex;flex-direction:column;gap:10px}
 .footer-nav-title{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
-.footer-link{color:rgba(245,240,232,0.6);text-decoration:none;font-size:13px;transition:color .2s}
-.footer-link:hover{color:var(--gold)}
-.footer-copy{font-size:12px;color:rgba(245,240,232,0.5)}
-.footer-locations{font-size:12px;color:rgba(245,240,232,0.4);margin:8px 0}
-.footer-social{color:rgba(245,240,232,0.5);text-decoration:none;font-size:13px;transition:color .2s;display:inline-flex;align-items:center;gap:8px}
-.footer-social:hover{color:var(--gold)}
-.footer-legal{font-size:12px;color:rgba(245,240,232,0.4);line-height:1.6;margin-top:32px}
-/* ── ANIMATIONS ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-/* ── RESPONSIVE ── */
-@media(max-width:1024px){
-  nav{padding:4px 40px}
-  #blog-hero{padding:120px 40px 60px}
-  #content{padding:80px 40px}
-  .content-inner{max-width:100%}
-  .card-grid{grid-template-columns:repeat(2,1fr);gap:24px}
-  .process-flow{grid-template-columns:repeat(3,1fr);gap:24px}
+.footer-link{color:rgba(245,240,232,0.4);text-decoration:none;font-size:13px;transition:color .2s;display:block}
+.footer-link:hover{color:var(--gold-light)}
+.footer-right{text-align:right}
+.footer-copy{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,240,232,0.3)}
+.footer-locations{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,240,232,0.25);margin-top:4px}
+.footer-social{display:inline-flex;align-items:center;gap:6px;margin-top:8px;color:rgba(245,240,232,0.3);text-decoration:none;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.footer-social:hover{color:var(--gold-light)}
+.footer-legal{font-size:12px;color:rgba(245,240,232,0.2);max-width:1200px;margin:24px auto 0;padding-top:24px;border-top:1px solid rgba(184,150,62,0.08);line-height:1.6}
+/* ── MOBILE ── */
+@media(max-width:900px){
+  nav{padding:4px 24px}
+  nav.nav-scrolled{padding:2px 24px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .lang-switch{position:fixed;top:18px;right:68px;z-index:201}
+  .nav-links.mobile-open{display:flex!important;flex-direction:column;position:fixed;top:88px;left:0;right:0;background:rgba(14,26,20,0.98);padding:28px 24px;gap:20px;border-bottom:1px solid rgba(184,150,62,0.2);z-index:199}
+  .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+  .hamburger.active span:nth-child(2){opacity:0}
+  .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+  .hamburger span{transition:all .3s ease}
+  .article-header{padding:120px 24px 60px}
+  .article-body-wrap{padding:48px 24px 80px}
+  .article-cta{padding:32px 24px}
+  .article-cta-inner{flex-direction:column;align-items:flex-start}
+  .card-grid{grid-template-columns:repeat(2,1fr);gap:16px}
+  .process-flow{grid-template-columns:repeat(3,1fr);gap:16px}
+  footer{padding:32px 24px 24px}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:20px 16px}
+  .footer-logo{grid-column:span 2;text-align:center;margin-bottom:4px}
+  .footer-logo img{height:72px}
+  .footer-right{grid-column:span 2;text-align:center;margin-top:8px;padding-top:16px;border-top:1px solid rgba(184,150,62,0.1)}
+  .footer-legal{padding:16px 0 0;font-size:11px}
 }
 @media(max-width:768px){
   nav{padding:4px 20px}
-  .nav-links{gap:16px}
-  .nav-links a{font-size:10px}
-  #blog-hero{padding:100px 20px 40px}
-  .blog-headline{font-size:28px}
-  #content{padding:60px 20px}
-  .content-inner h2{font-size:24px;margin:48px 0 16px}
-  .content-inner h3{font-size:18px}
-  .content-inner p{font-size:15px}
-  .content-inner ul,.content-inner ol{margin:16px 0 16px 20px}
-  .card-grid{grid-template-columns:1fr;gap:16px}
-  .process-flow{grid-template-columns:repeat(2,1fr);gap:16px}
-  .cta-box{padding:24px;margin:32px 0}
-  .cta-box h3{font-size:18px}
-  footer{padding:48px 20px 24px}
+  nav.nav-scrolled{padding:2px 20px}
+  .article-header{padding:100px 20px 50px}
+  .article-body-wrap{padding:40px 20px 60px}
+  .card-grid{grid-template-columns:1fr}
+  .process-flow{grid-template-columns:repeat(2,1fr)}
+  footer{padding:32px 20px 20px}
 }
 @media(max-width:480px){
   nav{padding:4px 16px}
@@ -369,24 +393,15 @@ footer{background:var(--ink);color:var(--cream);padding:64px 60px 32px;border-to
   nav.nav-scrolled .nav-logo img{height:50px}
   .nav-links{gap:12px}
   .nav-links a{font-size:9px}
-  .hamburger{display:flex}
-  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(14,26,20,0.98);padding:20px;gap:16px}
-  .nav-links.active{display:flex}
-  #blog-hero{padding:80px 16px 30px}
-  .blog-headline{font-size:22px}
-  .blog-meta{flex-direction:column;gap:8px}
-  #content{padding:40px 16px}
-  .content-inner h2{font-size:20px;margin:40px 0 12px}
-  .content-inner h3{font-size:16px}
-  .content-inner p{font-size:14px}
-  .content-inner ul,.content-inner ol{margin:12px 0 12px 16px}
+  .article-header{padding:80px 16px 40px}
+  .article-title{font-size:24px}
+  .article-body-wrap{padding:32px 16px 48px}
+  .article-cta{padding:20px 16px}
   .card-grid{gap:12px}
-  .process-flow{grid-template-columns:1fr;gap:12px}
-  .process-step-num{font-size:36px}
-  .cta-box{padding:16px;margin:24px 0}
-  .cta-btn{padding:12px 24px;font-size:10px}
+  .process-flow{grid-template-columns:1fr;gap:16px}
+  .process-step-num{font-size:32px}
   .faq-question{font-size:14px}
-  footer{padding:32px 16px 16px}
+  footer{padding:24px 16px 16px}
   .footer-nav-title{font-size:9px}
   .footer-link{font-size:12px}
 }
@@ -417,36 +432,42 @@ footer{background:var(--ink);color:var(--cream);padding:64px 60px 32px;border-to
   </div>
 </nav>
 
-<!-- BLOG HERO -->
-<section id="blog-hero">
-  <div class="blog-hero-overlay"></div>
-  <div class="blog-hero-inner">
-    <div class="breadcrumb">
-      <a href="../" data-lang="en">Home</a>
-      <a href="../" data-lang="es">Inicio</a>
-      <span>/</span>
-      <a href="../blog.html" data-lang="en">Blog</a>
-      <a href="../blog.html" data-lang="es">Blog</a>
-      <span>/</span>
-      <span data-lang="en">Emergency Supply</span>
-      <span data-lang="es">Suministro de Emergencia</span>
+<!-- ARTICLE HEADER -->
+<header class="article-header">
+  <div class="article-header-inner">
+    <div class="article-meta">
+      <span class="article-tag" data-lang="en">Emergency Relief</span>
+      <span class="article-tag" data-lang="es">Ayuda de Emergencia</span>
+      <span class="article-date" data-lang="en">March 2026</span>
+      <span class="article-date" data-lang="es">Marzo 2026</span>
+      <span class="article-author" data-lang="en">Vector Trade Capital</span>
+      <span class="article-author" data-lang="es">Vector Trade Capital</span>
     </div>
-    <div class="blog-category" data-lang="en">Emergency Relief</div>
-    <div class="blog-category" data-lang="es">Ayuda de Emergencia</div>
-    <h1 class="blog-headline" data-lang="en">Emergency Fuel & Food Supply for <em>Caribbean Disaster Relief</em></h1>
-    <h1 class="blog-headline" data-lang="es">Suministro de Emergencia de Combustible y Alimentos para <em>Ayuda en Desastres Caribeños</em></h1>
-    <div class="blog-meta">
-      <span class="blog-date" data-lang="en">March 23, 2026</span>
-      <span class="blog-date" data-lang="es">23 de Marzo de 2026</span>
-      <span class="blog-read" data-lang="en">8 min read</span>
-      <span class="blog-read" data-lang="es">8 minutos de lectura</span>
-    </div>
+    <h1 class="article-title" data-lang="en">Emergency Fuel & Food Supply for <em>Caribbean Disaster Relief</em></h1>
+    <h1 class="article-title" data-lang="es">Suministro de Emergencia de Combustible y Alimentos para <em>Ayuda en Desastres Caribeños</em></h1>
+    <p class="article-intro" data-lang="en">Hurricanes, earthquakes, and major storms collapse the infrastructure that typically delivers fuel and food to island nations. Vector Trade Capital maintains permanent capacity for emergency commodity deployment—pre-arranged logistics, standing relationships with US suppliers, and dedicated capital reserves for rapid response during Caribbean natural disasters.</p>
+    <p class="article-intro" data-lang="es">Los huracanes, terremotos y tormentas mayores colapsan la infraestructura que típicamente entrega combustible y alimentos a las naciones isleñas. Vector Trade Capital mantiene una capacidad permanente para el despliegue de mercancías de emergencia — logística pre-arreglada, relaciones permanentes con proveedores estadounidenses, y reservas de capital dedicadas para respuesta rápida durante desastres naturales caribeños.</p>
   </div>
-</section>
+</header>
 
-<!-- CONTENT -->
-<section id="content">
-  <div class="content-inner">
+<!-- ARTICLE BODY -->
+<div class="article-body-wrap">
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html" data-lang="en">Home</a>
+    <a href="../index.html" data-lang="es">Inicio</a>
+    <span class="breadcrumb-sep">/</span>
+    <a href="../blog.html" data-lang="en">Blog</a>
+    <a href="../blog.html" data-lang="es">Blog</a>
+    <span class="breadcrumb-sep">/</span>
+    <span data-lang="en">Emergency Supply</span>
+    <span data-lang="es">Suministro de Emergencia</span>
+  </nav>
+
+  <!-- ARTICLE PROSE -->
+  <article class="article-prose">
+
     <!-- Section 1: When Standard Supply Chains Fail -->
     <h2 data-lang="en">When Standard Supply Chains Fail: The Role of Emergency Commodity Deployment</h2>
     <h2 data-lang="es">Cuando las Cadenas de Suministro Estándar Fallan: El Papel del Despliegue de Mercancías de Emergencia</h2>
@@ -461,10 +482,10 @@ footer{background:var(--ink);color:var(--cream);padding:64px 60px 32px;border-to
     <p data-lang="es">Vector Trade Capital mantiene una capacidad permanente para el despliegue de mercancías de emergencia. A diferencia de los corredores que movilizan recursos solo cuando ocurre un desastre, mantenemos logística pre-arreglada, relaciones permanentes con proveedores estadounidenses y reservas de capital dedicadas específicamente para respuesta rápida durante desastres naturales caribeños.</p>
 
     <div style="width:100%;max-height:400px;overflow:hidden;border-radius:8px;margin:40px 0">
-  <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=800&q=80" alt="Caribbean community assessing damage after hurricane — emergency supply chains disrupted" style="width:100%;height:400px;object-fit:cover;filter:brightness(0.85) saturate(0.9)" loading="lazy">
-</div>
+      <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=800&q=80" alt="Caribbean community assessing damage after hurricane — emergency supply chains disrupted" style="width:100%;height:400px;object-fit:cover;filter:brightness(0.85) saturate(0.9)" loading="lazy">
+    </div>
 
-<!-- Section 2: What We Deliver in Emergencies -->
+    <!-- Section 2: What We Deliver in Emergencies -->
     <h2 data-lang="en">What We Deliver in Emergencies: Core Relief Commodities</h2>
     <h2 data-lang="es">Qué Entregamos en Emergencias: Productos de Alivio Central</h2>
 
@@ -541,10 +562,10 @@ footer{background:var(--ink);color:var(--cream);padding:64px 60px 32px;border-to
     </div>
 
     <div style="width:100%;max-height:400px;overflow:hidden;border-radius:8px;margin:40px 0">
-  <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&q=80" alt="Cargo vessel delivering emergency supplies to Caribbean port after natural disaster" style="width:100%;height:400px;object-fit:cover;filter:brightness(0.85) saturate(0.9)" loading="lazy">
-</div>
+      <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&q=80" alt="Cargo vessel delivering emergency supplies to Caribbean port after natural disaster" style="width:100%;height:400px;object-fit:cover;filter:brightness(0.85) saturate(0.9)" loading="lazy">
+    </div>
 
-<!-- Section 4: Who We Work With During Emergencies -->
+    <!-- Section 4: Who We Work With During Emergencies -->
     <h2 data-lang="en">Who We Work With During Emergencies: Government & Relief Partners</h2>
     <h2 data-lang="es">Con Quién Trabajamos Durante Emergencias: Socios Gubernamentales y de Alivio</h2>
 
@@ -568,10 +589,10 @@ footer{background:var(--ink);color:var(--cream);padding:64px 60px 32px;border-to
     </ul>
 
     <div style="width:100%;max-height:400px;overflow:hidden;border-radius:8px;margin:40px 0">
-  <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80" alt="Community members and aid workers collaborating during Caribbean disaster recovery" style="width:100%;height:400px;object-fit:cover;filter:brightness(0.85) saturate(0.9)" loading="lazy">
-</div>
+      <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80" alt="Community members and aid workers collaborating during Caribbean disaster recovery" style="width:100%;height:400px;object-fit:cover;filter:brightness(0.85) saturate(0.9)" loading="lazy">
+    </div>
 
-<!-- Section 5: Caribbean Disaster Preparedness -->
+    <!-- Section 5: Caribbean Disaster Preparedness -->
     <h2 data-lang="en">Caribbean Disaster Preparedness: Building Resilience Through Supply Chain Planning</h2>
     <h2 data-lang="es">Preparación para Desastres Caribeños: Construcción de Resiliencia a Través de Planificación de la Cadena de Suministro</h2>
 
@@ -613,18 +634,24 @@ footer{background:var(--ink);color:var(--cream);padding:64px 60px 32px;border-to
     <h2 data-lang="en">Establish Your Emergency Supply Relationship Today</h2>
     <h2 data-lang="es">Establezca Su Relación de Suministro de Emergencia Hoy</h2>
 
-    <div class="cta-box">
-      <h3 data-lang="en">Don't Wait for a Disaster to Prepare</h3>
-      <h3 data-lang="es">No Espere un Desastre para Prepararse</h3>
-      <p data-lang="en">Government agencies, port authorities, and relief organizations can establish emergency supply agreements with Vector Trade Capital today. Pre-disaster coordination saves critical days when supply chains must be restored.</p>
-      <p data-lang="es">Las agencias gubernamentales, autoridades portuarias y organizaciones de alivio pueden establecer acuerdos de suministro de emergencia con Vector Trade Capital hoy. La coordinación pre-desastre ahorra días críticos cuando las cadenas de suministro deben ser restauradas.</p>
-      <a href="mailto:info@vectortradecapital.com?subject=Emergency Supply Agreement Request" class="cta-btn" data-lang="en">Request Emergency Supply Agreement</a>
-      <a href="mailto:info@vectortradecapital.com?subject=Solicitud de Acuerdo de Suministro de Emergencia" class="cta-btn" data-lang="es">Solicitar Acuerdo de Suministro de Emergencia</a>
+    <div class="article-cta">
+      <div class="article-cta-inner">
+        <div class="article-cta-text">
+          <div class="article-cta-label" data-lang="en">Ready to prepare for the next disaster?</div>
+          <div class="article-cta-label" data-lang="es">¿Listo para prepararse para el próximo desastre?</div>
+          <div class="article-cta-title" data-lang="en">Don't Wait for a Disaster to Prepare</div>
+          <div class="article-cta-title" data-lang="es">No Espere un Desastre para Prepararse</div>
+          <div class="article-cta-sub" data-lang="en">Government agencies, port authorities, and relief organizations can establish emergency supply agreements with Vector Trade Capital today. Pre-disaster coordination saves critical days when supply chains must be restored.</div>
+          <div class="article-cta-sub" data-lang="es">Las agencias gubernamentales, autoridades portuarias y organizaciones de alivio pueden establecer acuerdos de suministro de emergencia con Vector Trade Capital hoy. La coordinación pre-desastre ahorra días críticos cuando las cadenas de suministro deben ser restauradas.</div>
+        </div>
+        <a href="mailto:info@vectortradecapital.com?subject=Emergency Supply Agreement Request" class="article-cta-btn" data-lang="en">Request Agreement</a>
+        <a href="mailto:info@vectortradecapital.com?subject=Solicitud de Acuerdo de Suministro de Emergencia" class="article-cta-btn" data-lang="es">Solicitar Acuerdo</a>
+      </div>
     </div>
 
     <!-- FAQ Section -->
-    <h2 data-lang="en" style="margin-top:80px">Frequently Asked Questions</h2>
-    <h2 data-lang="es" style="margin-top:80px">Preguntas Frecuentes</h2>
+    <h2 data-lang="en" style="margin-top:60px">Frequently Asked Questions</h2>
+    <h2 data-lang="es" style="margin-top:60px">Preguntas Frecuentes</h2>
 
     <div class="faq-container">
       <div class="faq-item">
@@ -699,8 +726,10 @@ footer{background:var(--ink);color:var(--cream);padding:64px 60px 32px;border-to
         </div>
       </div>
     </div>
-  </div>
-</section>
+
+  </article>
+
+</div><!-- /.article-body-wrap -->
 
 <!-- FOOTER -->
 <footer>
@@ -713,7 +742,7 @@ footer{background:var(--ink);color:var(--cream);padding:64px 60px 32px;border-to
       <div class="footer-nav-title" data-lang="es">Productos</div>
       <a href="../food.html" class="footer-link" data-lang="en">Food Commodities</a>
       <a href="../food.html" class="footer-link" data-lang="es">Productos Alimenticios</a>
-      <a href="../fuel.html" class="footer-link" data-lang="en">Fuel &amp; Energy</a>
+      <a href="../fuel.html" class="footer-link" data-lang="en">Fuel & Energy</a>
       <a href="../fuel.html" class="footer-link" data-lang="es">Combustible y Energía</a>
       <a href="../vehicles.html" class="footer-link" data-lang="en">Vehicles</a>
       <a href="../vehicles.html" class="footer-link" data-lang="es">Vehículos</a>
@@ -726,7 +755,7 @@ footer{background:var(--ink);color:var(--cream);padding:64px 60px 32px;border-to
       <a href="../markets/jamaica.html" class="footer-link">Jamaica</a>
       <a href="../markets/dominican-republic.html" class="footer-link" data-lang="en">Dominican Republic</a>
       <a href="../markets/dominican-republic.html" class="footer-link" data-lang="es">República Dominicana</a>
-      <a href="../markets/trinidad-and-tobago.html" class="footer-link">Trinidad &amp; Tobago</a>
+      <a href="../markets/trinidad-and-tobago.html" class="footer-link">Trinidad & Tobago</a>
       <a href="../markets/bahamas.html" class="footer-link">Bahamas</a>
       <a href="../markets/guyana.html" class="footer-link">Guyana</a>
     </div>
@@ -764,52 +793,107 @@ footer{background:var(--ink);color:var(--cream);padding:64px 60px 32px;border-to
 
 <!-- SCRIPTS -->
 <script>
-// Language switching
-function setLanguage(lang) {
-  document.documentElement.lang = lang;
-  localStorage.setItem('language', lang);
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  event.target.classList.add('active');
-}
+// Localized metadata for language switch
+var localeMeta = {
+  en: {
+    title: 'Emergency Fuel & Food Supply Caribbean | Disaster Relief — VTC',
+    description: 'Emergency fuel and food supply for Caribbean disaster relief. Rapid deployment of diesel, gasoline, rice, and essential commodities.',
+    ogTitle: 'Emergency Fuel & Food Supply Caribbean | Disaster Relief',
+    ogDesc: 'Emergency fuel and food supply for Caribbean disaster relief. Rapid deployment of diesel, gasoline, rice, and essential commodities to affected ports.',
+    ogLocale: 'en_US'
+  },
+  es: {
+    title: 'Suministro de Emergencia de Combustible y Alimentos Caribeños | Ayuda en Desastres — VTC',
+    description: 'Suministro de emergencia de combustible y alimentos para alivio de desastres caribeños. Despliegue rápido de diesel, gasolina, arroz y productos básicos esenciales.',
+    ogTitle: 'Suministro de Emergencia de Combustible y Alimentos Caribeños',
+    ogDesc: 'Suministro de emergencia de combustible y alimentos para alivio de desastres caribeños. Despliegue rápido de diesel, gasolina, arroz y productos básicos esenciales.',
+    ogLocale: 'es_419'
+  }
+};
 
 // Initialize language
-const savedLang = localStorage.getItem('language') || 'en';
-document.documentElement.lang = savedLang;
-document.querySelectorAll('.lang-btn').forEach((btn, idx) => {
-  if ((savedLang === 'en' && idx === 0) || (savedLang === 'es' && idx === 1)) {
-    btn.classList.add('active');
-  }
-});
-
-// Navigation hide/show on scroll
-let lastScrollY = 0;
-let navHidden = false;
-window.addEventListener('scroll', () => {
-  const nav = document.querySelector('nav');
-  if (window.scrollY > 300) {
-    if (window.scrollY > lastScrollY && !navHidden) {
-      nav.classList.add('nav-hidden');
-      navHidden = true;
-    } else if (window.scrollY < lastScrollY && navHidden) {
-      nav.classList.remove('nav-hidden');
-      navHidden = false;
+(function(){
+  if (!localStorage.getItem('vtc-lang')) {
+    var browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+    if (browserLang.startsWith('es')) {
+      setLang('es');
+      localStorage.setItem('vtc-lang', 'es');
+      return;
     }
-    nav.classList.add('nav-scrolled');
-  } else {
-    nav.classList.remove('nav-scrolled', 'nav-hidden');
-    navHidden = false;
   }
-  lastScrollY = window.scrollY;
+  var saved = localStorage.getItem('vtc-lang');
+  if (saved && saved !== 'en') setLang(saved);
+})();
+
+function setLang(lang) {
+  localStorage.setItem('vtc-lang', lang);
+  document.documentElement.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.textContent.trim() === lang.toUpperCase());
+  });
+  var meta = localeMeta[lang] || localeMeta.en;
+  document.title = meta.title;
+  var descEl = document.querySelector('meta[name="description"]');
+  if (descEl) descEl.setAttribute('content', meta.description);
+  var ogTitleEl = document.querySelector('meta[property="og:title"]');
+  if (ogTitleEl) ogTitleEl.setAttribute('content', meta.ogTitle);
+  var ogDescEl = document.querySelector('meta[property="og:description"]');
+  if (ogDescEl) ogDescEl.setAttribute('content', meta.ogDesc);
+  var ogLocaleEl = document.querySelector('meta[property="og:locale"]');
+  if (ogLocaleEl) ogLocaleEl.setAttribute('content', meta.ogLocale);
+}
+
+// Smart nav — hide on scroll down, show on scroll up
+var nav = document.getElementById('navbar');
+var lastScroll = 0;
+window.addEventListener('scroll', function() {
+  var y = window.scrollY;
+  nav.classList.toggle('nav-scrolled', y > 80);
+  if (y > lastScroll && y > 200) {
+    nav.classList.add('nav-hidden');
+  } else {
+    nav.classList.remove('nav-hidden');
+  }
+  lastScroll = y;
 });
 
-// FAQ toggle
-document.querySelectorAll('.faq-item').forEach(item => {
-  item.querySelector('.faq-question').addEventListener('click', () => {
+// Mobile nav with animated hamburger
+function toggleMobile() {
+  var links = document.querySelector('.nav-links');
+  var hamburger = document.querySelector('.hamburger');
+  links.classList.toggle('mobile-open');
+  hamburger.classList.toggle('active');
+  if (!links.classList.contains('mobile-open')) {
+    links.removeAttribute('style');
+  }
+}
+document.querySelectorAll('.nav-links a').forEach(function(a) {
+  a.addEventListener('click', function() {
+    if (window.innerWidth <= 900) {
+      document.querySelector('.nav-links').classList.remove('mobile-open');
+      document.querySelector('.hamburger').classList.remove('active');
+    }
+  });
+});
+
+// FAQ toggle functionality
+document.querySelectorAll('.faq-item').forEach(function(item) {
+  item.querySelector('.faq-question').addEventListener('click', function() {
     item.classList.toggle('open');
   });
 });
+
+// Scroll reveal
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
 </script>
+<script src="../chat-widget.js" defer></script>
 </body>
 </html>
