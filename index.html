@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Google Ads tag -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18030544849"></script>
 <script>
@@ -12,22 +14,19 @@
 </script>
 <!-- End Google Ads tag -->
 <!-- reCAPTCHA v3 -->
-<script src="https://www.google.com/recaptcha/api.js?render=6LcpCVkrAAAAAJzSbNMBSXjMHMdQFaMCO3v4GUvH"></script>
-<!-- LinkedIn Insight Tag -->
-<script type="text/javascript">
-_linkedin_partner_id = "8979716";
-window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
-window._linkedin_data_partner_ids.push(_linkedin_partner_id);
-</script>
-<script type="text/javascript">
-(function(l) {
-if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
-window.lintrk.q=[]}
-var s = document.getElementsByTagName("script")[0];
-var b = document.createElement("script");
-b.type = "text/javascript";b.async = true;
-b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
-s.parentNode.insertBefore(b, s);})(window.lintrk);
+<script defer src="https://www.google.com/recaptcha/api.js?render=6LcpCVkrAAAAAJzSbNMBSXjMHMdQFaMCO3v4GUvH"></script>
+<!-- LinkedIn Insight Tag - deferred -->
+<script>
+window.addEventListener('load', function() {
+  _linkedin_partner_id = "8979716";
+  window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+  window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+  var s = document.getElementsByTagName("script")[0];
+  var b = document.createElement("script");
+  b.type = "text/javascript";b.async = true;
+  b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+  s.parentNode.insertBefore(b, s);
+});
 </script>
 <noscript>
 <img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=8979716&fmt=gif" />
@@ -57,8 +56,6 @@ if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
 window.addEventListener('load', function() { window.scrollTo(0, 0); });
 window.addEventListener('beforeunload', function() { window.scrollTo(0, 0); });
 </script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Caribbean Commodity Supplier | CIF Delivery — VTC</title>
 <meta name="description" content="Bulk fuel, food, and vehicles delivered CIF to Caribbean ports. US-origin sourcing, own capital, 48-hour quotes. No brokers.">
 <meta name="keywords" content="bulk commodity supplier, Caribbean importer, CIF delivery, food commodities, fuel supply, rice exporter, diesel supplier, wholesale trade, Houston commodity trading, Latin America import">
@@ -99,9 +96,19 @@ window.addEventListener('beforeunload', function() { window.scrollTo(0, 0); });
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What commodities does Vector Trade Capital supply?","acceptedAnswer":{"@type":"Answer","text":"Vector Trade Capital supplies three categories of bulk commodities to Caribbean importers: food products (rice, sugar, wheat flour, cooking oil, legumes, frozen poultry), fuel and energy products (ULSD diesel, gasoline, jet fuel, LPG, fuel oil, marine gas oil), and vehicles and equipment (new and used vehicles, fleet units, automotive parts)."}},{"@type":"Question","name":"What is CIF delivery?","acceptedAnswer":{"@type":"Answer","text":"CIF (Cost, Insurance, Freight) delivery means Vector Trade Capital covers the full cost of the product, marine cargo insurance, and ocean freight to your named Caribbean port. You receive a landed price with no hidden shipping or insurance costs."}},{"@type":"Question","name":"Which Caribbean countries does Vector Trade Capital serve?","acceptedAnswer":{"@type":"Answer","text":"Vector Trade Capital serves importers across the Caribbean including Jamaica, Trinidad and Tobago, Dominican Republic, Haiti, Barbados, and the wider Caribbean and Latin American region."}},{"@type":"Question","name":"Where is Vector Trade Capital located?","acceptedAnswer":{"@type":"Answer","text":"Vector Trade Capital is headquartered in Houston, Texas, with additional offices in Miami, Florida and Dubai, UAE. The company is a registered US commodity trading company."}},{"@type":"Question","name":"What are the minimum order quantities?","acceptedAnswer":{"@type":"Answer","text":"Vector Trade Capital handles orders ranging from single containers to full vessel quantities. Contact us with your specific requirements and destination port for competitive CIF pricing."}},{"@type":"Question","name":"How do I request a quote from Vector Trade Capital?","acceptedAnswer":{"@type":"Answer","text":"Send your requirements, destination port, and desired volumes to info@vectortradecapital.com or use the contact form on our website. We respond with competitive CIF pricing within 48 hours."}},{"@type":"Question","name":"Is Vector Trade Capital a broker or intermediary?","acceptedAnswer":{"@type":"Answer","text":"No. Vector Trade Capital is a principal commodity trader. The company purchases commodities on its own account, takes title to the goods, deploys its own capital, and manages the complete physical supply chain from origin to discharge port. It does not broker deals between third parties or collect commissions."}},{"@type":"Question","name":"How does Vector Trade Capital compare to retail fuel distributors like Sol or Rubis?","acceptedAnswer":{"@type":"Answer","text":"Vector Trade Capital operates upstream in the supply chain, not in retail distribution. Unlike Sol, Rubis, or state-owned distributors that operate gas stations and local fuel infrastructure, Vector Trade Capital sources bulk fuel cargoes from US Gulf Coast refineries and delivers them CIF to Caribbean port terminals. Local distributors and industrial buyers then take receipt at the terminal."}},{"@type":"Question","name":"What size transactions does Vector Trade Capital handle?","acceptedAnswer":{"@type":"Answer","text":"Vector Trade Capital handles transactions ranging from single containers (approximately 20-25 metric tons) to full vessel loads of 10,000 to 40,000+ metric tons for fuel products. Food commodity shipments typically range from 500 to 5,000 metric tons. The company manages multiple simultaneous cargoes across Caribbean destinations."}},{"@type":"Question","name":"Does Vector Trade Capital use its own capital?","acceptedAnswer":{"@type":"Answer","text":"Yes. Vector Trade Capital deploys its own working capital on every transaction. Buyers do not need to pre-fund purchases or arrange separate trade finance. The company takes full financial risk on each cargo until payment is received."}}]}
 </script>
 <!-- Leaflet Map -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"></noscript>
+<script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <!-- Fonts -->
+<link rel="preload" as="video" href="hero-bg.mp4" type="video/mp4">
+<!-- Preconnect to critical third-party origins -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="dns-prefetch" href="https://basemaps.cartocdn.com">
+<link rel="dns-prefetch" href="https://images.unsplash.com">
+<link rel="dns-prefetch" href="https://www.google.com">
+<link rel="dns-prefetch" href="https://snap.licdn.com">
+<link rel="dns-prefetch" href="https://px.ads.linkedin.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -415,8 +422,10 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 .reveal-line{width:0;transition:width 1.2s cubic-bezier(.16,1,.3,1)}
 .reveal-line.visible{width:100%}
 /* Smooth scroll sections */
-section,#hero,.page-header{will-change:opacity}
+section,#hero,.page-header{/* will-change removed for perf */}
 @media(prefers-reduced-motion:reduce){.reveal,.reveal-left,.reveal-right,.reveal-scale{transition:none!important;opacity:1!important;transform:none!important}}
+/* ── PERFORMANCE: content-visibility for below-fold sections ── */
+#process,#products,#why,#markets,#contact,footer{content-visibility:auto;contain-intrinsic-size:auto 800px}
 /* ── MOBILE ── */
 @media(max-width:900px){
   nav{padding:4px 24px}
@@ -473,7 +482,7 @@ section,#hero,.page-header{will-change:opacity}
 <!-- NAV -->
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <img src="vector-trade-capital-logo.png" alt="Vector Trade Capital logo">
+    <img src="vector-trade-capital-logo.png" alt="Vector Trade Capital logo" width="80" height="80">
   </a>
   <ul class="nav-links">
     <li><a href="#products" data-lang="en" data-section="products">What We Do</a><a href="#products" data-lang="es" data-section="products">Qué Hacemos</a></li>
@@ -497,7 +506,7 @@ section,#hero,.page-header{will-change:opacity}
 <section id="hero">
   <div class="hero-bg">
     <div class="hero-bg-fallback"></div>
-    <video autoplay muted loop playsinline disablepictureinpicture>
+    <video autoplay muted loop playsinline disablepictureinpicture preload="auto" fetchpriority="high">
       <source src="hero-bg.mp4" type="video/mp4">
     </video>
   </div>
@@ -1454,7 +1463,7 @@ section,#hero,.page-header{will-change:opacity}
       </div>
     </div>
     <div>
-      <img src="images/generated/playbook-cover-01.png" alt="Caribbean Fuel &amp; Commodity Import Playbook 2026" style="width:100%;height:auto;box-shadow:0 20px 56px rgba(0,0,0,0.4),0 6px 20px rgba(0,0,0,0.2);border:1px solid rgba(184,150,62,0.12)">
+      <img src="images/generated/playbook-cover-01.png" alt="Caribbean Fuel &amp; Commodity Import Playbook 2026" loading="lazy" decoding="async" width="400" height="520" style="width:100%;height:auto;box-shadow:0 20px 56px rgba(0,0,0,0.4),0 6px 20px rgba(0,0,0,0.2);border:1px solid rgba(184,150,62,0.12)">
     </div>
   </div>
 </section>
@@ -1510,7 +1519,7 @@ section,#hero,.page-header{will-change:opacity}
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">
-      <img src="vector-trade-capital-logo.png" alt="Vector Trade Capital logo">
+      <img src="vector-trade-capital-logo.png" alt="Vector Trade Capital logo" width="112" height="112" loading="lazy" decoding="async">
     </div>
     <div class="footer-nav">
       <div class="footer-nav-title" data-lang="en">Products</div>
@@ -1902,7 +1911,7 @@ document.querySelector('.contact-form').addEventListener('submit', function(e){
 });
 
 // ── Interactive Leaflet Map ──
-(function(){
+function initMap() {(function(){
   const map = L.map('caribbean-map', {
     center: [19, -74],
     zoom: 5,
@@ -2109,7 +2118,10 @@ document.querySelector('.contact-form').addEventListener('submit', function(e){
     }
   }, { threshold: 0.1 });
   mapObserver.observe(document.getElementById('caribbean-map'));
-})();
+})();}
+// Wait for deferred Leaflet to load
+if (typeof L !== 'undefined') { initMap(); }
+else { document.addEventListener('DOMContentLoaded', function() { if (typeof L !== 'undefined') initMap(); else { var check = setInterval(function(){ if(typeof L !== 'undefined'){clearInterval(check);initMap();}},50); }});}
 </script>
 <script src="chat-widget.js" defer></script>
     <script type="application/ld+json">
@@ -2120,3 +2132,4 @@ document.querySelector('.contact-form').addEventListener('submit', function(e){
 </script>
 </body>
 </html>
+
