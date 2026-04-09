@@ -78,7 +78,6 @@ html[lang="es"] .reason[data-lang="es"]{display:grid!important}
 html[lang="es"] .section-label[data-lang="es"]{display:flex!important}
 html[lang="es"] span[data-lang="es"]{display:inline-block!important}
 html[lang="es"] a[data-lang="es"]{display:inline-flex!important}
-html[lang="es"] button.btn-send[data-lang="es"]{display:flex!important}
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:4px 60px;background:rgba(14,26,20,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,150,62,0.15);transition:transform .35s ease,background .3s ease}
 nav.nav-hidden{transform:translateY(-100%)}
@@ -260,7 +259,6 @@ nav.nav-scrolled .nav-logo img{height:60px}
 .c-val a{color:var(--cream);text-decoration:none;transition:color .2s}
 .c-val a:hover{color:var(--gold-light)}
 /* ── FORM ── */
-.contact-form{display:flex;flex-direction:column;gap:3px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:3px}
 .field{display:flex;flex-direction:column;gap:8px}
 .field label{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,240,232,0.4)}
@@ -271,12 +269,6 @@ nav.nav-scrolled .nav-logo img{height:60px}
 .field select option{background:var(--ink-mid);color:var(--cream)}
 .field textarea{resize:vertical;min-height:110px}
 .field-full{grid-column:1/-1}
-.btn-send{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;background:var(--teal);color:var(--white);border:none;padding:18px 40px;border-radius:28px;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);width:fit-content;margin-top:4px;display:flex;align-items:center;gap:14px}
-.btn-send::after{content:'';display:block;width:18px;height:1px;background:currentColor;transition:width .3s}
-.btn-send:hover{background:var(--teal-bright);transform:translateY(-2px);box-shadow:0 6px 24px rgba(26,122,94,0.25)}
-.btn-send:hover::after{width:30px}
-.form-success{font-size:13px;color:var(--teal-bright);margin-top:12px;display:none;font-family:'DM Mono',monospace;letter-spacing:.06em}
-.form-success.show{display:block}
 /* ── FOOTER ── */
 footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:48px 60px 36px}
 .footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:auto 1fr 1fr 1fr auto;gap:36px;align-items:start}
@@ -291,15 +283,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 .footer-social{display:inline-flex;align-items:center;gap:6px;margin-top:8px;color:rgba(245,240,232,0.3);text-decoration:none;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
 .footer-social:hover{color:var(--gold-light)}
 .footer-legal{font-size:12px;color:rgba(245,240,232,0.2);max-width:1200px;margin:24px auto 0;padding-top:24px;border-top:1px solid rgba(184,150,62,0.08);line-height:1.6}
-/* ── FORM TABS & RFQ ── */
-.form-tabs{display:flex;gap:0;margin-bottom:0}
-.form-tab{flex:1;padding:12px 16px;font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;border:none;cursor:pointer;background:rgba(255,255,255,0.06);color:rgba(14,26,20,0.4);border-bottom:2px solid transparent;transition:all .2s;border-radius:10px 10px 0 0}
-.form-tab.active{background:var(--white);color:var(--ink);border-bottom-color:var(--teal)}
-.form-tab:hover{color:var(--ink)}
-.form-panel{display:none}
-.form-panel.active{display:flex;flex-direction:column}
-#rfq-panel.active{display:block}
-#rfq-panel{background:var(--white);padding:32px 28px;border:none;box-shadow:0 8px 32px rgba(14,26,20,0.12)}
+/* ── RFQ FORM ── */
 .rfq-step{display:none;opacity:0;transform:translateY(10px);transition:opacity .4s cubic-bezier(.16,1,.3,1),transform .4s cubic-bezier(.16,1,.3,1)}
 .rfq-step.active{display:block;opacity:1;transform:translateY(0)}
 .rfq-step-label{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:8px}
@@ -327,7 +311,7 @@ footer{background:var(--ink);border-top:1px solid rgba(184,150,62,0.1);padding:4
 #rfq-panel .field select option{background:var(--white);color:var(--ink)}
 #rfq-panel .field input::placeholder,#rfq-panel .field textarea::placeholder{color:rgba(14,26,20,0.3)}
 #rfq-panel .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:900px){.rfq-cards{grid-template-columns:1fr}.form-tabs{flex-wrap:wrap}#rfq-panel .form-row{grid-template-columns:1fr}}
+@media(max-width:900px){.rfq-cards{grid-template-columns:1fr}#rfq-panel .form-row{grid-template-columns:1fr}}
 /* ── ANIMATIONS ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 /* Base reveal */
@@ -813,17 +797,11 @@ section,#hero,.page-header{will-change:opacity}
           </div>
         </div>
       </div>
-      <!-- FORM TABS -->
+      <!-- QUOTE FORM -->
       <div class="reveal-right" style="width:100%">
-      <div class="form-tabs">
-        <button class="form-tab active" data-tab="rfq" data-lang="en" onclick="switchTab('rfq')">Guided RFQ</button>
-        <button class="form-tab active" data-tab="rfq" data-lang="es" onclick="switchTab('rfq')">RFQ Guiada</button>
-        <button class="form-tab" data-tab="general" data-lang="en" onclick="switchTab('general')">General Inquiry</button>
-        <button class="form-tab" data-tab="general" data-lang="es" onclick="switchTab('general')">Consulta General</button>
-      </div>
-
-      <!-- RFQ GENERATOR -->
-      <div id="rfq-panel" class="form-panel active">
+      <div id="rfq-panel" style="background:var(--white);padding:32px 28px;box-shadow:0 8px 32px rgba(14,26,20,0.12);border-radius:10px">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;padding:0 4px" data-lang="en">Request a Quote</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;padding:0 4px" data-lang="es">Solicitar Cotización</div>
         <p class="rfq-seo-intro" data-lang="en" style="font-size:13px;color:rgba(14,26,20,0.4);line-height:1.7;margin:0 0 16px;padding:0 4px">Complete the four-step request for quote below. Select your product category, specify grade and volume, choose your Caribbean destination port and Incoterm, then provide contact details. Our trade desk returns firm CIF pricing within 48 hours.</p>
         <p class="rfq-seo-intro" data-lang="es" style="font-size:13px;color:rgba(14,26,20,0.4);line-height:1.7;margin:0 0 16px;padding:0 4px">Complete la solicitud de cotización en cuatro pasos. Seleccione su categoría de producto, especifique grado y volumen, elija su puerto de destino en el Caribe e Incoterm, y luego proporcione sus datos de contacto. Nuestra mesa de operaciones devuelve precios CIF firmes en 48 horas.</p>
         <div id="rfq-steps">
@@ -1032,351 +1010,8 @@ section,#hero,.page-header{will-change:opacity}
         </div>
       </div>
 
-      <!-- GENERAL INQUIRY (existing form, hidden by default) -->
-      <form class="contact-form form-panel" id="general-panel" action="https://formspree.io/f/mojkkvdl" method="POST">
-        <div class="form-row">
-          <div class="field">
-            <label data-lang="en">Name</label>
-            <label data-lang="es">Nombre</label>
-            <input type="text" name="name" data-placeholder-en="Your name" data-placeholder-es="Su nombre" placeholder="Your name" required>
-          </div>
-          <div class="field">
-            <label data-lang="en">Company</label>
-            <label data-lang="es">Empresa</label>
-            <input type="text" name="company" data-placeholder-en="Your company" data-placeholder-es="Su empresa" placeholder="Your company">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="field">
-            <label>Email</label>
-            <input type="email" name="email" placeholder="your@email.com" required>
-          </div>
-          <div class="field">
-            <label data-lang="en">Product Interest</label>
-            <label data-lang="es">Producto de Interés</label>
-            <select name="product_interest">
-              <option value="" data-lang="en">Select product</option>
-              <option value="" data-lang="es">Seleccione producto</option>
-              <option data-lang="en" value="fuel">Fuel — Diesel, Gasoline, Jet A-1</option>
-              <option data-lang="es" value="fuel">Combustible — Diésel, Gasolina, Jet A-1</option>
-              <option data-lang="en" value="food">Food — Rice, Sugar, Oil, Poultry</option>
-              <option data-lang="es" value="food">Alimentos — Arroz, Azúcar, Aceite, Pollo</option>
-              <option data-lang="en" value="vehicles">Vehicles — Cars, Trucks, Fleet</option>
-              <option data-lang="es" value="vehicles">Vehículos — Autos, Camiones, Flota</option>
-              <option data-lang="en" value="multiple">Multiple products</option>
-              <option data-lang="es" value="multiple">Múltiples productos</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="field">
-            <label data-lang="en">Country</label>
-            <label data-lang="es">País</label>
-            <select name="country">
-              <option value="" data-lang="en">Select</option>
-              <option value="" data-lang="es">Seleccione</option>
-              <optgroup data-lang="en" label="Caribbean &amp; Latin America">
-                <option>Jamaica</option>
-                <option>Dominican Republic</option>
-                <option>Trinidad &amp; Tobago</option>
-                <option>Barbados</option>
-                <option>Haiti</option>
-                <option>Antigua &amp; Barbuda</option>
-                <option>Bahamas</option>
-                <option>Belize</option>
-                <option>Colombia</option>
-                <option>Costa Rica</option>
-                <option>Cuba</option>
-                <option>Dominica</option>
-                <option>El Salvador</option>
-                <option>Grenada</option>
-                <option>Guatemala</option>
-                <option>Guyana</option>
-                <option>Honduras</option>
-                <option>Mexico</option>
-                <option>Nicaragua</option>
-                <option>Panama</option>
-                <option>Puerto Rico</option>
-                <option>Saint Kitts &amp; Nevis</option>
-                <option>Saint Lucia</option>
-                <option>Saint Vincent &amp; the Grenadines</option>
-                <option>Suriname</option>
-                <option>Venezuela</option>
-              </optgroup>
-              <optgroup data-lang="es" label="Caribe y América Latina">
-                <option>Jamaica</option>
-                <option>República Dominicana</option>
-                <option>Trinidad y Tobago</option>
-                <option>Barbados</option>
-                <option>Haití</option>
-                <option>Antigua y Barbuda</option>
-                <option>Bahamas</option>
-                <option>Belice</option>
-                <option>Colombia</option>
-                <option>Costa Rica</option>
-                <option>Cuba</option>
-                <option>Dominica</option>
-                <option>El Salvador</option>
-                <option>Granada</option>
-                <option>Guatemala</option>
-                <option>Guyana</option>
-                <option>Honduras</option>
-                <option>México</option>
-                <option>Nicaragua</option>
-                <option>Panamá</option>
-                <option>Puerto Rico</option>
-                <option>San Cristóbal y Nieves</option>
-                <option>Santa Lucía</option>
-                <option>San Vicente y las Granadinas</option>
-                <option>Surinam</option>
-                <option>Venezuela</option>
-              </optgroup>
-              <optgroup data-lang="en" label="North America">
-                <option>United States</option>
-                <option>Canada</option>
-              </optgroup>
-              <optgroup data-lang="es" label="Norteamérica">
-                <option>Estados Unidos</option>
-                <option>Canadá</option>
-              </optgroup>
-              <optgroup data-lang="en" label="South America">
-                <option>Argentina</option>
-                <option>Bolivia</option>
-                <option>Brazil</option>
-                <option>Chile</option>
-                <option>Ecuador</option>
-                <option>Paraguay</option>
-                <option>Peru</option>
-                <option>Uruguay</option>
-              </optgroup>
-              <optgroup data-lang="es" label="Sudamérica">
-                <option>Argentina</option>
-                <option>Bolivia</option>
-                <option>Brasil</option>
-                <option>Chile</option>
-                <option>Ecuador</option>
-                <option>Paraguay</option>
-                <option>Perú</option>
-                <option>Uruguay</option>
-              </optgroup>
-              <optgroup data-lang="en" label="Europe">
-                <option>Albania</option>
-                <option>Andorra</option>
-                <option>Austria</option>
-                <option>Belarus</option>
-                <option>Belgium</option>
-                <option>Bosnia &amp; Herzegovina</option>
-                <option>Bulgaria</option>
-                <option>Croatia</option>
-                <option>Cyprus</option>
-                <option>Czech Republic</option>
-                <option>Denmark</option>
-                <option>Estonia</option>
-                <option>Finland</option>
-                <option>France</option>
-                <option>Germany</option>
-                <option>Greece</option>
-                <option>Hungary</option>
-                <option>Iceland</option>
-                <option>Ireland</option>
-                <option>Italy</option>
-                <option>Latvia</option>
-                <option>Lithuania</option>
-                <option>Luxembourg</option>
-                <option>Malta</option>
-                <option>Moldova</option>
-                <option>Monaco</option>
-                <option>Montenegro</option>
-                <option>Netherlands</option>
-                <option>North Macedonia</option>
-                <option>Norway</option>
-                <option>Poland</option>
-                <option>Portugal</option>
-                <option>Romania</option>
-                <option>Serbia</option>
-                <option>Slovakia</option>
-                <option>Slovenia</option>
-                <option>Spain</option>
-                <option>Sweden</option>
-                <option>Switzerland</option>
-                <option>Ukraine</option>
-                <option>United Kingdom</option>
-              </optgroup>
-              <optgroup data-lang="es" label="Europa">
-                <option>Albania</option>
-                <option>Andorra</option>
-                <option>Austria</option>
-                <option>Bielorrusia</option>
-                <option>Bélgica</option>
-                <option>Bosnia y Herzegovina</option>
-                <option>Bulgaria</option>
-                <option>Croacia</option>
-                <option>Chipre</option>
-                <option>República Checa</option>
-                <option>Dinamarca</option>
-                <option>Estonia</option>
-                <option>Finlandia</option>
-                <option>Francia</option>
-                <option>Alemania</option>
-                <option>Grecia</option>
-                <option>Hungría</option>
-                <option>Islandia</option>
-                <option>Irlanda</option>
-                <option>Italia</option>
-                <option>Letonia</option>
-                <option>Lituania</option>
-                <option>Luxemburgo</option>
-                <option>Malta</option>
-                <option>Moldavia</option>
-                <option>Mónaco</option>
-                <option>Montenegro</option>
-                <option>Países Bajos</option>
-                <option>Macedonia del Norte</option>
-                <option>Noruega</option>
-                <option>Polonia</option>
-                <option>Portugal</option>
-                <option>Rumania</option>
-                <option>Serbia</option>
-                <option>Eslovaquia</option>
-                <option>Eslovenia</option>
-                <option>España</option>
-                <option>Suecia</option>
-                <option>Suiza</option>
-                <option>Ucrania</option>
-                <option>Reino Unido</option>
-              </optgroup>
-              <optgroup data-lang="en" label="Middle East &amp; Africa">
-                <option>Algeria</option>
-                <option>Angola</option>
-                <option>Bahrain</option>
-                <option>Cameroon</option>
-                <option>DR Congo</option>
-                <option>Egypt</option>
-                <option>Ethiopia</option>
-                <option>Ghana</option>
-                <option>Iraq</option>
-                <option>Israel</option>
-                <option>Ivory Coast</option>
-                <option>Jordan</option>
-                <option>Kenya</option>
-                <option>Kuwait</option>
-                <option>Lebanon</option>
-                <option>Libya</option>
-                <option>Morocco</option>
-                <option>Mozambique</option>
-                <option>Nigeria</option>
-                <option>Oman</option>
-                <option>Qatar</option>
-                <option>Saudi Arabia</option>
-                <option>Senegal</option>
-                <option>South Africa</option>
-                <option>Tanzania</option>
-                <option>Tunisia</option>
-                <option>Turkey</option>
-                <option>United Arab Emirates</option>
-                <option>Uganda</option>
-              </optgroup>
-              <optgroup data-lang="es" label="Medio Oriente y África">
-                <option>Argelia</option>
-                <option>Angola</option>
-                <option>Baréin</option>
-                <option>Camerún</option>
-                <option>RD del Congo</option>
-                <option>Egipto</option>
-                <option>Etiopía</option>
-                <option>Ghana</option>
-                <option>Irak</option>
-                <option>Israel</option>
-                <option>Costa de Marfil</option>
-                <option>Jordania</option>
-                <option>Kenia</option>
-                <option>Kuwait</option>
-                <option>Líbano</option>
-                <option>Libia</option>
-                <option>Marruecos</option>
-                <option>Mozambique</option>
-                <option>Nigeria</option>
-                <option>Omán</option>
-                <option>Catar</option>
-                <option>Arabia Saudita</option>
-                <option>Senegal</option>
-                <option>Sudáfrica</option>
-                <option>Tanzania</option>
-                <option>Túnez</option>
-                <option>Turquía</option>
-                <option>Emiratos Árabes Unidos</option>
-                <option>Uganda</option>
-              </optgroup>
-              <optgroup data-lang="en" label="Asia &amp; Pacific">
-                <option>Australia</option>
-                <option>Bangladesh</option>
-                <option>China</option>
-                <option>India</option>
-                <option>Indonesia</option>
-                <option>Japan</option>
-                <option>Malaysia</option>
-                <option>New Zealand</option>
-                <option>Pakistan</option>
-                <option>Philippines</option>
-                <option>Singapore</option>
-                <option>South Korea</option>
-                <option>Sri Lanka</option>
-                <option>Taiwan</option>
-                <option>Thailand</option>
-                <option>Vietnam</option>
-              </optgroup>
-              <optgroup data-lang="es" label="Asia y Pacífico">
-                <option>Australia</option>
-                <option>Bangladés</option>
-                <option>China</option>
-                <option>India</option>
-                <option>Indonesia</option>
-                <option>Japón</option>
-                <option>Malasia</option>
-                <option>Nueva Zelanda</option>
-                <option>Pakistán</option>
-                <option>Filipinas</option>
-                <option>Singapur</option>
-                <option>Corea del Sur</option>
-                <option>Sri Lanka</option>
-                <option>Taiwán</option>
-                <option>Tailandia</option>
-                <option>Vietnam</option>
-              </optgroup>
-            </select>
-          </div>
-          <div class="field">
-            <label data-lang="en">Estimated Volume</label>
-            <label data-lang="es">Volumen Estimado</label>
-            <select name="volume">
-              <option value="" data-lang="en">Select</option>
-              <option value="" data-lang="es">Seleccione</option>
-              <option data-lang="en">1–5 containers</option>
-              <option data-lang="es">1–5 contenedores</option>
-              <option data-lang="en">5–20 containers</option>
-              <option data-lang="es">5–20 contenedores</option>
-              <option data-lang="en">20+ containers</option>
-              <option data-lang="es">20+ contenedores</option>
-              <option data-lang="en">Bulk / vessel quantities</option>
-              <option data-lang="es">Cantidades a granel / buque</option>
-            </select>
-          </div>
-        </div>
-        <div class="field field-full">
-          <label data-lang="en">Message</label>
-          <label data-lang="es">Mensaje</label>
-          <textarea name="message" data-placeholder-en="Tell us about your requirements, delivery port, and frequency..." data-placeholder-es="Cuéntenos sobre sus requisitos, puerto de entrega y frecuencia..." placeholder="Tell us about your requirements, delivery port, and frequency..."></textarea>
-        </div>
-        <button type="submit" class="btn-send" data-lang="en">Request CIF Pricing</button>
-        <button type="submit" class="btn-send" data-lang="es">Solicitar Precio CIF</button>
-        <div class="form-success" id="form-msg" data-lang="en">
-          Received. We'll respond within 48 hours.
-        </div>
-        <div class="form-success" id="form-msg-es" data-lang="es">
-          Recibido. Responderemos en 48 horas.
-        </div>
-      </form>
-      </div><!-- end form tabs wrapper -->
+      </div><!-- end rfq-panel -->
+      </div><!-- end reveal-right -->
     </div>
   </div>
 </section>
@@ -1633,12 +1268,6 @@ function updatePorts() {
   portSelect.appendChild(otherOpt);
 }
 
-function switchTab(tab) {
-  document.querySelectorAll('.form-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
-  document.getElementById('rfq-panel').classList.toggle('active', tab === 'rfq');
-  document.getElementById('general-panel').classList.toggle('active', tab === 'general');
-}
-
 function rfqSelect(key, val) {
   rfqData[key] = val;
   document.querySelectorAll('.rfq-card').forEach(c => c.classList.toggle('selected', c.dataset.val === val));
@@ -1773,35 +1402,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// Form — submit via AJAX to stay on page
-document.querySelector('.contact-form').addEventListener('submit', function(e){
-  e.preventDefault();
-  var form = e.target;
-  var btn = form.querySelector('button[type="submit"]:not([style*="display:none"])') || form.querySelector('button[type="submit"]');
-  var origText = btn ? btn.textContent : '';
-  if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
-  fetch(form.action, {
-    method: 'POST',
-    body: new FormData(form),
-    headers: {'Accept': 'application/json'}
-  }).then(function(r) {
-    if (btn) { btn.disabled = false; btn.textContent = origText; }
-    if(r.ok){
-      document.getElementById('form-msg').classList.add('show');
-      document.getElementById('form-msg-es').classList.add('show');
-      form.reset();
-      setTimeout(function() {
-        document.getElementById('form-msg').classList.remove('show');
-        document.getElementById('form-msg-es').classList.remove('show');
-      }, 6000);
-    } else {
-      alert('Something went wrong (status ' + r.status + '). Please try again or email info@vectortradecapital.com directly.');
-    }
-  }).catch(function(err) {
-    if (btn) { btn.disabled = false; btn.textContent = origText; }
-    alert('Network error — please check your connection and try again, or email info@vectortradecapital.com directly.');
-  });
-});
 
 // ── Interactive Leaflet Map ──
 (function(){
