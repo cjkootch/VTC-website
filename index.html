@@ -14,7 +14,6 @@
 </script>
 <!-- End Google Ads tag -->
 <!-- reCAPTCHA v3 -->
-<script defer src="https://www.google.com/recaptcha/api.js?render=6LcpCVkrAAAAAJzSbNMBSXjMHMdQFaMCO3v4GUvH"></script>
 <!-- LinkedIn Insight Tag - deferred -->
 <script>
 window.addEventListener('load', function() {
@@ -1230,16 +1229,7 @@ document.getElementById('lead-form').addEventListener('submit', function(e){
     });
   }
 
-  if (typeof grecaptcha !== 'undefined') {
-    grecaptcha.ready(function() {
-      grecaptcha.execute('6LcpCVkrAAAAAJzSbNMBSXjMHMdQFaMCO3v4GUvH', {action: 'lead_submit'}).then(function(token) {
-        fd.append('g-recaptcha-response', token);
-        doSubmit();
-      }).catch(function() { doSubmit(); });
-    });
-  } else {
-    doSubmit();
-  }
+  doSubmit();
 });
 
 // ── Interactive Leaflet Map ──
