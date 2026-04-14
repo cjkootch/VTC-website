@@ -470,11 +470,18 @@ window.addEventListener('beforeunload', function() {
   }
 });
 
-// Init when DOM ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
-} else {
+// Init when DOM ready, then auto-open the chat
+function initAndOpen() {
   init();
+  setTimeout(function() {
+    if (!isOpen) toggleChat();
+  }, 800);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initAndOpen);
+} else {
+  initAndOpen();
 }
 
 
