@@ -279,7 +279,6 @@ function submitGate() {
   try { localStorage.setItem(LEAD_STORAGE_KEY, JSON.stringify(lead)); } catch(e) {}
   var gate = document.getElementById('vtc-gate');
   if (gate) gate.remove();
-  sendTranscript(true); // initial "chat started" notification
   showWelcome();
 }
 
@@ -368,7 +367,10 @@ function sendTranscript(initial) {
 
 function scheduleTranscriptSend() {
   if (transcriptSendTimer) clearTimeout(transcriptSendTimer);
-  transcriptSendTimer = setTimeout(function(){ sendTranscript(false); }, 4000);
+  transcriptSendTimer = setTimeout(function(){
+    sendTranscript(false);
+    transcriptSendTimer = null;
+  }, 60000); // 1 min of inactivity
 }
 
 function addMessage(role, content) {
@@ -413,6 +415,7 @@ function sendMessage() {
   input.style.height = 'auto';
   addMessage('user', text);
   messages.push({ role: 'user', content: text });
+  scheduleTranscriptSend(); // reset inactivity timer
   
   // Hide quick replies after first message
   var quickReplies = document.getElementById('vtc-quick-replies-container');
