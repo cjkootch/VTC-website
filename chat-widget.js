@@ -3,7 +3,9 @@
 
 // ── CONFIG ──
 var API_URL = 'https://vtc-website-alpha.vercel.app/api/chat';
+var FORMSPREE_URL = 'https://formspree.io/f/mojkkvdl';
 var MAX_MESSAGES = 20; // Max conversation history to send
+var LEAD_STORAGE_KEY = 'vtc-chat-lead';
 
 // ── SYSTEM PROMPT ──
 var SYSTEM_PROMPT = `You are the AI trade assistant for Vector Trade Capital (VTC), a US-registered commodity trading company headquartered in Houston, Texas with offices in Miami and Dubai.
@@ -105,6 +107,9 @@ var messages = [];
 var isOpen = false;
 var isLoading = false;
 var sessionId = 'vtc-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+var lead = null; // {name, email}
+var transcriptSendTimer = null;
+try { lead = JSON.parse(localStorage.getItem(LEAD_STORAGE_KEY) || 'null'); } catch(e) {}
 
 // ── BUILD UI ──
 function init() {
@@ -151,6 +156,15 @@ function init() {
     '.vtc-quick-replies{display:flex;flex-wrap:wrap;gap:6px;padding:8px 16px}',
     '.vtc-quick-btn{font-family:"DM Mono",monospace;font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;border-radius:20px;border:1px solid var(--vtc-teal);color:var(--vtc-teal);background:transparent;cursor:pointer;transition:all .2s}',
     '.vtc-quick-btn:hover{background:var(--vtc-teal);color:white}',
+    '.vtc-gate{padding:20px 18px;display:flex;flex-direction:column;gap:12px}',
+    '.vtc-gate-title{font-family:"Playfair Display",serif;font-size:17px;color:var(--vtc-ink);line-height:1.3;margin:0}',
+    '.vtc-gate-sub{font-size:12.5px;color:rgba(14,26,20,0.55);line-height:1.6;margin:0 0 4px}',
+    '.vtc-gate label{font-family:"DM Mono",monospace;font-size:9px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:rgba(14,26,20,0.5);margin-bottom:4px;display:block}',
+    '.vtc-gate input{border:1px solid rgba(184,150,62,0.25);background:white;padding:10px 12px;font-family:"DM Sans",sans-serif;font-size:14px;color:var(--vtc-ink);outline:none;border-radius:10px;width:100%;transition:border-color .2s}',
+    '.vtc-gate input:focus{border-color:var(--vtc-teal);box-shadow:0 0 0 3px rgba(26,122,94,0.08)}',
+    '.vtc-gate-btn{font-family:"DM Mono",monospace;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;background:var(--vtc-teal);border:none;color:white;padding:12px;cursor:pointer;border-radius:20px;transition:background .2s;margin-top:4px}',
+    '.vtc-gate-btn:hover{background:var(--vtc-teal-bright)}',
+    '.vtc-gate-err{font-size:12px;color:#B23A3A;margin:0}',
     '@media(max-width:600px){#vtc-chat-panel{position:fixed;inset:0;width:100%;height:100%;max-height:100%;border:none;border-radius:0;display:none;flex-direction:column;overflow:hidden;transform:none;opacity:0}#vtc-chat-panel.open{display:flex;opacity:1;transform:none}#vtc-chat-panel.open~#vtc-chat-btn{display:none}#vtc-chat-btn{bottom:16px;right:16px;width:50px;height:50px}#vtc-chat-btn svg{width:22px;height:22px}#vtc-chat-header{flex:0 0 auto;padding:14px 16px;padding-top:max(14px,env(safe-area-inset-top))}#vtc-chat-messages{flex:1 1 auto;overflow-y:auto;min-height:0;max-height:none}#vtc-chat-input-wrap{flex:0 0 auto;padding:10px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom));background:var(--vtc-cream);border-top:1px solid rgba(184,150,62,0.15)}}'
   ].join('\n');
   document.head.appendChild(style);
@@ -228,14 +242,56 @@ function getPageContext() {
   return pageContext;
 }
 
+function showGate() {
+  var container = document.getElementById('vtc-chat-messages');
+  if (container.children.length > 0) return;
+  var isEs = getLang() === 'es';
+  var gate = document.createElement('div');
+  gate.className = 'vtc-gate';
+  gate.id = 'vtc-gate';
+  gate.innerHTML = [
+    '<p class="vtc-gate-title">' + (isEs ? 'Antes de comenzar' : 'Before we start') + '</p>',
+    '<p class="vtc-gate-sub">' + (isEs ? 'Compártanos su nombre y correo para que nuestra mesa de operaciones pueda hacer seguimiento.' : 'Share your name and email so our trade desk can follow up.') + '</p>',
+    '<div><label>' + (isEs ? 'Nombre' : 'Name') + '</label><input type="text" id="vtc-gate-name" placeholder="' + (isEs ? 'Su nombre' : 'Your name') + '" required></div>',
+    '<div><label>Email</label><input type="email" id="vtc-gate-email" placeholder="your@email.com" required></div>',
+    '<p class="vtc-gate-err" id="vtc-gate-err" style="display:none"></p>',
+    '<button class="vtc-gate-btn" id="vtc-gate-submit">' + (isEs ? 'Comenzar Chat' : 'Start Chat') + '</button>'
+  ].join('');
+  container.appendChild(gate);
+  document.getElementById('vtc-gate-submit').onclick = submitGate;
+  document.getElementById('vtc-gate-email').addEventListener('keydown', function(e){
+    if (e.key === 'Enter') { e.preventDefault(); submitGate(); }
+  });
+  setTimeout(function(){ document.getElementById('vtc-gate-name').focus(); }, 100);
+}
+
+function submitGate() {
+  var name = document.getElementById('vtc-gate-name').value.trim();
+  var email = document.getElementById('vtc-gate-email').value.trim();
+  var err = document.getElementById('vtc-gate-err');
+  var isEs = getLang() === 'es';
+  if (!name || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    err.textContent = isEs ? 'Por favor ingrese nombre y correo válidos.' : 'Please enter a valid name and email.';
+    err.style.display = 'block';
+    return;
+  }
+  lead = { name: name, email: email };
+  try { localStorage.setItem(LEAD_STORAGE_KEY, JSON.stringify(lead)); } catch(e) {}
+  var gate = document.getElementById('vtc-gate');
+  if (gate) gate.remove();
+  sendTranscript(true); // initial "chat started" notification
+  showWelcome();
+}
+
 function showWelcome() {
   var container = document.getElementById('vtc-chat-messages');
-  if (container.children.length > 0) return; // Already shown
-  
+  // Don't re-show welcome if messages already exist
+  if (container.querySelector('.vtc-msg')) return;
+
   if (getLang() === 'es') {
-    addMessage('assistant', 'Hola, soy el asistente comercial de Vector Trade Capital. Puedo ayudarle con preguntas sobre nuestro suministro de **alimentos, combustible y vehículos** al Caribe.\n\n¿Qué está buscando importar?');
+    addMessage('assistant', 'Hola ' + (lead ? lead.name.split(' ')[0] : '') + ', soy el asistente comercial de Vector Trade Capital. Puedo ayudarle con preguntas sobre nuestro suministro de **alimentos, combustible y vehículos** al Caribe.\n\n¿Qué está buscando importar?');
   } else {
-    addMessage('assistant', 'Hello! I\'m the Vector Trade Capital trade assistant. I can help you with questions about our **food, fuel, and vehicle** supply to the Caribbean.\n\nWhat are you looking to import?');
+    addMessage('assistant', 'Hi ' + (lead ? lead.name.split(' ')[0] : '') + ', I\'m the Vector Trade Capital trade assistant. I can help you with questions about our **food, fuel, and vehicle** supply to the Caribbean.\n\nWhat are you looking to import?');
   }
   
   // Show quick replies
@@ -276,11 +332,43 @@ function toggleChat() {
     }
   document.getElementById('vtc-chat-btn').classList.toggle('open', isOpen);
   if (isOpen) {
-    showWelcome();
-    setTimeout(function() {
-      document.getElementById('vtc-chat-input').focus();
-    }, 300);
+    if (!lead) {
+      showGate();
+    } else {
+      showWelcome();
+      setTimeout(function() {
+        document.getElementById('vtc-chat-input').focus();
+      }, 300);
+    }
   }
+}
+
+function formatTranscript() {
+  if (!messages.length) return '(no messages yet)';
+  return messages.map(function(m) {
+    return (m.role === 'user' ? 'USER' : 'ASSISTANT') + ':\n' + m.content + '\n';
+  }).join('\n---\n\n');
+}
+
+function sendTranscript(initial) {
+  if (!lead) return;
+  var fd = new FormData();
+  fd.append('name', lead.name);
+  fd.append('email', lead.email);
+  fd.append('_replyto', lead.email);
+  fd.append('session_id', sessionId);
+  fd.append('page_url', window.location.href);
+  fd.append('message_count', messages.length);
+  fd.append('transcript', formatTranscript());
+  fd.append('_subject', (initial ? 'New Chat Started' : 'Chat Update') + ': ' + lead.name + ' (' + messages.length + ' messages)');
+  try {
+    fetch(FORMSPREE_URL, { method: 'POST', body: fd, headers: {'Accept':'application/json'}, keepalive: true }).catch(function(){});
+  } catch(e) {}
+}
+
+function scheduleTranscriptSend() {
+  if (transcriptSendTimer) clearTimeout(transcriptSendTimer);
+  transcriptSendTimer = setTimeout(function(){ sendTranscript(false); }, 4000);
 }
 
 function addMessage(role, content) {
@@ -360,6 +448,7 @@ function sendMessage() {
     var reply = data.content || data.reply || 'I apologize, I had trouble processing that. Please try again.';
     addMessage('assistant', reply);
     messages.push({ role: 'assistant', content: reply });
+    scheduleTranscriptSend();
   })
   .catch(function(err) {
     hideTyping();
@@ -372,6 +461,14 @@ function sendMessage() {
     document.getElementById('vtc-chat-input').focus();
   });
 }
+
+// Send final transcript on page unload
+window.addEventListener('beforeunload', function() {
+  if (lead && messages.length > 0) {
+    if (transcriptSendTimer) { clearTimeout(transcriptSendTimer); transcriptSendTimer = null; }
+    sendTranscript(false);
+  }
+});
 
 // Init when DOM ready
 if (document.readyState === 'loading') {
