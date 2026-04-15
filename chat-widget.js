@@ -473,12 +473,14 @@ window.addEventListener('beforeunload', function() {
   }
 });
 
-// Init when DOM ready, then auto-open the chat
+// Init when DOM ready, then auto-open the chat on desktop only
 function initAndOpen() {
   init();
-  setTimeout(function() {
-    if (!isOpen) toggleChat();
-  }, 800);
+  if (window.innerWidth > 600) {
+    setTimeout(function() {
+      if (!isOpen) toggleChat();
+    }, 800);
+  }
 }
 
 if (document.readyState === 'loading') {
