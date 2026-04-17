@@ -277,6 +277,21 @@ function submitGate() {
   }
   lead = { name: name, email: email };
   try { localStorage.setItem(LEAD_STORAGE_KEY, JSON.stringify(lead)); } catch(e) {}
+
+  // Fire conversion — chat gate is a qualified lead
+  try {
+    if (typeof gtag === 'function') {
+      gtag('event', 'generate_lead', {
+        'event_category': 'chat',
+        'event_label': 'chat_gate_submit',
+        'value': 1.0
+      });
+    }
+    if (typeof gtag_report_conversion === 'function') {
+      gtag_report_conversion();
+    }
+  } catch(e) {}
+
   var gate = document.getElementById('vtc-gate');
   if (gate) gate.remove();
   showWelcome();
