@@ -938,6 +938,14 @@ section,#hero,.page-header{/* will-change removed for perf */}
           <label data-lang="es">Mensaje</label>
           <textarea name="message" rows="3" data-placeholder-en="Volume, product specs, delivery timeline, or any questions..." data-placeholder-es="Volumen, especificaciones, plazo de entrega, o cualquier pregunta..." placeholder="Volume, product specs, delivery timeline, or any questions..." style="min-height:80px"></textarea>
         </div>
+        <label style="display:flex;gap:10px;align-items:flex-start;margin-bottom:16px;cursor:pointer" data-lang="en">
+          <input type="checkbox" name="sms_consent" value="yes" style="margin-top:3px;accent-color:var(--teal);cursor:pointer;flex-shrink:0">
+          <span style="font-size:12px;color:rgba(14,26,20,0.55);line-height:1.6">I agree to receive text messages from Vector Trade Capital about my inquiry. Message &amp; data rates may apply. Reply STOP to opt out. Optional — not required to submit.</span>
+        </label>
+        <label style="display:flex;gap:10px;align-items:flex-start;margin-bottom:16px;cursor:pointer" data-lang="es">
+          <input type="checkbox" name="sms_consent" value="yes" style="margin-top:3px;accent-color:var(--teal);cursor:pointer;flex-shrink:0">
+          <span style="font-size:12px;color:rgba(14,26,20,0.55);line-height:1.6">Autorizo recibir mensajes de texto de Vector Trade Capital sobre mi consulta. Pueden aplicar tarifas de mensajes y datos. Responda STOP para cancelar. Opcional — no es requerido para enviar.</span>
+        </label>
         <button type="submit" class="rfq-submit" style="width:100%;padding:16px;font-size:12px;border-radius:10px" data-lang="en">Get CIF Pricing</button>
         <button type="submit" class="rfq-submit" style="width:100%;padding:16px;font-size:12px;border-radius:10px" data-lang="es">Obtener Precio CIF</button>
         <p style="font-size:11px;color:rgba(14,26,20,0.35);text-align:center;margin-top:12px;line-height:1.5" data-lang="en">Our trade desk responds within 48 hours with firm pricing.</p>
