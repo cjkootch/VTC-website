@@ -865,6 +865,7 @@ section,#hero,.page-header{/* will-change removed for perf */}
           <div class="rfq-step-title" data-lang="en">Tell us what you need</div>
           <div class="rfq-step-title" data-lang="es">Díganos qué necesita</div>
         </div>
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
         <div class="form-row" style="margin-bottom:12px">
           <div class="field">
             <label data-lang="en">Name</label>
@@ -1222,6 +1223,44 @@ document.getElementById('lead-form').addEventListener('submit', function(e){
   var fd = new FormData(form);
   fd.append('_subject', 'New Lead: ' + (fd.get('product_interest') || 'General') + ' — ' + (fd.get('country') || 'Unknown'));
 
+  // Fire form.submitted → Vex CRM via /api/chat.js (server-side webhook)
+  var qs = new URLSearchParams(window.location.search);
+  var utm = {};
+  ['source','medium','campaign','term','content'].forEach(function(k) {
+    var v = qs.get('utm_' + k);
+    if (v) utm[k] = v;
+  });
+  try {
+    fetch('https://vtc-website-alpha.vercel.app/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        event: 'form.submitted',
+        form_id: 'lead-form',
+        form_name: 'Request a Quote',
+        lead: {
+          name: fd.get('name') || null,
+          email: fd.get('email') || null,
+          phone: fd.get('phone') || null,
+          sms_consent: fd.get('sms_consent') === 'yes'
+        },
+        fields: {
+          country: fd.get('country') || null,
+          product_interest: fd.get('product_interest') || null,
+          message: fd.get('message') || null,
+          _gotcha: fd.get('_gotcha') || null
+        },
+        page: {
+          url: window.location.href,
+          referrer: document.referrer || null,
+          utm: Object.keys(utm).length ? utm : null
+        }
+      }),
+      keepalive: true
+    }).catch(function(){});
+  } catch(e) {}
+
+  // Formspree (primary form handler — user-facing success/error)
   function doSubmit() {
     fetch(form.action, {
       method: 'POST',

@@ -105,6 +105,34 @@ async function handleConversationStarted(req, res) {
   return res.status(200).json({ ok: true, vex: result });
 }
 
+async function handleFormSubmitted(req, res) {
+  const { form_id, form_name, lead, fields, page } = req.body;
+  if (!lead?.email) {
+    return res.status(400).json({ error: 'lead.email required' });
+  }
+  const result = await sendToVex({
+    event: 'form.submitted',
+    form_id: form_id || 'lead-form',
+    form_name: form_name || 'Request a Quote',
+    website_version: WEBSITE_VERSION,
+    timestamp: new Date().toISOString(),
+    lead: {
+      name: lead.name ?? null,
+      email: lead.email,
+      phone: lead.phone ?? null,
+      sms_consent: lead.sms_consent ?? false
+    },
+    fields: {
+      country: fields?.country ?? null,
+      product_interest: fields?.product_interest ?? null,
+      message: fields?.message ?? null,
+      _gotcha: fields?._gotcha ?? null
+    },
+    page: page ?? {}
+  });
+  return res.status(200).json({ ok: true, vex: result });
+}
+
 async function handleConversationEnded(req, res) {
   const { sessionId, lead, page, messages: clientMessages } = req.body;
   if (!sessionId || !lead?.name || !lead?.email) {
@@ -220,6 +248,7 @@ export default async function handler(req, res) {
     const event = req.body?.event;
     if (event === 'conversation.started') return await handleConversationStarted(req, res);
     if (event === 'conversation.ended') return await handleConversationEnded(req, res);
+    if (event === 'form.submitted') return await handleFormSubmitted(req, res);
     return await handleChatMessage(req, res);
   } catch (err) {
     console.error('Handler error:', err);
