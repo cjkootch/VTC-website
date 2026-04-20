@@ -11,6 +11,7 @@ import { neon } from '@neondatabase/serverless';
 import { createHmac } from 'node:crypto';
 
 const VEX_WEBHOOK_URL = process.env.VEX_WEBHOOK_URL || 'https://api.vexhq.ai/webhooks/website-chat';
+const VEX_WEBHOOK_BASE = VEX_WEBHOOK_URL.replace(/\/webhooks\/.*$/, '');
 const WEBSITE_VERSION = process.env.VERCEL_GIT_COMMIT_SHA || process.env.WEBSITE_VERSION || 'dev';
 
 // ── Database ──────────────────────────────────────────────────────────
@@ -49,13 +50,14 @@ async function sendToVex(payload) {
   const timestamp = String(Math.floor(Date.now() / 1000));
   const signature = createHmac('sha256', secret).update(`${timestamp}.${body}`).digest('hex');
 
-  // Form events go to /webhooks/form, conversation events go to /webhooks/website-chat
+  // Form events → /webhooks/form, conversation events → /webhooks/website-chat
+  // Derive form URL from same base as VEX_WEBHOOK_URL (no separate env var)
   const isForm = payload.event && payload.event.startsWith('form.');
   const url = isForm
-    ? (process.env.VEX_FORM_WEBHOOK_URL || 'https://api.vexhq.ai/webhooks/form')
+    ? `${VEX_WEBHOOK_BASE}/webhooks/form`
     : VEX_WEBHOOK_URL;
 
-  console.log(`[vex] POST ${url} event=${payload.event} bodyLen=${body.length}`);
+  console.log(`[vex] POST url=${url} event=${payload.event} bodyLen=${body.length}`);
 
   const delays = [0, 1000, 2000, 4000];
   let lastErr;
@@ -80,11 +82,13 @@ async function sendToVex(payload) {
       console.warn(`[vex] non-2xx event=${payload.event} attempt=${attempt + 1} status=${res.status} body=${errBody.slice(0, 300)}`);
       lastErr = new Error(`Vex webhook ${res.status}: ${errBody.slice(0, 300)}`);
     } catch (err) {
-      console.warn(`[vex] fetch error event=${payload.event} attempt=${attempt + 1} err=${err.message}`);
+      const cause = err.cause ? `cause.code=${err.cause.code} cause.message=${err.cause.message}` : 'no-cause';
+      console.warn(`[vex] fetch error url=${url} event=${payload.event} attempt=${attempt + 1} err=${err.message} ${cause}`);
       lastErr = err;
     }
   }
-  console.error(`[vex] FAILED after retries event=${payload.event} err=${lastErr?.message}`);
+  const finalCause = lastErr?.cause ? `cause.code=${lastErr.cause.code} cause.message=${lastErr.cause.message}` : 'no-cause';
+  console.error(`[vex] FAILED after retries url=${url} event=${payload.event} err=${lastErr?.message} ${finalCause}`);
   return { ok: false, error: lastErr?.message };
 }
 
