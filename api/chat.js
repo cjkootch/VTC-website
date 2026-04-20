@@ -49,28 +49,42 @@ async function sendToVex(payload) {
   const timestamp = String(Math.floor(Date.now() / 1000));
   const signature = createHmac('sha256', secret).update(`${timestamp}.${body}`).digest('hex');
 
+  // Form events go to /webhooks/form, conversation events go to /webhooks/website-chat
+  const isForm = payload.event && payload.event.startsWith('form.');
+  const url = isForm
+    ? (process.env.VEX_FORM_WEBHOOK_URL || 'https://api.vexhq.ai/webhooks/form')
+    : VEX_WEBHOOK_URL;
+
+  console.log(`[vex] POST ${url} event=${payload.event} bodyLen=${body.length}`);
+
   const delays = [0, 1000, 2000, 4000];
   let lastErr;
   for (let attempt = 0; attempt < delays.length; attempt++) {
     if (delays[attempt]) await new Promise(r => setTimeout(r, delays[attempt]));
     try {
-      const res = await fetch(VEX_WEBHOOK_URL, {
+      const res = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'X-VTC-Timestamp': timestamp,
           'X-VTC-Signature': signature,
-          'X-Idempotency-Key': `${payload.conversation_id}:${payload.event}`
+          'X-Idempotency-Key': `${payload.conversation_id || payload.lead?.email || 'unknown'}:${payload.event}`
         },
         body
       });
-      if (res.ok) return { ok: true, attempt: attempt + 1 };
-      lastErr = new Error(`Vex webhook ${res.status}`);
+      if (res.ok) {
+        console.log(`[vex] OK event=${payload.event} attempt=${attempt + 1} status=${res.status}`);
+        return { ok: true, attempt: attempt + 1 };
+      }
+      const errBody = await res.text().catch(() => '');
+      console.warn(`[vex] non-2xx event=${payload.event} attempt=${attempt + 1} status=${res.status} body=${errBody.slice(0, 300)}`);
+      lastErr = new Error(`Vex webhook ${res.status}: ${errBody.slice(0, 300)}`);
     } catch (err) {
+      console.warn(`[vex] fetch error event=${payload.event} attempt=${attempt + 1} err=${err.message}`);
       lastErr = err;
     }
   }
-  console.error('Vex webhook failed after retries:', lastErr?.message);
+  console.error(`[vex] FAILED after retries event=${payload.event} err=${lastErr?.message}`);
   return { ok: false, error: lastErr?.message };
 }
 
@@ -246,6 +260,7 @@ export default async function handler(req, res) {
 
   try {
     const event = req.body?.event;
+    console.log(`[chat] incoming event=${event || 'chat-message'} origin=${req.headers.origin || 'none'}`);
     if (event === 'conversation.started') return await handleConversationStarted(req, res);
     if (event === 'conversation.ended') return await handleConversationEnded(req, res);
     if (event === 'form.submitted') return await handleFormSubmitted(req, res);
