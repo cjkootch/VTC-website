@@ -329,6 +329,20 @@ function submitGate() {
   // Fire conversation.started → Vex (server-side webhook)
   fireConversationEvent('conversation.started');
 
+  // Immediate Formspree notification — guaranteed lead capture even if
+  // they close the browser before typing anything.
+  try {
+    var fd = new FormData();
+    fd.append('name', lead.name);
+    fd.append('email', lead.email);
+    fd.append('_replyto', lead.email);
+    fd.append('session_id', sessionId);
+    fd.append('page_url', window.location.href);
+    fd.append('_subject', 'New Chat Lead (gate): ' + lead.name);
+    fd.append('source', 'chat-gate');
+    fetch(FORMSPREE_URL, { method: 'POST', body: fd, headers: {'Accept':'application/json'}, keepalive: true }).catch(function(){});
+  } catch(e) {}
+
   var gate = document.getElementById('vtc-gate');
   if (gate) gate.remove();
   showWelcome();
@@ -375,12 +389,13 @@ function showWelcome() {
 }
 
 function toggleChat() {
+  var wasOpen = isOpen;
   isOpen = !isOpen;
   document.getElementById('vtc-chat-panel').classList.toggle('open', isOpen);
-    // Scroll to top on mobile when closing
-    if (!isOpen && window.innerWidth <= 600) {
-      window.scrollTo(0, 0);
-    }
+  // Scroll to top on mobile when closing
+  if (!isOpen && window.innerWidth <= 600) {
+    window.scrollTo(0, 0);
+  }
   document.getElementById('vtc-chat-btn').classList.toggle('open', isOpen);
   if (isOpen) {
     if (!lead) {
@@ -391,6 +406,10 @@ function toggleChat() {
         document.getElementById('vtc-chat-input').focus();
       }, 300);
     }
+  } else if (wasOpen && lead && messages.length > 0) {
+    // User just closed the chat panel — send transcript immediately
+    if (transcriptSendTimer) { clearTimeout(transcriptSendTimer); transcriptSendTimer = null; }
+    sendTranscript(false);
   }
 }
 
@@ -431,7 +450,7 @@ function scheduleTranscriptSend() {
   transcriptSendTimer = setTimeout(function(){
     sendTranscript(false);
     transcriptSendTimer = null;
-  }, 60000); // 1 min of inactivity
+  }, 30000); // 30s of inactivity
 }
 
 function addMessage(role, content) {
@@ -526,12 +545,17 @@ function sendMessage() {
   });
 }
 
-// Send final transcript on page unload
-window.addEventListener('beforeunload', function() {
-  if (lead && messages.length > 0) {
-    if (transcriptSendTimer) { clearTimeout(transcriptSendTimer); transcriptSendTimer = null; }
-    sendTranscript(false);
-  }
+// Send final transcript on page unload — beforeunload + pagehide + visibilitychange
+// for maximum reliability across browsers and mobile close gestures.
+function flushTranscriptNow() {
+  if (!lead || messages.length === 0) return;
+  if (transcriptSendTimer) { clearTimeout(transcriptSendTimer); transcriptSendTimer = null; }
+  sendTranscript(false);
+}
+window.addEventListener('beforeunload', flushTranscriptNow);
+window.addEventListener('pagehide', flushTranscriptNow);
+document.addEventListener('visibilitychange', function() {
+  if (document.visibilityState === 'hidden') flushTranscriptNow();
 });
 
 // Init when DOM ready, then auto-open the chat on desktop only
