@@ -564,7 +564,7 @@ function initAndOpen() {
   if (window.innerWidth > 600) {
     setTimeout(function() {
       if (!isOpen) toggleChat();
-    }, 800);
+    }, 15000);
   }
 }
 
