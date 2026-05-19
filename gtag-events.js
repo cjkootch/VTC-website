@@ -6,8 +6,10 @@ document.addEventListener('click', function(e) {
     gtag('event', 'phone_click', {
       event_category: 'engagement',
       event_label: link.href.replace('tel:', ''),
-      value: 1.0
+      value: 25.0,
+      currency: 'USD'
     });
+    gtag('event', 'conversion', {'send_to': 'AW-18030544849/j_t9CJ-o468cENGP0ZVD'});
   }
 });
 
@@ -18,8 +20,10 @@ document.addEventListener('click', function(e) {
     gtag('event', 'whatsapp_click', {
       event_category: 'engagement',
       event_label: link.closest('section,div')?.id || 'inline',
-      value: 1.0
+      value: 25.0,
+      currency: 'USD'
     });
+    gtag('event', 'conversion', {'send_to': 'AW-18030544849/woG9CJyo468cENGP0ZVD'});
   }
 });
 
@@ -32,13 +36,15 @@ document.addEventListener('click', function(e) {
       gtag('event', 'playbook_download', {
         event_category: 'engagement',
         event_label: link.href,
-        value: 1.0
+        value: 5.0,
+        currency: 'USD'
       });
+      gtag('event', 'conversion', {'send_to': 'AW-18030544849/i4w3CJqp468cENGP0ZVD'});
     }
   }
 });
 
-// Track mailto clicks
+// Track mailto clicks (GA4 only — not a Google Ads conversion)
 document.addEventListener('click', function(e) {
   var link = e.target.closest('a[href^="mailto:"]');
   if (link && typeof gtag === 'function') {
