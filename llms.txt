@@ -27,6 +27,9 @@ Vector Trade Capital provides:
 ### [Trade Desk — Direct Access to Sourcing & Pricing](trade-desk.html)
 Vector Trade Capital's trade desk is the operational core of the company. When a buyer submits an inquiry, it goes directly to the Houston-based trading team — not a contact form queue or outsourced call center. The same person who reviews the inquiry sources the product, negotiates with suppliers, arranges freight and insurance, and coordinates documentation. Quote turnaround is 48 hours for standard commodities (rice, sugar, cooking oil, frozen poultry, diesel, gasoline). Vector Trade Capital is a principal trader that finances every transaction from its own balance sheet — no third-party broker layers, no external funding delays. Minimum orders start at one container load (~25 metric tons). Payment terms include letters of credit, documents against acceptance, and open account for established buyers.
 
+### [Haiti Commodity Supplier](haiti-commodity-supplier.html)
+Bulk commodity supply to Haiti. CIF delivery of rice, black beans, cooking oil, milk powder, diesel, and gasoline to Port-au-Prince and Cap-Haïtien. For qualified commercial buyers, distributors, and importers. Fuel transactions evaluated on a per-transaction basis with appropriate compliance review.
+
 ## Blog Articles
 
 ### [How to Find Reliable Fuel Supplier Caribbean](blog/how-to-find-reliable-fuel-supplier-caribbean.html)
