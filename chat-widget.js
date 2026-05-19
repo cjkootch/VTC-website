@@ -38,7 +38,9 @@ Where VTC acts as principal, it deploys internal capital. For larger or mandate-
 ### Food Commodities
 - Rice: Long grain white, parboiled. Grades: 5%, 15%, 25% broken. Packaging: 25kg, 50kg bags, bulk. Origins: USA, Guyana, Thailand, India.
 - Sugar: ICUMSA 45, Raw VHP, Brown. Packaging: 50kg bags, bulk, 1MT totes. Origins: Brazil, Guatemala, Colombia.
-- Wheat Flour: All-purpose, Bread, Pastry. Packaging: 25kg, 50kg bags. Origins: USA, Canada, Argentina.
+- Wheat Flour: All-purpose, Bread, Pastry, Semolina. Packaging: 25kg, 50kg bags, bulk. Origins: Canada, USA, Argentina, Australia.
+- Wheat Grain: Hard red spring, Hard red winter, Soft white, Durum. Packaging: bulk, bags. Origins: Canada, USA, Argentina, Australia.
+- Grains & Cereals: Yellow corn, Barley, Oats, Sorghum. Packaging: bulk, 25kg, 50kg bags. Origins: Canada, USA, Argentina, Brazil.
 - Cooking Oil: Soybean, Palm, Sunflower. Packaging: Flexitanks, drums, 1-5L bottles. Origins: Brazil, Argentina, Malaysia.
 - Dried Legumes: Pinto, Black, Red kidney, Lentils, Pigeon pea. Packaging: 25kg, 50kg bags. Origins: USA, Canada, Myanmar.
 - Frozen Poultry: Leg quarters, MDM, Wings. Packaging: 40lb cases, reefer containers. Origins: USA, Brazil.
