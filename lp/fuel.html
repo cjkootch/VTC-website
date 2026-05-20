@@ -10,8 +10,6 @@
   gtag('config', 'AW-18030544849');
   gtag('config', 'G-WPBB9GDTWW');
 </script>
-<!-- reCAPTCHA v3 -->
-<script src="https://www.google.com/recaptcha/api.js?render=6LcpCVkrAAAAAJzSbNMBSXjMHMdQFaMCO3v4GUvH"></script>
 <!-- LinkedIn Insight Tag -->
 <script type="text/javascript">
 _linkedin_partner_id = "8979716";
@@ -177,6 +175,7 @@ input[name="utm_campaign"]{display:none}
 <!-- FORM -->
 <div class="form-wrapper">
   <form id="rfq-form" onsubmit="handleFormSubmit(event)">
+    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
     <div class="form-group">
       <label for="product">Product</label>
       <select id="product" name="product" required>
@@ -292,48 +291,24 @@ captureUTM();
 // Form submission with proper conversion tracking
 function handleFormSubmit(e) {
   e.preventDefault();
-  const form = e.target;
-  
-  // Fire conversion BEFORE form submission
-  gtag('event', 'generate_lead', {
-    'event_category': 'form',
-    'event_label': 'fuel_rfq',
-    'value': 1.0
-  });
-  
-  // Report conversion with delay
+  var form = e.target;
+  var btn = form.querySelector('.submit-btn');
+  btn.textContent = 'Sending...'; btn.disabled = true;
+  gtag('event', 'generate_lead', {event_category: 'form', event_label: 'fuel_rfq', value: 1.0});
   gtag_report_conversion();
-  
-  // Execute reCAPTCHA
-  grecaptcha.ready(function() {
-    grecaptcha.execute('6LcpCVkrAAAAAJzSbNMBSXjMHMdQFaMCO3v4GUvH', {action: 'fuel_rfq'}).then(function(token) {
-      const fd = new FormData(form);
-      fd.append('g-recaptcha-response', token);
-      fd.append('_subject', 'New Fuel RFQ: ' + document.getElementById('product').value);
-      
-      // Wait 500ms for conversion tag to fire, then submit
-      setTimeout(function() {
-        fetch('https://formspree.io/f/mojkkvdl', {
-          method: 'POST',
-          body: fd,
-          headers: {'Accept': 'application/json'}
-        }).then(r => {
-          if (r.ok) {
-            // Show thank you message
-            document.getElementById('rfq-form').style.display = 'none';
-            document.getElementById('thank-you-msg').classList.add('show');
-            
-            // Track conversion in LinkedIn
-            if (window.lintrk) {
-              lintrk('track', { conversion_id: 'lead', value: 1.0 });
-            }
-          }
-        }).catch(err => console.error('Form submission error:', err));
-      }, 500);
-    });
-  });
-  
-  return false;
+  var fd = new FormData(form);
+  fd.append('_subject', 'New Fuel RFQ: ' + document.getElementById('product').value);
+  fetch('https://formspree.io/f/mojkkvdl', {method: 'POST', body: fd, headers: {Accept: 'application/json'}}).then(function(r) {
+    if (r.ok) {
+      document.getElementById('rfq-form').style.display = 'none';
+      document.getElementById('thank-you-msg').classList.add('show');
+      if (window.lintrk) lintrk('track', {conversion_id: 'lead'});
+    } else {
+      alert('Something went wrong. Email info@vectortradecapital.com');
+      btn.textContent = 'Get CIF Quote'; btn.disabled = false;
+    }
+  }).catch(function() { alert('Network error. Email info@vectortradecapital.com'); btn.textContent = 'Get CIF Quote'; btn.disabled = false; });
+  try{fetch('https://vtc-website-alpha.vercel.app/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event:'form.submitted',form_id:'lp-fuel',form_name:'LP Fuel',lead:{name:fd.get('name'),email:fd.get('email'),phone:null,sms_consent:false},fields:{product:fd.get('product'),volume:fd.get('volume'),port:fd.get('port'),commodity:'fuel',_gotcha:fd.get('_gotcha')},page:{url:window.location.href,referrer:document.referrer||null,utm:{campaign:fd.get('utm_campaign')||null}}}),keepalive:true}).catch(function(){})}catch(ex){}
 }
 </script>
 
