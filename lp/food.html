@@ -310,7 +310,6 @@ function handleFormSubmit(e) {
       btn.textContent = 'Get CIF Quote'; btn.disabled = false;
     }
   }).catch(function() { alert('Network error. Email info@vectortradecapital.com'); btn.textContent = 'Get CIF Quote'; btn.disabled = false; });
-  try{fetch('https://vtc-website-alpha.vercel.app/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event:'form.submitted',form_id:'lp-food',form_name:'LP Food',lead:{name:fd.get('name'),email:fd.get('email'),phone:null,sms_consent:false},fields:{product:fd.get('product'),volume:fd.get('volume'),port:fd.get('port'),commodity:'food',_gotcha:fd.get('_gotcha')},page:{url:window.location.href,referrer:document.referrer||null,utm:{campaign:fd.get('utm_campaign')||null}}}),keepalive:true}).catch(function(){})}catch(ex){}
 }
 </script>
 

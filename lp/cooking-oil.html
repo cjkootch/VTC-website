@@ -154,7 +154,6 @@ function handleSubmit(e){
     if(r.ok){form.style.display='none';document.getElementById('thank-you').classList.add('show');if(window.lintrk)lintrk('track',{conversion_id:'lead'})}
     else{alert('Something went wrong. Email info@vectortradecapital.com');btn.textContent='Get 48-Hour CIF Quote';btn.disabled=false}
   }).catch(function(){alert('Network error. Email info@vectortradecapital.com');btn.textContent='Get 48-Hour CIF Quote';btn.disabled=false});
-  try{fetch('https://vtc-website-alpha.vercel.app/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event:'form.submitted',form_id:'lp-cooking-oil',form_name:'LP cooking-oil',lead:{name:fd.get('name'),email:fd.get('email'),phone:fd.get('phone'),sms_consent:false},fields:{product:fd.get('product'),volume:fd.get('volume'),port:fd.get('port'),commodity:'cooking-oil',_gotcha:fd.get('_gotcha')},page:{url:window.location.href,referrer:document.referrer||null,utm:{campaign:fd.get('utm_campaign')||null}}}),keepalive:true}).catch(function(){})}catch(ex){}
 }
 </script>
 <script>function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,o.onload=function(){window.trackingFunctions.onLoad({appId:"69fa3a9b3eb0850021ae0ac7"})},document.head.appendChild(o)}initApollo();</script>

@@ -510,7 +510,6 @@ document.getElementById('td-lead-form').addEventListener('submit', function(e){
   // Vex webhook
   var qs=new URLSearchParams(window.location.search);var utm={};
   ['source','medium','campaign','term','content'].forEach(function(k){var v=qs.get('utm_'+k);if(v)utm[k]=v});
-  try{fetch('https://vtc-website-alpha.vercel.app/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event:'form.submitted',form_id:'trade-desk-form',form_name:'Trade Desk Inquiry',lead:{name:fd.get('name'),email:fd.get('email'),phone:fd.get('phone'),sms_consent:false},fields:{product_interest:fd.get('product_interest'),message:fd.get('message'),_gotcha:fd.get('_gotcha')},page:{url:window.location.href,referrer:document.referrer||null,utm:Object.keys(utm).length?utm:null}}),keepalive:true}).catch(function(){})}catch(ex){}
   // Formspree
   fetch(form.action,{method:'POST',body:fd,headers:{Accept:'application/json'}}).then(function(r){
     if(r.ok){document.getElementById('td-form-msg').style.display='block';document.getElementById('td-form-msg-es').style.display='block';form.reset();setTimeout(function(){document.getElementById('td-form-msg').style.display='none';document.getElementById('td-form-msg-es').style.display='none'},6000)}

@@ -130,40 +130,6 @@ var lead = null; // {name, email}
 var transcriptSendTimer = null;
 try { lead = JSON.parse(localStorage.getItem(LEAD_STORAGE_KEY) || 'null'); } catch(e) {}
 
-// ── PAGE METADATA (UTM + referrer) ──
-var pageMeta = (function() {
-  var qs = new URLSearchParams(window.location.search);
-  var utm = {};
-  ['source','medium','campaign','term','content'].forEach(function(k) {
-    var v = qs.get('utm_' + k);
-    if (v) utm[k] = v;
-  });
-  return {
-    url: window.location.href,
-    referrer: document.referrer || null,
-    utm: Object.keys(utm).length ? utm : null
-  };
-})();
-
-// ── Fire conversation lifecycle events to /api/chat.js ──
-function fireConversationEvent(eventName, extra) {
-  if (!lead) return;
-  var payload = Object.assign({
-    event: eventName,
-    sessionId: sessionId,
-    lead: { name: lead.name, email: lead.email },
-    page: pageMeta
-  }, extra || {});
-  try {
-    fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      keepalive: true
-    }).catch(function(){});
-  } catch(e) {}
-}
-
 // ── BUILD UI ──
 function init() {
   var style = document.createElement('style');
@@ -345,9 +311,6 @@ function submitGate() {
     }
   } catch(e) {}
 
-  // Fire conversation.started → Vex (server-side webhook)
-  fireConversationEvent('conversation.started');
-
   // Immediate Formspree notification — guaranteed lead capture even if
   // they close the browser before typing anything.
   try {
@@ -442,14 +405,7 @@ function formatTranscript() {
 function sendTranscript(initial) {
   if (!lead) return;
 
-  // Primary: send to Vex CRM via /api/chat.js (server-side webhook)
-  if (messages.length > 0) {
-    fireConversationEvent('conversation.ended', {
-      messages: messages.map(function(m) { return { role: m.role, text: m.content }; })
-    });
-  }
-
-  // Fallback: Formspree email transcript (kept on for ~1 week per rollout plan)
+  // Formspree email transcript
   var fd = new FormData();
   fd.append('name', lead.name);
   fd.append('email', lead.email);
