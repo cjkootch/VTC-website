@@ -110,7 +110,6 @@ window.addEventListener('beforeunload', function() { window.scrollTo(0, 0); });
 <noscript><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"></noscript>
 <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <!-- Fonts -->
-<link rel="preload" as="video" href="hero-bg.mp4" type="video/mp4">
 <!-- Preconnect to critical third-party origins -->
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 <link rel="preconnect" href="https://unpkg.com" crossorigin>
@@ -121,7 +120,8 @@ window.addEventListener('beforeunload', function() { window.scrollTo(0, 0); });
 <link rel="dns-prefetch" href="https://px.ads.linkedin.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -486,7 +486,7 @@ section,#hero,.page-header{/* will-change removed for perf */}
 <section id="hero">
   <div class="hero-bg">
     <div class="hero-bg-fallback"></div>
-    <video autoplay muted loop playsinline disablepictureinpicture preload="auto" fetchpriority="high">
+    <video autoplay muted loop playsinline disablepictureinpicture preload="metadata">
       <source src="hero-bg.mp4" type="video/mp4">
     </video>
   </div>
