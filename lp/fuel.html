@@ -6,9 +6,11 @@
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'AW-18030544849');
-  gtag('config', 'G-WPBB9GDTWW');
+  if(window.location.hostname==='vectortradecapital.com'||window.location.hostname==='www.vectortradecapital.com'){
+    gtag('js', new Date());
+    gtag('config', 'AW-18030544849');
+    gtag('config', 'G-WPBB9GDTWW');
+  }
 </script>
 <!-- LinkedIn Insight Tag -->
 <script type="text/javascript">
