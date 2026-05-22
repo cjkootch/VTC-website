@@ -1,3 +1,18 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/food", "destination": "/food.html" },
+    { "source": "/fuel", "destination": "/fuel.html" },
+    { "source": "/vehicles", "destination": "/vehicles.html" },
+    { "source": "/trade-desk", "destination": "/trade-desk.html" },
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/capabilities", "destination": "/capabilities.html" },
+    { "source": "/haiti-commodity-supplier", "destination": "/haiti-commodity-supplier.html" },
+    { "source": "/blog", "destination": "/blog.html" },
+    { "source": "/team", "destination": "/team.html" },
+    { "source": "/press", "destination": "/press.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/terms-sms", "destination": "/terms-sms.html" },
+    { "source": "/restricted-markets", "destination": "/restricted-markets.html" }
+  ]
 }
