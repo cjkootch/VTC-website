@@ -1,18 +1,4 @@
 (function(){
-// Track tel: link clicks
-document.addEventListener('click', function(e) {
-  var link = e.target.closest('a[href^="tel:"]');
-  if (link && typeof gtag === 'function') {
-    gtag('event', 'phone_click', {
-      event_category: 'engagement',
-      event_label: link.href.replace('tel:', ''),
-      value: 25.0,
-      currency: 'USD'
-    });
-    gtag('event', 'conversion', {'send_to': 'AW-18030544849/j_t9CJ-o468cENGP0ZVD'});
-  }
-});
-
 // Track WhatsApp link clicks (inline links, not the floating button)
 document.addEventListener('click', function(e) {
   var link = e.target.closest('a[href*="wa.me"]');
