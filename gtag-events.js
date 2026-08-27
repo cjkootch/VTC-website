@@ -1,18 +1,4 @@
 (function(){
-// Track WhatsApp link clicks (inline links, not the floating button)
-document.addEventListener('click', function(e) {
-  var link = e.target.closest('a[href*="wa.me"]');
-  if (link && typeof gtag === 'function') {
-    gtag('event', 'whatsapp_click', {
-      event_category: 'engagement',
-      event_label: link.closest('section,div')?.id || 'inline',
-      value: 25.0,
-      currency: 'USD'
-    });
-    gtag('event', 'conversion', {'send_to': 'AW-18030544849/woG9CJyo468cENGP0ZVD'});
-  }
-});
-
 // Track playbook download clicks
 document.addEventListener('click', function(e) {
   var link = e.target.closest('a[href*="playbook"]');
